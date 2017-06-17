@@ -17,4 +17,8 @@ Route::get('/', function () {
 
 Route::group(['prefix' => 'admin'], function () {
     Route::get('goods', 'GoodsController@index');
+
+    //后台反馈路由
+    Route::get('feedback','AdminFeedback@index');
+
 });
