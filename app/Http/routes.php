@@ -15,6 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+
 Route::group(['prefix' => 'admin'], function () {
-    Route::get('goods', 'GoodsController@index');
+	Route::get('/', function () { return view('admin.public'); });
+    Route::resource('goods', 'GoodsController');
+    Route::resource('types', 'TypesController');
 });

@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Admin\Good;
+use App\Admin\Type;
 use App\Http\Requests;
 
-class GoodsController extends Controller
+class TypesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,8 @@ class GoodsController extends Controller
      */
     public function index()
     {
-        $dataObj = Good::paginate(10);
-        $state = ['0'=>'下架','1'=>'在售'];
-        return view('admin.goods.index', compact(['dataObj','state']));
+        $dataObj = Type::paginate(10);
+        return view('admin.types.index', compact('dataObj'));
     }
 
     /**
@@ -50,7 +49,7 @@ class GoodsController extends Controller
      */
     public function show($id)
     {
-        return view('admin.goods.show');
+        return view('admin.types.show');
     }
 
     /**
@@ -61,9 +60,9 @@ class GoodsController extends Controller
      */
     public function edit($id)
     {
-        $dataObj = Good::find($id);
+        $dataObj = Type::find($id);
         // dd($dataObj);
-        return view('admin.goods.edit', compact('dataObj'));
+        return view('admin.types.edit', compact('dataObj'));
     }
 
     /**
@@ -87,7 +86,7 @@ class GoodsController extends Controller
             'state'=>$request->state,
             ]))
         {
-            return redirect('/admin/goods')->with(['success' => '修改成功！']);
+            return redirect('/admin/types')->with(['success' => '修改成功！']);
         } else {
             return back()->with(['success' => '修改失败！']);
         }
@@ -102,7 +101,7 @@ class GoodsController extends Controller
     public function destroy($id)
     {
         if(Good::destroy($id)){
-            return redirect('/admin/goods')->with(['success' => '删除成功！']);
+            return redirect('/admin/types')->with(['success' => '删除成功！']);
         } else{
             return back()->with(['success' => '删除失败']);
         }
