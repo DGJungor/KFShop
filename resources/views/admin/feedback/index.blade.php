@@ -4,76 +4,8 @@
 @section('content')
     <div class="wrapper wrapper-content">
         <div class="row">
-            <div class="col-lg-3">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-content mailbox-content">
-                        <div class="file-manager">
-                            <a class="btn btn-block btn-primary compose-mail" href="mail_compose.html">写信</a>
-                            <div class="space-25"></div>
-                            <h5>文件夹</h5>
-                            <ul class="folder-list m-b-md" style="padding: 0">
-                                <li>
-                                    <a href="mailbox.html"> <i class="fa fa-inbox "></i> 收件箱 <span class="label label-warning pull-right">16</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="mailbox.html"> <i class="fa fa-envelope-o"></i> 发信</a>
-                                </li>
-                                <li>
-                                    <a href="mailbox.html"> <i class="fa fa-certificate"></i> 重要</a>
-                                </li>
-                                <li>
-                                    <a href="mailbox.html"> <i class="fa fa-file-text-o"></i> 草稿 <span class="label label-danger pull-right">2</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="mailbox.html"> <i class="fa fa-trash-o"></i> 垃圾箱</a>
-                                </li>
-                            </ul>
-                            <h5>分类</h5>
-                            <ul class="category-list" style="padding: 0">
-                                <li>
-                                    <a href="mail_compose.html#"> <i class="fa fa-circle text-navy"></i> 工作</a>
-                                </li>
-                                <li>
-                                    <a href="mail_compose.html#"> <i class="fa fa-circle text-danger"></i> 文档</a>
-                                </li>
-                                <li>
-                                    <a href="mail_compose.html#"> <i class="fa fa-circle text-primary"></i> 社交</a>
-                                </li>
-                                <li>
-                                    <a href="mail_compose.html#"> <i class="fa fa-circle text-info"></i> 广告</a>
-                                </li>
-                                <li>
-                                    <a href="mail_compose.html#"> <i class="fa fa-circle text-warning"></i> 客户端</a>
-                                </li>
-                            </ul>
 
-                            <h5 class="tag-title">标签</h5>
-                            <ul class="tag-list" style="padding: 0">
-                                <li><a href="mail_compose.html"><i class="fa fa-tag"></i> 朋友</a>
-                                </li>
-                                <li><a href="mail_compose.html"><i class="fa fa-tag"></i> 工作</a>
-                                </li>
-                                <li><a href="mail_compose.html"><i class="fa fa-tag"></i> 家庭</a>
-                                </li>
-                                <li><a href="mail_compose.html"><i class="fa fa-tag"></i> 孩子</a>
-                                </li>
-                                <li><a href="mail_compose.html"><i class="fa fa-tag"></i> 假期</a>
-                                </li>
-                                <li><a href="mail_compose.html"><i class="fa fa-tag"></i> 音乐</a>
-                                </li>
-                                <li><a href="mail_compose.html"><i class="fa fa-tag"></i> 照片</a>
-                                </li>
-                                <li><a href="mail_compose.html"><i class="fa fa-tag"></i> 电影</a>
-                                </li>
-                            </ul>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-9 animated fadeInRight">
+            <div class="col-lg-12 animated fadeInRight">
                 <div class="mail-box-header">
 
                     <form method="get" action="index.html" class="pull-right mail-search">
@@ -97,12 +29,17 @@
                             </button>
 
                         </div>
-                        <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left" title="" data-original-title="刷新邮件列表"><i class="fa fa-refresh"></i> 刷新</button>
-                        <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="标为已读"><i class="fa fa-eye"></i>
+                        <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="left" title=""
+                                data-original-title="刷新邮件列表"><i class="fa fa-refresh"></i> 刷新
                         </button>
-                        <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="标为重要"><i class="fa fa-exclamation"></i>
+                        <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title=""
+                                data-original-title="标为已读"><i class="fa fa-eye"></i>
                         </button>
-                        <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title="" data-original-title="标为垃圾邮件"><i class="fa fa-trash-o"></i>
+                        <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title=""
+                                data-original-title="标为重要"><i class="fa fa-exclamation"></i>
+                        </button>
+                        <button class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top" title=""
+                                data-original-title="标为垃圾邮件"><i class="fa fa-trash-o"></i>
                         </button>
 
                     </div>
@@ -112,8 +49,7 @@
                     <table class="table table-hover table-mail">
                         <tbody>
                         <tr class="unread">
-                            <td class="check-mail">
-                                <div class="icheckbox_square-green checked" style="position: relative;"><input class="i-checks" style="position: absolute; opacity: 0;" type="checkbox"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 0px none; opacity: 0;"></ins></div>
+
                             </td>
                             <td class="mail-ontact"><a href="mail_detail.html">支付宝</a>
                             </td>
@@ -123,22 +59,12 @@
                             </td>
                             <td class="text-right mail-date">昨天 10:20</td>
                         </tr>
-                        <tr class="unread">
-                            <td class="check-mail">
-                                <div class="icheckbox_square-green" style="position: relative;"><input class="i-checks" checked="" style="position: absolute; opacity: 0;" type="checkbox"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 0px none; opacity: 0;"></ins></div>
-                            </td>
-                            <td class="mail-ontact"><a href="mail_detail.html">Amaze UI</a>
-                            </td>
-                            <td class="mail-subject"><a href="mail_detail.html">Amaze UI Beta2 发布</a>
-                            </td>
-                            <td class=""></td>
-                            <td class="text-right mail-date">上午10:57</td>
-                        </tr>
+
                         <tr class="read">
-                            <td class="check-mail">
-                                <div class="icheckbox_square-green checked" style="position: relative;"><input class="i-checks" style="position: absolute; opacity: 0;" type="checkbox"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 0px none; opacity: 0;"></ins></div>
+
                             </td>
-                            <td class="mail-ontact"><a href="mail_detail.html">WordPress</a>  <span class="label label-warning pull-right">验证邮件</span>
+                            <td class="mail-ontact"><a href="mail_detail.html">WordPress</a> <span
+                                        class="label label-warning pull-right">验证邮件</span>
                             </td>
                             <td class="mail-subject"><a href="mail_detail.html">wp-user-frontend-pro v2.1.9</a>
                             </td>
@@ -146,8 +72,7 @@
                             <td class="text-right mail-date">上午9:21</td>
                         </tr>
                         <tr class="read">
-                            <td class="check-mail">
-                                <div class="icheckbox_square-green" style="position: relative;"><input class="i-checks" style="position: absolute; opacity: 0;" type="checkbox"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 0px none; opacity: 0;"></ins></div>
+
                             </td>
                             <td class="mail-ontact"><a href="mail_detail.html">淘宝网</a>
                             </td>
@@ -157,10 +82,10 @@
                             <td class="text-right mail-date">中午12:24</td>
                         </tr>
                         <tr class="read">
-                            <td class="check-mail">
-                                <div class="icheckbox_square-green" style="position: relative;"><input class="i-checks" style="position: absolute; opacity: 0;" type="checkbox"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 0px none; opacity: 0;"></ins></div>
+
                             </td>
-                            <td class="mail-ontact"><a href="mail_detail.html">淘宝网</a>  <span class="label label-danger pull-right">AD</span>
+                            <td class="mail-ontact"><a href="mail_detail.html">淘宝网</a> <span
+                                        class="label label-danger pull-right">AD</span>
                             </td>
                             <td class="mail-subject"><a href="mail_detail.html">亲，双11来啦！帮你挑货，还送你4999元红包！仅此一次！</a>
                             </td>
@@ -169,8 +94,7 @@
                             <td class="text-right mail-date">上午6:48</td>
                         </tr>
                         <tr class="read">
-                            <td class="check-mail">
-                                <div class="icheckbox_square-green" style="position: relative;"><input class="i-checks" style="position: absolute; opacity: 0;" type="checkbox"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 0px none; opacity: 0;"></ins></div>
+
                             </td>
                             <td class="mail-ontact"><a href="mail_detail.html">支付宝</a>
                             </td>
@@ -181,8 +105,7 @@
                             <td class="text-right mail-date">昨天 10:20</td>
                         </tr>
                         <tr class="read">
-                            <td class="check-mail">
-                                <div class="icheckbox_square-green" style="position: relative;"><input class="i-checks" style="position: absolute; opacity: 0;" type="checkbox"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 0px none; opacity: 0;"></ins></div>
+
                             </td>
                             <td class="mail-ontact"><a href="mail_detail.html">Amaze UI</a>
                             </td>
@@ -192,10 +115,10 @@
                             <td class="text-right mail-date">上午10:57</td>
                         </tr>
                         <tr class="read">
-                            <td class="check-mail">
-                                <div class="icheckbox_square-green" style="position: relative;"><input class="i-checks" style="position: absolute; opacity: 0;" type="checkbox"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 0px none; opacity: 0;"></ins></div>
+
                             </td>
-                            <td class="mail-ontact"><a href="mail_detail.html">WordPress</a>  <span class="label label-warning pull-right">验证邮件</span>
+                            <td class="mail-ontact"><a href="mail_detail.html">WordPress</a> <span
+                                        class="label label-warning pull-right">验证邮件</span>
                             </td>
                             <td class="mail-subject"><a href="mail_detail.html">wp-user-frontend-pro v2.1.9</a>
                             </td>
@@ -203,8 +126,7 @@
                             <td class="text-right mail-date">上午9:21</td>
                         </tr>
                         <tr class="read">
-                            <td class="check-mail">
-                                <div class="icheckbox_square-green" style="position: relative;"><input class="i-checks" style="position: absolute; opacity: 0;" type="checkbox"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 0px none; opacity: 0;"></ins></div>
+
                             </td>
                             <td class="mail-ontact"><a href="mail_detail.html">淘宝网</a>
                             </td>
@@ -214,10 +136,10 @@
                             <td class="text-right mail-date">中午12:24</td>
                         </tr>
                         <tr class="read">
-                            <td class="check-mail">
-                                <div class="icheckbox_square-green" style="position: relative;"><input class="i-checks" style="position: absolute; opacity: 0;" type="checkbox"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 0px none; opacity: 0;"></ins></div>
+
                             </td>
-                            <td class="mail-ontact"><a href="mail_detail.html">淘宝网</a>  <span class="label label-danger pull-right">AD</span>
+                            <td class="mail-ontact"><a href="mail_detail.html">淘宝网</a> <span
+                                        class="label label-danger pull-right">AD</span>
                             </td>
                             <td class="mail-subject"><a href="mail_detail.html">亲，双11来啦！帮你挑货，还送你4999元红包！仅此一次！</a>
                             </td>
@@ -226,8 +148,7 @@
                             <td class="text-right mail-date">上午6:48</td>
                         </tr>
                         <tr class="read">
-                            <td class="check-mail">
-                                <div class="icheckbox_square-green" style="position: relative;"><input class="i-checks" style="position: absolute; opacity: 0;" type="checkbox"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 0px none; opacity: 0;"></ins></div>
+
                             </td>
                             <td class="mail-ontact"><a href="mail_detail.html">支付宝</a>
                             </td>
@@ -238,8 +159,7 @@
                             <td class="text-right mail-date">昨天 10:20</td>
                         </tr>
                         <tr class="read">
-                            <td class="check-mail">
-                                <div class="icheckbox_square-green" style="position: relative;"><input class="i-checks" style="position: absolute; opacity: 0;" type="checkbox"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 0px none; opacity: 0;"></ins></div>
+
                             </td>
                             <td class="mail-ontact"><a href="mail_detail.html">Amaze UI</a>
                             </td>
@@ -249,10 +169,10 @@
                             <td class="text-right mail-date">上午10:57</td>
                         </tr>
                         <tr class="read">
-                            <td class="check-mail">
-                                <div class="icheckbox_square-green" style="position: relative;"><input class="i-checks" style="position: absolute; opacity: 0;" type="checkbox"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 0px none; opacity: 0;"></ins></div>
+
                             </td>
-                            <td class="mail-ontact"><a href="mail_detail.html">WordPress</a>  <span class="label label-warning pull-right">验证邮件</span>
+                            <td class="mail-ontact"><a href="mail_detail.html">WordPress</a> <span
+                                        class="label label-warning pull-right">验证邮件</span>
                             </td>
                             <td class="mail-subject"><a href="mail_detail.html">wp-user-frontend-pro v2.1.9</a>
                             </td>
@@ -260,8 +180,7 @@
                             <td class="text-right mail-date">上午9:21</td>
                         </tr>
                         <tr class="read">
-                            <td class="check-mail">
-                                <div class="icheckbox_square-green" style="position: relative;"><input class="i-checks" style="position: absolute; opacity: 0;" type="checkbox"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 0px none; opacity: 0;"></ins></div>
+
                             </td>
                             <td class="mail-ontact"><a href="mail_detail.html">淘宝网</a>
                             </td>
@@ -271,10 +190,10 @@
                             <td class="text-right mail-date">中午12:24</td>
                         </tr>
                         <tr class="read">
-                            <td class="check-mail">
-                                <div class="icheckbox_square-green" style="position: relative;"><input class="i-checks" style="position: absolute; opacity: 0;" type="checkbox"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255) none repeat scroll 0% 0%; border: 0px none; opacity: 0;"></ins></div>
+
                             </td>
-                            <td class="mail-ontact"><a href="mail_detail.html">淘宝网</a>  <span class="label label-danger pull-right">AD</span>
+                            <td class="mail-ontact"><a href="mail_detail.html">淘宝网</a> <span
+                                        class="label label-danger pull-right">AD</span>
                             </td>
                             <td class="mail-subject"><a href="mail_detail.html">亲，双11来啦！帮你挑货，还送你4999元红包！仅此一次！</a>
                             </td>
@@ -285,10 +204,43 @@
                         </tbody>
                     </table>
 
-
+                    <div class="row">
+                        {{--<div class="col-lg-1"></div>--}}
+                        <div class="col-lg-9">
+                            <div class="dataTables_info" id="DataTables_Table_0_info" role="alert" aria-live="polite"
+                                 aria-relevant="all">&nbsp;&nbsp; &nbsp;1 到 10 项，共 57 项
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+                                <ul class="pagination">
+                                    <li class="paginate_button previous disabled" aria-controls="DataTables_Table_0"
+                                        tabindex="0" id="DataTables_Table_0_previous"><a href="#">上一页</a></li>
+                                    <li class="paginate_button active" aria-controls="DataTables_Table_0" tabindex="0">
+                                        <a href="#">1</a></li>
+                                    <li class="paginate_button " aria-controls="DataTables_Table_0" tabindex="0"><a
+                                                href="#">2</a></li>
+                                    <li class="paginate_button " aria-controls="DataTables_Table_0" tabindex="0"><a
+                                                href="#">3</a></li>
+                                    <li class="paginate_button " aria-controls="DataTables_Table_0" tabindex="0"><a
+                                                href="#">4</a></li>
+                                    <li class="paginate_button " aria-controls="DataTables_Table_0" tabindex="0"><a
+                                                href="#">5</a></li>
+                                    <li class="paginate_button " aria-controls="DataTables_Table_0" tabindex="0"><a
+                                                href="#">6</a></li>
+                                    <li class="paginate_button next" aria-controls="DataTables_Table_0" tabindex="0"
+                                        id="DataTables_Table_0_next"><a href="#">下一页</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            {{--这里我要放页码--}}
+
         </div>
+
     </div>
 
 @endsection

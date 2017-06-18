@@ -10,7 +10,8 @@ class AdminFeedback extends Controller
 {
 	public function index()
 	{
+		//输出反馈页首页模板
 		return view('admin.feedback.index');
-//		return '2324';
+
 	}
 }
