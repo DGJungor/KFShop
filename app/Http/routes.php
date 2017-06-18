@@ -12,8 +12,10 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+//    return view('welcome');
+//    dd($_ENV);
 });
+
 
 Route::group(['prefix' => 'admin'], function () {
     Route::get('goods', 'GoodsController@index');
