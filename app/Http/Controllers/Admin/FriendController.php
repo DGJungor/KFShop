@@ -18,30 +18,31 @@ class FriendController extends Controller
     {
         $data = \DB::table('data_friend_link')->get();
     	// dump($data);
+        //访问友情链接首页
         return view('admin.friends.index', compact('data'));
     }
     /**
     *修改友情链接的方法
     *
     */
-    // public function edit()
-    // {
-
-    // }
-    // /**
-    // *添加友情链接的方法
-    // *
-    // */
-    // public function add()
-    // {
-
-    // }
-    //  /**
-    // *删除友情链接的方法
-    // *
-    // */
-    //  public function del()
-    //  {
-     	
-    //  }
+    public function edit($id)
+    {
+        //
+    }
+    /**
+    *添加友情链接的方法
+    *
+    */
+    public function add($id)
+    {
+        //
+    }
+     /**
+    *删除友情链接的方法
+    *
+    */
+     public function del($id)
+     {
+     	//
+     }
 }
