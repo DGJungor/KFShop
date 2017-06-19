@@ -30,7 +30,11 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 	Route::get('goods', 'GoodsController@index');
 
 	//后台反馈路由
-	Route::get('feedback', 'AdminFeedback@index');
+	Route::get('feedback', 'FeedbackController@index');
+
+	//反馈信息详情
+	Route::get('feedback/details','FeedbackController@details');
+
 
 	//后台订单路由
 	Route::get('orders', 'OrdersController@index');

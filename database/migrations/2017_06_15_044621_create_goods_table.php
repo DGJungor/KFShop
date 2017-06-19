@@ -12,7 +12,7 @@ class CreateGoodsTable extends Migration
      */
     public function up()
     {
-        Schema::create('goods', function (Blueprint $table) {
+        Schema::create('data_goods', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('typeid')->comment('分类id');
             $table->string('goodname')->comment('商品名');
