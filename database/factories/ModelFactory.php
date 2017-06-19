@@ -13,26 +13,26 @@
 
 
 $factory->define(App\Type::class, function (Faker\Generator $faker) {
-    return [
-        'pid' => $faker->numberBetween(0,10),
-        'name' => $faker->safeHexColor,
-        'path' => $faker->numberBetween(0,10),
-    ];
+	return [
+		'pid' => $faker->numberBetween(0, 10),
+		'name' => $faker->safeHexColor,
+		'path' => $faker->numberBetween(0, 10),
+	];
 });
 
 $factory->define(App\Good::class, function (Faker\Generator $faker) {
 	$typeid = \App\Type::lists('id')->toArray();
-    return [
-        'typeid' => $faker->randomElement($typeid),
-        'goodname' => $faker->city,
-        'state' => random_int(0,1),
-        'buy' => random_int(0,10),
-        'brand' => $faker->country,
-        'suit' => $faker->country,
-        'makein' => $faker->country,
-        'onmarket' => $faker->unixTime,
-        'describe' => $faker->text(40),
-    ];
+	return [
+		'typeid' => $faker->randomElement($typeid),
+		'goodname' => $faker->city,
+		'state' => random_int(0, 1),
+		'buy' => random_int(0, 10),
+		'brand' => $faker->country,
+		'suit' => $faker->country,
+		'makein' => $faker->country,
+		'onmarket' => $faker->unixTime,
+		'describe' => $faker->text(40),
+	];
 });
 
 $factory->define(App\User::class, function (Faker\Generator $faker) {
