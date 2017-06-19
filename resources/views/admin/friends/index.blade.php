@@ -1,8 +1,4 @@
-
-
 @extends('admin.public')
-
-
 
 @section('title')
 
@@ -10,12 +6,8 @@
 
 @endsection
 
+@section('bigtitle')
 
-
-
-
-
-@section('content')
 <div class="col-lg-10">
     <h2>友情链接管理</h2>
     <ol class="breadcrumb">
@@ -41,6 +33,12 @@
         });
     });
 </script>
+
+@endsection
+
+
+@section('content')
+
 <div class="row">
     <div class="col-lg-12">
                         <div class="mail-box-header">
@@ -55,9 +53,9 @@
                                     </div>
                                 </div>
                             </form>
-                                <h2>
+                                <h3>
                                      友情链接列表
-                                </h2>
+                                </h3>
                             <div class="mail-tools tooltip-demo m-t-md">
                                 <div class="btn-group pull-right">
                                     <button class="btn btn-white btn-sm"><i class="fa fa-arrow-left"></i>
