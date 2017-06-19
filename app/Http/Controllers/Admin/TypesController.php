@@ -16,8 +16,9 @@ class TypesController extends Controller
      */
     public function index()
     {
-        $dataObj = Type::find(1);
-        return view('admin.types.index');
+        $dataObj = \DB::table('types')->where('pid', '0')->paginate(10);
+        // dd($dataObj);
+        return view('admin.types.index', compact('dataObj') );
     }
 
     /**
@@ -27,8 +28,7 @@ class TypesController extends Controller
      */
     public function create()
     {
-        $dataObj = Type::all();
-        echo $dataObj;
+        //
     }
 
     /**

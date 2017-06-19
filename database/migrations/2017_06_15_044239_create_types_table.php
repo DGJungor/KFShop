@@ -12,7 +12,7 @@ class CreateTypesTable extends Migration
      */
     public function up()
     {
-        Schema::create('types', function (Blueprint $table) {
+        Schema::create('data_types', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('pid')->comment('父id');
             $table->string('name', 32)->comment('分类名');

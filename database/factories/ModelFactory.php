@@ -12,6 +12,7 @@
 */
 
 
+
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
@@ -22,7 +23,8 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Type::class, function (Faker\Generator $faker) {
+
+$factory->define(App\Admin\Type::class, function (Faker\Generator $faker) {
     return [
         'pid' => $faker->numberBetween(0,10),
         'name' => $faker->safeHexColor,
@@ -30,8 +32,8 @@ $factory->define(App\Type::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Good::class, function (Faker\Generator $faker) {
-	$typeid = \App\Type::lists('id')->toArray();
+$factory->define(App\Admin\Good::class, function (Faker\Generator $faker) {
+	$typeid = \App\Admin\Type::lists('id')->toArray();
     return [
         'typeid' => $faker->randomElement($typeid),
         'goodname' => $faker->city,
@@ -40,7 +42,6 @@ $factory->define(App\Good::class, function (Faker\Generator $faker) {
         'brand' => $faker->country,
         'suit' => $faker->country,
         'makein' => $faker->country,
-        'onmarket' => $faker->unixTime,
         'describe' => $faker->text(40),
     ];
 });
@@ -56,6 +57,15 @@ $factory->define(App\UserInfo::class, function (Faker\Generator $faker) {
         'answer' =>$faker->word,
         'birthday' =>$faker->date('Y-m-d', 'now'),
     ];
+});
+
+$factory->define(App\Admin\User::class, function (Faker\Generator $faker) {
+	return [
+		'name' => $faker->name,
+		'email' => $faker->safeEmail,
+		'password' => bcrypt(str_random(10)),
+		'remember_token' => str_random(10),
+	];
 });
 
 $factory->define(App\UserRegister::class, function (Faker\Generator $faker) {
