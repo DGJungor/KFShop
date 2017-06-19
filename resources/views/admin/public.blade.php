@@ -65,6 +65,14 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="active">
+                        <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">友情链接</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="{{ url('admin/friends') }}">友情链接管理</a>
+                            <li><a href="{{ url('admin/friends/add') }}">添加友情链接</a>
+                            </li>
+                        </ul>
+                    </li>
                 </ul>
 
             </div>

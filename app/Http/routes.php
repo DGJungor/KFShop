@@ -16,7 +16,7 @@
 
 
 Route::get('/', function () {
-	return view('welcome');
+	return view('web/nav/nav2');
 });
 
 
@@ -26,6 +26,8 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
     Route::resource('goods', 'GoodsController');
 
     Route::resource('types', 'TypesController');
+    
+    Route::resource('friends', 'FriendController');
 
 	Route::get('goods', 'GoodsController@index');
 
@@ -42,7 +44,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 	//后台友情链接路由
 	Route::get('friends', 'FriendController@index');
 
-    Route::get('friends', 'FriendController');
+    // Route::get('friends', 'FriendController');
 
 
 });
