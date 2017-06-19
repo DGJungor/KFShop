@@ -19,7 +19,14 @@ Route::get('/', function () {
 	return view('welcome');
 });
 
+
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
+    Route::get('/', function () { return view('admin.public'); });
+
+    Route::resource('goods', 'GoodsController');
+
+    Route::resource('types', 'TypesController');
+
 	Route::get('goods', 'GoodsController@index');
 
 	//后台反馈路由
