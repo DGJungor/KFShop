@@ -12,9 +12,8 @@
 */
 
 
-
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+$factory->define(App\Admin\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->safeEmail,
@@ -22,6 +21,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
 
 
 $factory->define(App\Admin\Type::class, function (Faker\Generator $faker) {
@@ -46,7 +46,7 @@ $factory->define(App\Admin\Good::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\UserInfo::class, function (Faker\Generator $faker) {
+$factory->define(App\Admin\UserInfo::class, function (Faker\Generator $faker) {
     return [
         'username' =>$faker->name,
         'realname' =>$faker->name,
@@ -68,7 +68,7 @@ $factory->define(App\Admin\User::class, function (Faker\Generator $faker) {
 	];
 });
 
-$factory->define(App\UserRegister::class, function (Faker\Generator $faker) {
+$factory->define(App\Admin\UserRegister::class, function (Faker\Generator $faker) {
     return [
         'email' => $faker->safeEmail,
         'tel' => $faker->phoneNumber,
@@ -77,7 +77,7 @@ $factory->define(App\UserRegister::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\AdminUser::class, function (Faker\Generator $faker) {
+$factory->define(App\Admin\AdminUser::class, function (Faker\Generator $faker) {
     return [
         'username' => $faker->name,
         'tel' => $faker->phoneNumber,
@@ -88,8 +88,8 @@ $factory->define(App\AdminUser::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Address::class, function (Faker\Generator $faker) {
-    $userIds = \App\UserRegister::lists('id')->toArray();
+$factory->define(App\Admin\Address::class, function (Faker\Generator $faker) {
+    $userIds = \App\Admin\UserRegister::lists('id')->toArray();
     return [
         'uid' =>$faker->randomElement($userIds),
         'tel' =>$faker->phoneNumber,
