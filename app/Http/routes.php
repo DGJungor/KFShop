@@ -36,7 +36,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 	Route::get('orders', 'OrdersController@index');
 
 	//后台友情链接路由
-	Route::get('friend', 'FriendController@index');
+	Route::get('friends', 'FriendController@index');
 
     
 

@@ -18,7 +18,7 @@ class FriendController extends Controller
     {
         $data = \DB::table('data_friend_link')->get();
     	// dump($data);
-        return view('admin.friend.index', compact('data'));
+        return view('admin.friends.index', compact('data'));
     }
     /**
     *修改友情链接的方法
