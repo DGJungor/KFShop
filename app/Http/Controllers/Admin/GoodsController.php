@@ -1,12 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use App\Admin\Type;
 use App\Http\Requests;
+use App\Http\Controllers\Controller;
+use App\Admin\Good;
 
-class TypesController extends Controller
+
+
+class GoodsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +18,9 @@ class TypesController extends Controller
      */
     public function index()
     {
-        $dataObj = Type::paginate(10);
-        return view('admin.types.index', compact('dataObj'));
+        $dataObj = Good::paginate(10);
+        $state = ['0'=>'下架','1'=>'在售'];
+        return view('admin.goods.index', compact(['dataObj','state']));
     }
 
     /**
@@ -38,7 +42,7 @@ class TypesController extends Controller
     public function store(Request $request)
     {
         //
-        
+
     }
 
     /**
@@ -49,7 +53,7 @@ class TypesController extends Controller
      */
     public function show($id)
     {
-        return view('admin.types.show');
+        return view('admin.goods.show');
     }
 
     /**
@@ -60,9 +64,9 @@ class TypesController extends Controller
      */
     public function edit($id)
     {
-        $dataObj = Type::find($id);
+        $dataObj = Good::find($id);
         // dd($dataObj);
-        return view('admin.types.edit', compact('dataObj'));
+        return view('admin.goods.edit', compact('dataObj'));
     }
 
     /**
@@ -86,7 +90,7 @@ class TypesController extends Controller
             'state'=>$request->state,
             ]))
         {
-            return redirect('/admin/types')->with(['success' => '修改成功！']);
+            return redirect('/admin/goods')->with(['success' => '修改成功！']);
         } else {
             return back()->with(['success' => '修改失败！']);
         }
@@ -101,7 +105,7 @@ class TypesController extends Controller
     public function destroy($id)
     {
         if(Good::destroy($id)){
-            return redirect('/admin/types')->with(['success' => '删除成功！']);
+            return redirect('/admin/goods')->with(['success' => '删除成功！']);
         } else{
             return back()->with(['success' => '删除失败']);
         }
