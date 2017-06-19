@@ -13,25 +13,25 @@
 
 
 
-Route::get('/', function() {
 
-	return view('web/index');
 
+Route::get('/', function () {
+	return view('welcome');
 });
 
-Route::get('/home', function () {
-	
-   return view('web/nav/nav');
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
+	Route::get('goods', 'GoodsController@index');
 
-});
+	//后台反馈路由
+	Route::get('feedback', 'AdminFeedback@index');
 
-Route::group(['prefix' => 'admin'], function () {
-    Route::get('goods', 'GoodsController@index');
+	//后台订单路由
+	Route::get('orders', 'OrdersController@index');
 
-    Route::get('Friend', 'FriendController@index');
+	Route::get('Friend', 'FriendController@index');
 
     Route::get('Friend/edit{id}', 'FriendController@edit');
 
 
-
 });
+
