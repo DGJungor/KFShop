@@ -7,13 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="renderer" content="webkit">
 
-    <title>首页</title>
 
-    <link href="{{ url('/admin/css/bootstrap.min.css?v=3.4.0') }}" rel="stylesheet">
-    <link href="{{ url('/admin/font-awesome/css/font-awesome.css?v=4.3.0') }}" rel="stylesheet">
-    <link href="{{ url('/admin/css/plugins/iCheck/custom.css') }}" rel="stylesheet">
-    <link href="{{ url('/admin/css/animate.css') }}" rel="stylesheet">
-    <link href="{{ url('/admin/css/style.css?v=2.2.0') }}" rel="stylesheet">
+    <title>@yield('title')</title>
+
+    <link href="{{ asset('/style/css/bootstrap.min.css?v=3.4.0') }}" rel="stylesheet">
+    <link href="{{ asset('/style/font-awesome/css/font-awesome.css?v=4.3.0') }}" rel="stylesheet">
+    <link href="{{ asset('/style/css/plugins/iCheck/custom.css') }}" rel="stylesheet">
+    <link href="{{ asset('/style/css/animate.css') }}" rel="stylesheet">
+    <link href="{{ asset('/style/css/style.css?v=2.2.0') }}" rel="stylesheet">
 
 </head>
 
@@ -25,7 +26,7 @@
                     <li class="nav-header">
 
                         <div class="dropdown profile-element"> <span>
-                            <img alt="image" class="img-circle" src="img/profile_small.jpg" />
+                            <img alt="image" class="img-circle" src="{{ asset('/style/img/profile_small.jpg') }}" />
                              </span>
                             <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
                                 <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">Beaut-zihan</strong>
@@ -51,15 +52,16 @@
 
                     </li>
                     <li class="active">
-                        <a href="index.html"><i class="fa fa-th-large"></i> <span class="nav-label">主页</span> <span class="fa arrow"></span></a>
+                        <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">主页</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
-                            <li><a href="index_1.html">主页示例一</a>
-                            </li>
-                            <li><a href="index_2.html">主页示例二</a>
-                            </li>
-                            <li><a href="index_3.html">主页示例三</a>
-                            </li>
-                            <li><a href="index_4.html">主页示例四</a>
+                            <li><a href="">主页示例一</a>
+                        </ul>
+                    </li>
+                    <li class="active">
+                        <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">商品</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="{{ url('admin/goods') }}">商品管理</a>
+                            <li><a href="{{ url('admin/types') }}">商品分类管理</a>
                             </li>
                         </ul>
                     </li>
@@ -81,7 +83,7 @@
                     </div>
                     <ul class="nav navbar-top-links navbar-right">
                         <li>
-                            <span class="m-r-sm text-muted welcome-message"><a href="index.html" title="返回首页"><i class="fa fa-home"></i></a>欢迎使用H+后台主题</span>
+                            <span class="m-r-sm text-muted welcome-message"><a href="index.html" title="返回首页"><i class="fa fa-home"></i></a>欢迎光临狂风商城后台</span>
                         </li>
                         <li class="dropdown">
                             <a class="dropdown-toggle count-info" data-toggle="dropdown" href="index.html#">
@@ -91,7 +93,7 @@
                                 <li>
                                     <div class="dropdown-messages-box">
                                         <a href="profile.html" class="pull-left">
-                                            <img alt="image" class="img-circle" src="img/a7.jpg">
+                                            <img alt="image" class="img-circle" src="{{ asset('/style/img/a7.jpg') }}">
                                         </a>
                                         <div class="media-body">
                                             <small class="pull-right">46小时前</small>
@@ -105,7 +107,7 @@
                                 <li>
                                     <div class="dropdown-messages-box">
                                         <a href="profile.html" class="pull-left">
-                                            <img alt="image" class="img-circle" src="img/a4.jpg">
+                                            <img alt="image" class="img-circle" src="{{ asset('/style/img/a4.jpg') }}">
                                         </a>
                                         <div class="media-body ">
                                             <small class="pull-right text-navy">25小时前</small>
@@ -133,7 +135,7 @@
                                 <li>
                                     <a href="mailbox.html">
                                         <div>
-                                            <i class="fa fa-envelope fa-fw"></i> 您有16条未读消息
+                                            <i class="fa fa-envelope fa-fw"></i> 您有23条未读消息
                                             <span class="pull-right text-muted small">4分钟前</span>
                                         </div>
                                     </a>
@@ -170,8 +172,9 @@
             <div class="row border-bottom">
             </div>
             <div class="row  border-bottom white-bg dashboard-header">
-                @yield('title')
+                @yield('bigtitle')
             </div>
+                @yield('success')
             <div class="row">
                 @yield('content')
             </div>
@@ -180,25 +183,33 @@
 </body>
 
 </html>
-	<script src="{{ url('/admin/js/jquery-2.1.1.min.js') }}"></script>
-    <script src="{{ url('/admin/js/bootstrap.min.js?v=3.4.0') }}"></script>
-    <script src="{{ url('/admin/js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
-    <script src="{{ url('/admin/js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
+
+	<script src="{{ asset('/style/js/jquery-2.1.1.min.js') }}"></script>
+
+    <script src="{{ asset('/style/js/bootstrap.min.js?v=3.4.0') }}"></script>
+    <script src="{{ asset('/style/js/plugins/metisMenu/jquery.metisMenu.js') }}"></script>
+    <script src="{{ asset('/style/js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
 
     <!-- Peity -->
-    <script src="{{ url('/admin/js/plugins/peity/jquery.peity.min.js') }}"></script>
+    <script src="{{ asset('/style/js/plugins/peity/jquery.peity.min.js') }}"></script>
 
     <!-- Custom and plugin javascript -->
-    <script src="{{ url('/admin/js/hplus.js?v=2.2.0') }}"></script>
-    <script src="{{ url('/admin/js/plugins/pace/pace.min.js') }}"></script>
+    <script src="{{ asset('/style/js/hplus.js?v=2.2.0') }}"></script>
+    <script src="{{ asset('/style/js/plugins/pace/pace.min.js') }}"></script>
 
     <!-- iCheck -->
-    <script src="{{ url('/admin/js/plugins/iCheck/icheck.min.js') }}"></script>
+    <script src="{{ asset('/style/js/plugins/iCheck/icheck.min.js') }}"></script>
 
     <!-- Peity -->
-    <script src="{{ url('/admin/js/demo/peity-demo.js') }}"></script>
+    <script src="{{ asset('/style/js/demo/peity-demo.js') }}"></script>
+    <script>
+$(document).ready(function () {
+    $('.i-checks').iCheck({
+        checkboxClass: 'icheckbox_square-green',
+        radioClass: 'iradio_square-green',
+    });
+});
+    </script>
+    @yield('js')
 
-    
-
-    <script type="text/javascript" src="http://tajs.qq.com/stats?sId=9051096" charset="UTF-8"></script><!--统计代码，可删除-->
 
