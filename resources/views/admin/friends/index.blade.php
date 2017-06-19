@@ -1,10 +1,13 @@
-
-
 @extends('admin.public')
 
-
-
 @section('title')
+
+友情链接
+
+@endsection
+
+@section('bigtitle')
+
 <div class="col-lg-10">
     <h2>友情链接管理</h2>
     <ol class="breadcrumb">
@@ -30,10 +33,12 @@
         });
     });
 </script>
+
 @endsection
 
 
 @section('content')
+
 <div class="row">
     <div class="col-lg-12">
                         <div class="mail-box-header">
@@ -48,9 +53,9 @@
                                     </div>
                                 </div>
                             </form>
-                                <h2>
+                                <h3>
                                      友情链接列表
-                                </h2>
+                                </h3>
                             <div class="mail-tools tooltip-demo m-t-md">
                                 <div class="btn-group pull-right">
                                     <button class="btn btn-white btn-sm"><i class="fa fa-arrow-left"></i>
@@ -74,32 +79,51 @@
 
                        <div class="ibox-content">
                             <div class="table-responsive">
-                                <table class="table table-striped">
+                                 <table class="table table-striped table-bordered table-hover dataTables-example dataTable"
+                               id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info">
                                     <thead>
-                                        <tr>
-
-                                            <th>选择</th>
-                                            <th>ID</th>
-                                            <th>链接名称</th>
-                                            <th>类型</th>
-                                            <th>链接地址</th>
-                                            <th>图片名称</th>
-                                            <th>操作</th>
+                                        <tr role="row">
+                                            <th rowspan="1"
+                                    colspan="1" style="width: 204px;">ID</th>
+                                            <th rowspan="1"
+                                    colspan="1" style="width: 204px;">链接名称</th>
+                                            <th rowspan="1"
+                                    colspan="1" style="width: 204px;">类型</th>
+                                            <th rowspan="1"
+                                    colspan="1" style="width: 204px;">链接地址</th>
+                                            <th rowspan="1"
+                                    colspan="1" style="width: 204px;">图片名称</th>
+                                            <th rowspan="1"
+                                    colspan="1" style="width: 104px;">操作</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                         <tr>
+                                    {{--{{dd($data)}}--}}
+                                    <?php $i = 0; ?>
+                                    @foreach($data as $v)
+
+                                         <tr class="gradeA odd">
+                                            <td class="sorting_1">{{ $v->id }}</td>
+                                            <td class="center ">{{ $v->name }}</td>
+                                            <td class="center ">{{ $v->type }}</td>
+                                            <td class="center ">http://{{ $v->url }}</td>
+                                            <td class="center ">{{ $v->image }}</td>
                                             <td>
-                                                <input type="checkbox" class="i-checks" name="input[]">
-                                            </td>
-                                            <td>1</td>
-                                            <td>百度</td>
-                                            <td>文字</td>
-                                            <td>https://www.baidu.com</td>
-                                            <td>百度Logo</td>
-                                            <td><a href="#"><i class="fa fa-check text-navy"></i></a>
+                                                <form action="" method="POST">
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <span>&nbsp;</span>
+                                                <span>&nbsp;</span>
+                                                <a href=""><i id="Edit" class="glyphicon glyphicon-edit text-navy"></i></a>
+                                                <span>&nbsp;</span> 
+                                                <span>&nbsp;</span> 
+                                                <span>&nbsp;</span> 
+                                                <span>&nbsp;</span> 
+                                                <a href=""><i id="Del" class="glyphicon glyphicon-remove-sign text-danger"></i></a>
+                                                </form>
                                             </td>
                                         </tr>
+                                        <?php $i++; ?>
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -109,3 +133,7 @@
     </div>
 </div>
 @endsection
+                                   <!--  <button class="btn btn-info btn-circle" type="button"><i class="fa fa-check"></i>
+                                    </button>
+                                    <button class="btn btn-warning btn-circle" type="button"><i class="fa fa-times"></i>
+                                    </button> -->

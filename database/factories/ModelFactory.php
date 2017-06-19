@@ -12,6 +12,7 @@
 */
 
 
+
 $factory->define(App\Admin\Type::class, function (Faker\Generator $faker) {
     return [
         'pid' => $faker->numberBetween(0,10),

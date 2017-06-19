@@ -2,7 +2,7 @@
 
 
 
-@section('title')
+@section('bigtitle')
     <div class="col-lg-10">
         <h2>订单管理</h2>
         <ol class="breadcrumb">
@@ -19,6 +19,10 @@
     </div>
 
 @endsection
+
+@section('success')
+
+    @endsection
 
 @section('content')
     <div class="wrapper wrapper-content animated fadeInRight">
@@ -94,7 +98,7 @@
                             </thead>
                             <tbody>
 
-                            {{--{{dd($data)}}--}}
+
 							<?php $i = 0; ?>
                             @foreach($data as $v)
                                 @if($i%2==0)
@@ -143,30 +147,11 @@
                         <div class="row">
                             <div class="col-sm-8">
                                 <div class="dataTables_info" id="DataTables_Table_0_info" role="alert"
-                                     aria-live="polite" aria-relevant="all">显示 1 到 10 项，共 57 项
+                                     aria-live="polite" aria-relevant="all">显示 1 到 10 项，共 {{ $count[0]->{'count(*)'} }} 项
                                 </div>
                             </div>
                             <div class="col-sm-4">
-                                <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
-                                    <ul class="pagination">
-                                        <li class="paginate_button previous disabled" aria-controls="DataTables_Table_0"
-                                            tabindex="0" id="DataTables_Table_0_previous"><a href="#">上一页</a></li>
-                                        <li class="paginate_button active" aria-controls="DataTables_Table_0"
-                                            tabindex="0"><a href="#">1</a></li>
-                                        <li class="paginate_button " aria-controls="DataTables_Table_0" tabindex="0"><a
-                                                    href="#">2</a></li>
-                                        <li class="paginate_button " aria-controls="DataTables_Table_0" tabindex="0"><a
-                                                    href="#">3</a></li>
-                                        <li class="paginate_button " aria-controls="DataTables_Table_0" tabindex="0"><a
-                                                    href="#">4</a></li>
-                                        <li class="paginate_button " aria-controls="DataTables_Table_0" tabindex="0"><a
-                                                    href="#">5</a></li>
-                                        <li class="paginate_button " aria-controls="DataTables_Table_0" tabindex="0"><a
-                                                    href="#">6</a></li>
-                                        <li class="paginate_button next" aria-controls="DataTables_Table_0" tabindex="0"
-                                            id="DataTables_Table_0_next"><a href="#">下一页</a></li>
-                                    </ul>
-                                </div>
+                                {{ $data->links() }}
                             </div>
                         </div>
                     </div>

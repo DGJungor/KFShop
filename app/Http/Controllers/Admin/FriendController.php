@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+
+
 class FriendController extends Controller
 {
 	/**
@@ -14,30 +16,32 @@ class FriendController extends Controller
 	*/
     public function index()
     {
-    	return view('admin.Friend.index');
+        $data = \DB::table('data_friend_link')->get();
+    	// dump($data);
+        return view('admin.friends.index', compact('data'));
     }
     /**
     *修改友情链接的方法
     *
     */
-    public function edit()
-    {
+    // public function edit()
+    // {
 
-    }
-    /**
-    *添加友情链接的方法
-    *
-    */
-    public function add()
-    {
+    // }
+    // /**
+    // *添加友情链接的方法
+    // *
+    // */
+    // public function add()
+    // {
 
-    }
-     /**
-    *删除友情链接的方法
-    *
-    */
-     public function del()
-     {
-
-     }
+    // }
+    //  /**
+    // *删除友情链接的方法
+    // *
+    // */
+    //  public function del()
+    //  {
+     	
+    //  }
 }
