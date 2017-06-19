@@ -15,8 +15,8 @@ class TypesController extends Controller
      */
     public function index()
     {
-        $dataObj = Type::paginate(10);
-        return view('admin.types.index', compact('dataObj'));
+        $dataObj = Type::find(1);
+        return view('admin.types.index');
     }
 
     /**
@@ -26,7 +26,8 @@ class TypesController extends Controller
      */
     public function create()
     {
-        //
+        $dataObj = Type::all();
+        echo $dataObj;
     }
 
     /**
@@ -38,7 +39,7 @@ class TypesController extends Controller
     public function store(Request $request)
     {
         //
-        
+
     }
 
     /**

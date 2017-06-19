@@ -11,14 +11,34 @@
 |
 */
 
+
+
+
+
 Route::get('/', function () {
-    return view('welcome');
+	return view('welcome');
 });
 
 
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
+    Route::get('/', function () { return view('admin.public'); });
 
-Route::group(['prefix' => 'admin'], function () {
-	Route::get('/', function () { return view('admin.public'); });
     Route::resource('goods', 'GoodsController');
+
     Route::resource('types', 'TypesController');
+
+	Route::get('goods', 'GoodsController@index');
+
+	//后台反馈路由
+	Route::get('feedback', 'AdminFeedback@index');
+
+	//后台订单路由
+	Route::get('orders', 'OrdersController@index');
+
+	Route::get('Friend', 'FriendController@index');
+
+    Route::get('Friend/edit{id}', 'FriendController@edit');
+
+
 });
+
