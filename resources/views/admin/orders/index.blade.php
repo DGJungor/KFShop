@@ -41,9 +41,7 @@
                             <li><a href="table_data_tables.html#">选项2</a>
                             </li>
                         </ul>
-                        <a class="close-link">
-                            <i class="fa fa-times"></i>
-                        </a>
+
                     </div>
                 </div>
                 <div class="ibox-content">
@@ -134,21 +132,21 @@
                             </tbody>
                             <tfoot>
                             {{--<tr>--}}
-                                {{--<th rowspan="1" colspan="1">渲染引擎</th>--}}
-                                {{--<th rowspan="1" colspan="1">浏览器</th>--}}
-                                {{--<th rowspan="1" colspan="1">平台</th>--}}
-                                {{--<th rowspan="1" colspan="1">引擎版本</th>--}}
-                                {{--<th rowspan="1" colspan="1">CSS等级</th>--}}
+                            {{--<th rowspan="1" colspan="1">渲染引擎</th>--}}
+                            {{--<th rowspan="1" colspan="1">浏览器</th>--}}
+                            {{--<th rowspan="1" colspan="1">平台</th>--}}
+                            {{--<th rowspan="1" colspan="1">引擎版本</th>--}}
+                            {{--<th rowspan="1" colspan="1">CSS等级</th>--}}
                             {{--</tr>--}}
                             </tfoot>
                         </table>
                         <div class="row">
-                            <div class="col-sm-6">
+                            <div class="col-sm-8">
                                 <div class="dataTables_info" id="DataTables_Table_0_info" role="alert"
                                      aria-live="polite" aria-relevant="all">显示 1 到 10 项，共 57 项
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-4">
                                 <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
                                     <ul class="pagination">
                                         <li class="paginate_button previous disabled" aria-controls="DataTables_Table_0"

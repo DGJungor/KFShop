@@ -22,6 +22,8 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('feedback','AdminFeedback@index');
 
     //后台订单路由
-	Route::get('/orders','OrdersController@index');
+	Route::get('orders','OrdersController@index');
 
 });
+
+
