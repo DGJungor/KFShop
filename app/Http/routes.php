@@ -16,8 +16,12 @@
 
 
 Route::get('/', function () {
-	return view('welcome');
+	return view('web.index');
 });
+
+
+Route::get('cart','CartController@index');
+
 
 
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
@@ -29,20 +33,14 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 
 	Route::post('goods/ajax', 'GoodsController@ajax');
 
-	//后台反馈路由
-	Route::get('feedback', 'FeedbackController@index');
-
-	//反馈信息详情
-	Route::get('feedback/details','FeedbackController@details');
-
+	//后台反馈组
+	Route::resource('feedback','FeedbackController');
 
 	//后台订单路由
-	Route::get('orders', 'OrdersController@index');
+	Route::resource('orders', 'OrdersController');
 
 	//后台友情链接路由
 	Route::get('friends', 'FriendController@index');
-
-
 
 
 });
