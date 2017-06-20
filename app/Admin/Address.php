@@ -10,11 +10,11 @@ class Address extends Model
      * 收货地址表
      * @var string
      */
-    protected $table = 'data_receiving_address';
+    protected $table = 'data_address';
 
     /**
      * @var array
      */
-    protected $fillable = ['user_id', 'consignee', 'tel', 'province', 'city', 'county', 'detailed_address', 'status'];
+    protected $fillable = ['uid', 'adress', 'det_address', 'name', 'tel', 'status'];
 
 }
