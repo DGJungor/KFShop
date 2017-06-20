@@ -16,7 +16,8 @@ class TypesController extends Controller
      */
     public function index()
     {
-        $dataObj = \DB::table('types')->where('pid', '0')->paginate(10);
+        // $sql = concat('path', 'id');
+        $dataObj = \DB::select('select * from data_types order by concat(path,id) asc' );
         // dd($dataObj);
         return view('admin.types.index', compact('dataObj') );
     }
@@ -28,7 +29,7 @@ class TypesController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.types.add');
     }
 
     /**
@@ -39,8 +40,16 @@ class TypesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $num = \DB::table('data_types')->insert(
+            ['pid' => '0', 'name' => $request->typename, 'path' => '0,' ]
+        );
+        if($num){
+            return redirect('/admin/types')->with(['success' => '添加成功！']);
 
+        }else{
+            return redirect('/admin/types')->with(['success' => '添加失败！']);
+
+        }
     }
 
     /**
@@ -51,7 +60,8 @@ class TypesController extends Controller
      */
     public function show($id)
     {
-        return view('admin.types.show');
+        $dataObj = Type::find($id);
+        return view('admin.types.create', compact('dataObj'));
     }
 
     /**
@@ -62,9 +72,7 @@ class TypesController extends Controller
      */
     public function edit($id)
     {
-        $dataObj = Type::find($id);
-        // dd($dataObj);
-        return view('admin.types.edit', compact('dataObj'));
+        //
     }
 
     /**
@@ -77,20 +85,15 @@ class TypesController extends Controller
     public function update(Request $request, $id)
     {
         // dd($request->all());
-        if (Good::where('id','=',$id)->update([
-            'goodname'=>$request->goodname,
-            'typeid' =>$request->typeid,
-            'buy'=>$request->buy,
-            'brand'=>$request->brand,
-            'describe'=>$request->describe,
-            'suit'=>$request->suit,
-            'makein'=>$request->makein,
-            'state'=>$request->state,
-            ]))
-        {
-            return redirect('/admin/types')->with(['success' => '修改成功！']);
-        } else {
-            return back()->with(['success' => '修改失败！']);
+        $num = \DB::table('data_types')->insert(
+            ['pid' => $id, 'name' => $request->typename, 'path' => $request->path.$id.',' ]
+        );
+        if($num){
+            return redirect('/admin/types')->with(['success' => '添加成功！']);
+
+        }else{
+            return redirect('/admin/types')->with(['success' => '添加失败！']);
+
         }
     }
 
@@ -102,11 +105,19 @@ class TypesController extends Controller
      */
     public function destroy($id)
     {
-        if(Good::destroy($id)){
-            return redirect('/admin/types')->with(['success' => '删除成功！']);
-        } else{
-            return back()->with(['success' => '删除失败']);
-        }
+        $data = \DB::select('select * from data_types where pid = '.$id);
+        if (empty($data)) {
 
+
+            if(Type::destroy($id)){
+                return redirect('/admin/types')->with(['success' => '删除成功！']);
+            } else{
+                return back()->with(['success' => '删除失败']);
+            }
+        }else{
+
+            return back()->with(['success' => '删除失败, 不能删除有子类的分类']);
+
+        }
     }
 }

@@ -27,7 +27,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 
     Route::resource('types', 'TypesController');
 
-	Route::get('goods', 'GoodsController@index');
+	Route::post('goods/ajax', 'GoodsController@ajax');
 
 	//后台反馈路由
 	Route::get('feedback', 'FeedbackController@index');
@@ -42,7 +42,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 	//后台友情链接路由
 	Route::get('friends', 'FriendController@index');
 
-    
+
 
 
 });
