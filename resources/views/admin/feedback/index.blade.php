@@ -18,7 +18,11 @@
 @endsection
 
 @section('success')
-
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
     @endsection
 
 
@@ -69,8 +73,9 @@
                                 <td>{{$v->user_id}}</td>
                                 <td>{{$v->created_at}}</td>
                                 <td>
-                                    <form action=" " method="POST">
-                                        <a href=" ">
+                                    <form action="feedback/{{$v->id}}" method="POST">
+                                        <input type="hidden" name="user_id" value="{{ $v->user_id }}">
+                                        <a href="feedback/{{$v->id}} ">
                                             <button id="btnEdit" type="button" class="btn btn-warning">
                                                 <span class="glyphicon glyphicon-edit"
                                                       aria-hidden="true"></span>

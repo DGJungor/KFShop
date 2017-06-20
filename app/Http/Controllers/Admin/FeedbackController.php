@@ -24,10 +24,45 @@ class FeedbackController extends Controller
 
 	}
 
-	public function details()
+	public function  show(Request $request, $id)
 	{
-		return view('admin.feedback.details');
+
+
+
+		//查询反馈信息为$id 的反馈详情星期
+		$data = \DB::table('data_feedback_details')->where('feedback_id', '=', $id)->get();
+
+		//输出视图模板
+		return view('admin.feedback.details', ['data' => $data[0]]);
+
+
 	}
 
+	public function destroy($id)
+	{
+		//开启事务
+		\DB::beginTransaction();
+
+		//删除 反馈表中的数据 并将结果放入到 info 变量中
+		$info = \DB::table('data_feedback')->where('id','=',$id)->delete();
+
+		//删除 反馈详情表中的数据 并将结果放入到 info2 变量中
+		$info2 = \DB::table('data_feedback_details')->where('feedback_id','=',$id)->delete();
+
+		//判断是否删除成功
+		if( $info && $info2 ){
+
+			//删除成功 并提交事务
+			\DB::commit();
+			return redirect('/admin/feedback')->with(['success' => '删除成功！']);
+
+		}else{
+
+			//删除失败 并回滚事务
+			\DB::rollBack();
+			return back()->with(['success' => '删除失败']);
+		}
+
+	}
 
 }

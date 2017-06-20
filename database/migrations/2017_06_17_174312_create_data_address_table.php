@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDataReceivingAddressTable extends Migration
+class CreateDataAddressTable extends Migration
 {
     /**
      * Run the migrations.
@@ -31,6 +31,6 @@ class CreateDataReceivingAddressTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('data_address');
+        Schema::drop('data_address');
     }
 }
