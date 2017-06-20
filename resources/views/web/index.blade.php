@@ -11,13 +11,15 @@
 <!-- 	<link rel="stylesheet" type="text/css" href="{{ url('Web') }}" />
 	<link rel="stylesheet" type="text/css" href="{{ url('/web/css/doubleDate.css') }}" />
 	<link rel="stylesheet" type="text/css" href="{{ url('/web/css/index.css') }}" />
-	<link rel="stylesheet" type="text/css" href="{{ url('/web/css/shopping-mall-index.css') }}" />
+	
 	<link rel="stylesheet" type="text/css" href="{{ url('/web/css/star-rating.css') }}" />
 	<link rel="stylesheet" type="text/css" href="{{ url('/web/css/star-rating.min.css') }}" />
 	<link rel="stylesheet" type="text/css" href="{{ url('/web/css/style2.css') }}" />
 	
 	<link rel="stylesheet" type="text/css" href="{{ url('/web/css/zhonglinggxm2.css') }}" /> -->
-    <link rel="stylesheet" type="text/css" href="{{ url('/web/css/zhonglingxm2.css') }}" />
+    
+    
+    @yield('css')
 	<script type="text/javascript" src="{{ url('/web/js/jquery.js') }}"></script>
 	<script type="text/javascript" src="{{ url('/web/js/zhonglin.js') }}"></script>
 	<script type="text/javascript" src="{{ url('/web/js/zhongling2.js') }}"></script>

@@ -16,6 +16,7 @@
 
 
 Route::get('/', function () {
+
 	return view('web.index');
 });
 
@@ -31,6 +32,8 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 
     Route::resource('types', 'TypesController');
 
+    Route::resource('friends', 'FriendController');
+
 	Route::post('goods/ajax', 'GoodsController@ajax');
 
 	//后台反馈组
@@ -41,6 +44,12 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 
 	//后台友情链接路由
 	Route::get('friends', 'FriendController@index');
+
+	//前台用户路由
+    Route::resource('users', 'usersController');
+
+    //后台用户路由
+    Route::resource('adminusers', 'AdminUsersController');
 
 
 });

@@ -15,6 +15,7 @@
     <link href="{{ asset('/style/css/plugins/iCheck/custom.css') }}" rel="stylesheet">
     <link href="{{ asset('/style/css/animate.css') }}" rel="stylesheet">
     <link href="{{ asset('/style/css/style.css?v=2.2.0') }}" rel="stylesheet">
+    @yield('css')
 
 </head>
 
@@ -70,6 +71,14 @@
                         </ul>
                         <ul class="nav nav-second-level">
                             <li><a href="{{ url('admin/types/create') }}">商品分类管理</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="active">
+                        <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">友情链接</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
+                            <li><a href="{{ url('admin/friends') }}">友情链接管理</a>
+                            <li><a href="{{ url('admin/friends/add') }}">添加友情链接</a>
                             </li>
                         </ul>
                     </li>

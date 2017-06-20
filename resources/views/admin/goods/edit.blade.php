@@ -24,7 +24,7 @@
 	            </div>
 	        </div>
 	        <div class="ibox-content">
-	            <form method="post" action="/admin/goods/{{$dataObj->id}}" class="form-horizontal bs-docs-example">
+	            <form method="post" action="/admin/goods/{{$dataObj->id}}/" class="form-horizontal bs-docs-example">
                 <input type="hidden" name="_method" value="PUT">
 	                <div class="form-group">
 	                    <label class="col-sm-2 control-label">商品名称</label>

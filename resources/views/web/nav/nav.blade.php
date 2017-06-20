@@ -10,7 +10,12 @@
 
 @endsection
 
+@section('css')
 
+<link rel="stylesheet" type="text/css" href="{{ url('/web/css/zhonglingxm2.css') }}" />
+
+
+@endsection
 
 @section('nav')
 
