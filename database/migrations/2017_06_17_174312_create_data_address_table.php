@@ -31,6 +31,6 @@ class CreateDataAddressTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('data_address');
+        Schema::drop('data_address');
     }
 }

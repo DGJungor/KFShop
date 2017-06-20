@@ -51,17 +51,25 @@
                         </div>
 
                     </li>
-                    <li class="active">
-                        <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">主页</span> <span class="fa arrow"></span></a>
-                        <ul class="nav nav-second-level">
-                            <li><a href="">主页示例一</a>
-                        </ul>
-                    </li>
-                    <li class="active">
+                    <li class="">
                         <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">商品</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li><a href="{{ url('admin/goods') }}">商品管理</a>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-second-level">
+                            <li><a href="{{ url('admin/goods/create') }}">商品添加</a>
+                            </li>
+                        </ul>
+                    </li>
+                     <li class="">
+                        <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">商品分类</span> <span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level">
                             <li><a href="{{ url('admin/types') }}">商品分类管理</a>
+                            </li>
+                        </ul>
+                        <ul class="nav nav-second-level">
+                            <li><a href="{{ url('admin/types/create') }}">商品分类管理</a>
                             </li>
                         </ul>
                     </li>

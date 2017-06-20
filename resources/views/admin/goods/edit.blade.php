@@ -16,7 +16,7 @@
 	<div class="col-lg-12">
 	    <div class="ibox float-e-margins">
 	        <div class="ibox-title">
-	            <h5>正在编辑的商品是 <small>{{$dataObj->goodname}}</small></h5>
+	            <h5>正在编辑的商品是 <strong>{{$dataObj->goodname}}</strong></h5>
 	            <div class="ibox-tools">
 	                <a class="close-link">
 	                    <i class="fa fa-times"></i>
