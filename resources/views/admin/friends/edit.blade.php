@@ -29,7 +29,9 @@
                                
                             </div>
                             <div class="ibox-content">
-                                <form method="post" action="admin/friends/{{$dataObj->id}}/" class="form-horizontal">
+                                <form method="post" action="/admin/friends/{{$dataObj->id}}/" class="form-horizontal">
+                                    <input type="hidden" name="_method" value="PUT">
+                                    {{--<input type="hidden" name="_token" value="{{csrf_token()}}">--}}
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">友情链接名称:</label>
 
@@ -44,10 +46,10 @@
                                         </label>
                                         <div class="radio i-checks">
                                         <div class="col-sm-10">
-                                            <input type="radio" value="1" name="a" @if($dataObj->type == 1) checked @endif > <i>图片</i>
-                                            <input type="radio" value="2" name="a" @if($dataObj->type == 2) checked @endif > <i>文字</i>
+                                            <input type="radio" value="1" name="type" @if($dataObj->type = 1) checked @endif > <i>图片</i>
+                                            <input type="radio" value="2" name="type" @if($dataObj->type = 2) checked @endif > <i>文字</i>
                                             </div>   
-                                            <!-- {{dump($dataObj)}} -->          
+                                            {{--{{dump($dataObj)}}--}}
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
@@ -76,18 +78,18 @@
                                         </label>
                                         <div class="radio i-checks">
                                         <div class="col-sm-10">
-                                        <input type="radio" value="0" name="b" @if($dataObj->status == 0) checked @endif > <i>启用</i>
-                                        <input type="radio" value="1" name="b" @if($dataObj->status == 1) checked @endif > <i>禁用</i>           
+                                            <input type="radio" value="0" name="status" @if($dataObj->status = 0) checked @endif > <i>启用</i>
+                                            <input type="radio" value="1" name="status" @if($dataObj->status = 1) checked @endif > <i>禁用</i>
                                         </div>
                                         </div>
                                     </div>
-
+                                    {!! csrf_field() !!}
                                     <div class="hr-line-dashed"></div>
                                     <div class="form-group">
                                         <div class="col-sm-4 col-sm-offset-2">
-                                         {!! csrf_field() !!}
+
                                             <button class="btn btn-primary" type="submit">确定修改</button>
-                                            <button class="btn btn-danger" type="restart">取消修改</button>
+
                                         </div>
                                     </div>
                                 </form>

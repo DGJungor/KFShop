@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-
+use Storage;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Admin\Friend;
+use DB;
 
 class FriendController extends Controller
 {
-	/**
-	*显示友情链接列表
-	*
-	*/
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         $data = \DB::table('data_friend_link')->get();
@@ -26,9 +26,9 @@ class FriendController extends Controller
         return view('admin.friends.index', compact('data', 'type', 'status'));
     }
     /**
-    *
-    *链接修改页面
-    */
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function edit($id)
     {
         $dataObj = Friend::find($id);
@@ -37,21 +37,85 @@ class FriendController extends Controller
 
     }
     /**
-    *修改友情链接的方法
-    *
-    */
-    public function updata(Request $request, $id)
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(Request $request, $id)
     {
-        
-        dump($request->all());
-
+//        dd($request);
+        dump($request);
+        if(Friend::where('id','=',$id)->update([
+            'name'=>$request->name,
+            'type'=>$request->type,
+            'url'=>$request->url,
+            'image'=>$request->image,
+            'status'=>$request->status,
+        ]))
+        {
+            return redirect('/admin/friends/edit')->with(['success'=>'修改成功']);
+        }else{
+            return back()->with(['success'=>'修改失败']);
+        }
     }
-     /**
-    *删除友情链接的方法
-    *
-    */
-     // public function del($id)
-     // {
-     // 	//
-     // }
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+      public function show($id)
+      {
+            $post=Friend::find($id);
+            dd($post);
+
+            return view('admin.friends.show', compact('post'));
+      }
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+      public function create()
+      {
+          return view('admin.friends.create');
+      }
+    /**
+     *
+     */
+      public function store(Request $request)
+      {
+//       dump($request->all());
+
+          $this->validate($request, [
+              'name' => 'required|min:1|max:30',
+              'url' => 'required',
+              'image'=>'required',
+          ],[
+                'required' => ':attribute 是必填字段',
+                'min' => ':attribute 必须不少于3个字符',
+                'max' => ':attribute 必须少于30个字符',
+
+          ],[
+                'name'=>'友情链接名称',
+                  'url'=>'链接地址',
+                  'image'=>'图片名称',
+              ]
+          );
+
+          $post= $request->all();
+//          dd($post);
+          if(Friend::create($post)){
+              return redirect('/admin/friends')->with(['success'=>'添加成功']);
+          }else{
+              return back()->with(['添加失败']);
+          }
+      }
+
+      public function destroy($id)
+      {
+        if(Friend::destroy($id)){
+            return redirect('/admin/friends')->with(['删除成功']);
+        }else{
+            return back()->with(['删除失败']);
+        }
+
+      }
+
 }

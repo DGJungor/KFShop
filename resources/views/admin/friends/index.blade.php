@@ -43,9 +43,9 @@
                                     </div>
                                 </div>
                             </form>
-                                <h4>
+                                <h3>
                                      友情链接列表
-                                </h4>
+                                </h3>
                             <div class="mail-tools tooltip-demo m-t-md">
                                 <div class="btn-group pull-right">
                                     <button class="btn btn-white btn-sm"><i class="fa fa-arrow-left"></i>
@@ -91,21 +91,31 @@
                                             <td class="text-center ">{{ $v->id }}</td>
                                             <td class="text-center ">{{ $v->name }}</td>
                                             <td class="text-center ">{{ $type[$v->type] }}</td>
-                                            <td class="text-center ">http://:{{ $v->url }}</td>
+                                            <td class="text-center ">http://{{ $v->url }}</td>
                                             <td class="text-center ">{{ $v->image }}</td>
                                             <td class="text-center ">{{ $status[$v->status] }}</td>
                                             <td class="text-center">
-                                                <form action="friends{{$v->id}}" method="POST">
-                                                <input type="hidden" name="_method" value="DELETE">
+                                                <form action="friends/{{$v->id}}" method="POST">
+
                                                 <span>&nbsp;</span>
                                                 <span>&nbsp;</span>
-                                                {!! csrf_field() !!}
-                                                <a href="/admin/friends/{{$v->id}}/edit"><i id="Edit" class="glyphicon glyphicon-edit text-navy"></i></a>
-                                                <span>&nbsp;</span> 
-                                                <span>&nbsp;</span> 
-                                                <span>&nbsp;</span> 
-                                                <span>&nbsp;</span> 
-                                                <a href=""><i id="Del" class="glyphicon glyphicon-remove-sign text-danger"></i></a>
+
+                                                <a href="/admin/friends/{{$v->id}}/edit">
+                                                    <button id="btnEdit" type="button"  >
+                                                        <span class="glyphicon glyphicon-edit text-navy" aria-hidden="true"></span>
+                                                    </button>
+                                                    {{--<i id="Edit" class="glyphicon glyphicon-edit text-"></i>--}}
+                                                </a>
+                                                <span>&nbsp;</span>
+                                                <span>&nbsp;</span>
+                                                <span>&nbsp;</span>
+                                                <span>&nbsp;</span>
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    {!! csrf_field() !!}
+                                                    <button id="btnDel" type="submit" class="" data-toggle="modal" data-target="#DeleteForm" onclick="">
+                                                        <span class="glyphicon glyphicon-remove-sign text-danger" aria-hidden="true"></span>
+                                                    </button>
+                                                {{--<i id="Del" class="glyphicon glyphicon-remove-sign text-danger"></i>--}}
                                                 </form>
                                             </td>
                                         </tr>
