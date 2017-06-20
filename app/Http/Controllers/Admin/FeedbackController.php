@@ -33,7 +33,7 @@ class FeedbackController extends Controller
 		$data = \DB::table('data_feedback_details')->where('feedback_id', '=', $id)->get();
 
 		//输出视图模板
-		return view('admin.feedback.details', ['data' => $data[0]]);
+		return view('admin.feedback.details', ['data' => $data]);
 
 
 	}

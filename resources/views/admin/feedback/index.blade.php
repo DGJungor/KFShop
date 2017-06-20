@@ -23,6 +23,7 @@
             {{ session('success') }}
         </div>
     @endif
+    {{--{{ dd($data) }}--}}
     @endsection
 
 

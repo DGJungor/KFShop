@@ -46,11 +46,11 @@
 
 
                 <h3>
-                    <span class="font-noraml">主题： </span>{{ $data->{'title'} }}
+                    <span class="font-noraml">主题： </span>{{ $data[0]->{'title'} }}
                 </h3>
                 <h5>
-                    <span class="pull-right font-noraml">发送时间:{{ $data->{'created_at'}  }}</span>
-                    <span class="font-noraml">发件人： </span> {{ $data->{'user_id'} }}
+                    <span class="pull-right font-noraml">发送时间:{{ $data[0]->{'created_at'}  }}</span>
+                    <span class="font-noraml">发件人： </span> {{ $data[0]->{'user_id'} }}
                 </h5>
             </div>
         </div>
@@ -61,7 +61,7 @@
                 <h4>  </h4>
                 <p>
                     {{-- p标签里面写的这是正文 --}}
-                    {{ $data->{'text'}  }}
+                    {{ $data[0]->{'text'}  }}
                 </p>
 
                 <p class="text-right">
@@ -124,15 +124,17 @@
                     <div class="clearfix"></div>
                 </div>
             </div>
-            <form action="/admin/feedback/del" method="POST">
-                <input type="hidden" name="feedback_id" value="{{ $data->{'feedback_id'} }}">
-                {{csrf_field()}}
+            <form action="{{ $data[0]->{'feedback_id'} }}" method="POST">
+
+
             <div class="mail-body text-right tooltip-demo">
                 <a class="btn btn-sm btn-white" href="mail_compose.html"><i class="fa fa-reply"></i> 回复</a>
                 <a class="btn btn-sm btn-white" href="mail_compose.html"><i class="fa fa-arrow-right"></i> 下一封</a>
                 <button title="" data-placement="top" data-toggle="tooltip" type="button" data-original-title="打印这封邮件"
                         class="btn btn-sm btn-white"><i class="fa fa-print"></i> 打印
                 </button>
+                <input type="hidden" name="_method" value="DELETE">
+                {{csrf_field()}}
                 <input type="submit" title="" data-placement="top" data-toggle="tooltip" data-original-title="删除邮件"
                         class="btn btn-sm btn-white"  name="action" value="删除邮件" >
                 </input>

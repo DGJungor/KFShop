@@ -33,7 +33,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 	Route::resource('feedback','FeedbackController');
 
 	//后台订单路由
-	Route::resource('orders', 'OrdersController@index');
+	Route::resource('orders', 'OrdersController');
 
 	//后台友情链接路由
 	Route::get('friends', 'FriendController@index');
