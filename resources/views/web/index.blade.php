@@ -8,7 +8,7 @@
 	<title>@yield('title')</title>
 	
 	<link rel="stylesheet" type="text/css" href="{{ url('/web/css/style.css') }}" />
-<!-- 	<link rel="stylesheet" type="text/css" href="{{ url('/web/css/bootstrap.min.css') }}" />
+<!-- 	<link rel="stylesheet" type="text/css" href="{{ url('Web') }}" />
 	<link rel="stylesheet" type="text/css" href="{{ url('/web/css/doubleDate.css') }}" />
 	<link rel="stylesheet" type="text/css" href="{{ url('/web/css/index.css') }}" />
 	<link rel="stylesheet" type="text/css" href="{{ url('/web/css/shopping-mall-index.css') }}" />
@@ -24,7 +24,7 @@
 	<script type="text/javascript" src="{{ url('/web/js/star-rating.js') }}"></script>
 	<script type="text/javascript" src="{{ url('/web/js/doubleDate2.0.js') }}"></script>
 	<script type="text/javascript" src="{{ url('/web/js/jquery-1.4.2.min.js') }}"></script>
-
+    @yield('css')
 </head>
 
 <body id="top">
@@ -104,7 +104,7 @@
     	<ul class="footer-info1 w1200">
         	<li>
             	<div class="ft-tu1">
-                	<a href="JavaScript:;"><img src="{{ url('/web/images/zl2-86.gif') }}" /></a>
+                	<a href="JavaScript:;"><img src="{{ url('Web') }}" /></a>
                 </div>
                 <h3><a href="JavaScript:;">号码保障</a></h3>
                 <P>所有会员，手机短信验证</P>

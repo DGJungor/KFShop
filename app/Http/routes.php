@@ -16,8 +16,12 @@
 
 
 Route::get('/', function () {
-	return view('welcome');
+	return view('web.index');
 });
+
+
+Route::get('cart','CartController@index');
+
 
 
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
