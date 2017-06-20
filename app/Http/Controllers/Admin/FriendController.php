@@ -26,8 +26,8 @@ class FriendController extends Controller
         return view('admin.friends.index', compact('data', 'type', 'status'));
     }
     /**
-    *@return \resourcess\view\admin\friends
     *
+    *链接修改页面
     */
     public function edit($id)
     {
@@ -40,9 +40,11 @@ class FriendController extends Controller
     *修改友情链接的方法
     *
     */
-    public function updata(Request $resquest, $id)
+    public function updata(Request $request, $id)
     {
-        dd($resquest->all());
+        
+        dump($request->all());
+
     }
      /**
     *删除友情链接的方法

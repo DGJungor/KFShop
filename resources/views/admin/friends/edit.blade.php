@@ -25,11 +25,11 @@
                     <div class="col-lg-12">
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
-                                <h3>修改链接 <small>正在修改的是 : {{$dataObj->name}}</small></h3>
+                                <h3>修改链接 </h3>
                                
                             </div>
                             <div class="ibox-content">
-                                <form method="post" action="admin/friends/{{$dataObj->id}}" class="form-horizontal">
+                                <form method="post" action="admin/friends/{{$dataObj->id}}/" class="form-horizontal">
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">友情链接名称:</label>
 
