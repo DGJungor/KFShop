@@ -16,7 +16,7 @@
 	<div class="col-lg-12">
 	    <div class="ibox float-e-margins">
 	        <div class="ibox-title">
-	            <h5>正在编辑的商品是 <small>{{$dataObj->goodname}}</small></h5>
+	            <h5>正在编辑的商品是 <strong>{{$dataObj->goodname}}</strong></h5>
 	            <div class="ibox-tools">
 	                <a class="close-link">
 	                    <i class="fa fa-times"></i>
@@ -24,7 +24,7 @@
 	            </div>
 	        </div>
 	        <div class="ibox-content">
-	            <form method="post" action="/admin/goods/{{$dataObj->id}}" class="form-horizontal bs-docs-example">
+	            <form method="post" action="/admin/goods/{{$dataObj->id}}/" class="form-horizontal bs-docs-example">
                 <input type="hidden" name="_method" value="PUT">
 	                <div class="form-group">
 	                    <label class="col-sm-2 control-label">商品名称</label>

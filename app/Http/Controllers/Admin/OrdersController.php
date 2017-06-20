@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 
 class OrdersController extends Controller
 {
-    //
+	//
 	public function index()
 	{
 
@@ -20,7 +20,18 @@ class OrdersController extends Controller
 		$data = \DB::table('data_orders')->Paginate(10);
 
 		//输出订单页首页模板
-		return view('admin.orders.index',compact('data','count'));
+		return view('admin.orders.index', compact('data', 'count'));
+
+	}
+
+	public function destroy($id)
+	{
+		$info = \DB::table('data_orders')->where('guid','=',$id)->delete();
+		if($info){
+			return redirect('/admin/orders')->with(['success' => '删除成功！']);
+		}else{
+			return back()->with(['success' => '删除失败']);
+		}
 
 	}
 }

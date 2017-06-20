@@ -21,8 +21,12 @@
 @endsection
 
 @section('success')
-
-    @endsection
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+@endsection
 
 @section('content')
     <div class="wrapper wrapper-content animated fadeInRight">
@@ -113,7 +117,7 @@
                                         <td class="center ">{{ $v->created_at }}</td>
                                         <td class="center ">{{ $v->pay_status }}</td>
                                         <td class="center ">
-                                            <form action=" " method="POST">
+                                            <form action="orders/{{  $v->guid }} " method="POST">
                                                 <a href=" ">
                                                     <button id="btnEdit" type="button" class="btn btn-warning">
                                                         <span class="glyphicon glyphicon-edit"
@@ -147,7 +151,8 @@
                         <div class="row">
                             <div class="col-sm-8">
                                 <div class="dataTables_info" id="DataTables_Table_0_info" role="alert"
-                                     aria-live="polite" aria-relevant="all">显示 1 到 10 项，共 {{ $count[0]->{'count(*)'} }} 项
+                                     aria-live="polite" aria-relevant="all">显示 1 到 10 项，共 {{ $count[0]->{'count(*)'} }}
+                                    项
                                 </div>
                             </div>
                             <div class="col-sm-4">

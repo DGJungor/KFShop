@@ -7,7 +7,6 @@
     <h2>商品列表</h2>
 </div>
 <div class="col-lg-2">
-    温馨提示：新增商品请移步到<a href="{{ url('admin/types') }}">商品分类</a>
 </div>
 @endsection
 
@@ -64,14 +63,14 @@
                                 <td>
                                     <form action="goods/{{$v['id']}}" method="POST">
                                         <a href="goods/{{$v['id']}}/edit">
-                                            <button id="btnEdit" type="button" class="btn btn-warning">  
-                                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>  
+                                            <button id="btnEdit" type="button" class="btn btn-warning">
+                                                <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
                                             </button>
                                         </a>
                                         <input type="hidden" name="_method" value="DELETE">
                                         {!! csrf_field() !!}
-                                        <button id="btnDel" type="submit" class="btn btn-danger" data-toggle="modal" data-target="#DeleteForm" onclick="">  
-                                            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>  
+                                        <button id="btnDel" type="submit" class="btn btn-danger" data-toggle="modal" data-target="#DeleteForm" onclick="">
+                                            <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
                                         </button>
                                     </form>
                                 </td>
@@ -82,8 +81,8 @@
                         </tbody>
 
                     </table>
-                    <center>{{$dataObj->links()}}</center>
-                    
+                    <center>{{ $dataObj->links() }}</center>
+
                 </div>
 
             </div>

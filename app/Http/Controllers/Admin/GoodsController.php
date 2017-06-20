@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
+use Storage;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -30,19 +30,59 @@ class GoodsController extends Controller
      */
     public function create()
     {
-        //
+        $dataObj = \DB::table('data_types')->where('pid','0')->get();
+        return view('admin.goods.create', compact('dataObj'));
     }
 
     /**
      * Store a newly created resource in storage.
-     *
+     * //处理商品添加和文件上传
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        // dd($request);
+        if ($request->isMethod('post')) {
 
+            $file = $request->file('picture');
+            // dd($file);
+            // 文件是否上传成功
+            if ( $file->isValid() ) {
+
+                $row = \DB::table('data_goods')->insert([
+                    'goodname'=>$request->goodname,
+                    'typeid' =>0,//$request->typeid,
+                    'buy'=>$request->buy,
+                    'brand'=>$request->brand,
+                    'describe'=>$request->describe,
+                    // 'picname'=>$filename,
+                    'suit'=>$request->suit,
+                    'makein'=>$request->makein,
+                    'state'=>$request->state,
+                ]);
+
+                if ($row){
+                    // 获取文件相关信息
+                    $originalName = $file->getClientOriginalName(); // 文件原名
+                    $ext = $file->getClientOriginalExtension();     // 扩展名
+                    $realPath = $file->getRealPath();   //临时文件的绝对路径
+                    $type = $file->getClientMimeType();     // image/jpeg
+                    // dd($realPath);
+                    // 上传文件
+                    $filename = date('Y-m-d-H-i-s') . '-' . uniqid() . '.' . $ext;
+                    // 使用我们新建的uploads本地存储空间（目录）
+                    $bool = Storage::disk('uploads')->put($filename, file_get_contents($realPath));
+
+                    return redirect('/admin/goods')->with(['success' => '添加商品成功！']);
+                } else {
+                    return back()->with(['success' => '添加失败！']);
+                }
+
+            }else {
+                $request->file('picture')->move('upload');
+            }
+        }
     }
 
     /**
@@ -78,7 +118,7 @@ class GoodsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($request->all());
+        dd($request->all());
         if (Good::where('id','=',$id)->update([
             'goodname'=>$request->goodname,
             'typeid' =>$request->typeid,
@@ -110,5 +150,15 @@ class GoodsController extends Controller
             return back()->with(['success' => '删除失败']);
         }
 
+    }
+
+    /**
+     * ajax的请求操作
+     *
+     */
+    public function ajax(Request $request)
+    {
+        // var_dump($_GET);
+        return '3123123';
     }
 }
