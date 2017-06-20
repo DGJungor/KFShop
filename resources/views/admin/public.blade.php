@@ -15,6 +15,7 @@
     <link href="{{ asset('/style/css/plugins/iCheck/custom.css') }}" rel="stylesheet">
     <link href="{{ asset('/style/css/animate.css') }}" rel="stylesheet">
     <link href="{{ asset('/style/css/style.css?v=2.2.0') }}" rel="stylesheet">
+    @yield('css')
 
 </head>
 
