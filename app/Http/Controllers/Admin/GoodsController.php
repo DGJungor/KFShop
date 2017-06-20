@@ -159,6 +159,7 @@ class GoodsController extends Controller
     public function ajax(Request $request)
     {
         // var_dump($_GET);
-        return '3123123';
+        $dataObj = \DB::table('data_types')->where('pid','0')->get();
+        return compact('dataObj');
     }
 }
