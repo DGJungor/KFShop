@@ -46,7 +46,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 	Route::get('friends', 'FriendController@index');
 
 	//前台用户路由
-    Route::resource('users', 'usersController');
+    Route::resource('users', 'UsersController');
 
     //后台用户路由
     Route::resource('adminusers', 'AdminUsersController');

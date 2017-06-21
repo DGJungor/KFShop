@@ -10,11 +10,16 @@
 
 @section('content')
     <div class="wrapper wrapper-content animated fadeInRight">
+        @if (session('msg'))
+            <div class="alert {{ session('css') }} text-center">
+                {{ session('msg') }}
+            </div>
+        @endif
         <div class="row">
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>用户管理 <small>用户，查找</small></h5>
+                        <h5>用户管理</h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -48,7 +53,8 @@
                                 <th>手机号码</th>
                                 <th>性别</th>
                                 <th>状态</th>
-                                <th>操作</th>
+                                <th>查看|编辑</th>
+                                <th>删除</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -62,26 +68,23 @@
                                 <td>@if($v->sex == 1) 男 @elseif($v->sex == 2) 女 @else @endif</td>
                                 <td class="center">@if($v->status == 0) 禁用 @elseif($v->status == 1) 使用中 @endif</td>
                                 <td class="text-center">
-                                    <div class="form-horizontal">
-                                        <a href="/admin/users/{{$v->id}}">
-                                            <button>
-                                                <i class="glyphicon glyphicon-eye-open text-success"></i>
-                                            </button>
-                                        </a>
-                                        <a href="/admin/users/{{$v->id}}/edit">
-                                            <button>
-                                                <i class="glyphicon glyphicon-edit text-navy"></i>
-                                            </button>
-                                        </a>
-                                        <form action="/admin/users/{{$v->id}}" method="POST">
+                                    <a href="/admin/users/{{$v->id}}">
+                                            <i class="col-lg-2 glyphicon glyphicon-eye-open text-success"></i>
+                                    </a>
+                                    <a href="/admin/users/{{$v->id}}/edit">
+                                            <i class=" glyphicon glyphicon-edit text-navy"></i>
+                                    </a>
+                                </td>
+                                <td class="text-center">
+                                    <a href="javascript:;" onClick="deluser()"><i class="fa fa-trash text-danger"></i></a>
+                                        <form id="delform" action="/admin/users/{{$v->id}}" method="POST">
 
                                             <input type="hidden" name="_method" value="DELETE">
                                             {{ csrf_field() }}
-                                            <button type="submit">
-                                                <span class="glyphicon glyphicon-minus text-danger" aria-hidden="true"></span>
-                                            </button>
+                                            {{--<button type="submit">
+                                                <i class="fa fa-trash text-danger"></i>
+                                            </button>--}}
                                         </form>
-                                    </div>
                                 </td>
                             </tr>
                             @endforeach
@@ -95,7 +98,8 @@
                                 <th>手机号码</th>
                                 <th>性别</th>
                                 <th>状态</th>
-                                <th>操作</th>
+                                <th>查看|编辑</th>
+                                <th>删除</th>
                             </tr>
                             </tfoot>
                         </table>
@@ -151,10 +155,12 @@
                 "New row"]);
 
         }
-        // Close ibox function
-        $('.close-tr').click( function() {
-            var content = $(this).closest('tr.gradeA');
-            content.remove();
-        });
+
+        function deluser() {
+            if (confirm("确定要删除？")){
+                $("#delform").submit();
+            }
+        }
+
     </script>
 @endsection
