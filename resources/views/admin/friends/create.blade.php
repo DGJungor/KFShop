@@ -43,8 +43,8 @@
                                         <label class="col-sm-2 control-label">
                                         类型:
                                         </label>
-                                        <div class="radio i-checks">
-                                        <div class="col-sm-10">
+                                        <div class="">
+                                        <div class="">
                                             <input type="radio" value="1" name="type" checked> <i>图片</i>
                                             <input type="radio" value="2" name="type" > <i>文字</i>
                                             </div>   
