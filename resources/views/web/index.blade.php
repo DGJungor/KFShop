@@ -25,7 +25,7 @@
 	<script type="text/javascript" src="{{ url('/web/js/zhongling2.js') }}"></script>
 	<script type="text/javascript" src="{{ url('/web/js/star-rating.js') }}"></script>
 	<script type="text/javascript" src="{{ url('/web/js/doubleDate2.0.js') }}"></script>
-	<script type="text/javascript" src="{{ url('/web/js/jquery-1.4.2.min.js') }}"></script>
+	<script type="text/javascript" src="{{ url('/web/js/jquery.min.js') }}"></script>
     @yield('css')
 </head>
 
