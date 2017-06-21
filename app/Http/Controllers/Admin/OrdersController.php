@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 
 class OrdersController extends Controller
 {
-	//
+
 	public function index()
 	{
 
@@ -26,12 +26,17 @@ class OrdersController extends Controller
 
 	public function destroy($id)
 	{
-		$info = \DB::table('data_orders')->where('guid','=',$id)->delete();
-		if($info){
+		$info = \DB::table('data_orders')->where('guid', '=', $id)->delete();
+		if ($info) {
 			return redirect('/admin/orders')->with(['success' => '删除成功！']);
-		}else{
+		} else {
 			return back()->with(['success' => '删除失败']);
 		}
 
+	}
+
+	public function show()
+	{
+		return view('admin.orders.details');
 	}
 }

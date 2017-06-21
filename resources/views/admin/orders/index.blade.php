@@ -118,7 +118,7 @@
                                         <td class="center ">{{ $v->pay_status }}</td>
                                         <td class="center ">
                                             <form action="orders/{{  $v->guid }} " method="POST">
-                                                <a href=" ">
+                                                <a href="orders/ {{ $v->guid }}">
                                                     <button id="btnEdit" type="button" class="btn btn-warning">
                                                         <span class="glyphicon glyphicon-edit"
                                                               aria-hidden="true"></span>
