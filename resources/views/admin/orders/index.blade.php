@@ -37,18 +37,7 @@
                         <small>分类，查找</small>
                     </h5>
                     <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="table_data_tables.html#">
-                            <i class="fa fa-wrench"></i>
-                        </a>
-                        <ul class="dropdown-menu dropdown-user">
-                            <li><a href="table_data_tables.html#">选项1</a>
-                            </li>
-                            <li><a href="table_data_tables.html#">选项2</a>
-                            </li>
-                        </ul>
+                       {{--框框右上角--}}
 
                     </div>
                 </div>
@@ -96,7 +85,7 @@
                                     colspan="1" style="width: 128px;">订单状态
                                 </th>
                                 <th rowspan="1"
-                                    colspan="1" style="width: 110px;">操作
+                                    colspan="1" style="width: 200px;">操作
                                 </th>
                             </tr>
                             </thead>
@@ -129,6 +118,13 @@
 									default:
 										$status = '未知状态';
 								}
+								if($v->order_status!=2){
+									$but_status='disabled="disabled"';
+                                }else{
+									$but_status='';
+                                }
+
+
 								?>
 
 
@@ -146,16 +142,16 @@
                                         <td class="center ">
                                             <form action="orders/{{  $v->guid }} " method="POST">
                                                 <a href="orders/{{ $v->guid }}">
-                                                    <button id="btnEdit" type="button" class="btn btn-warning">
-                                                        <span class="glyphicon glyphicon-edit"
-                                                              aria-hidden="true"></span>
+                                                    <button id="btnEdit" type="button" class="btn btn-primary">查看订单
                                                     </button>
                                                 </a>
-                                                <input type="hidden" name="_method" value="DELETE">
+                                                <input type="hidden" name="_method" value="PUT">
+                                                <input type="hidden" name="type" value="SendOut">
+                                                <input type="hidden" name="guid" value="{{ $v->guid }}">
+                                                {{--<input type="hidden" name="_method" value="DELETE">--}}
                                                 {!! csrf_field() !!}
                                                 <button id="btnDel" type="submit" class="btn btn-danger"
-                                                        data-toggle="modal" data-target="#DeleteForm" onclick="">
-                                                    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                                                        data-toggle="modal" data-target="#DeleteForm" onclick="" {{ $but_status }}>确认发货
                                                 </button>
                                             </form>
 
