@@ -19,14 +19,15 @@
 	<link rel="stylesheet" type="text/css" href="{{ url('/web/css/zhonglinggxm2.css') }}" /> -->
     
     
-    @yield('css')
+    
 	<script type="text/javascript" src="{{ url('/web/js/jquery.js') }}"></script>
 	<script type="text/javascript" src="{{ url('/web/js/zhonglin.js') }}"></script>
 	<script type="text/javascript" src="{{ url('/web/js/zhongling2.js') }}"></script>
 	<script type="text/javascript" src="{{ url('/web/js/star-rating.js') }}"></script>
 	<script type="text/javascript" src="{{ url('/web/js/doubleDate2.0.js') }}"></script>
-	<script type="text/javascript" src="{{ url('/web/js/jquery-1.4.2.min.js') }}"></script>
+	<script type="text/javascript" src="{{ url('/web/js/jquery.min.js') }}"></script>
     @yield('css')
+
 </head>
 
 <body id="top">
@@ -36,6 +37,9 @@
     	<div class="zl-hd w1200">
         	<p class="hd-p1 f-l">
             	Hi!您好，欢迎来到购物网，请登录  <a href="#">【免费注册】</a>
+            </p>
+            <p class="hd-p1 f-l">
+                 <a href="feedback">【意见反馈】</a>
             </p>
         	<p class="hd-p2 f-r">
             	<a href="#">返回首页 (个人中心)</a><span>|</span>
@@ -106,7 +110,7 @@
     	<ul class="footer-info1 w1200">
         	<li>
             	<div class="ft-tu1">
-                	<a href="JavaScript:;"><img src="{{ url('Web') }}" /></a>
+                	<a href="JavaScript:;"><img src="{{ url('web/images/zl2-86.gif') }}" /></a>
                 </div>
                 <h3><a href="JavaScript:;">号码保障</a></h3>
                 <P>所有会员，手机短信验证</P>

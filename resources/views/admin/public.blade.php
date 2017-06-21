@@ -8,6 +8,7 @@
     <meta name="renderer" content="webkit">
 
 
+
     <title>@yield('title')</title>
 
     <link href="{{ asset('/style/css/bootstrap.min.css?v=3.4.0') }}" rel="stylesheet">
@@ -78,7 +79,7 @@
                         <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">友情链接</span> <span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li><a href="{{ url('admin/friends') }}">友情链接管理</a>
-                            <li><a href="{{ url('admin/friends/add') }}">添加友情链接</a>
+                            <li><a href="{{ url('admin/friends/create') }}">添加友情链接</a>
                             </li>
                         </ul>
                     </li>
@@ -219,14 +220,8 @@
 
     <!-- Peity -->
     <script src="{{ asset('/style/js/demo/peity-demo.js') }}"></script>
-    <script>
-$(document).ready(function () {
-    $('.i-checks').iCheck({
-        checkboxClass: 'icheckbox_square-green',
-        radioClass: 'iradio_square-green',
-    });
-});
-    </script>
+
+
     @yield('js')
 
 

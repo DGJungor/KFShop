@@ -1,10 +1,8 @@
 @extends('admin.public')
 
-
-
 @section('bigtitle')
     <div class="col-lg-10">
-        <h2>订单管理</h2>
+        <h2>订单详情</h2>
         <ol class="breadcrumb">
             <li>
                 <a href="index.html">主页</a>
@@ -13,11 +11,10 @@
                 <a>后台数据</a>
             </li>
             <li>
-                <strong>订单管理</strong>
+                <strong>订单详情详情</strong>
             </li>
         </ol>
     </div>
-
 @endsection
 
 @section('success')
@@ -26,19 +23,23 @@
             {{ session('success') }}
         </div>
     @endif
+
 @endsection
 
+
 @section('content')
+    {{--{{ dd($count) }}--}}
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>基本
-                        <small>分类，查找</small>
+                    <h5>订单编号:
+                        <small>{{ $data[0]->{'orders_guid'} }}</small>
                     </h5>
                     <div class="ibox-tools">
-                       {{--框框右上角--}}
-
+                        <h5>用户ID:
+                            <small>{{ $data[0]->{'user_id'} }}</small>
+                        </h5>
                     </div>
                 </div>
                 <div class="ibox-content">
@@ -67,99 +68,67 @@
                             <tr role="row">
                                 <th rowspan="1"
                                     colspan="1" style="width: 204px;">
-                                    订单编号
+                                    商品ID
                                 </th>
                                 <th rowspan="1"
-                                    colspan="1" style="width: 245px;">用户ID
+                                    colspan="1" style="width: 204px;">
+                                    商品图片
                                 </th>
                                 <th rowspan="1"
-                                    colspan="1" style="width: 215px;">支付交易号
+                                    colspan="1" style="width: 245px;">商品单价
                                 </th>
                                 <th rowspan="1"
-                                    colspan="1" style="width: 134px;">金额
+                                    colspan="1" style="width: 215px;">商品总额
+                                </th>
+
+                                <th rowspan="1"
+                                    colspan="1" style="width: 130px;">退货状态
                                 </th>
                                 <th rowspan="1"
-                                    colspan="1" style="width: 228px;">下单时间
+                                    colspan="1" style="width: 130px;">评论状态
                                 </th>
                                 <th rowspan="1"
-                                    colspan="1" style="width: 128px;">订单状态
-                                </th>
-                                <th rowspan="1"
-                                    colspan="1" style="width: 200px;">操作
+                                    colspan="1" style="width: 110px;">操作
                                 </th>
                             </tr>
                             </thead>
                             <tbody>
-
-
-							<?php $i = 0; ?>
+                            <?php $i=0 ?>
                             @foreach($data as $v)
-
-								<?php
-								switch ($v->order_status) {
-									case 1:
-										$status = '待付款';
-										break;
-									case 2:
-										$status = '待发货';
-										break;
-									case 3:
-										$status = '待收货';
-										break;
-									case 4:
-										$status = '待评价';
-										break;
-									case 5:
-										$status = '完成';
-										break;
-									case 6:
-										$status = '取消';
-										break;
-									default:
-										$status = '未知状态';
-								}
-								if($v->order_status!=2){
-									$but_status='disabled="disabled"';
-                                }else{
-									$but_status='';
-                                }
-
-
-								?>
-
 
                                 @if($i%2==0)
                                     <tr class="gradeA odd">
                                 @else
                                     <tr class="gradeA even">
                                         @endif
-                                        <td class="sorting_1">{{ $v->guid }}</td>
-                                        <td class=" ">{{$v->user_id}}</td>
-                                        <td class=" ">{{ $v->pay_transaction }}</td>
-                                        <td class="center ">{{ $v->total_amount }}</td>
-                                        <td class="center ">{{ $v->created_at }}</td>
-                                        <td class="center ">{{ $status }}</td>
-                                        <td class="center ">
-                                            <form action="orders/{{  $v->guid }} " method="POST">
-                                                <a href="orders/{{ $v->guid }}">
-                                                    <button id="btnEdit" type="button" class="btn btn-primary">查看订单
+                                        <td class="sorting_1">{{ $v->goods_id }}</td>
+                                        <td class="center"> </td>
+                                        <td class="center">{{ $v->cargo_price }}</td>
+                                        <td class="center"></td>
+                                        <td class="center"></td>
+                                        <td class="center"></td>
+                                        <td class="center">
+                                            <form action="orders/" method="POST">
+                                                <a href="orders/">
+                                                    <button id="btnEdit" type="button" class="btn btn-warning btn-xs">
+                                                        <span class="glyphicon glyphicon-edit"
+                                                              aria-hidden="true"></span>
                                                     </button>
                                                 </a>
-                                                <input type="hidden" name="_method" value="PUT">
-                                                <input type="hidden" name="type" value="SendOut">
-                                                <input type="hidden" name="guid" value="{{ $v->guid }}">
-                                                {{--<input type="hidden" name="_method" value="DELETE">--}}
+                                                <input type="hidden" name="_method" value="DELETE">
                                                 {!! csrf_field() !!}
-                                                <button id="btnDel" type="submit" class="btn btn-danger"
-                                                        data-toggle="modal" data-target="#DeleteForm" onclick="" {{ $but_status }}>确认发货
+                                                <button id="btnDel" type="submit" class="btn btn-danger btn-xs"
+                                                        data-toggle="modal" data-target="#DeleteForm" onclick="">
+                                                    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
                                                 </button>
                                             </form>
 
                                         </td>
                                     </tr>
-
-									<?php $i++; ?>
+                                    <?php  $i++; ?>
                                     @endforeach
+
+
                             </tbody>
                             <tfoot>
                             {{--<tr>--}}
@@ -174,12 +143,12 @@
                         <div class="row">
                             <div class="col-sm-8">
                                 <div class="dataTables_info" id="DataTables_Table_0_info" role="alert"
-                                     aria-live="polite" aria-relevant="all">显示 1 到 10 项，共 {{ $count[0]->{'count(*)'} }}
+                                     aria-live="polite" aria-relevant="all">显示 1 到 10 项，共 {{ $count }}
                                     项
                                 </div>
                             </div>
                             <div class="col-sm-4">
-                                {{ $data->links() }}
+                                {{--{{ $data->links() }}--}}
                             </div>
                         </div>
                     </div>
@@ -188,5 +157,5 @@
             </div>
         </div>
     </div>
-@endsection
 
+@endsection
