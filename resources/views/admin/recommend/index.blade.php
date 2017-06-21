@@ -54,8 +54,9 @@
                     @foreach($data as $v)
                     <div class="file-box">
                         <div class="file">
-                            <a href="#">
+                            <a href="/admin/recommend/{{$v->id}}/edit">
                                 <span class="corner"></span>
+                                {{dump($v->id)}}
 
                                 <div class="image">
                                     <img alt="image" class="img-responsive" src="/uploads/{{$v['recommend_picname']}}">
@@ -77,21 +78,34 @@
         </div>
     </div>
 </div>
-   <script src="js/jquery-2.1.1.min.js"></script>
-    <script src="js/bootstrap.min.js?v=3.4.0"></script>
-    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
-    <!-- Custom and plugin javascript -->
-    <script src="js/hplus.js?v=2.2.0"></script>
-    <script src="js/plugins/pace/pace.min.js"></script>
 
-    <script>
+   
+
+@endsection
+
+@section('js')
+ <script>
         $(document).ready(function () {
             $('.file-box').each(function () {
                 animationHover(this, 'pulse');
             });
         });
     </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @endsection

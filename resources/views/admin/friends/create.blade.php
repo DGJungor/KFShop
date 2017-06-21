@@ -44,7 +44,7 @@
                                         类型:
                                         </label>
                                         <div class="">
-                                        <div class="">
+                                        <div class="radio i-checks">
                                             <input type="radio" value="1" name="type" checked> <i>图片</i>
                                             <input type="radio" value="2" name="type" > <i>文字</i>
                                             </div>   
@@ -84,4 +84,15 @@
                     </div>
                 </div>
 
+@endsection
+@section('js')
+
+    <script>
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
+    </script>
 @endsection

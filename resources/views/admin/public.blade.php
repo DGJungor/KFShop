@@ -221,7 +221,15 @@
     <!-- Peity -->
     <script src="{{ asset('/style/js/demo/peity-demo.js') }}"></script>
 
-
+    <script src="{{ asset('/style/js/plugins/fancybox/jquery.fancybox.js') }}"></script>
+    <script>
+        $(document).ready(function () {
+            $('.fancybox').fancybox({
+                openEffect: 'none',
+                closeEffect: 'none'
+            });
+        });
+    </script>
     @yield('js')
 
 

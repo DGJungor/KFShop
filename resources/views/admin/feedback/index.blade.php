@@ -77,14 +77,14 @@
                                     <form action="feedback/{{$v->id}}" method="POST">
                                         <input type="hidden" name="user_id" value="{{ $v->user_id }}">
                                         <a href="feedback/{{$v->id}} ">
-                                            <button id="btnEdit" type="button" class="btn btn-warning">
+                                            <button id="btnEdit" type="button" class="btn btn-warning btn-xs">
                                                 <span class="glyphicon glyphicon-edit"
                                                       aria-hidden="true"></span>
                                             </button>
                                         </a>
                                         <input type="hidden" name="_method" value="DELETE">
                                         {!! csrf_field() !!}
-                                        <button id="btnDel" type="submit" class="btn btn-danger" data-toggle="modal"
+                                        <button id="btnDel" type="submit" class="btn btn-danger btn-xs" data-toggle="modal"
                                                 data-target="#DeleteForm" onclick="">
                                             <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
                                         </button>
