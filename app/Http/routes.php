@@ -20,9 +20,11 @@ Route::get('/', function () {
 	return view('web.index');
 });
 
-
+//前台购物车路由
 Route::get('cart','CartController@index');
 
+//前台信息反馈路由
+Route::get('feedback','FeedbackController@index');
 
 
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
