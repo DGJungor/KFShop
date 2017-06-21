@@ -35,8 +35,18 @@ class OrdersController extends Controller
 
 	}
 
-	public function show()
+
+	public function show($id)
 	{
-		return view('admin.orders.details');
+		//获取订单商品总数量
+		$count = \DB::table('data_orders_details')->where('orders_guid', '=', $id)->count();
+
+		//从数据库中取出订单号为$id的订单数据
+		$data = \DB::table('data_orders_details')->where('orders_guid', '=', $id)->get();
+
+		return view('admin.orders.details', [
+			'count' => $count,
+			'data' => $data,
+		]);
 	}
 }

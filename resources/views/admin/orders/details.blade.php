@@ -2,7 +2,7 @@
 
 @section('bigtitle')
     <div class="col-lg-10">
-        <h2>反馈</h2>
+        <h2>订单详情</h2>
         <ol class="breadcrumb">
             <li>
                 <a href="index.html">主页</a>
@@ -11,7 +11,7 @@
                 <a>后台数据</a>
             </li>
             <li>
-                <strong>反馈详情</strong>
+                <strong>订单详情详情</strong>
             </li>
         </ol>
     </div>
@@ -28,120 +28,132 @@
 
 
 @section('content')
-    <div class="wrapper wrapper-content">
-        <div class="col-lg-12 animated fadeInRight">
-            <div class="mail-box-header">
-                <div class="pull-right tooltip-demo">
-                    <a href="mail_compose.html" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top"
-                       title="回复"><i class="fa fa-reply"></i> 回复</a>
-                    <a href="mail_detail.html#" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top"
-                       title="打印邮件"><i class="fa fa-print"></i> </a>
-                    <a href="mailbox.html" class="btn btn-white btn-sm" data-toggle="tooltip" data-placement="top"
-                       title="标为垃圾邮件"><i class="fa fa-trash-o"></i> </a>
-                </div>
-                <h2>
-                    查看邮件
-                </h2>
-                <div class="mail-tools tooltip-demo m-t-md">
-
-
-                    <h3>
-                        <span class="font-noraml">主题： </span>
-                    </h3>
-                    <h5>
-                        <span class="pull-right font-noraml">发送时间:</span>
-                        <span class="font-noraml">发件人： </span>
+    {{--{{ dd($count) }}--}}
+    <div class="wrapper wrapper-content animated fadeInRight">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>订单编号:
+                        <small>{{ $data[0]->{'orders_guid'} }}</small>
                     </h5>
-                </div>
-            </div>
-            <div class="mail-box">
-
-
-                <div class="mail-body">
-                    <h4>  </h4>
-                    <p>
-                        {{-- p标签里面写的这是正文 --}}
-
-                    </p>
-
-                    <p class="text-right">
-
-                    </p>
-                </div>
-                <div class="mail-attachment">
-                    <p>
-                        <span><i class="fa fa-paperclip"></i> 2 个附件 - </span>
-                        <a href="mail_detail.html#">下载全部</a>
-                        |
-                        <a href="mail_detail.html#">预览全部图片</a>
-                    </p>
-
-                    <div class="attachment">
-                        <div class="file-box">
-                            <div class="file">
-                                <a href="mail_detail.html#">
-                                    <span class="corner"></span>
-
-                                    <div class="icon">
-                                        <i class="fa fa-file"></i>
-                                    </div>
-                                    <div class="file-name">
-                                        Document_2014.doc
-                                    </div>
-                                </a>
-                            </div>
-
-                        </div>
-                        <div class="file-box">
-                            <div class="file">
-                                <a href="mail_detail.html#">
-                                    <span class="corner"></span>
-
-                                    <div class="image">
-                                        <img alt="image" class="img-responsive" src="img/p1.jpg">
-                                    </div>
-                                    <div class="file-name">
-                                        Italy street.jpg
-                                    </div>
-                                </a>
-
-                            </div>
-                        </div>
-                        <div class="file-box">
-                            <div class="file">
-                                <a href="mail_detail.html#">
-                                    <span class="corner"></span>
-
-                                    <div class="image">
-                                        <img alt="image" class="img-responsive" src="img/p2.jpg">
-                                    </div>
-                                    <div class="file-name">
-                                        My feel.png
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                        <div class="clearfix"></div>
+                    <div class="ibox-tools">
+                        <h5>用户ID:
+                            <small>{{ $data[0]->{'user_id'} }}</small>
+                        </h5>
                     </div>
                 </div>
-                <form action=" " method="POST">
+                <div class="ibox-content">
+
+                    <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline" role="grid">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="dataTables_length" id="DataTables_Table_0_length"><label>每页 <select
+                                                name="DataTables_Table_0_length" aria-controls="DataTables_Table_0"
+                                                class="form-control input-sm">
+                                            <option value="10">10</option>
+                                            <option value="25">25</option>
+                                            <option value="50">50</option>
+                                            <option value="100">100</option>
+                                        </select> 条记录</label></div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div id="DataTables_Table_0_filter" class="dataTables_filter"><label>查找：<input
+                                                class="form-control input-sm" aria-controls="DataTables_Table_0"
+                                                type="search"></label></div>
+                            </div>
+                        </div>
+                        <table class="table table-striped table-bordered table-hover dataTables-example dataTable"
+                               id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info">
+                            <thead>
+                            <tr role="row">
+                                <th rowspan="1"
+                                    colspan="1" style="width: 204px;">
+                                    商品ID
+                                </th>
+                                <th rowspan="1"
+                                    colspan="1" style="width: 204px;">
+                                    商品图片
+                                </th>
+                                <th rowspan="1"
+                                    colspan="1" style="width: 245px;">商品单价
+                                </th>
+                                <th rowspan="1"
+                                    colspan="1" style="width: 215px;">商品总额
+                                </th>
+
+                                <th rowspan="1"
+                                    colspan="1" style="width: 130px;">退货状态
+                                </th>
+                                <th rowspan="1"
+                                    colspan="1" style="width: 130px;">评论状态
+                                </th>
+                                <th rowspan="1"
+                                    colspan="1" style="width: 110px;">操作
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php $i=0 ?>
+                            @foreach($data as $v)
+
+                                @if($i%2==0)
+                                    <tr class="gradeA odd">
+                                @else
+                                    <tr class="gradeA even">
+                                        @endif
+                                        <td class="sorting_1">{{ $v->goods_id }}</td>
+                                        <td class="center"> </td>
+                                        <td class="center">{{ $v->cargo_price }}</td>
+                                        <td class="center"></td>
+                                        <td class="center"></td>
+                                        <td class="center"></td>
+                                        <td class="center">
+                                            <form action="orders/" method="POST">
+                                                <a href="orders/">
+                                                    <button id="btnEdit" type="button" class="btn btn-warning btn-xs">
+                                                        <span class="glyphicon glyphicon-edit"
+                                                              aria-hidden="true"></span>
+                                                    </button>
+                                                </a>
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                {!! csrf_field() !!}
+                                                <button id="btnDel" type="submit" class="btn btn-danger btn-xs"
+                                                        data-toggle="modal" data-target="#DeleteForm" onclick="">
+                                                    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+                                                </button>
+                                            </form>
+
+                                        </td>
+                                    </tr>
+                                    <?php  $i++; ?>
+                                    @endforeach
 
 
-                    <div class="mail-body text-right tooltip-demo">
-                        <a class="btn btn-sm btn-white" href="mail_compose.html"><i class="fa fa-reply"></i> 回复</a>
-                        <a class="btn btn-sm btn-white" href="mail_compose.html"><i class="fa fa-arrow-right"></i> 下一封</a>
-                        <button title="" data-placement="top" data-toggle="tooltip" type="button" data-original-title="打印这封邮件"
-                                class="btn btn-sm btn-white"><i class="fa fa-print"></i> 打印
-                        </button>
-                        <input type="hidden" name="_method" value="DELETE">
-                        {{csrf_field()}}
-                        <input type="submit" title="" data-placement="top" data-toggle="tooltip" data-original-title="删除邮件"
-                               class="btn btn-sm btn-white"  name="action" value="删除邮件" >
-                        </input>
+                            </tbody>
+                            <tfoot>
+                            {{--<tr>--}}
+                            {{--<th rowspan="1" colspan="1">渲染引擎</th>--}}
+                            {{--<th rowspan="1" colspan="1">浏览器</th>--}}
+                            {{--<th rowspan="1" colspan="1">平台</th>--}}
+                            {{--<th rowspan="1" colspan="1">引擎版本</th>--}}
+                            {{--<th rowspan="1" colspan="1">CSS等级</th>--}}
+                            {{--</tr>--}}
+                            </tfoot>
+                        </table>
+                        <div class="row">
+                            <div class="col-sm-8">
+                                <div class="dataTables_info" id="DataTables_Table_0_info" role="alert"
+                                     aria-live="polite" aria-relevant="all">显示 1 到 10 项，共 {{ $count }}
+                                    项
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                {{--{{ $data->links() }}--}}
+                            </div>
+                        </div>
                     </div>
-                    <div class="clearfix"></div>
 
-                    <form>
+                </div>
             </div>
         </div>
     </div>

@@ -93,7 +93,7 @@
                                     colspan="1" style="width: 228px;">下单时间
                                 </th>
                                 <th rowspan="1"
-                                    colspan="1" style="width: 128px;">支付状态
+                                    colspan="1" style="width: 128px;">订单状态
                                 </th>
                                 <th rowspan="1"
                                     colspan="1" style="width: 110px;">操作
@@ -105,6 +105,33 @@
 
 							<?php $i = 0; ?>
                             @foreach($data as $v)
+
+								<?php
+								switch ($v->order_status) {
+									case 1:
+										$status = '待付款';
+										break;
+									case 2:
+										$status = '待发货';
+										break;
+									case 3:
+										$status = '待收货';
+										break;
+									case 4:
+										$status = '待评价';
+										break;
+									case 5:
+										$status = '完成';
+										break;
+									case 6:
+										$status = '取消';
+										break;
+									default:
+										$status = '未知状态';
+								}
+								?>
+
+
                                 @if($i%2==0)
                                     <tr class="gradeA odd">
                                 @else
@@ -115,10 +142,10 @@
                                         <td class=" ">{{ $v->pay_transaction }}</td>
                                         <td class="center ">{{ $v->total_amount }}</td>
                                         <td class="center ">{{ $v->created_at }}</td>
-                                        <td class="center ">{{ $v->pay_status }}</td>
+                                        <td class="center ">{{ $status }}</td>
                                         <td class="center ">
                                             <form action="orders/{{  $v->guid }} " method="POST">
-                                                <a href="orders/ {{ $v->guid }}">
+                                                <a href="orders/{{ $v->guid }}">
                                                     <button id="btnEdit" type="button" class="btn btn-warning">
                                                         <span class="glyphicon glyphicon-edit"
                                                               aria-hidden="true"></span>
