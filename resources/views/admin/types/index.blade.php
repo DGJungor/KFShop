@@ -57,11 +57,13 @@
                                 <td>
 
                                     <form action="types/{{ $v->id }}" method="POST">
+                                    @if($m < 2)
                                         <a href="types/{{ $v->id }}">
                                             <button id="btn" type="button" class="btn btn-primary">
                                                 <i class="fa fa-plus-square"></i>
                                             </button>
                                         </a>
+                                    @endif
                                         <input type="hidden" name="_method" value="DELETE">
                                         {!! csrf_field() !!}
                                         <button id="btnDel" type="submit" class="btn btn-danger" data-toggle="modal" data-target="#DeleteForm" onclick="">

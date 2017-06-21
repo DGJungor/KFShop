@@ -42,48 +42,59 @@ class GoodsController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request);
-        if ($request->isMethod('post')) {
+        $file = $request->file('picture');
+        // dd($file);
+        // 文件是否上传成功
+        if ( $file->isValid() ) {
+            // 获取文件相关信息
+            $originalName = $file->getClientOriginalName(); // 文件原名
+            $ext = $file->getClientOriginalExtension();     // 扩展名
+            $realPath = $file->getRealPath();   //临时文件的绝对路径
+            $type = $file->getClientMimeType();     // image/jpeg
+            // dd($realPath);
+            // 上传文件
+            $filename = date('Y-m-d-H-i-s') . '-' . uniqid() . '.' . $ext;
+            // 使用我们新建的uploads本地存储空间（目录）
+            $bool = Storage::disk('uploads')->put($filename, file_get_contents($realPath));
 
-            $file = $request->file('picture');
-            // dd($file);
-            // 文件是否上传成功
-            if ( $file->isValid() ) {
-
-                $row = \DB::table('data_goods')->insert([
-                    'goodname'=>$request->goodname,
-                    'typeid' =>0,//$request->typeid,
-                    'buy'=>$request->buy,
-                    'brand'=>$request->brand,
-                    'describe'=>$request->describe,
-                    // 'picname'=>$filename,
-                    'suit'=>$request->suit,
-                    'makein'=>$request->makein,
-                    'state'=>$request->state,
-                ]);
-
-                if ($row){
-                    // 获取文件相关信息
-                    $originalName = $file->getClientOriginalName(); // 文件原名
-                    $ext = $file->getClientOriginalExtension();     // 扩展名
-                    $realPath = $file->getRealPath();   //临时文件的绝对路径
-                    $type = $file->getClientMimeType();     // image/jpeg
-                    // dd($realPath);
-                    // 上传文件
-                    $filename = date('Y-m-d-H-i-s') . '-' . uniqid() . '.' . $ext;
-                    // 使用我们新建的uploads本地存储空间（目录）
-                    $bool = Storage::disk('uploads')->put($filename, file_get_contents($realPath));
-
-                    return redirect('/admin/goods')->with(['success' => '添加商品成功！']);
-                } else {
-                    return back()->with(['success' => '添加失败！']);
-                }
-
-            }else {
-                $request->file('picture')->move('upload');
+            if($request->other>0){
+                $typeid = $request->other;
+            } elseif ($request->five>0) {
+                $typeid = $request->five;
+            } elseif ($request->four>0) {
+                $typeid = $request->four;
+            } elseif ($request->three>0) {
+                $typeid = $request->three;
+            } elseif ($request->tow>0) {
+                $typeid = $request->tow;
+            } elseif ($request->typeid>0) {
+                $typeid = $request->typeid;
             }
+
+            $row = \DB::table('data_goods')->insert([
+                'goodname'=>$request->goodname,
+                'typeid' =>$typeid,
+                'buy'=>$request->buy,
+                'brand'=>$request->brand,
+                'describe'=>$request->describe,
+                'picname'=>$filename,
+                'suit'=>$request->suit,
+                'makein'=>$request->makein,
+                'state'=>$request->state,
+            ]);
+
+            if ($row) {
+               return redirect('/admin/goods')->with(['success' => '添加商品成功！']);
+            }else {
+                return back()->with(['success' => '添加失败！']);
+            }
+
+        } else {
+            return back()->with(['success' => '添加失败！,上传图片出错']);
         }
     }
+
+
 
     /**
      * Display the specified resource.
@@ -158,8 +169,8 @@ class GoodsController extends Controller
      */
     public function ajax(Request $request)
     {
-        // var_dump($_GET);
-        $dataObj = \DB::table('data_types')->where('pid','0')->get();
-        return compact('dataObj');
+        $pid = $request->pid;
+        $dataObj = \DB::table('data_types')->where('pid', $pid)->get();
+        return json_encode($dataObj);
     }
 }

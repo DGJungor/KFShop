@@ -27,15 +27,14 @@
                         </div>
                     </div>
                     <div class="hr-line-dashed"></div>
-                    <div class="form-group" id="sanji">
+                    <div class="form-group" id="type">
                         <label class="col-sm-2 control-label">商品分类</label>
                         <div class="col-sm-2">
-                            <select class="form-control m-b" name="typeid">
-                            @foreach($dataObj as $v)
-                                <option value = "-1">{{ $v->name }}</option>
-                            @endforeach
+                            <select class="form-control m-b" name="typeid" id="pro">
+                                <option value = "-1">--请选择分类--</option>
                             </select>
                         </div>
+
                     </div>
                     <div class="hr-line-dashed"></div>
                     <div class="form-group">
@@ -56,7 +55,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">商品描述</label>
                         <div class="col-sm-10">
-                            <textarea name="describe" id="" cols="30" rows="10"></textarea>
+                            <textarea class="form-control" class="form-control" name="describe" rows="5" id="text" ></textarea>
                         </div>
                     </div>
                     <div class="hr-line-dashed"></div>
@@ -109,47 +108,49 @@
 @section('js')
 <script>
 
-    $(function(){
 
-        $.ajax({
-            type: 'post',
-
-            url: '{{ url('/admin/goods/ajax') }}',
-
-            dataType: 'json',
-
-            data: { '_token':'{{csrf_token()}}' },
-
-            success:function (data) {
+$.ajax({
+    type: 'post',
 
 
-                var str = '';
-                for (var i =0; i<data.length; i++) {
+    url: '{{ url('/admin/goods/ajax') }}',
 
-                    str += '<option value="'+data[i].id+'">'+data[i].name+'</option>';
+    dataType: 'json',
 
-                }
+    data: { '_token':'{{csrf_token()}}', 'pid':'0' },
 
-                $('#pro').append(str);
+    success:function (data) {
+        // console.log(data);
+
+        var str = '';
+        for (var i =0; i<data.length; i++) {
+
+            str += '<option value="'+data[i].id+'">'+data[i].name+'</option>';
+
+        }
+
+        $('#pro').append(str);
 
 
-            }
+    }
 
-        });
 });
 
 
     //给#sanji下面所有select标签绑定change事件
-    /*$('#sanji').on('change', 'select', function () {
+    $('#type').on('change', 'div', function () {
 
         // alert(1);
         // alert( $(this).val() );
-        var id = $(this).val();
-
+        var id = $(this).children().val();
+        // console.log(this);
+        // alert(id);
         var that = $(this);
 
+
+
         //先统计div#sanji有多少个select
-        var size = $('#sanji select').length;
+        var size = $('#type div').length;
 
 
         // console.log(size);
@@ -158,24 +159,24 @@
 
             //
             case 1:
-                var selectName = 'city';
-                var selectId = 'city';
+                var selectName = 'two';
+                var selectId = 'two';
             break;
 
             case 2:
-                var selectName = 'area';
-                var selectId = 'area';
+                var selectName = 'three';
+                var selectId = 'three';
             break;
 
             case 3:
-                var selectName = 'stree';
-                var selectId = 'stree';
+                var selectName = 'four';
+                var selectId = 'four';
 
             break;
 
             case 4:
-                var selectName = 'flag';
-                var selectId = 'flag';
+                var selectName = 'five';
+                var selectId = 'five';
 
             break;
 
@@ -185,40 +186,43 @@
             break;
         }
 
-
         // alert(size);
-
         //先清除当前点击的select标签后面的所有的select标签
-        that.nextAll('select').remove();
+        that.nextAll('div').remove();
 
-        $.get(
-            '/admin/goods/ajax',
-            // {upid: id},
-            function (data) {
+        $.ajax({
+            type : 'post',
 
-                // console.log(data);
+            url: '{{ url('/admin/goods/ajax') }}',
 
-                var str = '<select name="'+selectName+'" id="'+selectId+'">';
+            dataType: 'json',
 
-                str += '<option value="-1">--请选择--</option>'
-                for (var i = 0; i<data.length; i++) {
+            data : { '_token':'{{csrf_token()}}', 'pid':id },
+
+            success:function (data) {
 
 
-                    str += '<option value="'+data[i].id+'">'+data[i].name+'</option>';
+                if(data.length > 0){
+
+                    var str = '<div class="col-sm-2"><select class="form-control m-b" name="'+selectName+'" id="'+selectId+'">';
+
+                    str += '<option value="-1">--请选择--</option>';
+
+                    for (var i = 0; i<data.length; i++) {
+
+                        str += '<option value="'+data[i].id+'">'+data[i].name+'</option>';
+                    }
+
+                    str += '</select></div>';
+
+
+                    //在当前点击的select标签后面加str
+                    that.after(str);
                 }
+            }
+        });
+});
 
-                str += '</select>';
-
-                //在当前点击的select标签后面加str
-                that.after(str);
-
-
-            },
-            'json'
-        );
-
-
-    });*/
 </script>
 
 @endsection
