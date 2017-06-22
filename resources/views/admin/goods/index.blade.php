@@ -57,7 +57,7 @@
                                 <td>{{ $state[$v['state']] }}</td>
                                 <td>{{$v['buy']}}</td>
                                 <td>{{$v['describe']}}</td>
-                                <td><img src="{{ asset('uploads/') }}/{{ $v['picname'] }}"></td>
+                                <td><img width="120" height="100" src="{{ asset('uploads/') }}/{{ $v['picname'] }}"></td>
                                 <td>{{$v['brand']}}</td>
                                 <td>{{$v['suit']}}</td>
                                 <td>{{$v['makein']}}</td>

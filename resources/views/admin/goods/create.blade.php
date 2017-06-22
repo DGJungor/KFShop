@@ -1,4 +1,11 @@
 @extends('admin.public')
+@section('css')
+<style type="text/css">
+body {
+    font: 13px Arial, Helvetica, Sans-serif;
+}
+</style>
+@endsection
 @section('title')
 编辑商品
 @endsection
@@ -76,10 +83,18 @@
                     </div>
                     <div class="hr-line-dashed"></div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">生产地</label>
+                        <label class="col-sm-2 control-label">列表图片上传</label>
 
                         <div class="col-sm-10">
-                            <input type="file" name="picture">
+                            <input name="picname" type="file">
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">多图片详情介绍上传</label>
+                        <div class="col-sm-10 ify-data">
+                            <div id="queue"></div>
+                            <input id="file_upload" name="file_upload" type="file" multiple="true">
                         </div>
                     </div>
                     <div class="hr-line-dashed"></div>
@@ -106,9 +121,8 @@
 </div>
 @endsection
 @section('js')
+
 <script>
-
-
 $.ajax({
     type: 'post',
 
@@ -224,5 +238,29 @@ $.ajax({
 });
 
 </script>
+<link rel="stylesheet" type="text/css" href="{{ asset('style/css/uploadify.css') }}">
+<script src="{{asset('style/js/jquery.uploadify.min.js')}}" type="text/javascript"></script>
+<script>
+    $('#file_upload').uploadify({
+            swf      : "{{ asset('style/css/uploadify.swf') }}", // 引入Uploadify 的核心Flash文件
+            uploader : "{{ url('admin/goods/upload') }}", // PHP脚本地址
+            formData : {'_token': '{{csrf_token()}}'},
+            method   : 'post',
+            // buttonText: '上传'//按钮显示的文字
+            width: 120, // 上传按钮宽度
+            height: 30, // 上传按钮高度
+            // //buttonImage: "{{asset('org/uploadify/browse-btn.png')}}", // 上传按钮背景图片地址
+            fileTypeDesc: 'Image File', // 选择文件对话框中图片类型提示文字
+            fileTypeExts: '*.jpg;*.jpeg;*.png;*.gif', // 选择文件对话框中允许选择的文件类型
+             // Laravel表单提交必需参数_token，防止CSRF
 
+            //没有兼容的FLASH时触发
+
+            //上传文件成功后触发（每一个文件都触发一次）
+            onUploadSuccess: function (file, data, response) {
+                var img='<img src="{{ asset('uploads') }}/'+data+'" width="100" height="100" /><input type="hidden" name="images[]" value="{{ asset('uploads') }}/'+data+'" readonly />';
+                $('queue').html(img);
+            }
+        });
+</script>
 @endsection

@@ -36,7 +36,9 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 
     Route::resource('friends', 'FriendController');
 
-	Route::post('goods/ajax', 'GoodsController@ajax');
+    Route::post('goods/ajax', 'GoodsController@ajax');
+
+	Route::post('goods/upload', 'GoodsController@upload');
 
 	//后台反馈组
 	Route::resource('feedback','FeedbackController');
