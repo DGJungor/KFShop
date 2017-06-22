@@ -156,6 +156,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+	    //购物车扩展
+	    Overtrue\LaravelShoppingCart\ServiceProvider::class,
+
     ],
 
     /*
@@ -202,6 +205,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Image' => Intervention\Image\Facades\Image::class,
+	    //购物车扩展
+	    'Cart' => Overtrue\LaravelShoppingCart\Facade::class,
     ],
 
 ];

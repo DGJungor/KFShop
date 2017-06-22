@@ -24,7 +24,7 @@ Route::get('/', function () {
 Route::get('cart','CartController@index');
 
 //前台信息反馈路由
-Route::get('feedback','FeedbackController@index');
+Route::resource('feedback','FeedbackController');
 
 
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
@@ -51,7 +51,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 	Route::get('friends', 'FriendController@index');
 	
 	//前台用户路由
-    Route::resource('users', 'usersController');
+    Route::resource('users', 'UsersController');
 
     //后台用户路由
     Route::resource('adminusers', 'AdminUsersController');
