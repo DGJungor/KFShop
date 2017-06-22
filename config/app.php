@@ -156,6 +156,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+	    //购物车扩展
+	    Overtrue\LaravelShoppingCart\ServiceProvider::class,
+
     ],
 
     /*
@@ -201,6 +204,9 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+
+	    //购物车扩展
+	    'Cart' => Overtrue\LaravelShoppingCart\Facade::class,
 
     ],
 
