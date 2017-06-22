@@ -54,7 +54,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
     Route::resource('users', 'UsersController');
 
     //后台用户路由
-    Route::resource('adminusers', 'AdminUsersController');
+    Route::resource('admins', 'AdminUsersController');
 
 
 });

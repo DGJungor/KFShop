@@ -20,7 +20,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = UserInfo::all();
+        $users = UserInfo::orderby('uid','asc')->paginate(20);
         //跳转前台用户列表页
         return view('admin.users.index', compact('users'));
     }
@@ -63,7 +63,7 @@ class UsersController extends Controller
         //用户注册信息
         $reg_info = UserRegister::find($uid);
         if (!$user or !$reg_info){
-            return view('errors.404');
+            return back();
         }
         //跳转用户信息页面
         return view('admin.users.show', compact(['user', 'reg_info']));
@@ -125,8 +125,9 @@ class UsersController extends Controller
         $uid = (UserInfo::find($id))['uid'];
         //删除用户信息
         if (UserInfo::destroy($id)){
+            //删除用户注册表
             if (UserRegister::destroy($uid)){
-                return redirect('/admin/users')->with(['css' => 'alert-success', 'msg' => '删除成功！！！']);
+                return redirect('/admin/users')->with(['msg' => '删除成功！！！']);
             }
         }
 
