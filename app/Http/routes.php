@@ -24,7 +24,7 @@ Route::get('/', function () {
 Route::get('cart','CartController@index');
 
 //前台信息反馈路由
-Route::get('feedback','FeedbackController@index');
+Route::resource('feedback','FeedbackController');
 
 
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
