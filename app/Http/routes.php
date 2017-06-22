@@ -24,7 +24,7 @@ Route::get('/', function () {
 Route::get('cart','CartController@index');
 
 //前台信息反馈路由
-Route::get('feedback','FeedbackController@index');
+Route::resource('feedback','FeedbackController');
 
 
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
@@ -33,10 +33,12 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
     Route::resource('goods', 'GoodsController');
 
     Route::resource('types', 'TypesController');
-    
+
     Route::resource('friends', 'FriendController');
 
-	Route::post('goods/ajax', 'GoodsController@ajax');
+    Route::post('goods/ajax', 'GoodsController@ajax');
+
+	Route::post('goods/upload', 'GoodsController@upload');
 
 	//后台反馈组
 	Route::resource('feedback','FeedbackController');

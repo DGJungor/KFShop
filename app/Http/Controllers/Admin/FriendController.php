@@ -46,7 +46,7 @@ class FriendController extends Controller
     public function update(Request $request, $id)
     {
 //        dd($id);
-        dd($request->all());
+//        dd($request->all());
 
         if (Friend::where('id', '=', $id)->update([
             'name' => $request->name,

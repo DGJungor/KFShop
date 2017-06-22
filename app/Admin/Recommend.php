@@ -11,4 +11,9 @@ class Recommend extends Model
     public $fillable = [
         'id', 'recommend_name', 'recommend_location', 'recommend_type', 'recommend_picname','recommend_introduction','created_at',
     ];
+    public $timestamps = true;
+
+    public function freshTimestamp() {
+        return time();
+    }
 }
