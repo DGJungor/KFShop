@@ -2,7 +2,7 @@
 
 @section('title')
 
-修改链接
+添加链接
 
 @endsection
 
@@ -20,24 +20,22 @@
 @endsection
 
 @section('content')
-<!-- {{dump($dataObj)}} -->
+
 <div class="row">
                     <div class="col-lg-12">
                         <div class="ibox float-e-margins">
                             <div class="ibox-title">
-                                <h3>修改链接 </h3>
+                                <h3>添加链接 </h3>
                                
                             </div>
                             <div class="ibox-content">
-                                <form method="post" action="/admin/friends/{{$dataObj->id}}" class="form-horizontal">
-                                    {{ csrf_field() }}
-                                    <input type="hidden" name="_method" value="PUT">
-                                    {{--<input type="hidden" name="_token" value="{{csrf_token()}}">--}}
+                                <form method="post" action="/admin/friends" class="form-horizontal">
+                                
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">友情链接名称:</label>
 
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" value="{{$dataObj->name}}">
+                                            <input type="text" class="form-control" name="name"  value="">
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
@@ -47,10 +45,10 @@
                                         </label>
                                         <div class="">
                                         <div class="">
-                                            <input type="radio" value="1" name="type" @if($dataObj->type = 1) checked @endif > <i>图片</i>
-                                            <input type="radio" value="2" name="type" @if($dataObj->type = 2) checked @endif > <i>文字</i>
+                                            <input type="radio" value="1" name="type" checked> <i>图片</i>
+                                            <input type="radio" value="2" name="type" > <i>文字</i>
                                             </div>   
-                                            {{--{{dump($dataObj)}}--}}
+
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
@@ -59,36 +57,24 @@
 
                                         <div class="col-sm-10">
                                             <div class="input-group m-b"><span class="input-group-btn">
-                                            <button type="button" class="btn btn-primary">http://</button> </span> 
-                                                <input type="text" class="form-control" value="{{$dataObj->url}}">
+                                            <button type="button" class="btn btn-primary">http://</button> </span>
+                                                <input type="text" class="form-control" name="url" value="">
                                             </div>
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label">图片路径:</label>
+                                        <label class="col-sm-2 control-label">图片名称:</label>
 
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" value="{{$dataObj->image}}">
-                                        </div>
-                                    </div>
-                                    <div class="hr-line-dashed"></div>
-                                    <div class="form-group">
-                                        <label class="col-sm-2 control-label">
-                                        状态:
-                                        </label>
-                                        <div class="">
-                                        <div class="">
-                                            <input type="radio" value="0" name="status" @if($dataObj->status = 0) checked @endif > <i>启用</i>
-                                            <input type="radio" value="1" name="status" @if($dataObj->status = 1) checked @endif > <i>禁用</i>
-                                        </div>
+                                            <input type="text" class="form-control" name="image" value="">
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
                                     <div class="form-group">
                                         <div class="col-sm-4 col-sm-offset-2">
-
-                                            <button class="btn btn-primary" type="submit">确定修改</button>
+                                         {!! csrf_field() !!}
+                                            <button class="btn btn-primary" type="submit">确定添加</button>
 
                                         </div>
                                     </div>

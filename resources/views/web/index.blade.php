@@ -19,7 +19,7 @@
 	<link rel="stylesheet" type="text/css" href="{{ url('/web/css/zhonglinggxm2.css') }}" /> -->
     
     
-    @yield('css')
+    
 	<script type="text/javascript" src="{{ url('/web/js/jquery.js') }}"></script>
 	<script type="text/javascript" src="{{ url('/web/js/zhonglin.js') }}"></script>
 	<script type="text/javascript" src="{{ url('/web/js/zhongling2.js') }}"></script>
@@ -110,7 +110,7 @@
     	<ul class="footer-info1 w1200">
         	<li>
             	<div class="ft-tu1">
-                	<a href="JavaScript:;"><img src="{{ url('Web') }}" /></a>
+                	<a href="JavaScript:;"><img src="{{ url('web/images/zl2-86.gif') }}" /></a>
                 </div>
                 <h3><a href="JavaScript:;">号码保障</a></h3>
                 <P>所有会员，手机短信验证</P>
