@@ -39,6 +39,7 @@
                                 <th>商品状态</th>
                                 <th>购买量</th>
                                 <th>商品描述</th>
+                                <th>商品图片</th>
                                 <th>适用人群</th>
                                 <th>品牌</th>
                                 <th>生产地</th>
@@ -56,6 +57,7 @@
                                 <td>{{ $state[$v['state']] }}</td>
                                 <td>{{$v['buy']}}</td>
                                 <td>{{$v['describe']}}</td>
+                                <td><img width="120" height="100" src="{{ asset('uploads/') }}/{{ $v['picname'] }}"></td>
                                 <td>{{$v['brand']}}</td>
                                 <td>{{$v['suit']}}</td>
                                 <td>{{$v['makein']}}</td>

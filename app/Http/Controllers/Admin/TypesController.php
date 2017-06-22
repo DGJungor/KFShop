@@ -60,8 +60,8 @@ class TypesController extends Controller
      */
     public function show($id)
     {
-        $dataObj = Type::find($id);
-        return view('admin.types.create', compact('dataObj'));
+        // $dataObj = Type::find($id);
+        // return view('admin.types.create', compact('dataObj'));
     }
 
     /**
