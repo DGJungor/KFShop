@@ -302,7 +302,7 @@
 					// Add hyperlink
 					treeItem
 						.append($(self._template.link)
-							.attr('tags', node.tags)
+							.attr('href', node.href)
 							.append(node.text)
 						);
 				}
@@ -326,8 +326,8 @@
 				self.$wrapper.append(treeItem);
 
 				// Recursively add child ndoes
-				if (node.href) {
-					return self._buildTree(node.href, level);
+				if (node.nodes) {
+					return self._buildTree(node.nodes, level);
 				}
 			});
 		},
