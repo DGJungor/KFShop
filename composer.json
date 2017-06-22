@@ -7,8 +7,6 @@
     "require": {
         "php": ">=5.5.9",
         "laravel/framework": "5.2.*",
-        "intervention/image": "^2.3",
-        "dflydev/apache-mime-types": "^1.0",
         "overtrue/laravel-shopping-cart": "1.0.*"
     },
     "require-dev": {

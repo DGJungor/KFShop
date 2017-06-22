@@ -20,6 +20,7 @@ class DataOrders extends Migration
 		    $table->string('cargo_message',32)->comment('下单商品信息 :单价、数量、商品ID');
 		    $table->string('address_message',64)->comment('收货地址信息');
 		    $table->string('pay_transaction',64)->comment('支付交易号');
+		    $table->tinyInteger('order_status')->comment('订单状态 1:待付款 2: 待发货 3:待收货 4:待评价 5 完成 6 取消 默认为1');
 		    $table->tinyInteger('pay_type')->comment('支付方式 1:支付宝 2:微信 3:其他');
 		    $table->tinyInteger('pay_status')->comment('支付状态 1:待支付 2:已支付 3:取消支付');
 		    $table->string('total_amount',64)->comment('商品总金额');

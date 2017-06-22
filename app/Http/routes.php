@@ -24,7 +24,7 @@ Route::get('/', function () {
 Route::get('cart','CartController@index');
 
 //前台信息反馈路由
-Route::get('feedback','FeedbackController@index');
+Route::resource('feedback','FeedbackController');
 
 
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
@@ -46,11 +46,14 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 	//后台订单路由
 	Route::resource('orders', 'OrdersController');
 
+    //后台轮播图管理路由
+    Route::resource('recommend', 'RecommendController');
+
 	//后台友情链接路由
 	Route::get('friends', 'FriendController@index');
-
+	
 	//前台用户路由
-    Route::resource('users', 'usersController');
+    Route::resource('users', 'UsersController');
 
     //后台用户路由
     Route::resource('adminusers', 'AdminUsersController');
