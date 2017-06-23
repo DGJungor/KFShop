@@ -21,7 +21,7 @@ Route::get('/', function () {
 });
 
 //前台购物车路由
-Route::get('cart','CartController@index');
+Route::resource('cart','CartController');
 
 //前台信息反馈路由
 Route::resource('feedback','FeedbackController');
