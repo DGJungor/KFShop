@@ -370,7 +370,7 @@
             4.5: 'label label-success',
             5: 'label label-success'
         },
-        clearButton: '<i class="glyphicon glyphicon-minus-sign"></i>',
+        clearButton: '<i class="glyphicon glyphicon-star"></i>',
         clearButtonTitle: 'Clear',
         clearButtonBaseClass: 'clear-rating',
         clearButtonActiveClass: 'clear-rating-active',

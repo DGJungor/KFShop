@@ -56,7 +56,7 @@
                         <div class="file">
                             <a href="/admin/recommend/{{$v->id}}/edit">
                                 <span class="corner"></span>
-                                {{dump($v->id)}}
+{{--                                {{dump($v->id)}}--}}
 
                                 <div class="image">
                                     <img alt="image" class="img-responsive" src="/uploads/{{$v['recommend_picname']}}">
@@ -67,7 +67,17 @@
                                     <small>添加时间：{{$v['created_at']}}</small>
                                 </div>
                             </a>
+                            <div class="file-manager">
+                                <div class="hr-line-dashed">
+                                    <form action="recommend/{{$v->id}}" method="POST">
+                                        {!! csrf_field() !!}
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <button id="btnDel" type="submit" class="btn btn-primary btn-block">删除</button>
+                                    </form>
 
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <?php $i++; ?>

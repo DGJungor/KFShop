@@ -125,6 +125,10 @@ class RecommendController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (Recommend::destroy($id)) {
+            return redirect('/admin/recommend')->with(['删除成功']);
+        } else {
+            return back()->with(['删除失败']);
+        }
     }
 }
