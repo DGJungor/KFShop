@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Admin\AdminUser;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -16,8 +17,8 @@ class AdminUsersController extends Controller
      */
     public function index()
     {
-        $adminusers = \App\Admin\AdminUser::all();
-        return view('admin.adminusers.index', compact('adminusers'));
+        $admins = AdminUser::paginate(20);
+         return view('admin.adminusers.index', compact('admins'));
     }
 
     /**

@@ -52,7 +52,7 @@
 	                <div class="form-group">
 	                    <label class="col-sm-2 control-label">商品描述</label>
 	                    <div class="col-sm-10">
-	                        <textarea name="describe" id="" cols="30" rows="10">{{$dataObj->describe}}</textarea>
+	                        <textarea class="form-control" class="form-control" name="describe" rows="5" id="text">{{$dataObj->describe}}</textarea>
 	                    </div>
 	                </div>
 	                <div class="hr-line-dashed"></div>
