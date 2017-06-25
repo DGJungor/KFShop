@@ -57,6 +57,7 @@ class OrdersController extends Controller
 
 		//获得需要修改数据的订单ID
 		$guid = $request->guid;
+		dd($request);
 
 		//根据类型修改数据库订单数据
 		switch ($type) {

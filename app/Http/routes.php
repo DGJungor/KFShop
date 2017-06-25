@@ -24,19 +24,21 @@ Route::get('/', function () {
 Route::get('cart','CartController@index');
 
 //前台信息反馈路由
-Route::get('feedback','FeedbackController@index');
+Route::resource('feedback','FeedbackController');
 
 
-Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
-    Route::get('/', function () { return view('admin.public'); });
+Route::group(['middleware'=>'adminid','namespace' => 'Admin', 'prefix' => 'admin'], function () {
+    Route::get('/', function () { return view('admin.index'); });
 
     Route::resource('goods', 'GoodsController');
 
     Route::resource('types', 'TypesController');
-    
+
     Route::resource('friends', 'FriendController');
 
-	Route::post('goods/ajax', 'GoodsController@ajax');
+    Route::post('goods/ajax', 'GoodsController@ajax');
+
+	Route::post('goods/upload', 'GoodsController@upload');
 
 	//后台反馈组
 	Route::resource('feedback','FeedbackController');
@@ -58,4 +60,12 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 
 
 });
+
+//后台登录首页路由
+Route::get('/admin/login','Admin\AdminLoginController@login');
+
+//后台执行登录路由
+Route::post('/admin/dologin', 'Admin\AdminLoginController@dologin');
+
+
 

@@ -24,20 +24,24 @@
 
 @section('content')
     <div class="personal w1200">
-        <form>
+        <form action="/feedback" method="POST">
+
+            {{ csrf_field() }}
+            {{--<input type="hidden" name="_method" value="POST">--}}
             <div class="form-group"><label>标题</label>
-                <input type="text" class="form-control" id="title" placeholder="请输入你要反馈信息的标题">
+                <input type="text" class="form-control" id="title" name="title" placeholder="请输入你要反馈信息的标题">
             </div>
             <div class="form-group">
                 <label>正文内容</label>
-                <textarea class="form-control" class="form-control" rows="5" id="text" >
+                <textarea class="form-control" class="form-control" rows="5" id="text" name="text">
 
                 </textarea>
             </div>
 
-            <button type="submit"  class="btn btn-success btn-lg">提交</button>
-            <button type="submit"  class="btn btn-warning btn-lg">清空</button>
+            <button type="submit" class="btn btn-success btn-lg">提交</button>
+            <button type="reset" class="btn btn-warning btn-lg">清空</button>
         </form>
+
     </div>
 
 @endsection()

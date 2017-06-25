@@ -110,17 +110,16 @@
                                         <td class="center">
                                             <form action="orders/" method="POST">
                                                 <a href="orders/">
-                                                    <button id="btnEdit" type="button" class="btn btn-warning btn-xs">
-                                                        <span class="glyphicon glyphicon-edit"
-                                                              aria-hidden="true"></span>
+                                                    <button id="btnEdit" type="button" class="btn btn-warning">修改信息
+
                                                     </button>
                                                 </a>
-                                                <input type="hidden" name="_method" value="DELETE">
+                                                {{--<input type="hidden" name="_method" value="DELETE">--}}
                                                 {!! csrf_field() !!}
-                                                <button id="btnDel" type="submit" class="btn btn-danger btn-xs"
-                                                        data-toggle="modal" data-target="#DeleteForm" onclick="">
-                                                    <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
-                                                </button>
+                                                {{--<button id="btnDel" type="submit" class="btn btn-danger btn-xs"--}}
+                                                        {{--data-toggle="modal" data-target="#DeleteForm" onclick="">--}}
+                                                    {{--<span class="glyphicon glyphicon-minus" aria-hidden="true"></span>--}}
+                                                {{--</button>--}}
                                             </form>
 
                                         </td>
