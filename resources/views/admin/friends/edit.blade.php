@@ -30,6 +30,7 @@
                                
                             </div>
                             <div class="ibox-content">
+
                                 <form method="POST" action="/admin/friends/{{$dataObj->id}}" class="form-horizontal">
                                     {{ csrf_field() }}
                                     <input type="hidden" name="_method" value="PUT">
@@ -46,6 +47,7 @@
                                         <label class="col-sm-2 control-label">
                                         类型:
                                         </label>
+
 
                                         <div class="radio i-checks">
                                             <input type="radio" value="1" name="type" @if($dataObj->type == 1) checked @endif > <i>图片</i>

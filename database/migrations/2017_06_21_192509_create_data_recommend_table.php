@@ -13,6 +13,7 @@ class CreateDataRecommendTable extends Migration
     public function up()
     {
         Schema::create('data_recommend', function (Blueprint $table) {
+
             $table->increments('id')->unsigned()->comment('轮播图表');
             $table->string('recommend_name')->comment('轮播图名称');
             $table->tinyInteger('recommend_location')->default(1)->comment('轮播图位置 1 首页');
