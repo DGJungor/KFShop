@@ -36,8 +36,7 @@
 
         <div class="cart-con-info">
             <div class="info-top">
-                <input type="checkbox" value="" name="hobby"></input>
-                <span>商家：向东服饰专卖店</span>
+
             </div>
             <div class="info-mid">
                 <input type="checkbox" value="" name="hobby" class="mid-ipt f-l"></input>
@@ -96,8 +95,7 @@
         </div>
         <div class="cart-con-info">
             <div class="info-top">
-                <input type="checkbox" value="" name="hobby"></input>
-                <span>商家：向东服饰专卖店</span>
+
             </div>
             <div class="info-mid">
                 <input type="checkbox" value="" name="hobby" class="mid-ipt f-l"></input>
@@ -156,8 +154,7 @@
         </div>
         <div class="cart-con-info">
             <div class="info-top">
-                <input type="checkbox" value="" name="hobby"></input>
-                <span>商家：向东服饰专卖店</span>
+
             </div>
             <div class="info-mid">
                 <input type="checkbox" value="" name="hobby" class="mid-ipt f-l"></input>

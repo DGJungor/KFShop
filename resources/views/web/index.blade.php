@@ -8,16 +8,16 @@
 	<title>@yield('title')</title>
 	
 	<link rel="stylesheet" type="text/css" href="{{ url('/web/css/style.css') }}" />
-<!-- 	<link rel="stylesheet" type="text/css" href="{{ url('Web') }}" />
-	<link rel="stylesheet" type="text/css" href="{{ url('/web/css/doubleDate.css') }}" />
-	<link rel="stylesheet" type="text/css" href="{{ url('/web/css/index.css') }}" />
-	
-	<link rel="stylesheet" type="text/css" href="{{ url('/web/css/star-rating.css') }}" />
-	<link rel="stylesheet" type="text/css" href="{{ url('/web/css/star-rating.min.css') }}" />
-	<link rel="stylesheet" type="text/css" href="{{ url('/web/css/style2.css') }}" />
-	
-	<link rel="stylesheet" type="text/css" href="{{ url('/web/css/zhonglinggxm2.css') }}" /> -->
-    
+{{--<!-- 	<link rel="stylesheet" type="text/css" href="{{ url('Web') }}" />--}}
+	{{--<link rel="stylesheet" type="text/css" href="{{ url('/web/css/doubleDate.css') }}" />--}}
+	{{--<link rel="stylesheet" type="text/css" href="{{ url('/web/css/index.css') }}" />--}}
+	{{----}}
+	{{--<link rel="stylesheet" type="text/css" href="{{ url('/web/css/star-rating.css') }}" />--}}
+	{{--<link rel="stylesheet" type="text/css" href="{{ url('/web/css/star-rating.min.css') }}" />--}}
+	{{--<link rel="stylesheet" type="text/css" href="{{ url('/web/css/style2.css') }}" />--}}
+	{{----}}
+	{{--<link rel="stylesheet" type="text/css" href="{{ url('/web/css/zhonglinggxm2.css') }}" /> -->--}}
+    {{----}}
     
     
 	<script type="text/javascript" src="{{ url('/web/js/jquery.js') }}"></script>

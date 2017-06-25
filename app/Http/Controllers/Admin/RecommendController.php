@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-//use Intervention\Image\ImageManager;
-//use Faker\Provider\Image;
 use Illuminate\Http\Request;
 use Storage;
 use App\Http\Requests;
@@ -12,6 +10,7 @@ use App\Admin\Recommend;
 use DB;
 
 use Carbon\Carbon;
+
 class RecommendController extends Controller
 {
     /**
@@ -21,6 +20,7 @@ class RecommendController extends Controller
      */
     public function index()
     {
+
 //        $data = \DB::table('data_recommend')->get();
 //        dump($data);
         $data=Recommend::paginate(20);
@@ -45,6 +45,7 @@ class RecommendController extends Controller
      */
     public function store(Request $request)
     {
+
 //        dd($request->all());
         if ($request->isMethod('post')) {
 
@@ -77,7 +78,6 @@ class RecommendController extends Controller
 
         }
 
-
     }
 
     /**
@@ -99,11 +99,12 @@ class RecommendController extends Controller
      */
     public function edit($id)
     {
+
         $data=Recommend::find($id);
 //        dd($dataObj);
 //        $img=Image::canvas(800, 600, '#ccc');
         return view('admin.recommend.edit', compact('data'));
-    }
+
 
     /**
      * Update the specified resource in storage.
@@ -125,6 +126,12 @@ class RecommendController extends Controller
      */
     public function destroy($id)
     {
-        //
+
+        if (Recommend::destroy($id)) {
+            return redirect('/admin/recommend')->with(['删除成功']);
+        } else {
+            return back()->with(['删除失败']);
+        }
+
     }
 }

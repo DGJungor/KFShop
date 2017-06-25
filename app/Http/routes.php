@@ -21,10 +21,13 @@ Route::get('/', function () {
 });
 
 //前台购物车路由
-Route::get('cart','CartController@index');
+Route::resource('cart','CartController');
 
 //前台信息反馈路由
 Route::resource('feedback','FeedbackController');
+
+//前台评论
+Route::get('comment', 'CommentController@index');
 
 
 Route::group(['middleware'=>'adminid','namespace' => 'Admin', 'prefix' => 'admin'], function () {
@@ -58,6 +61,8 @@ Route::group(['middleware'=>'adminid','namespace' => 'Admin', 'prefix' => 'admin
     //后台用户路由
     Route::resource('admins', 'AdminUsersController');
 
+    //后台评论路由
+    Route::resource('comment', 'CommentController');
 
 });
 
