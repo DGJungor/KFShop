@@ -54,10 +54,10 @@
                     @foreach($data as $v)
                     <div class="file-box">
                         <div class="file">
+
                             <a href="/admin/recommend/{{$v->id}}/edit">
                                 <span class="corner"></span>
 {{--                                {{dump($v->id)}}--}}
-
                                 <div class="image">
                                     <img alt="image" class="img-responsive" src="/uploads/{{$v['recommend_picname']}}">
                                 </div>
@@ -67,6 +67,7 @@
                                     <small>添加时间：{{$v['created_at']}}</small>
                                 </div>
                             </a>
+
                             <div class="file-manager">
                                 <div class="hr-line-dashed">
                                     <form action="recommend/{{$v->id}}" method="POST">
@@ -96,26 +97,12 @@
 
 @section('js')
  <script>
+
         $(document).ready(function () {
             $('.file-box').each(function () {
                 animationHover(this, 'pulse');
             });
         });
     </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 @endsection

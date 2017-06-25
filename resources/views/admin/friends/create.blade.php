@@ -44,7 +44,9 @@
                                         类型:
                                         </label>
                                         <div class="">
+
                                         <div class="radio i-checks">
+
                                             <input type="radio" value="1" name="type" checked> <i>图片</i>
                                             <input type="radio" value="2" name="type" > <i>文字</i>
                                             </div>   
@@ -67,7 +69,7 @@
                                         <label class="col-sm-2 control-label">图片名称:</label>
 
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="image" value="">
+                                            <input type="file" class="form-control" name="image" value="">
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>

@@ -23,12 +23,12 @@
 
                 </div>
                 <div class="ibox-content">
+
                     <form method="POST" action="/admin/recommend" class="form-horizontal" enctype="multipart/form-data">
                         {{--<input type="date" name="created_at" >--}}
 
                         <div class="form-group">
                             <label class="col-sm-2 control-label">轮播图名称:</label>
-
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" name="recommend_name"  value="">
                             </div>
@@ -61,6 +61,7 @@
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
+
                             <label class="col-sm-2 control-label">轮播图导语:</label>
 
                             <div class="col-sm-10">
@@ -93,6 +94,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 
 @section('js')
@@ -105,5 +107,4 @@
             });
         });
     </script>
-
 @endsection

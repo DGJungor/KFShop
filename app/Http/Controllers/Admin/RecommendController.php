@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
-//use Intervention\Image\ImageManager;
-//use Faker\Provider\Image;
 use Illuminate\Http\Request;
 use Storage;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Admin\Recommend;
 use DB;
-
+use Intervention\Image\ImageManager;
 use Carbon\Carbon;
+
 class RecommendController extends Controller
 {
     /**
@@ -21,6 +20,7 @@ class RecommendController extends Controller
      */
     public function index()
     {
+
 //        $data = \DB::table('data_recommend')->get();
 //        dump($data);
         $data=Recommend::paginate(20);
@@ -45,6 +45,7 @@ class RecommendController extends Controller
      */
     public function store(Request $request)
     {
+
 //        dd($request->all());
         if ($request->isMethod('post')) {
 
@@ -59,8 +60,13 @@ class RecommendController extends Controller
                 $type = $file->getClientMimeType();     // image/jpeg
                 // 上传文件
                 $filename = date('Y-m-d-H-i-s') . '-' . uniqid() . '.' . $ext;
+                $image=new ImageManager();
+                $image->make('./'.Storage::disk('uploads').'/'.$filename)->resize(200,200)->save('./'.Storage::disk('uploads')."/"."s_".$filename);
+                exit();
                 // 使用新建的uploads本地存储空间（目录）
                 $bool = Storage::disk('uploads')->put($filename, file_get_contents($realPath));
+
+
                 $request->recommend_picname=$filename;
                 $request->created_at=Carbon::now();
 //                dd($request->created_at);
@@ -76,7 +82,6 @@ class RecommendController extends Controller
             }
 
         }
-
 
     }
 
@@ -99,12 +104,13 @@ class RecommendController extends Controller
      */
     public function edit($id)
     {
-        $data=Recommend::find($id);
+
+        $data = Recommend::find($id);
 //        dd($dataObj);
 //        $img=Image::canvas(800, 600, '#ccc');
         return view('admin.recommend.edit', compact('data'));
-    }
 
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -125,10 +131,12 @@ class RecommendController extends Controller
      */
     public function destroy($id)
     {
+
         if (Recommend::destroy($id)) {
             return redirect('/admin/recommend')->with(['删除成功']);
         } else {
             return back()->with(['删除失败']);
         }
+
     }
 }
