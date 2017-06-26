@@ -162,6 +162,8 @@ return [
         //
 	    //购物车扩展
 	    Overtrue\LaravelShoppingCart\ServiceProvider::class,
+        //对图片的创建、修改和压缩处理 Intervention Image
+        Intervention\Image\ImageServiceProvider::class,
 
     ],
 
@@ -214,6 +216,11 @@ return [
 
 	    //购物车扩展
 	    'Cart' => Overtrue\LaravelShoppingCart\Facade::class,
+
+
+        //对图片的创建、修改和压缩处理 Intervention Image
+        'Image' => Intervention\Image\Facades\Image::class,
+
     ],
 
 ];

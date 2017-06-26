@@ -1,8 +1,8 @@
 @extends('web.index')
 
 @section('css')
-    <link rel="stylesheet" type="text/css" href="{{ url('/web/css/shopping-mall-index.css') }}" />
-    @endsection
+    <link rel="stylesheet" type="text/css" href="{{ url('/web/css/shopping-mall-index.css') }}"/>
+@endsection
 
 
 @section('title')
@@ -12,6 +12,8 @@
 
 
 @section('content')
+    {{ $cartInfo }}
+
 
     <div class="cart-content w1200">
         <ul class="cart-tit-nav">
@@ -22,8 +24,18 @@
         </ul>
         <div class="cart-con-tit">
             <p class="p1">
-                <input type="checkbox" value="" name="hobby"></input>
+                <input type="checkbox" value="" name="hobby" id="all"></input>
+                <script>
 
+                    $("#all").click(function () {
+                        if (this.checked) {
+
+                            $('.info-mid input[type=checkbox]').prop('checked', true);
+                        } else {
+                            $('.info-mid input[type=checkbox]').prop('checked', "");
+                        }
+                    });
+                </script>
                 <span>全选</span>
             </p>
             <p class="p2">商品信息</p>
@@ -34,185 +46,78 @@
             <p class="p7">操作</p>
         </div>
 
-        <div class="cart-con-info">
-            <div class="info-top">
+        {{--  商品栏  --}}
 
-            </div>
-            <div class="info-mid">
-                <input type="checkbox" value="" name="hobby" class="mid-ipt f-l"></input>
-                <div class="mid-tu f-l">
-                    <a href="#"><img src="images/dai1.gif"/></a>
+        @foreach( $cartInfo as $v )
+            {{ $v  }}
+            <div class="cart-con-info">
+                <div class="info-top">
+
                 </div>
-                <div class="mid-font f-l">
-                    <a href="#">登高阁紫菜肉松鸡蛋卷 海苔蛋卷 糕点<br/>江西特产小吃 休闲办公零食</a>
-                    <span>满赠</span>
-                </div>
-                <div class="mid-guige f-l">
-                    <p>颜色：蓝色</p>
-                    <p>尺码：XL</p>
-                    <a href="JavaScript:;" class="xg" xg="xg1">修改</a>
-                    <div class="guige-xiugai" xg-g="xg1">
-                        <div class="xg-left f-l">
-                            <dl>
-                                <dt>颜 色</dt>
-                                <dd>
-                                    <a href="JavaScript:;" class="current">黑色</a>
-                                    <a href="JavaScript:;">白色</a>
-                                </dd>
-                                <div style="clear:both;"></div>
-                            </dl>
-                            <dl>
-                                <dt>尺 码</dt>
-                                <dd>
-                                    <a href="JavaScript:;" class="current">M</a>
-                                    <a href="JavaScript:;">L</a>
-                                    <a href="JavaScript:;">XL</a>
-                                </dd>
-                                <div style="clear:both;"></div>
-                            </dl>
-                            <a href="JavaScript:;" class="qd">确定</a>
-                            <a href="JavaScript:;" class="qx" qx="xg1">取消</a>
-                        </div>
-                        <div class="xg-right f-l">
-                            <a href="#"><img src="images/dai2.gif"/></a>
-                        </div>
-                        <div style="clear:both;"></div>
+                <div class="info-mid">
+                    <input type="checkbox" value="" name="hobby" class="mid-ipt f-l"></input>
+                    <div class="mid-tu f-l">
+                        <a href="#"><img src="images/dai1.gif"/></a>
                     </div>
-                </div>
-                <div class="mid-sl f-l">
-                    <a href="JavaScript:;" class="sl-left">-</a>
-                    <input type="text" value="1"/>
-                    <a href="JavaScript:;" class="sl-right">+</a>
-                </div>
-                <p class="mid-dj f-l">¥ <span>6</span>.00</p>
-                <p class="mid-je f-l">¥ <span>6</span>.00</p>
-                <div class="mid-chaozuo f-l">
-                    <a href="#">移入收藏夹</a>
-                    <a href="#">删除</a>
-                </div>
-                <div style="clear:both;"></div>
-            </div>
-        </div>
-        <div class="cart-con-info">
-            <div class="info-top">
-
-            </div>
-            <div class="info-mid">
-                <input type="checkbox" value="" name="hobby" class="mid-ipt f-l"></input>
-                <div class="mid-tu f-l">
-                    <a href="#"><img src="images/dai1.gif"/></a>
-                </div>
-                <div class="mid-font f-l">
-                    <a href="#">登高阁紫菜肉松鸡蛋卷 海苔蛋卷 糕点<br/>江西特产小吃 休闲办公零食</a>
-                    <span>满赠</span>
-                </div>
-                <div class="mid-guige f-l">
-                    <p>颜色：蓝色</p>
-                    <p>尺码：XL</p>
-                    <a href="JavaScript:;" class="xg" xg="xg1">修改</a>
-                    <div class="guige-xiugai" xg-g="xg1">
-                        <div class="xg-left f-l">
-                            <dl>
-                                <dt>颜 色</dt>
-                                <dd>
-                                    <a href="JavaScript:;" class="current">黑色</a>
-                                    <a href="JavaScript:;">白色</a>
-                                </dd>
-                                <div style="clear:both;"></div>
-                            </dl>
-                            <dl>
-                                <dt>尺 码</dt>
-                                <dd>
-                                    <a href="JavaScript:;" class="current">M</a>
-                                    <a href="JavaScript:;">L</a>
-                                    <a href="JavaScript:;">XL</a>
-                                </dd>
-                                <div style="clear:both;"></div>
-                            </dl>
-                            <a href="JavaScript:;" class="qd">确定</a>
-                            <a href="JavaScript:;" class="qx" qx="xg1">取消</a>
-                        </div>
-                        <div class="xg-right f-l">
-                            <a href="#"><img src="images/dai2.gif"/></a>
-                        </div>
-                        <div style="clear:both;"></div>
+                    <div class="mid-font f-l">
+                        <a href="#">{{ $v['name'] }}<br/>--------</a>
+                        <span>满赠</span>
                     </div>
-                </div>
-                <div class="mid-sl f-l">
-                    <a href="JavaScript:;" class="sl-left">-</a>
-                    <input type="text" value="1"/>
-                    <a href="JavaScript:;" class="sl-right">+</a>
-                </div>
-                <p class="mid-dj f-l">¥ <span>10</span>.00</p>
-                <p class="mid-je f-l">¥ <span>10</span>.00</p>
-                <div class="mid-chaozuo f-l">
-                    <a href="#">移入收藏夹</a>
-                    <a href="#">删除</a>
-                </div>
-                <div style="clear:both;"></div>
-            </div>
-        </div>
-        <div class="cart-con-info">
-            <div class="info-top">
-
-            </div>
-            <div class="info-mid">
-                <input type="checkbox" value="" name="hobby" class="mid-ipt f-l"></input>
-                <div class="mid-tu f-l">
-                    <a href="#"><img src="images/dai1.gif"/></a>
-                </div>
-                <div class="mid-font f-l">
-                    <a href="#">登高阁紫菜肉松鸡蛋卷 海苔蛋卷 糕点<br/>江西特产小吃 休闲办公零食</a>
-                    <span>满赠</span>
-                </div>
-                <div class="mid-guige f-l">
-                    <p>颜色：蓝色</p>
-                    <p>尺码：XL</p>
-                    <a href="JavaScript:;" class="xg" xg="xg1">修改</a>
-                    <div class="guige-xiugai" xg-g="xg1">
-                        <div class="xg-left f-l">
-                            <dl>
-                                <dt>颜 色</dt>
-                                <dd>
-                                    <a href="JavaScript:;" class="current">黑色</a>
-                                    <a href="JavaScript:;">白色</a>
-                                </dd>
-                                <div style="clear:both;"></div>
-                            </dl>
-                            <dl>
-                                <dt>尺 码</dt>
-                                <dd>
-                                    <a href="JavaScript:;" class="current">M</a>
-                                    <a href="JavaScript:;">L</a>
-                                    <a href="JavaScript:;">XL</a>
-                                </dd>
-                                <div style="clear:both;"></div>
-                            </dl>
-                            <a href="JavaScript:;" class="qd">确定</a>
-                            <a href="JavaScript:;" class="qx" qx="xg1">取消</a>
+                    <div class="mid-guige f-l">
+                        <p>颜色：蓝色</p>
+                        <p>尺码：XL</p>
+                        <a href="JavaScript:;" class="xg" xg="xg1">修改</a>
+                        <div class="guige-xiugai" xg-g="xg1">
+                            <div class="xg-left f-l">
+                                <dl>
+                                    <dt>颜 色</dt>
+                                    <dd>
+                                        <a href="JavaScript:;" class="current">黑色</a>
+                                        <a href="JavaScript:;">白色</a>
+                                    </dd>
+                                    <div style="clear:both;"></div>
+                                </dl>
+                                <dl>
+                                    <dt>尺 码</dt>
+                                    <dd>
+                                        <a href="JavaScript:;" class="current">M</a>
+                                        <a href="JavaScript:;">L</a>
+                                        <a href="JavaScript:;">XL</a>
+                                    </dd>
+                                    <div style="clear:both;"></div>
+                                </dl>
+                                <a href="JavaScript:;" class="qd">确定</a>
+                                <a href="JavaScript:;" class="qx" qx="xg1">取消</a>
+                            </div>
+                            <div class="xg-right f-l">
+                                <a href="#"><img src="images/dai2.gif"/></a>
+                            </div>
+                            <div style="clear:both;"></div>
                         </div>
-                        <div class="xg-right f-l">
-                            <a href="#"><img src="images/dai2.gif"/></a>
-                        </div>
-                        <div style="clear:both;"></div>
                     </div>
-                </div>
-                <div class="mid-sl f-l">
-                    <a href="JavaScript:;" class="sl-left">-</a>
-                    <input type="text" value="1"/>
-                    <a href="JavaScript:;" class="sl-right">+</a>
-                </div>
-                <p class="mid-dj f-l">¥ <span>1</span>.00</p>
-                <p class="mid-je f-l">¥ <span>1</span>.00</p>
-                <div class="mid-chaozuo f-l">
-                    <a href="#">移入收藏夹</a>
-                    <a href="#">删除</a>
-                </div>
-                <div style="clear:both;"></div>
-            </div>
-        </div>
+                    <div class="mid-sl f-l">
+                        <a href="JavaScript:;" class="sl-left">-</a>
+                        <input type="text" value="{{ $v['qty'] }}" class="num">
+                        <input type="hidden" value="{{  $v['__raw_id'] }}" class="id">
+                        <a href="JavaScript:;" class="sl-right">+</a>
+                    </div>
+                    <p class="mid-dj f-l">¥ <span class="cartprice">{{ $v['price'] }}</span>.00</p>
+                    <p class="mid-je f-l">¥ <span class="carttotal">{{ $v['total'] }}</span>.00</p>
+                    <div class="mid-chaozuo f-l">
+                        <form action="cart/{{ $v['__raw_id'] }}" method="POST">
+                            {{ csrf_field() }}
+                            <input type="hidden" name="_method" value="DELETE">
+                            <a href="#">移入收藏夹</a>
+                            <a href="cart/{{ $v['__raw_id'] }}"><input type="submit" value="删除"></a>
 
-        <!--分页-->
+                        </form>
+                    </div>
+                    <div style="clear:both;"></div>
+                </div>
+            </div>
+    @endforeach
+
+    <!--分页-->
         <div class="paging">
             <div class="pag-left f-l">
                 <a href="#" class="about left-r f-l"><</a>
@@ -260,4 +165,35 @@
             <div style="clear:both;"></div>
         </div>
     </div>
+
+
+@endsection
+
+@section('js')
+
+    <script>
+
+        $('.num').blur(function () {
+
+            var id = $('.id').val();
+            var num = $('.num').val();
+            var price = $('.cartprice').html();
+            $.ajax({
+                type: "POST",
+                url: "{{ url('/cart/ajax') }}",
+
+                data:  { '_token':'{{csrf_token()}}', 'id':id,'num':num },
+                success: function (data) {
+
+                }
+            });
+
+//            $('.num+.carttotal').empty().prepend(price*num);
+
+
+
+        });
+
+
+    </script>
 @endsection

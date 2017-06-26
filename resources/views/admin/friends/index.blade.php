@@ -19,7 +19,7 @@
     $(document).ready(function () {
         $('.i-checks').iCheck({
             checkboxClass: 'icheckbox_square-green',
-            radioClass: 'iradio_square-green',
+            radioClass: 'iradio_square-green'
         });
     });
 </script>
@@ -75,7 +75,7 @@
                                             <th rowspan="1"
                                     colspan="1" style="width: 204px;">链接地址</th>
                                             <th rowspan="1"
-                                    colspan="1" style="width: 204px;">图片名称</th>
+                                    colspan="1" style="width: 204px;">图片</th>
                                             <th rowspan="1"
                                     colspan="1" style="width: 104px;">状态</th>
                                             <th rowspan="1"
@@ -92,7 +92,7 @@
                                             <td class="text-center ">{{ $v->name }}</td>
                                             <td class="text-center ">{{ $type[$v->type] }}</td>
                                             <td class="text-center ">http://{{ $v->url }}</td>
-                                            <td class="text-center ">{{ $v->image }}</td>
+                                            <td class="text-center "><img alt="image" class="img-responsive" src="/uploads/x_{{$v->image}}"></td>
                                             <td class="text-center ">{{ $status[$v->status] }}</td>
                                             <td class="text-center">
                                                 <form action="friends/{{$v->id}}" method="POST">

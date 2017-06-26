@@ -14,38 +14,43 @@
 
 
 
-
-Route::get('/', function () {
-
-	return view('web.index');
-});
+//首页
+Route::get('/', 'HomeController@index');
 
 //前台购物车路由
 Route::resource('cart','CartController');
+Route::post('cart/ajax','CartController@ajax');
 
 //前台信息反馈路由
 Route::resource('feedback','FeedbackController');
 
 //前台评论
 Route::get('comment', 'CommentController@index');
-
+//商品列表页
 Route::get('goods_list', function () {
 
     return view('web.goods.list');
 });
 
+Route::get('goods_details', function () {
 
-Route::group(['middleware'=>'adminid','namespace' => 'Admin', 'prefix' => 'admin'], function () {
-    Route::get('/', function () { return view('admin.index'); });
+    return view('web.goods.details');
+});
 
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
+    Route::get('/', function () { return view('admin.public'); });
+    //商品管理
+    
     Route::resource('goods', 'GoodsController');
-
+    //商品分类管理
     Route::resource('types', 'TypesController');
 
     Route::resource('friends', 'FriendController');
 
+    //ajax请求数据
     Route::post('goods/ajax', 'GoodsController@ajax');
 
+    //上传图片插件请求
 	Route::post('goods/upload', 'GoodsController@upload');
 
 	//后台反馈组
@@ -59,7 +64,7 @@ Route::group(['middleware'=>'adminid','namespace' => 'Admin', 'prefix' => 'admin
 
 	//后台友情链接路由
 	Route::get('friends', 'FriendController@index');
-	
+
 	//前台用户路由
     Route::resource('users', 'UsersController');
 

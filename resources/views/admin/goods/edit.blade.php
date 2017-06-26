@@ -35,7 +35,7 @@
 	                </div>
 	                <div class="hr-line-dashed"></div>
 	                <div class="form-group">
-	                    <label class="col-sm-2 control-label">库存</label>
+	                    <label class="col-sm-2 control-label">购买量</label>
 
 	                    <div class="col-sm-10">
 	                        <input type="text" name="buy" value="{{$dataObj->buy}}" class="form-control">
@@ -74,12 +74,10 @@
 	                <div class="hr-line-dashed"></div>
                     <div class="form-group">
                     	<label class="col-sm-2 control-label">商品状态</label>
-                        <div class="radio i-checks">
                         	<div class="col-sm-10">
                            		<input type="radio" value="0" name="state" @if($dataObj->state = 0) checked @endif ><i>在售</i>
                             	<input type="radio" value="1" name="state" @if($dataObj->state = 1) checked @endif ><i>下架</i>
                             </div>
-                        </div>
                     </div>
                     {!! csrf_field() !!}
 	                <div class="hr-line-dashed"></div>
