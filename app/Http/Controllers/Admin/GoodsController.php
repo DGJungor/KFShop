@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-use Storage;
+
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Admin\Good;
-
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Input;
 
 
 class GoodsController extends Controller
@@ -18,7 +19,7 @@ class GoodsController extends Controller
      */
     public function index()
     {
-        $dataObj = Good::paginate(10);
+        $dataObj = Good::paginate(6);
         $state = ['0'=>'下架','1'=>'在售'];
         return view('admin.goods.index', compact(['dataObj','state']));
     }
@@ -42,24 +43,20 @@ class GoodsController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
-
+        // dd($request->file_detail);
         if ($request->isMethod('post')) {
-
-            $file = $request->file('picture');
-            // dd($file);
-            // 文件是否上传成功
+            $file = $request->file('picname');
             if ( $file->isValid() ) {
-                // 获取文件相关信息
-                $originalName = $file->getClientOriginalName(); // 文件原名
+            // 文件是否上传成功
+            // 获取文件相关信息
+            //     $originalName = $file->getClientOriginalName(); // 文件原名
                 $ext = $file->getClientOriginalExtension();     // 扩展名
-                $realPath = $file->getRealPath();   //临时文件的绝对路径
-                $type = $file->getClientMimeType();     // image/jpeg
-                // dd($realPath);
-                // 上传文件
-                $filename = date('Y-m-d-H-i-s') . '-' . uniqid() . '.' . $ext;
-                // 使用我们新建的uploads本地存储空间（目录）
-                $bool = Storage::disk('uploads')->put($filename, file_get_contents($realPath));
+            //     $realPath = $file->getRealPath();   //临时文件的绝对路径
+            //     $type = $file->getClientMimeType();     // image/jpeg
+                $filename = date('Y-m-d-H-i-s') . '-' . uniqid() .'.'. $ext;
+                Image::make( Input::file('picname'))->save('uploads/goods/'.$filename)
+                                                    ->resize(130, 130)->save('uploads/goods/m'.$filename)
+                                                    ->resize(359, 351)->save('uploads/goods/xl_'.$filename);
 
                 if($request->other>0){
                     $typeid = $request->other;
@@ -75,25 +72,35 @@ class GoodsController extends Controller
                     $typeid = $request->typeid;
                 }
 
-                $row = \DB::table('data_goods')->insert([
+                $row = \DB::table('data_goods')->insertGetId([
                     'goodname'=>$request->goodname,
                     'typeid' =>$typeid,
                     'buy'=>$request->buy,
                     'brand'=>$request->brand,
-                    'describe'=>$request->describe,
                     'picname'=>$filename,
                     'suit'=>$request->suit,
                     'makein'=>$request->makein,
                     'state'=>$request->state,
                 ]);
 
-                if ($row) {
-                   return redirect('/admin/goods')->with(['success' => '添加商品成功！']);
-                }
+                if (!empty($row)) {
+                    $row = \DB::table('data_goods_details')->insertGetId([
+                        'goods_id' => $row,
+                        'picname' => implode(',' , $request->file_detail),
+                        'details' => $request->describe,
 
+                    ]);
+                   return redirect('/admin/goods')->with(['success' => '添加商品成功！']);
+
+                }
+                // endif 文件上传没成功
             } else {
+
                 return back()->with(['success' => '添加失败！,上传图片出错']);
             }
+            //end if 不是post请求
+        } else{
+            return back()->with(['success' => '添加失败！,请求方式异常']);
         }
     }
 
@@ -106,7 +113,12 @@ class GoodsController extends Controller
      */
     public function show($id)
     {
-        return view('admin.goods.show');
+        $dataObj = Good::find($id);
+        $listObj = \DB::table('data_goods_details')->where('goods_id', $id)->get();
+        // dd($dataObj->picname);
+        $listObj[0]->picname = explode(',', $listObj[0]->picname);
+        // dd($listObj[0]);
+        return view('admin.goods.show', compact('dataObj', 'listObj'));
     }
 
     /**
@@ -137,7 +149,6 @@ class GoodsController extends Controller
             'typeid' =>$request->typeid,
             'buy'=>$request->buy,
             'brand'=>$request->brand,
-            'describe'=>$request->describe,
             'suit'=>$request->suit,
             'makein'=>$request->makein,
             'state'=>$request->state,
@@ -171,34 +182,24 @@ class GoodsController extends Controller
      */
     public function ajax(Request $request)
     {
-        // $pid = $request->pid;
-        $dataObj = \DB::table('data_types')->get();
+        $pid = $request->pid;
+        $dataObj = \DB::table('data_types')->where('pid', $pid )->get();
         return json_encode($dataObj);
     }
 
     /**
      *
-     * 文件上传处理
+     * 多图片上传处理
      */
     public function upload(Request $request)
     {
-        // dd($request);
         $file = $request->file('Filedata');
-
-        if($file -> isValid()){
-            // 上传目录。 public目录下 uploads/thumb 文件夹
-            $extension = $file->getClientOriginalExtension();
-            $ext = $file->getClientOriginalExtension();     // 扩展名
-            $realPath = $file->getRealPath();   //临时文件的绝对路径
-            $type = $file->getClientMimeType();     // image/jpeg
-            // dd($realPath);
-            // 上传文件
-            $filename = date('Y-m-d-H-i-s') . '-' . uniqid() . '.' . $ext;
-            // 使用我们新建的uploads本地存储空间（目录）
-            $bool = Storage::disk('uploads')->put($filename, file_get_contents($realPath));
-            // dd($filepath);
-            return $filename;
-            // 文件名。格式：时间戳 + 6位随机数 + 后缀名
-        }
+        $ext = $file->getClientOriginalExtension();
+        $filename = date('Y-m-d-H-i-s') . '-' . uniqid() . '.' . $ext;
+        //裁剪多张上传的图片
+        $img  = Image::make(Input::file('Filedata'))->save('uploads/goods/'.$filename);
+        // $img = Image::make('public/')->resize(300, 200);
+        return $filename;
+        // return $filename;
     }
 }
