@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use function Couchbase\basicDecoderV1;
 use Illuminate\Http\Request;
 use Storage;
 use App\Http\Requests;
@@ -58,16 +59,17 @@ class RecommendController extends Controller
                 $ext = $file->getClientOriginalExtension();     // 扩展名
                 $realPath = $file->getRealPath();   //临时文件的绝对路径
                 $type = $file->getClientMimeType();     // image/jpeg
+                $filePath=public_path('uploads');
                 // 上传文件
-                $filename = date('Y-m-d-H-i-s') . '-' . uniqid() . '.' . $ext;
-                $image=new ImageManager();
-                $image->make('./'.Storage::disk('uploads').'/'.$filename)->resize(200,200)->save('./'.Storage::disk('uploads')."/"."s_".$filename);
-                exit();
+                $fileName = date('Y-m-d-H-i-s') . '-' . uniqid() . '.' . $ext;
+//                $image->make($filePath.'/'.$filename)->resize(200,200)->save($filePath."/"."s_".$filename);
+
                 // 使用新建的uploads本地存储空间（目录）
-                $bool = Storage::disk('uploads')->put($filename, file_get_contents($realPath));
-
-
-                $request->recommend_picname=$filename;
+                $bool = Storage::disk('uploads')->put($fileName, file_get_contents($realPath));
+                $image=new ImageManager();
+                $image->make($filePath.'/'.$fileName)->resize(1920,430)->save($filePath.'/l_'.$fileName);
+                $image->make($filePath.'/'.$fileName)->resize(326,218)->save($filePath.'/s_'.$fileName);
+                $request->recommend_picname=$fileName;
                 $request->created_at=Carbon::now();
 //                dd($request->created_at);
                 $rec = \DB::table('data_recommend')->insert([
@@ -105,10 +107,12 @@ class RecommendController extends Controller
     public function edit($id)
     {
 
+
         $data = Recommend::find($id);
 //        dd($dataObj);
 //        $img=Image::canvas(800, 600, '#ccc');
         return view('admin.recommend.edit', compact('data'));
+
 
     }
     /**
@@ -120,7 +124,19 @@ class RecommendController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if(Recommend::where('id', '=', $id)->update([
+           'recommend_name'=>$request->recommend_name,
+            'recommend_introduction'=>$request->recommend_introduction,
+        ])){
+
+            return view('/admin/recommend/')->with(['success'=>'修改成功']);
+
+        }else{
+
+            return back()->with(['success'=>'修改失败']);
+
+        }
+
     }
 
     /**
@@ -137,6 +153,11 @@ class RecommendController extends Controller
         } else {
             return back()->with(['删除失败']);
         }
+
+    }
+
+    public function ajax()
+    {
 
     }
 }

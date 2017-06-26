@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Intervention\Image\ImageManager;
+
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 
 class CommentController extends Controller
 {
@@ -84,5 +83,4 @@ class CommentController extends Controller
     {
         //
     }
-
 }

@@ -24,7 +24,7 @@
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
 {{--                        {{dump($data->recommend_picname)}}--}}
-                        <h5>{{$data->recommend_name}} &nbsp;&nbsp;&nbsp;&nbsp;<small>标语:{{$data->recommend_introduction}}</small></h5>
+                        <h5>&nbsp;<small></small></h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -32,13 +32,26 @@
                         </div>
                     </div>
 
-                    <div class="ibox-content">
+                    <form action="/admin/recommend/{{$data->id}}" method="POST">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="_method" value="PUT">
+                    <div class="col-xs-4">
+                            <div class="form-group">
+                                <label for="exampleInputName2">轮播图名称</label>
+                                <input type="text" class="form-control" placeholder=".col-xs-4" name="recommend_name" value="{{$data->recommend_name}}">
+                            </div>
+                        <br>
+                            <div class="form-group">
+                                <label for="exampleInputName2">轮播图导语</label>
+                                <input type="text" class="form-control" placeholder=".col-xs-4" name="recommend_introduction" value="{{$data->recommend_introduction}}">
+                            </div>
 
-                        <a class="fancybox" href="/uploads/{{$data->recommend_picname}}" title="预览">
-                            <img alt="image" src="/uploads/{{$data->recommend_picname}}" />
-                        </a>
+                        <br>
+
+                        <button class="btn btn-success" type="submit">修改</button>
                     </div>
 
+                    </form>
                 </div>
             </div>
 

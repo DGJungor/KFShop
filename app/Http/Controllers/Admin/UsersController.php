@@ -79,8 +79,7 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        $user = UserInfo::find($id);
-        return view('admin.users.edit', compact('user'));
+        //
     }
 
     /**
@@ -93,19 +92,10 @@ class UsersController extends Controller
     public function update(Request $request, $id)
     {
         if (UserInfo::where('id','=',$id)->update([
-            'username'=>$request->username,
-            'realname'=>$request->realname,
-            'email'=>$request->email,
-            'tel'=>$request->tel,
-            'avatar'=>$request->avatar,
-            'sex'=>$request->sex,
-            'id_number'=>$request->id_number,
-            'answer'=>$request->answer,
-            'birthday'=>$request->birthday,
             'status'=>$request->status
         ]))
         {
-            return redirect('/admin/users/'.$id)->with(['success'=>'修改成功！！！']);
+            return redirect('/admin/users');
         } else {
             return back();
         }

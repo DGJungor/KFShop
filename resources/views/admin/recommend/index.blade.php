@@ -58,6 +58,10 @@
                             <a href="/admin/recommend/{{$v->id}}/edit">
                                 <span class="corner"></span>
 {{--                                {{dump($v->id)}}--}}
+
+                            <a href="#">
+                                <span class="corner"></span>
+
                                 <div class="image">
                                     <img alt="image" class="img-responsive" src="/uploads/{{$v['recommend_picname']}}">
                                 </div>
@@ -67,7 +71,6 @@
                                     <small>添加时间：{{$v['created_at']}}</small>
                                 </div>
                             </a>
-
                             <div class="file-manager">
                                 <div class="hr-line-dashed">
                                     <form action="recommend/{{$v->id}}" method="POST">
@@ -90,14 +93,13 @@
     </div>
 </div>
 
-
    
 
 @endsection
 
 @section('js')
- <script>
 
+    <script>
         $(document).ready(function () {
             $('.file-box').each(function () {
                 animationHover(this, 'pulse');
@@ -105,4 +107,14 @@
         });
     </script>
 
+    <script>
+        $(function () {
+            $(from).on('click', 'button btnDel', function () {
+
+            })
+
+        })
+
+
+    </script>
 @endsection
