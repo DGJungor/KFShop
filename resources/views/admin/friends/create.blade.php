@@ -44,7 +44,9 @@
                                         类型:
                                         </label>
                                         <div class="">
+
                                         <div class="radio i-checks">
+
                                             <input type="radio" value="1" name="type" checked> <i>图片</i>
                                             <input type="radio" value="2" name="type" > <i>文字</i>
                                             </div>   

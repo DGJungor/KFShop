@@ -67,13 +67,27 @@
                                 <td>{{$v->tel}}</td>
                                 <td>@if($v->sex == 1) 男 @elseif($v->sex == 2) 女 @else @endif</td>
                                 <td>{{$v->birthday}}</td>
-                                <td class="center">@if($v->status == 0) 禁用 @elseif($v->status == 1) 使用中 @endif</td>
+                                <td class="center">
+                                    <form action="/admin/users/{{$v->id}}" method="POST">
+                                        {{ csrf_field() }}
+                                        <input type="hidden" name="_method" value="PUT">
+                                        @if($v->status == 0)
+                                            <input type="hidden" name="status" value="1">
+                                            <button type="submit" class="btn btn-danger btn-xs">
+                                                禁用
+                                            </button>
+                                        @elseif($v->status == 1)
+                                            <input type="hidden" name="status" value="0">
+                                            <button type="submit" class="btn btn-success btn-xs">
+                                                开启
+                                            </button>
+                                        @endif
+                                    </form>
+                                </td>
+
                                 <td class="text-center">
                                     <a href="/admin/users/{{$v->id}}">
-                                        <i class="fa fa-eye text-success">查看</i>
-                                    </a>
-                                    <a href="/admin/users/{{$v->id}}/edit">
-                                        <i class="fa fa-edit text-navy">编辑</i>
+                                        <i class="fa fa-eye text-success">查看详情</i>
                                     </a>
                                     <a href="javascript:;" id="deluser">
                                         <i class="fa fa-trash text-danger">删除</i></a>

@@ -23,12 +23,12 @@
 
                 </div>
                 <div class="ibox-content">
+
                     <form method="POST" action="/admin/recommend" class="form-horizontal" enctype="multipart/form-data">
                         {{--<input type="date" name="created_at" >--}}
 
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">轮播名称:</label>
-
+                            <label class="col-sm-2 control-label">轮播图名称:</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" name="recommend_name"  value="">
                             </div>
@@ -36,7 +36,7 @@
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">
-                                推荐位位置:
+                               轮播图位置:
                             </label>
                             <div class="">
                                 <div class="radio i-checks">
@@ -49,19 +49,20 @@
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">
-                                推荐类型:
+                                轮播图类型:
                             </label>
                             <div class="">
                                 <div class="radio i-checks">
-                                    <input type="radio" value="1" name="recommend_type" checked> <i>图片</i>
-                                    <input type="radio" value="2" name="recommend_type" > <i>文字</i>
+                                    <input type="radio" value="1" name="recommend_type" checked> <i>大图</i>
+                                    <input type="radio" value="2" name="recommend_type" > <i>小图</i>
                                 </div>
 
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">楼为导语:</label>
+
+                            <label class="col-sm-2 control-label">轮播图导语:</label>
 
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" name="recommend_introduction" value="">
@@ -75,7 +76,7 @@
                             {{--<input type="button" class="btn btn-primary "onclick="document.getElementById('fill').click();"value="上传文件">--}}
 
                         {{--</div>--}}
-                            <label class="col-sm-2 control-label">楼为导语:</label>
+                            <label class="col-sm-2 control-label">添加图片:</label>
                             <div class="col-sm-10">
                                 <input type="file" name="recommend_picname">
                             </div>
@@ -93,6 +94,7 @@
             </div>
         </div>
     </div>
+
 @endsection
 
 @section('js')
@@ -105,5 +107,4 @@
             });
         });
     </script>
-
 @endsection

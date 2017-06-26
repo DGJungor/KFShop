@@ -11,18 +11,8 @@
 
 
         <div class="col-lg-10">
-            <h2>基本图库</h2>
-            <ol class="breadcrumb">
-                <li>
-                    <a href="index.html">主页</a>
-                </li>
-                <li>
-                    <a>图库</a>
-                </li>
-                <li>
-                    <strong>基本图库</strong>
-                </li>
-            </ol>
+            <h3>修改管理</h3>
+
         </div>
         <div class="col-lg-2">
 @endsection
@@ -41,13 +31,14 @@
                             </a>
                         </div>
                     </div>
+
                     <div class="ibox-content">
 
-                        <a class="fancybox" href="/uploads/{{$data->recommend_picname}}" title="">
+                        <a class="fancybox" href="/uploads/{{$data->recommend_picname}}" title="预览">
                             <img alt="image" src="/uploads/{{$data->recommend_picname}}" />
                         </a>
-
                     </div>
+
                 </div>
             </div>
 

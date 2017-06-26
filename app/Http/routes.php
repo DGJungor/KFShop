@@ -26,9 +26,12 @@ Route::resource('cart','CartController');
 //前台信息反馈路由
 Route::resource('feedback','FeedbackController');
 
+//前台评论
+Route::get('comment', 'CommentController@index');
 
-Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
-    Route::get('/', function () { return view('admin.public'); });
+
+Route::group(['middleware'=>'adminid','namespace' => 'Admin', 'prefix' => 'admin'], function () {
+    Route::get('/', function () { return view('admin.index'); });
 
     Route::resource('goods', 'GoodsController');
 
@@ -58,6 +61,16 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
     //后台用户路由
     Route::resource('admins', 'AdminUsersController');
 
+    //后台评论路由
+    Route::resource('comment', 'CommentController');
 
 });
+
+//后台登录首页路由
+Route::get('/admin/login','Admin\AdminLoginController@login');
+
+//后台执行登录路由
+Route::post('/admin/dologin', 'Admin\AdminLoginController@dologin');
+
+
 
