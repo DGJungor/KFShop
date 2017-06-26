@@ -45,14 +45,10 @@
             	<a href="#" title="sunlogo"><img src="{{ url('/web/images/zl2-01-1.gif') }}" /></a>
             </div>
         	<div class="shangjia f-l">
-            	<a href="JavaScript:;" class="shangjia-a1">[ 切换城市 ]</a>
-            	<a href="JavaScript:;" class="shangjia-a2">商家入口</a>
+
                 <div class="select-city">
         	<div class="sl-city-top">
-            	<p class="f-l">切换城市</p>
-                <a class="close-select-city f-r" href="JavaScript:;">
-                	<img src="{{ url('/web/images/close-select-city.gif') }}" />
-                </a>
+
             </div>
             <div class="sl-city-con">
 

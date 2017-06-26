@@ -20,7 +20,8 @@
 @endsection
 
 @section('content')
-<!-- {{dump($dataObj)}} -->
+{{--{{dump($dataObj)}}--}}
+
 <div class="row">
                     <div class="col-lg-12">
                         <div class="ibox float-e-margins">
@@ -29,7 +30,8 @@
                                
                             </div>
                             <div class="ibox-content">
-                                <form method="post" action="/admin/friends/{{$dataObj->id}}" class="form-horizontal">
+
+                                <form method="POST" action="/admin/friends/{{$dataObj->id}}" class="form-horizontal">
                                     {{ csrf_field() }}
                                     <input type="hidden" name="_method" value="PUT">
                                     {{--<input type="hidden" name="_token" value="{{csrf_token()}}">--}}
@@ -37,7 +39,7 @@
                                         <label class="col-sm-2 control-label">友情链接名称:</label>
 
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" value="{{$dataObj->name}}">
+                                            <input type="text" name="name" class="form-control" value="{{$dataObj->name}}">
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
@@ -45,13 +47,14 @@
                                         <label class="col-sm-2 control-label">
                                         类型:
                                         </label>
-                                        <div class="">
-                                        <div class="">
-                                            <input type="radio" value="1" name="type" @if($dataObj->type = 1) checked @endif > <i>图片</i>
-                                            <input type="radio" value="2" name="type" @if($dataObj->type = 2) checked @endif > <i>文字</i>
+
+
+                                        <div class="radio i-checks">
+                                            <input type="radio" value="1" name="type" @if($dataObj->type == 1) checked @endif > <i>图片</i>
+                                            <input type="radio" value="2" name="type" @if($dataObj->type == 2) checked @endif > <i>文字</i>
                                             </div>   
-                                            {{--{{dump($dataObj)}}--}}
-                                        </div>
+
+
                                     </div>
                                     <div class="hr-line-dashed"></div>
                                     <div class="form-group">
@@ -60,7 +63,7 @@
                                         <div class="col-sm-10">
                                             <div class="input-group m-b"><span class="input-group-btn">
                                             <button type="button" class="btn btn-primary">http://</button> </span> 
-                                                <input type="text" class="form-control" value="{{$dataObj->url}}">
+                                                <input type="text" name="url" class="form-control" value="{{$dataObj->url}}">
                                             </div>
                                         </div>
                                     </div>
@@ -69,7 +72,7 @@
                                         <label class="col-sm-2 control-label">图片路径:</label>
 
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" value="{{$dataObj->image}}">
+                                            <input type="text" name="image" class="form-control" value="{{$dataObj->image}}">
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
@@ -78,9 +81,9 @@
                                         状态:
                                         </label>
                                         <div class="">
-                                        <div class="">
-                                            <input type="radio" value="0" name="status" @if($dataObj->status = 0) checked @endif > <i>启用</i>
-                                            <input type="radio" value="1" name="status" @if($dataObj->status = 1) checked @endif > <i>禁用</i>
+                                        <div class="radio i-checks">
+                                            <input type="radio" value="0" name="status" @if($dataObj->status == 0) checked @endif > <i>启用</i>
+                                            <input type="radio" value="1" name="status" @if($dataObj->status == 1) checked @endif > <i>禁用</i>
                                         </div>
                                         </div>
                                     </div>
@@ -97,5 +100,18 @@
                         </div>
                     </div>
                 </div>
+
+@endsection
+@section('js')
+
+    <script src="js/plugins/iCheck/icheck.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
+    </script>
 
 @endsection

@@ -4,6 +4,20 @@
     修改用户信息
 @endsection
 
+@section('bigtitle')
+    <div class="col-lg-10">
+        <h2>用户</h2>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/admin/users">用户管理</a>
+            </li>
+            <li>
+                <strong>信息修改</strong>
+            </li>
+        </ol>
+    </div>
+@endsection
+
 @section('content')
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
@@ -124,4 +138,15 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+    <script>
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
+    </script>
 @endsection

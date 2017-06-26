@@ -18,15 +18,24 @@
 Route::get('/', 'HomeController@index');
 
 //前台购物车路由
-Route::get('cart','CartController@index');
+Route::resource('cart','CartController');
 
 //前台信息反馈路由
 Route::resource('feedback','FeedbackController');
 
+//前台评论
+Route::get('comment', 'CommentController@index');
 
+<<<<<<< HEAD
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
     Route::get('/', function () { return view('admin.public'); });
     //商品管理
+=======
+
+Route::group(['middleware'=>'adminid','namespace' => 'Admin', 'prefix' => 'admin'], function () {
+    Route::get('/', function () { return view('admin.index'); });
+
+>>>>>>> 74ec2097e44d18857cc7ec3d5c867025401a4744
     Route::resource('goods', 'GoodsController');
     //商品分类管理
     Route::resource('types', 'TypesController');
@@ -55,8 +64,18 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
     Route::resource('users', 'UsersController');
 
     //后台用户路由
-    Route::resource('adminusers', 'AdminUsersController');
+    Route::resource('admins', 'AdminUsersController');
 
+    //后台评论路由
+    Route::resource('comment', 'CommentController');
 
 });
+
+//后台登录首页路由
+Route::get('/admin/login','Admin\AdminLoginController@login');
+
+//后台执行登录路由
+Route::post('/admin/dologin', 'Admin\AdminLoginController@dologin');
+
+
 

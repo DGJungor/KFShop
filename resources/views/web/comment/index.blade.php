@@ -10,7 +10,10 @@
 
 <link rel="stylesheet" type="text/css" href="{{ url('/web/css/shopping-mall-index.css') }}" />
 <link rel="stylesheet" type="text/css" href="{{ url('/web/css/star-rating.css' ) }}" media="all"/>
-<link rel="stylesheet" type="text/css" href="{{ url('/web/css/bootstrap.min.css' ) }}" rel="stylesheet"/>
+{{--<style type="text/css">--}}
+    {{--.search .search-info{ width:596px; height:40px;}--}}
+    {{--.search-info input{ width:494px;}--}}
+{{--</style>--}}
 
 @endsection
 
@@ -76,7 +79,7 @@
  <!--内容开始-->
     <div class="evaluate w1200">
     	<dl class="eva-info1">
-        	<dt><a href="#"><img src="{{ url('web/css/images/want-evaluate-tu.gif') }}" /></a></dt>
+        	<dt><a href="#"><img src="{{ url('web/images/want-evaluate-tu.gif') }}" /></a></dt>
             <dd>
             	<h3><a href="#">买一送三 正品ICOOK韩式耐热玻璃饭盒微波炉保鲜盒密封碗便当套装</a></h3>
                 <ul>
@@ -130,11 +133,11 @@
                 	<dt>晒图片</dt>
                     <dd>
                     	<a href="JavaScript:;">
-                        	<img src="{{ url('web/css/images/dl3-tu1.gif') }}" />
+                        	<img src="{{ url('web/images/dl3-tu1.gif') }}" />
                             <input type="file" class="img1" />
                         </a>
                         <a href="JavaScript:;">
-                        	<img src="{{ url('web/css/images/dl3-tu2.gif') }}" />
+                        	<img src="{{ url('web/images/dl3-tu2.gif') }}" />
                             <input type="file" class="img1" />
                         </a>
                         <p>上传图片     1/5</p>
@@ -149,6 +152,7 @@
                 	<li>
                     	<p class="p1"><span>*</span> 描述相符</p>
                         <form style="display:inline-block;">
+                            <input type="hidden" name="scroe" id="scroe">
                             <input id="input-21e" value="0" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs" >
                         </form>
                     </li>
@@ -163,6 +167,7 @@
                         <form style="display:inline-block;">
                             <input id="input-21e" value="0" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs" >
                         </form>
+
                     </li>
                 </ul>
                 <p class="eva-fen">2分-4分为一般</p>
