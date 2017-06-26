@@ -8,6 +8,10 @@ use App\Http\Requests;
 
 use Overtrue\LaravelShoppingCart\Cart;
 
+use Illuminate\Session\Store;
+
+use Illuminate\Support\Facades\Redis;
+
 class CartController extends Controller
 {
 	/**
@@ -15,9 +19,9 @@ class CartController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index(Cart $cart,Request $request)
+	public function index(Cart $cart,Request $request,Store $store)
 	{
-		//
+
 //		$row = $cart->add(37., 'Item name', 5, 100.00, ['color' => 'red', 'size' => 'M']);
 //		$cart->add(37, 'Item name', 5, 100.00, ['color' => 'red', 'size' => 'M']);
 //		$cart->add(127, 'foobar', 15, 100.00, ['color' => 'green', 'size' => 'S']);
@@ -28,7 +32,17 @@ class CartController extends Controller
 //		}
 //		$request->session()->put('123','123');
 //		$request->session()->save();
-		dd($request->session()->all());
+//		\Redis::get();
+//		$session= $this->getSession($request);
+//		session()->start();
+//		$store->save();
+//		 $a = $store->start();
+
+
+
+//		 $v = Redis::set('123','312');
+		$a = $request->session()->all();
+		dd($v);
 		return view('web.cart.index');
 	}
 
