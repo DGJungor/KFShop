@@ -7,7 +7,7 @@ body {
 </style>
 @endsection
 @section('title')
-编辑商品
+添加商品
 @endsection
 @section('bigtitle')
 <div class="col-lg-10">
@@ -100,11 +100,9 @@ body {
                     <div class="hr-line-dashed"></div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">商品状态</label>
-                        <div class="radio i-checks">
-                            <div class="col-sm-10">
-                                <input type="radio" value="0" name="state"><i>在售</i>
-                                <input type="radio" value="1" name="state"><i>下架</i>
-                            </div>
+                        <div class="col-sm-10">
+                            <input type="radio" value="0" name="state"><i>在售</i>
+                            <input type="radio" value="1" name="state"><i>下架</i>
                         </div>
                     </div>
                     {!! csrf_field() !!}
@@ -251,15 +249,16 @@ $.ajax({
             height: 30, // 上传按钮高度
             // //buttonImage: "{{asset('org/uploadify/browse-btn.png')}}", // 上传按钮背景图片地址
             fileTypeDesc: 'Image File', // 选择文件对话框中图片类型提示文字
-            fileTypeExts: '*.jpg;*.jpeg;*.png;*.gif', // 选择文件对话框中允许选择的文件类型
+            fileTypeExts: '*.jpg;*.jpeg;*.png', // 选择文件对话框中允许选择的文件类型
              // Laravel表单提交必需参数_token，防止CSRF
-
+            queueSizeLimit: 5,
             //没有兼容的FLASH时触发
 
             //上传文件成功后触发（每一个文件都触发一次）
             onUploadSuccess: function (file, data, response) {
-                var img='<img src="{{ asset('uploads') }}/'+data+'" width="100" height="100" /><input type="hidden" name="images[]" value="{{ asset('uploads') }}/'+data+'" readonly />';
-                $('queue').html(img);
+                console.log(data);
+                var hidden='<input type="hidden" name="file_detail[]" value="'+data+'" readonly />';
+                $('#queue').append(hidden);
             }
         });
 </script>

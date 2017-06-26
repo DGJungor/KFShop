@@ -14,11 +14,8 @@
 
 
 
-
-Route::get('/', function () {
-
-	return view('web.index');
-});
+//首页
+Route::get('/', 'HomeController@index');
 
 //前台购物车路由
 Route::get('cart','CartController@index');
@@ -29,15 +26,17 @@ Route::resource('feedback','FeedbackController');
 
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
     Route::get('/', function () { return view('admin.public'); });
-
+    //商品管理
     Route::resource('goods', 'GoodsController');
-
+    //商品分类管理
     Route::resource('types', 'TypesController');
 
     Route::resource('friends', 'FriendController');
 
+    //ajax请求数据
     Route::post('goods/ajax', 'GoodsController@ajax');
 
+    //上传图片插件请求
 	Route::post('goods/upload', 'GoodsController@upload');
 
 	//后台反馈组
@@ -51,7 +50,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 
 	//后台友情链接路由
 	Route::get('friends', 'FriendController@index');
-	
+
 	//前台用户路由
     Route::resource('users', 'UsersController');
 

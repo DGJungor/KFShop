@@ -22,7 +22,6 @@ class CreateGoodsTable extends Migration
             $table->string('brand', 32)->comment('品牌');
             $table->string('suit', 32)->comment('适用人群');
             $table->string('makein', 32)->comment('生产地');
-            $table->string('describe', 400)->comment('商品描述');
             $table->timestamps();
         });
     }

@@ -38,7 +38,6 @@
                                 <th>商品名称</th>
                                 <th>商品状态</th>
                                 <th>购买量</th>
-                                <th>商品描述</th>
                                 <th>商品图片</th>
                                 <th>适用人群</th>
                                 <th>品牌</th>
@@ -56,14 +55,18 @@
                                 <td>{{$v['goodname']}}</td>
                                 <td>{{ $state[$v['state']] }}</td>
                                 <td>{{$v['buy']}}</td>
-                                <td>{{$v['describe']}}</td>
-                                <td><img width="120" height="100" src="{{ asset('uploads/') }}/{{ $v['picname'] }}"></td>
+                                <td><img width="120" height="100" src="{{ asset('uploads/goods/') }}/{{ $v['picname'] }}"></td>
                                 <td>{{$v['brand']}}</td>
                                 <td>{{$v['suit']}}</td>
                                 <td>{{$v['makein']}}</td>
                                 <td>{{$v['created_at']}}</td>
                                 <td>
                                     <form action="goods/{{$v['id']}}" method="POST">
+                                        <a href="goods/{{$v['id']}}">
+                                            <button id="btnEdit" type="button" class="btn btn-warning">
+                                                <span class="fa fa-eye" aria-hidden="true"></span>
+                                            </button>
+                                        </a>
                                         <a href="goods/{{$v['id']}}/edit">
                                             <button id="btnEdit" type="button" class="btn btn-warning">
                                                 <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
