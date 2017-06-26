@@ -235,6 +235,8 @@
         </li>
     </ul>
 
+    @yield('js')
+
 </body>
 
 </html>

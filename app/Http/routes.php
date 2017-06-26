@@ -22,6 +22,7 @@ Route::get('/', function () {
 
 //前台购物车路由
 Route::resource('cart','CartController');
+Route::post('cart/ajax','CartController@ajax');
 
 //前台信息反馈路由
 Route::resource('feedback','FeedbackController');
@@ -30,7 +31,8 @@ Route::resource('feedback','FeedbackController');
 Route::get('comment', 'CommentController@index');
 
 
-Route::group(['middleware'=>'adminid','namespace' => 'Admin', 'prefix' => 'admin'], function () {
+//Route::group(['middleware'=>'adminid','namespace' => 'Admin', 'prefix' => 'admin'], function () {
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
     Route::get('/', function () { return view('admin.index'); });
 
     Route::resource('goods', 'GoodsController');
