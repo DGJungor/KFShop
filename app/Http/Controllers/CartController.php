@@ -19,31 +19,23 @@ class CartController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index(Cart $cart,Request $request,Store $store)
+	public function index(Cart $cart, Request $request, Store $store)
 	{
+		$store->start();
 
-//		$row = $cart->add(37., 'Item name', 5, 100.00, ['color' => 'red', 'size' => 'M']);
+		//模拟添加购物车
 //		$cart->add(37, 'Item name', 5, 100.00, ['color' => 'red', 'size' => 'M']);
 //		$cart->add(127, 'foobar', 15, 100.00, ['color' => 'green', 'size' => 'S']);
-//		$aa = $cart->all();
-//		$rawId = $row->rawId();
-//		foreach ($aa as $v) {
-//			echo $v->{'color'};
-//		}
-//		$request->session()->put('123','123');
-//		$request->session()->save();
-//		\Redis::get();
-//		$session= $this->getSession($request);
-//		session()->start();
 //		$store->save();
-//		 $a = $store->start();
 
-
-
-//		 $v = Redis::set('123','312');
-		$a = $request->session()->all();
-		dd($v);
-		return view('web.cart.index');
+		$session = $request->session()->get('cart');
+//		foreach ($session['default'] as $k => $v) {
+//			echo '<pre>';
+//			echo $v;
+//			echo $v['id'];
+//		}
+//		dd($session);
+		return view('web.cart.index', ['cartInfo' => $session['default']]);
 	}
 
 	/**
@@ -107,8 +99,22 @@ class CartController extends Controller
 	 * @param  int $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy($id)
+	public function destroy(Cart $cart, $id)
 	{
-		//
+		//接收到购物车中 商品的列表id  删除
+		$info = $cart->remove($id);
+
+		return view('web.cart.index');
+
+	}
+
+	//购物车的ajax 控制器
+	public function ajax(Request $request, Cart $cart)
+	{
+		$num = (int)$request->num;
+		$id = $request->id;
+		$cart->update($id, $num);
+
+		return json_encode($num);
 	}
 }
