@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\Event;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -24,18 +25,27 @@ class CartController extends Controller
 		$store->start();
 
 		//模拟添加购物车
-//		$cart->add(37, 'Item name', 5, 100.00, ['color' => 'red', 'size' => 'M']);
-//		$cart->add(127, 'foobar', 15, 100.00, ['color' => 'green', 'size' => 'S']);
-//		$store->save();
+//		$cart->add(37, 'Item name', 5, 100.00, ['color' => 'red', 'size' => 'M', 'picname' =>'2017-06-23-20-48-41-594d0e2959cee.jpg']);
+//		$cart->add(127, 'foobar', 15, 100.00, ['color' => 'green', 'size' => 'S','picname' =>'2017-06-23-20-48-41-594d0e2959cee.jpg']);
+//    	$store->save();
+//		$cart->clean();
 
+		//从session中获得
 		$session = $request->session()->get('cart');
-//		foreach ($session['default'] as $k => $v) {
-//			echo '<pre>';
-//			echo $v;
-//			echo $v['id'];
-//		}
-//		dd($session);
-		return view('web.cart.index', ['cartInfo' => $session['default']]);
+
+		//计算购物车中的商品数
+		$count = count($session['default']);
+
+		//判断购物车中是否为空  空着跳转 提醒客户添加商品页面
+		if ($count==0) {
+			return view('web.cart.null');
+		} else {
+
+			//查询商品的信息
+			return view('web.cart.index', ['cartInfo' => $session['default']]);
+		}
+
+
 	}
 
 	/**
@@ -99,22 +109,49 @@ class CartController extends Controller
 	 * @param  int $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy(Cart $cart, $id)
+	public function destroy(Cart $cart, Request $request)
 	{
 		//接收到购物车中 商品的列表id  删除
+		$id = $request->id;
 		$info = $cart->remove($id);
 
-		return view('web.cart.index');
+//		return Redirect::to("/dos/storeget");
+//		return view('web.cart.index');
+		return redirect('cart');
 
 	}
 
 	//购物车的ajax 控制器
 	public function ajax(Request $request, Cart $cart)
 	{
+		$type = $request->type;
 		$num = (int)$request->num;
 		$id = $request->id;
-		$cart->update($id, $num);
+		switch ($type) {
+			case 'update':
 
-		return json_encode($num);
+				$cart->update($id, $num);
+				$request->session()->save();
+				return json_encode($type);
+				break;
+
+			case 'subtract':
+				$cart->update($id, $num);
+				$request->session()->save();
+				return json_encode($type);
+				break;
+
+			case 'add':
+				$cart->update($id, $num);
+				$request->session()->save();
+				return json_encode($type);
+				break;
+
+			default:
+				break;
+
+		}
+
+
 	}
 }

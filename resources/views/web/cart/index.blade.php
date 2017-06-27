@@ -13,8 +13,8 @@
 
 @section('content')
     {{ $cartInfo }}
-
-
+    {{--<form action="orders" method="post">--}}
+    {{--{{csrf_field()}}--}}
     <div class="cart-content w1200">
         <ul class="cart-tit-nav">
             <li class="current"><a href="#">全部商品 21</a></li>
@@ -24,17 +24,9 @@
         </ul>
         <div class="cart-con-tit">
             <p class="p1">
-                <input type="checkbox" value="" name="hobby" id="all"></input>
+                <input type="checkbox" value="" name="hobby" id="all">
                 <script>
 
-                    $("#all").click(function () {
-                        if (this.checked) {
-
-                            $('.info-mid input[type=checkbox]').prop('checked', true);
-                        } else {
-                            $('.info-mid input[type=checkbox]').prop('checked', "");
-                        }
-                    });
                 </script>
                 <span>全选</span>
             </p>
@@ -50,18 +42,20 @@
 
         @foreach( $cartInfo as $v )
             {{ $v  }}
-            <div class="cart-con-info">
+            <div class="cart-con-info" id="{{ $v['__raw_id'] }}">
                 <div class="info-top">
 
                 </div>
                 <div class="info-mid">
-                    <input type="checkbox" value="" name="hobby" class="mid-ipt f-l"></input>
+                    <input type="checkbox" value="" name="hobby" class="mid-ipt f-l">
                     <div class="mid-tu f-l">
-                        <a href="#"><img src="images/dai1.gif"/></a>
+                        <a href="#"><img src="{{url( '/uploads/goods/m')}}{{$v['picname']}}"/></a>
                     </div>
                     <div class="mid-font f-l">
-                        <a href="#">{{ $v['name'] }}<br/>--------</a>
+                        <a href="#">{{ $v['name'] }}<br/></a>
                         <span>满赠</span>
+                        <br>
+                        ------------------------------------
                     </div>
                     <div class="mid-guige f-l">
                         <p>颜色：蓝色</p>
@@ -96,21 +90,29 @@
                         </div>
                     </div>
                     <div class="mid-sl f-l">
-                        <a href="JavaScript:;" class="sl-left">-</a>
-                        <input type="text" value="{{ $v['qty'] }}" class="num">
+                        <a href="JavaScript:;" class="num-left">-</a>
+
+                        <input onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"
+                               onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}"
+                               type="text" value="{{ $v['qty'] }}" class="num">
+
                         <input type="hidden" value="{{  $v['__raw_id'] }}" class="id">
-                        <a href="JavaScript:;" class="sl-right">+</a>
+                        <a href="JavaScript:;" class="num-right">+</a>
+
                     </div>
                     <p class="mid-dj f-l">¥ <span class="cartprice">{{ $v['price'] }}</span>.00</p>
                     <p class="mid-je f-l">¥ <span class="carttotal">{{ $v['total'] }}</span>.00</p>
                     <div class="mid-chaozuo f-l">
-                        <form action="cart/{{ $v['__raw_id'] }}" method="POST">
-                            {{ csrf_field() }}
-                            <input type="hidden" name="_method" value="DELETE">
-                            <a href="#">移入收藏夹</a>
-                            <a href="cart/{{ $v['__raw_id'] }}"><input type="submit" value="删除"></a>
+                        {{--<form action="cart/{{ $v['__raw_id'] }}" method="POST">--}}
+                        {{--{{ csrf_field() }}--}}
+                        {{--<input type="hidden" name="_method" value="DELETE">--}}
+                        {{--<a href="#">移入收藏夹</a>--}}
+                        {{--<a href="cart/{{ $v['__raw_id'] }}"><input class="btnDel" type="submit" value="删除"></a>--}}
 
-                        </form>
+                        {{--</form>--}}
+                        <input class="btnDel" type="submit" value="删除">
+                        <input type="hidden" value="{{ $v['__raw_id'] }}">
+
                     </div>
                     <div style="clear:both;"></div>
                 </div>
@@ -118,6 +120,7 @@
     @endforeach
 
     <!--分页-->
+
         <div class="paging">
             <div class="pag-left f-l">
                 <a href="#" class="about left-r f-l"><</a>
@@ -146,7 +149,7 @@
         </div>
         <div class="cart-con-footer">
             <div class="quanxuan f-l">
-                <input type="checkbox" value="" name="hobby"></input>
+                <input type="checkbox" value="" name="hobby">
                 <span>全选</span>
                 <a href="#">删除</a>
                 <a href="#">加入收藏夹</a>
@@ -159,12 +162,16 @@
                         ￥：<span>0</span>.00
                     </p>
                 </div>
-                <a href="JavaScript:;" class="js-a1 f-l">结算</a>
+                {{--<a href="JavaScript:;" class="js-a1 f-l"></a>--}}
+
+                <button class="js-a1 f-l" type="submit">结算</button>
+
                 <div style="clear:both;"></div>
             </div>
             <div style="clear:both;"></div>
         </div>
     </div>
+    {{--</form>--}}
 
 
 @endsection
@@ -173,26 +180,111 @@
 
     <script>
 
-        $('.num').blur(function () {
+        //删除按钮
+        $('.btnDel').on("click", function () {
+            var id = $(this).next().val();
+            $('#' + id).remove();
+            $.ajax({
+                type: "POST",
+                url: "{{ url('/cart/') }}" + id,
 
-            var id = $('.id').val();
-            var num = $('.num').val();
-            var price = $('.cartprice').html();
+                data: {'_token': '{{csrf_token()}}', 'id': id, "_method": 'DELETE'},
+                success: function (data) {
+
+                }
+
+
+            });
+
+        });
+
+
+        //全选按钮
+        $("#all").click(function () {
+            if (this.checked) {
+
+                $('.info-mid input[type=checkbox]').prop('checked', true);
+            } else {
+                $('.info-mid input[type=checkbox]').prop('checked', "");
+            }
+        });
+
+        //输入修改购物车 商品数量  失去焦点时触发ajax修改
+        $('.num').keyup(function () {
+
+            var id = $(this).next().val();
+            var num = $(this).val();
+            var price = $(this).parent().next().children().html();
+
+            $(this).parent().next().next().children().html(num * price);
             $.ajax({
                 type: "POST",
                 url: "{{ url('/cart/ajax') }}",
 
-                data:  { '_token':'{{csrf_token()}}', 'id':id,'num':num },
+                data: {'_token': '{{csrf_token()}}', 'id': id, 'num': num, 'type': 'update'},
                 success: function (data) {
-
+//                    window.location.reload();
+//                    alert(data);
                 }
             });
-
-//            $('.num+.carttotal').empty().prepend(price*num);
-
-
-
         });
+
+        //鼠标点击加好  增减数量一
+        $('.num-left').on(
+            "click",
+            function () {
+
+                var num = $(this).next().val();
+                num--;
+                var id = $(this).next().next().val();
+                var price = $(this).parent().next().children().html();
+
+                $(this).next().val(num);
+                $(this).parent().next().next().children().html(num * price);
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{ url('/cart/ajax') }}",
+
+                    data: {'_token': '{{csrf_token()}}', 'id': id, 'num': num, 'type': 'subtract'},
+                    success: function (data) {
+//                    alert(data);
+
+                    }
+                });
+            }
+        );
+
+
+        //鼠标点击加号  购物车商品数量减一
+        $('.num-right').on(
+            "click",
+            function () {
+
+                var num = $(this).prev().prev().val();
+                num++;
+
+                var id = $(this).prev().val();
+                var price = $(this).parent().next().children().html();
+
+                $(this).prev().prev().val(num);
+                $(this).parent().next().next().children().html(num * price);
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{ url('/cart/ajax') }}",
+
+                    data: {'_token': '{{csrf_token()}}', 'id': id, 'num': num, 'type': 'add'},
+                    success: function (data) {
+//                    alert(data);
+
+                    }
+                });
+            }
+        );
+
+
+        //删除按钮 删除购物车不刷新整个页面
 
 
     </script>
