@@ -41,7 +41,32 @@ Route::get('goods_details', function () {
     return view('web.goods.details');
 });
 
-//Route::group(['middleware'=>'adminid','namespace' => 'Admin', 'prefix' => 'admin'], function () {
+// 登录页面
+Route::get('/login', "LoginController@index");
+// 执行登录
+Route::post('/login', "LoginController@login");
+
+// 退出登录
+Route::get('/logout', "LoginController@logout");
+
+// 注册页面
+Route::get('/register', "RegisterController@index");
+// 执行注册
+Route::post('/register', "RegisterController@register");
+
+Route::group(['prefix' => 'user'], function () {
+    Route::get('/', "PersonalController@index");
+});
+
+
+//后台登录首页
+Route::get('admin/login','Admin\LoginController@index');
+//后台执行登录
+Route::post('admin/login', 'Admin\LoginController@login');
+//后台退出登录
+Route::get('admin/logout', 'Admin\LoginController@logout');
+
+// Route::group(['middleware'=>'auth:admin','namespace' => 'Admin', 'prefix' => 'admin'], function () {
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
     Route::get('/', function () { return view('admin.public'); });
     //商品管理
@@ -79,12 +104,3 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
     Route::resource('comment', 'CommentController');
 
 });
-
-//后台登录首页路由
-Route::get('/admin/login','Admin\AdminLoginController@login');
-
-//后台执行登录路由
-Route::post('/admin/dologin', 'Admin\AdminLoginController@dologin');
-
-
-
