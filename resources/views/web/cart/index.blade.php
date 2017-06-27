@@ -175,6 +175,7 @@
 
         $('.num').blur(function () {
 
+            var that = $(this);
             var id = $('.id').val();
             var num = $('.num').val();
             var price = $('.cartprice').html();
@@ -182,17 +183,14 @@
                 type: "POST",
                 url: "{{ url('/cart/ajax') }}",
 
-                data:  { '_token':'{{csrf_token()}}', 'id':id,'num':num },
+                data:  { '_token':'{{csrf_token()}}','id':id,'num':num },
                 success: function (data) {
 
+                    window.location.reload();
                 }
             });
-
-//            $('.num+.carttotal').empty().prepend(price*num);
-
-
-
         });
+
 
 
     </script>

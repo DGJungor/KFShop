@@ -26,16 +26,26 @@ class CartController extends Controller
 		//模拟添加购物车
 //		$cart->add(37, 'Item name', 5, 100.00, ['color' => 'red', 'size' => 'M']);
 //		$cart->add(127, 'foobar', 15, 100.00, ['color' => 'green', 'size' => 'S']);
-//		$store->save();
+//
+//		$cart->clean();
 
+//		$store->save();
 		$session = $request->session()->get('cart');
+
 //		foreach ($session['default'] as $k => $v) {
 //			echo '<pre>';
 //			echo $v;
 //			echo $v['id'];
 //		}
-//		dd($session);
-		return view('web.cart.index', ['cartInfo' => $session['default']]);
+
+		//判断购物车中是否为空  空着跳转 提醒客户添加商品页面
+		if(empty($session['default'])){
+			return view('web.cart.null');
+		}else{
+			return view('web.cart.index', ['cartInfo' => $session['default']]);
+		}
+
+
 	}
 
 	/**
@@ -109,11 +119,12 @@ class CartController extends Controller
 	}
 
 	//购物车的ajax 控制器
-	public function ajax(Request $request, Cart $cart)
+	public function ajax(Request $request, Cart $cart,Store $store)
 	{
 		$num = (int)$request->num;
 		$id = $request->id;
 		$cart->update($id, $num);
+		$store->save();
 
 		return json_encode($num);
 	}

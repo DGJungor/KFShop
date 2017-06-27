@@ -27,17 +27,12 @@ Route::resource('feedback','FeedbackController');
 //前台评论
 Route::get('comment', 'CommentController@index');
 
-<<<<<<< HEAD
-Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
-    Route::get('/', function () { return view('admin.public'); });
-    //商品管理
-=======
+
 
 //Route::group(['middleware'=>'adminid','namespace' => 'Admin', 'prefix' => 'admin'], function () {
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
     Route::get('/', function () { return view('admin.index'); });
 
->>>>>>> 74ec2097e44d18857cc7ec3d5c867025401a4744
     Route::resource('goods', 'GoodsController');
     //商品分类管理
     Route::resource('types', 'TypesController');

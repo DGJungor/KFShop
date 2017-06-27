@@ -31,7 +31,7 @@
             </p>
         	<p class="hd-p2 f-r">
             	<a href="#">返回首页 (个人中心)</a><span>|</span>
-                <a href="#">我的购物车</a><span>|</span>
+                <a href="{{url('/cart')}}">我的购物车</a><span>|</span>
                 <a href="#">我的订单</a>
             </p>
             <div style="clear:both;"></div>
