@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-class CommentController extends Controller
+class OrdersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,8 @@ class CommentController extends Controller
      */
     public function index()
     {
-        return view('web.comment.index');
+        //
+	    return '这是首页订单首页路由';
     }
 
     /**
@@ -37,6 +38,7 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         //
+	    return 'store';
     }
 
     /**
