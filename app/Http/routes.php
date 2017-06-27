@@ -29,9 +29,17 @@ Route::get('comment', 'CommentController@index');
 
 
 
+
+
+Route::get('goods_list', function () {
+
+    return view('web.goods.list');
+});
+
 //Route::group(['middleware'=>'adminid','namespace' => 'Admin', 'prefix' => 'admin'], function () {
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
-    Route::get('/', function () { return view('admin.index'); });
+    Route::get('/', function () { return view('admin.public'); });
+    //商品管理
 
     Route::resource('goods', 'GoodsController');
     //商品分类管理

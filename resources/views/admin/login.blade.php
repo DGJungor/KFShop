@@ -47,7 +47,7 @@
 
             <p class="text-muted text-center"> <a href="#"><small>忘记密码了？</small></a>
             </p>
-
+            {{bcrypt('123')}}
         </form>
     </div>
 </div>

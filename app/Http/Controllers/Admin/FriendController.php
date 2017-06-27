@@ -102,7 +102,24 @@ class FriendController extends Controller
             ]
         );
 
+        if($request->isMethod('post')){
+
+            $file=$request->file('image');
+
+            if($file->isValid()){
+                $originalName = $file->getClientOriginalName(); // 文件原名
+                $ext = $file->getClientOriginalExtension();     // 扩展名
+                $realPath = $file->getRealPath();   //临时文件的绝对路径
+                $type = $file->getClientMimeType();     // image/jpeg
+                $filePath=public_path('uploads');
+
+                $fileName
+            }
+
+
+        }
         $post = $request->all();
+
 //          dd($post);
         if (Friend::create($post)) {
             return redirect('/admin/friends')->with(['success' => '添加成功']);
@@ -120,5 +137,7 @@ class FriendController extends Controller
         }
 
     }
+
+
 
 }

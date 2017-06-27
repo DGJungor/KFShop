@@ -54,14 +54,13 @@
                     @foreach($data as $v)
                     <div class="file-box">
                         <div class="file">
-<<<<<<< HEAD
+
                             <a href="/admin/recommend/{{$v->id}}/edit">
                                 <span class="corner"></span>
 {{--                                {{dump($v->id)}}--}}
-=======
+
                             <a href="#">
                                 <span class="corner"></span>
->>>>>>> 7000c46f40e82007bb137da6a6947cf0d61d9182
 
                                 <div class="image">
                                     <img alt="image" class="img-responsive" src="/uploads/{{$v['recommend_picname']}}">
@@ -72,7 +71,6 @@
                                     <small>添加时间：{{$v['created_at']}}</small>
                                 </div>
                             </a>
-<<<<<<< HEAD
                             <div class="file-manager">
                                 <div class="hr-line-dashed">
                                     <form action="recommend/{{$v->id}}" method="POST">
@@ -84,9 +82,6 @@
 
                                 </div>
                             </div>
-=======
-
->>>>>>> 7000c46f40e82007bb137da6a6947cf0d61d9182
                         </div>
                     </div>
                     <?php $i++; ?>
@@ -97,27 +92,14 @@
         </div>
     </div>
 </div>
-<<<<<<< HEAD
-
 
    
 
 @endsection
 
 @section('js')
- <script>
-=======
-   <script src="js/jquery-2.1.1.min.js"></script>
-    <script src="js/bootstrap.min.js?v=3.4.0"></script>
-    <script src="js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
-
-    <!-- Custom and plugin javascript -->
-    <script src="js/hplus.js?v=2.2.0"></script>
-    <script src="js/plugins/pace/pace.min.js"></script>
 
     <script>
->>>>>>> 7000c46f40e82007bb137da6a6947cf0d61d9182
         $(document).ready(function () {
             $('.file-box').each(function () {
                 animationHover(this, 'pulse');
@@ -125,22 +107,14 @@
         });
     </script>
 
-<<<<<<< HEAD
+    <script>
+        $(function () {
+            $(from).on('click', 'button btnDel', function () {
+
+            })
+
+        })
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-=======
->>>>>>> 7000c46f40e82007bb137da6a6947cf0d61d9182
+    </script>
 @endsection

@@ -69,7 +69,7 @@
                                         <label class="col-sm-2 control-label">图片名称:</label>
 
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="image" value="">
+                                            <input type="file" class="form-control" name="image" value="">
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
