@@ -1,4 +1,4 @@
-@extends('web.index')
+@extends('web.public.public')
 
 @section('css')
 
