@@ -17,17 +17,18 @@
 //首页
 Route::get('/', 'HomeController@index');
 
-//前台购物车路由
+//前台购物车路由 --jun
 Route::resource('cart','CartController');
 Route::post('cart/ajax','CartController@ajax');
 
-//前台信息反馈路由
+//前台信息反馈路由  --jun
 Route::resource('feedback','FeedbackController');
 
 //前台评论
 Route::get('comment', 'CommentController@index');
 
-
+//前台订单路由  --jun
+Route::resource('orders','OrdersController');
 
 
 
@@ -53,10 +54,10 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
     //上传图片插件请求
 	Route::post('goods/upload', 'GoodsController@upload');
 
-	//后台反馈组
+	//后台反馈组 --jun
 	Route::resource('feedback','FeedbackController');
 
-	//后台订单路由
+	//后台订单路由  --jun
 	Route::resource('orders', 'OrdersController');
 
     //后台轮播图管理路由

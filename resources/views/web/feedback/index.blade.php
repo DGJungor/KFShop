@@ -33,9 +33,7 @@
             </div>
             <div class="form-group">
                 <label>正文内容</label>
-                <textarea class="form-control" class="form-control" rows="5" id="text" name="text">
-
-                </textarea>
+                <textarea class="form-control" class="form-control" rows="5" id="text" name="text"></textarea>
             </div>
 
             <button type="submit" class="btn btn-success btn-lg">提交</button>
