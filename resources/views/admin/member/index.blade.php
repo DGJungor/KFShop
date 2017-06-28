@@ -68,7 +68,7 @@
                                 <td>@if($v->sex == 1) 男 @elseif($v->sex == 2) 女 @else @endif</td>
                                 <td>{{$v->birthday}}</td>
                                 <td class="center">
-                                    <form action="/admin/users/{{$v->id}}" method="POST">
+                                    <form action="/admin/member/{{$v->id}}" method="POST">
                                         {{ csrf_field() }}
                                         <input type="hidden" name="_method" value="PUT">
                                         @if($v->status == 0)
@@ -86,12 +86,12 @@
                                 </td>
 
                                 <td class="text-center">
-                                    <a href="/admin/users/{{$v->id}}">
+                                    <a href="/admin/member/{{$v->id}}">
                                         <i class="fa fa-eye text-success">查看详情</i>
                                     </a>
-                                    <a href="javascript:;" id="deluser">
+                                    <a href="javascript:;" class="deluser" name="form{{$v->id}}">
                                         <i class="fa fa-trash text-danger">删除</i></a>
-                                        <form id="delform" action="/admin/users/{{$v->id}}" method="POST">
+                                        <form id="form{{ $v->id }}" action="/admin/member/{{$v->id}}" method="POST">
 
                                             <input type="hidden" name="_method" value="DELETE">
                                             {{ csrf_field() }}
@@ -151,7 +151,10 @@
 
     <script>
         //确认删除弹窗
-        $('#deluser').on('click', function () {
+        $('.deluser').on('click', function () {
+            var name = $(this).prop('name');
+            var id = '#' + name;
+            console.log(id);
             $.layer({
                 shade: [0],
                 area: ['auto','auto'],
@@ -161,7 +164,7 @@
                     type: 8,
                     btn: ['确定','取消'],
                     yes: function(){
-                        $('#delform').submit();
+                        $(id).submit();
                     }
                 }
             });
