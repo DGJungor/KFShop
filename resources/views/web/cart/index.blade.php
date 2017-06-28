@@ -186,10 +186,11 @@
             $('#' + id).remove();
             $.ajax({
                 type: "POST",
-                url: "{{ url('/cart/') }}" + id,
+                url: "{{ url('/cart/del') }}" ,
 
-                data: {'_token': '{{csrf_token()}}', 'id': id, "_method": 'DELETE'},
+                data: {'_token': '{{csrf_token()}}', 'id': id },
                 success: function (data) {
+//                    alert(data);
 
                 }
 

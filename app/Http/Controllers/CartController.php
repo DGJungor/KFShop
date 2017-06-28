@@ -37,7 +37,7 @@ class CartController extends Controller
 		$count = count($session['default']);
 
 		//判断购物车中是否为空  空着跳转 提醒客户添加商品页面
-		if ($count==0) {
+		if ($count == 0) {
 			return view('web.cart.null');
 		} else {
 
@@ -109,10 +109,9 @@ class CartController extends Controller
 	 * @param  int $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy(Cart $cart, Request $request)
+	public function destroy(Cart $cart, $id)
 	{
 		//接收到购物车中 商品的列表id  删除
-		$id = $request->id;
 		$info = $cart->remove($id);
 
 //		return Redirect::to("/dos/storeget");
@@ -152,6 +151,13 @@ class CartController extends Controller
 
 		}
 
+	}
 
+	public function del(Request $request, Cart $cart)
+	{
+
+		$id = $request->id;
+		$cart->remove($id);
+		return $id;
 	}
 }

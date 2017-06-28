@@ -20,6 +20,7 @@ Route::get('/', 'HomeController@index');
 //前台购物车路由 --jun
 Route::resource('cart','CartController');
 Route::post('cart/ajax','CartController@ajax');
+Route::post('cart/del','CartController@del');
 
 //前台信息反馈路由  --jun
 Route::resource('feedback','FeedbackController');
@@ -39,7 +40,7 @@ Route::get('goods_list', function () {
 
 //Route::group(['middleware'=>'adminid','namespace' => 'Admin', 'prefix' => 'admin'], function () {
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
-    Route::get('/', function () { return view('admin.public'); });
+    Route::get('/', function () { return view('admin.index'); });
     //商品管理
 
     Route::resource('goods', 'GoodsController');
