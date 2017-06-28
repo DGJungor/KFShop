@@ -25,14 +25,7 @@
                         <h5>显示：</h5>
                         <a href="#" class="file-control active">所有</a>
                         <div class="hr-line-dashed"></div>
-                        {{--<form action="#" method="post" enctype="multipart/form-data">--}}
-                            {{--<input type="file" name="picture" id="fill" style="display:none">--}}
-                        {{--<input type="button" class="btn btn-primary btn-block"onclick="document.getElementById('fill').click();"value="上传文件">--}}
-                        {{--</form>--}}
-
                             <button class="btn btn-primary btn-block" onclick="window.location.href='{{ url('admin/recommend/create') }}'">新增轮播图</button>
-
-
                         <div class="hr-line-dashed"></div>
                         <h5>文件夹</h5>
                         <ul class="folder-list" style="padding: 0">
@@ -56,10 +49,6 @@
                         <div class="file">
 
                             <a href="/admin/recommend/{{$v->id}}/edit">
-                                <span class="corner"></span>
-{{--                                {{dump($v->id)}}--}}
-
-                            <a href="#">
                                 <span class="corner"></span>
 
                                 <div class="image">
@@ -93,7 +82,14 @@
     </div>
 </div>
 
-   
+<div class="footer">
+    <div class="pull-right">
+        By：<a href="#" target="_blank">sun.shangcheng.or</a>
+    </div>
+    <div>
+        <strong>Copyright</strong> 后台 &copy; 2017
+    </div>
+</div>
 
 @endsection
 

@@ -29,7 +29,7 @@
                                
                             </div>
                             <div class="ibox-content">
-                                <form method="post" action="/admin/friends" class="form-horizontal">
+                                <form method="POST" action="/admin/friends" class="form-horizontal" enctype="multipart/form-data">
                                 
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">友情链接名称:</label>
@@ -69,7 +69,7 @@
                                         <label class="col-sm-2 control-label">图片名称:</label>
 
                                         <div class="col-sm-10">
-                                            <input type="file" class="form-control" name="image" value="">
+                                            <input type="file" class="form-control" name="image" >
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>

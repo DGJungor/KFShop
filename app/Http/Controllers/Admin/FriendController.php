@@ -7,7 +7,9 @@ use Storage;
 //use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Admin\Friend;
+use Intervention\Image\ImageManager;
 use DB;
+use Carbon\Carbon;
 
 class FriendController extends Controller
 {
@@ -112,28 +114,55 @@ class FriendController extends Controller
                 $realPath = $file->getRealPath();   //临时文件的绝对路径
                 $type = $file->getClientMimeType();     // image/jpeg
                 $filePath=public_path('uploads');
-
-                $fileName
+                //添加后缀名
+                $fileName=date('Y-m-d-H-i-s').'-'.uniqid().'.'.$ext;
+                $bool = Storage::disk('uploads')->put($fileName, file_get_contents($realPath));
+                $image=new ImageManager();
+                $image->make($filePath.'/'.$fileName)->resize(50,50)->save($filePath.'/x_'.$fileName);
+                $request->image=$fileName;
+                $request->created_at=Carbon::now();
+                $row = \DB::table('data_friend_link')->insert([
+                    'name'=>$request->name,
+                    'type'=>$request->type,
+                    'url'=>$request->url,
+                    'image'=>$request->image,
+                    'created_at'=>$request->created_at,
+                ]);
+                return redirect('/admin/friends')->with(['success'=>'成功']);
+            }else{
+                return back()->with(['success'=>'失败']);
             }
 
 
         }
-        $post = $request->all();
-
-//          dd($post);
-        if (Friend::create($post)) {
-            return redirect('/admin/friends')->with(['success' => '添加成功']);
-        } else {
-            return back()->with(['添加失败']);
-        }
+//        $post = $request->all();
+//
+////          dd($post);
+//        if (Friend::create($post)) {
+//            return redirect('/admin/friends')->with(['success' => '添加成功']);
+//        } else {
+//            return back()->with(['添加失败']);
+//        }
     }
 
     public function destroy($id)
     {
+
+        $filePath=public_path('uploads');
+        $file=DB::table('data_friend_link')->where('id', '=', $id)->select('image')->get();
+        foreach ($file as $v)
+            $fileName=$v->image;
+//        dd($fileName);
         if (Friend::destroy($id)) {
+
+            Storage::disk('uploads')->delete($fileName);
+            Storage::disk('uploads')->delete('x_'.$fileName);
             return redirect('/admin/friends')->with(['删除成功']);
+
         } else {
+
             return back()->with(['删除失败']);
+
         }
 
     }

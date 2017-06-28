@@ -10,10 +10,6 @@
 
 <link rel="stylesheet" type="text/css" href="{{ url('/web/css/shopping-mall-index.css') }}" />
 <link rel="stylesheet" type="text/css" href="{{ url('/web/css/star-rating.css' ) }}" media="all"/>
-{{--<style type="text/css">--}}
-    {{--.search .search-info{ width:596px; height:40px;}--}}
-    {{--.search-info input{ width:494px;}--}}
-{{--</style>--}}
 
 @endsection
 
@@ -81,7 +77,7 @@
     	<dl class="eva-info1">
         	<dt><a href="#"><img src="{{ url('web/images/want-evaluate-tu.gif') }}" /></a></dt>
             <dd>
-            	<h3><a href="#">买一送三 正品ICOOK韩式耐热玻璃饭盒微波炉保鲜盒密封碗便当套装</a></h3>
+            	<h3><a href="#">商品ID</a></h3>
                 <ul>
                 	<li>
                     	<span>价格</span><p class="p1">¥ 110.00 元</p>
@@ -106,7 +102,7 @@
         	<dt>
             	<p class="p1">好评率</p>
             	<p class="p2">0%</p>
-            	<p class="p3">共0人评论</p>
+            	<p class="p3">共人评论</p>
             </dt>
             <dd>
             	<p>买过的人觉得</p>
@@ -117,63 +113,30 @@
             </dd>
             <div style="clear:both;"></div>
         </dl>
+        <form action="" method="POST">
         <div class="eva-info3">
         	<div class="eva-if3-l f-l">
             	<dl class="if3-l-dl1">
                 	<dt>商品评价</dt>
-                    <dd><textarea></textarea></dd>
+                    <dd><textarea name="comment_info"></textarea></dd>
             		<div style="clear:both;"></div>
                 </dl>
-            	<dl class="if3-l-dl2">
-                	<dt>服务评价</dt>
-                    <dd><textarea></textarea></dd>
-            		<div style="clear:both;"></div>
-                </dl>
-            	<dl class="if3-l-dl3">
-                	<dt>晒图片</dt>
+            	<dl class="if3-l-d6">
+                	<dt>等级评价</dt>
                     <dd>
-                    	<a href="JavaScript:;">
-                        	<img src="{{ url('web/images/dl3-tu1.gif') }}" />
-                            <input type="file" class="img1" />
-                        </a>
-                        <a href="JavaScript:;">
-                        	<img src="{{ url('web/images/dl3-tu2.gif') }}" />
-                            <input type="file" class="img1" />
-                        </a>
-                        <p>上传图片     1/5</p>
-                        <div style="clear:both;"></div>
+                        好评: <input type="radio" name="star" value="1">
+                        中评: <input type="radio" name="star" value="2">
+                        差评: <input type="radio" name="star" value="3">
                     </dd>
             		<div style="clear:both;"></div>
                 </dl>
-                <button class="eva-btn">提交评价</button>
-            </div>
-        	<div class="eva-if3-r f-l">
-           		<ul>
-                	<li>
-                    	<p class="p1"><span>*</span> 描述相符</p>
-                        <form style="display:inline-block;">
-                            <input type="hidden" name="scroe" id="scroe">
-                            <input id="input-21e" value="0" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs" >
-                        </form>
-                    </li>
-                	<li>
-                    	<p class="p1"><span>*</span> 卖家服务</p>
-                        <form style="display:inline-block;">
-                            <input id="input-21e" value="0" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs" >
-                        </form>
-                    </li>
-                	<li>
-                    	<p class="p1"><span>*</span> 物流服务</p>
-                        <form style="display:inline-block;">
-                            <input id="input-21e" value="0" type="number" class="rating" min=0 max=5 step=0.5 data-size="xs" >
-                        </form>
 
-                    </li>
-                </ul>
-                <p class="eva-fen">2分-4分为一般</p>
+                <button class="eva-btn" type="submit">提交评价</button>
             </div>
+
             <div style="clear:both;"></div>
         </div>
+        </form>
     </div>
 
 @endsection

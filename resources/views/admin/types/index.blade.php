@@ -57,7 +57,7 @@
                                 <td>
 
                                     <form action="types/{{ $v->id }}" method="POST">
-                                    @if($m < 6)
+                                    @if($m < 2)
                                         <a href="types/{{ $v->id }}">
                                             <button id="btn" type="button" class="btn btn-primary">
                                                 <i class="fa fa-plus-square"></i>
