@@ -20,6 +20,7 @@ class CreateDataGoodsCommentTable extends Migration
             $table->integer('cargo_id')->unsigned()->index()->comment('货品ID');
             $table->tinyInteger('comment_tyle')->defaule(0)->comment('评论人状态0:匿名评价 1:显示用户名');
             $table->tinyInteger('star')->default(1)->comment('1 好评 2 中评 3 差评');
+            $table->text('comment_info')->nullable()->comment('评价内容');
             $table->timestamps();
             $table->softDeletes()->comment('软删除');
         });

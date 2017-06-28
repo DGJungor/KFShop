@@ -31,18 +31,21 @@ Route::get('comment', 'CommentController@index');
 //前台订单路由  --jun
 Route::resource('orders','OrdersController');
 
-
-
+//商品列表页
 Route::get('goods_list', function () {
 
     return view('web.goods.list');
+});
+//商品详情页
+Route::get('goods_details', function () {
+
+    return view('web.goods.details');
 });
 
 //Route::group(['middleware'=>'adminid','namespace' => 'Admin', 'prefix' => 'admin'], function () {
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
     Route::get('/', function () { return view('admin.index'); });
     //商品管理
-
     Route::resource('goods', 'GoodsController');
     //商品分类管理
     Route::resource('types', 'TypesController');
