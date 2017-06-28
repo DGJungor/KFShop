@@ -24,17 +24,19 @@
     <div>
         <div>
 
-            <h1 class="logo-name">Baji</h1>
+            <h1 class="logo-name">KF</h1>
 
         </div>
         <h3>网站后台登录</h3>
-        @if(session('error'))
+        @if(count($errors))
             <div class="text-danger">
-                {{session('error')}}
+            @foreach($errors->all() as $error)
+                <li>{{$error}}</li>
+            @endforeach
             </div>
         @endif
 
-        <form class="m-t" role="form" action="/admin/dologin" method="POST">
+        <form class="m-t" role="form" action="/admin/login" method="POST">
             <div class="form-group">
                 <input type="text" name="username" class="form-control" placeholder="用户名" >
             </div>
@@ -47,7 +49,6 @@
 
             <p class="text-muted text-center"> <a href="#"><small>忘记密码了？</small></a>
             </p>
-            {{bcrypt('123')}}
         </form>
     </div>
 </div>
