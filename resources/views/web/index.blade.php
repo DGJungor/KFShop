@@ -10,8 +10,10 @@
 
 @section('menu')
 
+
     @include('web.public.lunbo')
     @include('web.public.tuijian')
+
 
 @endsection
 

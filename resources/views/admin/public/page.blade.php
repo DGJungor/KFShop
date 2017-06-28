@@ -89,7 +89,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="login.html">
+                    <a href="/admin/logout">
                         <i class="fa fa-sign-out"></i> 退出
                     </a>
                 </li>

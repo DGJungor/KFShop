@@ -2,16 +2,17 @@
 
 namespace App\Admin;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
  * Class UserRegister
  * @package App\Model
  */
-class UserRegister extends Model
+class UserRegister extends Authenticatable
 {
     /**
-     * 用户注册原始表
+     * 用户注册表
+     *
      * @var string
      */
     protected $table = 'data_users_register';
@@ -20,4 +21,12 @@ class UserRegister extends Model
      * @var array
      */
     protected $fillable = ['email', 'tel', 'password', 'register_ip'];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     * @var array
+     */
+    protected $hidden = [
+        'password'
+    ];
 }
