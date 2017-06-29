@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
+use \Exception;
 use Overtrue\LaravelShoppingCart\Cart;
 
 use Illuminate\Session\Store;
@@ -34,8 +37,10 @@ class OrdersController extends Controller
 	 */
 	public function create(Request $request, Cart $cart)
 	{
-
+//=====================================================
 		//模拟数据
+
+		//用户id
 		$uid = 123;
 
 //=====================================================
@@ -46,62 +51,74 @@ class OrdersController extends Controller
 		//获取结算前的全选按钮的值
 		$allcart = $request->input('allcart');
 
+		//获取选中商品的rawid
+		$data = $request->input('hobby');
+
 		//随机生成一个 日期规则的 订单号
 		$guid = date('Ymd') . substr(implode(NULL, array_map('ord', str_split(substr(uniqid(), 7, 13), 1))), 0, 8);
 
 		//初始化一个变量 供计算总价格
 		$total = 0;
 
-		//判断有无选中全选购物车
-		if ($allcart) {
+
+		//判断用户时候没有勾选商品   若没勾选商品则返回到原来的路由
+		if ($allcart || $data) {
+
+			//判断有无选中全选购物车
+			if ($allcart) {
 
 
-			//获取购车中所有商品
-			$list = $cart->all();
+				//获取购车中所有商品
+				$list = $cart->all();
 
-			//更新购物车信息 并计算总价格
-			foreach ($list as $v) {
+				//更新购物车信息 并计算总价格
+				foreach ($list as $v) {
 
-				$newPrice = \DB::table('data_goods')->where('id', $v['id'])->select('price')->get();
-				$v['price'] = $newPrice[0]->{'price'};
-				$total += ($v['qty'] * $v['price']);
-			}
+					$newPrice   = \DB::table('data_goods')->where('id', $v['id'])->select('price')->get();
+					$v['price'] = $newPrice[0]->{'price'};
+					$total      += ($v['qty'] * $v['price']);
+				}
 
-		} else {
+			} else {
 
-			//获取选中商品的rawid
-			$data = $request->input('hobby');
+				//计算购物车中商品种类数
+				$count = count($data);
 
-			//计算购物车中商品种类数
-			$count = count($data);
+				//将选中的商品信息重新组合成数组
+				for ($i = 0; $i < $count; $i++) {
 
-			//将选中的商品信息重新组合成数组
-			for ($i = 0; $i < $count; $i++) {
+					//获取购物车中 商品的rawid;
+					$raw_id = $data[$i];
+					//以rawid 为键  组合成 数组
+					$list[$raw_id] = $cart->get($data[$i]);
+				}
 
-				//获取购物车中 商品的rawid;
-				$raw_id = $data[$i];
-				//以rawid 为键  组合成 数组
-				$list[$raw_id] = $cart->get($data[$i]);
-			}
+				//更新购物车信息 并甲酸总价格
+				foreach ($list as $v) {
 
-			//更新购物车信息 并甲酸总价格
-			foreach ($list as $v) {
-
-				$newPrice = \DB::table('data_goods')->where('id', $v['id'])->select('price')->get();
-				$v['price'] = $newPrice[0]->{'price'};
-				$total += ($v['qty'] * $v['price']);
-			}
+					$newPrice   = \DB::table('data_goods')->where('id', $v['id'])->select('price')->get();
+					$v['price'] = $newPrice[0]->{'price'};
+					$total      += ($v['qty'] * $v['price']);
+				}
 //			dump($list);
 
-		}
-		return view('web.orders.create',
-			[
-				'list' => $list,
-				'guid' => $guid,
-				'total' => $total,
-				'address' => $address
+			}
+			return view('web.orders.create',
+				[
+					'list'    => $list,
+					'guid'    => $guid,
+					'total'   => $total,
+					'address' => $address
 
-			]);
+				]);
+		} else {
+
+			//返回到原来的页面
+			return Redirect::back();
+
+		}
+
+
 	}
 
 
@@ -113,34 +130,69 @@ class OrdersController extends Controller
 	 */
 	public function store(Request $request, Cart $cart)
 	{
-		//
-//	    return 'store';
-//	   $data =  $request->instance()->getContent();
-//	   $data =  $request->input('hobby');
+//=============================================================
+//
+//		$info = $request->all();
+//		dump($info);
+//		dump(json_decode($request->ordersList));
+//==============================================================
 
-//	   $data = $request->all();
-//		$count = count($data);
-//	    dd($data[0]);
+		//获取商品列表
+		$ordersList = json_decode($request->ordersList);
+		dump($ordersList);
+		//获取订单号
+		$guid = $request->guid;
 
-//	    dd($request);
-		dd('12312312312');
+		//获取地址信息id号
+		$addressId = $request->addressId;
 
-//		$data = $cart->all();
-//		dd($data);
+		//获取userid
+		$user_id = '6866';
 
+		// 使用数据库事务操作
+		DB::beginTransaction();
+		try {
+			//初始化一个统计总金额的变量
+			$total = 0;
 
-		//获取结算前的全选按钮的值
-		$allcart = $request->input('allcart');
+			foreach ($ordersList as $v) {
 
-		//判断有无选中全选购物车
-		if ($allcart) {
-			$guid = date('Ymd') . substr(implode(NULL, array_map('ord', str_split(substr(uniqid(), 7, 13), 1))), 0, 8);
-			$user_id = "";
+				//查询数据库中的商品信息 确保价格正确
+				$price = DB::table('data_goods')->where('id', $v->{'id'})->select('price')->first()->{'price'};
 
+				//添加订单详情表信息
+				DB::table('data_orders_details')->insert([
+					'orders_guid'      => $addressId,
+					'user_id'          => $user_id,
+					'goods_id'         => $v->{'id'},
+					'order_status'     => 1,
+					'commodity_number' => $v->{'qty'},
+					'cargo_price'      => $price
+				]);
 
-		} else {
+				//计算商品总金额
+				$total += $price * $v->{'qty'};
+			}
 
+			//插入订单管理表数据
+			DB::table('data_orders')->insert([
+				'user_id'         => $user_id,
+				'guid'            => $guid,
+				'address_message' => '123',
+				'address_id'      => $addressId,
+				'order_status'    => 1,
+				'total_amount'    => $total
+			]);
+
+			//提交事务
+			DB::commit();
+			return '下单成功';
+		} catch (Exception $e) {
+			DB::rollBack();
+			throw $e;
+			return '下单失败';
 		}
+
 
 	}
 
