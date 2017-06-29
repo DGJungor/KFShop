@@ -10,7 +10,7 @@ use DB;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class UsersController extends Controller
+class MemberController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,20 +20,19 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = UserInfo::orderby('uid','asc')->paginate(20);
+        $users = UserInfo::orderby('uid','desc')->paginate(20);
         //跳转前台用户列表页
-        return view('admin.users.index', compact('users'));
+        return view('admin.member.index', compact('users'));
     }
 
     /**
      * Show the form for creating a new resource.
-     * 前台用户添加
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        return view('admin.users.create');
+        //
     }
 
     /**
@@ -66,7 +65,7 @@ class UsersController extends Controller
             return back();
         }
         //跳转用户信息页面
-        return view('admin.users.show', compact(['user', 'reg_info']));
+        return view('admin.member.show', compact(['user', 'reg_info']));
 
     }
 
@@ -95,7 +94,7 @@ class UsersController extends Controller
             'status'=>$request->status
         ]))
         {
-            return redirect('/admin/users');
+            return redirect('/admin/member');
         } else {
             return back();
         }
@@ -117,7 +116,7 @@ class UsersController extends Controller
         if (UserInfo::destroy($id)){
             //删除用户注册表
             if (UserRegister::destroy($uid)){
-                return redirect('/admin/users')->with(['msg' => '删除成功！！！']);
+                return redirect('/admin/member')->with(['msg' => '删除成功！！！']);
             }
         }
 

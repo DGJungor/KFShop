@@ -57,23 +57,23 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($admins as $v)
+                            @foreach($admins as $admin)
                                 <tr>
-                                    <td>{{$v->id}}</td>
-                                    <td>{{$v->username}}</td>
-                                    <td>@if($v->type == 0) 超级管理员 @elseif($v->type == 1) 管理员 @else @endif</td>
-                                    <td>{{$v->email}}</td>
-                                    <td>{{$v->tel}}</td>
-                                    <th>{{$v->created_at}}</th>
-                                    <td class="center">@if($v->status == 0) 禁用 @elseif($v->status == 1) 使用中 @endif</td>
+                                    <td>{{$admin->id}}</td>
+                                    <td>{{$admin->username}}</td>
+                                    <td>@if($admin->type == 0) 超级管理员 @elseif($admin->type == 1) 管理员 @else @endif</td>
+                                    <td>{{$admin->email}}</td>
+                                    <td>{{$admin->tel}}</td>
+                                    <th>{{$admin->created_at}}</th>
+                                    <td class="center">@if($admin->status == 0) 禁用 @elseif($admin->status == 1) 使用中 @endif</td>
                                     <td class="text-center">
-                                        <a href="/admin/admins/{{$v->id}}/edit">
+                                        <a href="/admin/admins/{{$admin->id}}/edit">
                                             <i class="fa fa-edit text-navy">编辑</i>
                                         </a>
-                                        @if ($v->type != 0)
-                                        <a href="javascript:;" id="deladmin">
+                                        @if ($admin->type != 0)
+                                        <a href="javascript:;" class="deladmin" name="form{{ $admin->id }}">
                                             <i class="fa fa-trash text-danger">删除</i></a>
-                                        <form id="delform" action="/admin/admins/{{$v->id}}" method="POST">
+                                        <form id="form{{ $admin->id }}" action="/admin/admins/{{$admin->id}}" method="POST">
 
                                             <input type="hidden" name="_method" value="DELETE">
                                             {{ csrf_field() }}
@@ -132,8 +132,11 @@
     <script src="{{ asset('/style/js/demo/layer-demo.js') }}"></script>
 
     <script>
+
         //确认删除弹窗
-        $('#deladmin').on('click', function () {
+        $('.deladmin').on('click', function () {
+            var name = $(this).prop('name');
+            var id = '#' + name;
             $.layer({
                 shade: [0],
                 area: ['auto','auto'],
@@ -143,7 +146,7 @@
                     type: 8,
                     btn: ['确定','取消'],
                     yes: function(){
-                        $('#delform').submit();
+                        $(id).submit();
                     }
                 }
             });

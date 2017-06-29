@@ -86,8 +86,7 @@
                             <div class="hr-line-dashed"></div>
                             <div class="form-group">
                                 <div class="col-sm-5 col-sm-offset-3">
-                                        <button class="btn btn-primary" onclick="location.href='/admin/users/{{$user->id}}/edit'">编辑信息</button>
-                                        <button class="btn btn-white" onclick="location.href='/admin/users'">返回列表</button>
+                                        <button class="btn btn-primary" onclick="location.href='/admin/member'">返回列表</button>
                                 </div>
                             </div>
                         </div>

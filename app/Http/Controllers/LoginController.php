@@ -22,4 +22,5 @@ class LoginController extends Controller
     {
         $this->validate($request);
     }
+
 }
