@@ -42,6 +42,7 @@
     @include('web.public.youce')
 
 
+    @yield('js')
 </body>
 
 </html>
