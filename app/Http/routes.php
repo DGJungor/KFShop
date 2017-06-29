@@ -25,7 +25,7 @@ Route::post('cart/ajax','CartController@ajax');
 Route::resource('feedback','FeedbackController');
 
 //前台评论
-Route::get('comment', 'CommentController@index');
+Route::resource('comment', 'CommentController');
 
 //前台订单路由  --jun
 Route::resource('orders','OrdersController');
@@ -91,7 +91,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 
     //后台轮播图管理路由
     Route::resource('recommend', 'RecommendController');
-
+    Route::resource('shop_banner', 'Shop_BannerController');
 	//后台友情链接路由
 	Route::get('friends', 'FriendController@index');
 

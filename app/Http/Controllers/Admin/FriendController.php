@@ -7,7 +7,7 @@ use Storage;
 //use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Admin\Friend;
-use Intervention\Image\ImageManager;
+use Intervention\Image\Facades\Image;
 use DB;
 use Carbon\Carbon;
 
@@ -18,13 +18,14 @@ class FriendController extends Controller
      */
     public function index()
     {
+        //获取友情链接表里的数据
         $data = \DB::table('data_friend_link')->get();
         // dump($data);
-        //访问友情链接首页
+        //给状态加解析名
         $type = ['1' => '图片', '2' => '文字'];
 
         $status = ['0' => '启用', '1' => '禁用'];
-
+        //访问友情链接首页
         return view('admin.friends.index', compact('data', 'type', 'status'));
     }
 
@@ -34,8 +35,10 @@ class FriendController extends Controller
      */
     public function edit($id)
     {
+        //找到友情链接的id
         $dataObj = Friend::find($id);
         // dump($dataObj);
+        //返回值给修改页面
         return view('admin.friends.edit', compact('dataObj'));
 
     }
@@ -47,7 +50,7 @@ class FriendController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+        //
         if (Friend::where('id', '=', $id)->update([
             'name' => $request->name,
             'type' => $request->type,
@@ -88,61 +91,41 @@ class FriendController extends Controller
     {
 //       dump($request->all());
 
-        $this->validate($request, [
-            'name' => 'required|min:1|max:30',
-            'url' => 'required',
-            'image' => 'required',
-        ], [
-            'required' => ':attribute 是必填字段',
-            'min' => ':attribute 必须不少于3个字符',
-            'max' => ':attribute 必须少于30个字符',
-
-        ], [
-                'name' => '友情链接名称',
-                'url' => '链接地址',
-                'image' => '图片名称',
-            ]
-        );
-
-        if($request->isMethod('post')){
-
-            $file=$request->file('image');
-
-            if($file->isValid()){
-                $originalName = $file->getClientOriginalName(); // 文件原名
-                $ext = $file->getClientOriginalExtension();     // 扩展名
-                $realPath = $file->getRealPath();   //临时文件的绝对路径
-                $type = $file->getClientMimeType();     // image/jpeg
-                $filePath=public_path('uploads');
-                //添加后缀名
-                $fileName=date('Y-m-d-H-i-s').'-'.uniqid().'.'.$ext;
-                $bool = Storage::disk('uploads')->put($fileName, file_get_contents($realPath));
-                $image=new ImageManager();
-                $image->make($filePath.'/'.$fileName)->resize(50,50)->save($filePath.'/x_'.$fileName);
-                $request->image=$fileName;
-                $request->created_at=Carbon::now();
-                $row = \DB::table('data_friend_link')->insert([
-                    'name'=>$request->name,
-                    'type'=>$request->type,
-                    'url'=>$request->url,
-                    'image'=>$request->image,
-                    'created_at'=>$request->created_at,
-                ]);
-                return redirect('/admin/friends')->with(['success'=>'成功']);
-            }else{
-                return back()->with(['success'=>'失败']);
-            }
-
-
-        }
-//        $post = $request->all();
+//        $this->validate($request, [
+//            'name' => 'required|min:1|max:30',
+//            'url' => 'required',
 //
-////          dd($post);
-//        if (Friend::create($post)) {
-//            return redirect('/admin/friends')->with(['success' => '添加成功']);
-//        } else {
-//            return back()->with(['添加失败']);
-//        }
+//        ], [
+//            'required' => ':attribute 是必填字段',
+//            'min' => ':attribute 必须不少于3个字符',
+//            'max' => ':attribute 必须少于30个字符',
+//
+//        ], [
+//                'name' => '友情链接名称',
+//                'url' => '链接地址',
+//
+//            ]
+//        );
+        $data = new Friend();
+        $data->name = $request->input('name');
+        if($request->input('url')!= ''){
+            $data->url = $request->input('url');
+        }
+        $data->type = $request->input('type');
+        $data->image = NULL;
+        if($request->hasFile('file') && $request->file('file')->isValid()){
+            $filePath='/uploads/friends/';
+            $fileName=str_random(10).'.png';
+            Image::make($request->file('file'))
+                ->encode('png')
+                ->resize(50, 50)
+                ->save('.'.$filePath.$fileName);
+            $data->image=$filePath.$fileName;
+        }
+        $data->save();
+        return redirect()->to('admin/friends')->withSuccess('新增轮播图成功！');
+
+
     }
 
     public function destroy($id)

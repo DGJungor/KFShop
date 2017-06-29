@@ -1,4 +1,4 @@
-@extends('web.index')
+@extends('web.public.public')
 
 @section('title')
     商品列表页
@@ -10,71 +10,17 @@
 
 @endsection
 
-@section('nav')
 
-    <!--nav-->
-    <div class="nav-box">
-        <div class="nav-kuai w1200">
-            <div class="nav-kuaijie yjp-hover1 f-l">
-                <a href="JavaScript:;" class="kj-tit1">商品分类快捷</a>
-                <div class="kuaijie-box yjp-show1" style="display:none;">
-                    <div class="kuaijie-info">
-                        <dl class="kj-dl1">
-                            <dt><img src="{{ url('/web/images/zl2-07.gif') }}" /><a href="#">食品/饮料/酒水</a></dt>
-                            <dd>
-                                <a href="#">饼干糕点</a><span>|</span>
-                                <a href="#">冲调保健</a><span>|</span>
-                                <a href="#">酒水</a>
-                            </dd>
-                        </dl>
-                        <div class="kuaijie-con">
-                            <dl class="kj-dl2">
-                                <dt><a href="#">洗浴用品/身体护理</a></dt>
-                                <dd>
-                                    <a href="#">护手霜</a><span>|</span>
-
-                                </dd>
-                            </dl>
-                            <div style="clear:both;"></div>
-                        </div>
-                    </div>
-                    <div class="kuaijie-info">
-                        <dl class="kj-dl1">
-                            <dt><img src="{{ url('/web/images/zl2-08.gif') }}" /><a href="搜索列表(有品牌).html">粮油副食</a></dt>
-                            <dd>
-                                <a href="#">厨房调味</a><span>|</span>
-                                <a href="#">大米/面粉</a><span>|</span>
-                                <a href="#">方便速食</a>
-                            </dd>
-                        </dl>
-                        <div class="kuaijie-con">
-                            <dl class="kj-dl2">
-                                <dt><a href="#">洗浴用品/身体护理</a></dt>
-
-                            </dl>
-                            <div style="clear:both;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <ul class="nav-font f-l">
-                <li><a href="#">在线商城</a></li>
-                <li><a href="#">二手市场</a><span><img src="{{ url('/web/images/zl2-05.gif') }}" /></span></li>
-                <div style="clear:both;"></div>
-            </ul>
-            <div style="clear:both;"></div>
-        </div>
-    </div>
-
-@endsection
-@section('hot')
+@section('menu')
     <div class="brand-sales ">
 
         <dl style="border-bottom:none;">
             <dt>商品种类</dt>
             <dd>
                 {{--遍历内容--}}
+
                 <a href="" style="color: #63A61D">种类1</a>
+
                 {{--遍历--}}
             </dd>
             <div style="clear:both;"></div>
@@ -84,12 +30,15 @@
         <dt>商品分类</dt>
             <dd>
                 {{--遍历内容--}}
+
                 <a href="">分类</a>
+
                 {{--遍历--}}
             </dd>
             <div style="clear:both;"></div>
         </dl>
     </div>
+    <br>
 @endsection
 
 @section('content')
@@ -101,7 +50,9 @@
                     <h3>商品推荐</h3>
                 </div>
                 <ul class="shop-left-ul">
+
                     {{--遍历的地方--}}
+
                     <li style="height:250px;">
                         <div class="li-top">
                             <a href="#" class="li-top-tu" target="_blank"><img src="{{ url('web/images/beaut-lg-tu2.gif') }}" width='95' height='110' /></a>
@@ -115,7 +66,9 @@
                         </div>
                         <p class="pingjia">0评价</p>
                     </li>
+
                     {{--遍历--}}
+
                 </ul>
             </div>
         </div>
@@ -133,7 +86,9 @@
             </div>
             <div class="shop-right-con">
                 <ul class="shop-ul-tu shop-ul-tu1">
+
                     {{--遍历内容--}}
+
                     <li style="height:250px">
                         <div class="li-top">
                             <a href="#"  target="_blank" class="li-top-tu"><img src="{{ url('web/images/beaut-lg-tu2.gif') }}" height="110" width="95" /></a>
@@ -150,14 +105,35 @@
 
                     </li>
                     <div style="clear:both;"></div>
-                    {{--遍历--}}
-                </ul>
 
-                <!--分页-->
+                    {{--遍历--}}
+
+                </ul>    
             </div>
         </div>
         <div style="clear:both;"></div>
     </div>
-
+    
+     <!--分页-->
+        <div class="paging">
+                <div class="pag-left f-l">
+                    <a href="#" class="about left-r f-l"><</a>
+                    <ul class="left-m f-l">
+                        <li><a href="#">1</a></li>
+                        
+                        <div style="clear:both;"></div>
+                    </ul>
+                    <a href="#" class="about left-l f-l">></a>
+                    <div style="clear:both;"></div>
+                </div>
+                <div class="pag-right f-l">
+                    <div class="jump-page f-l">
+                        到第<input type="text" />页
+                    </div>
+                    <button class="f-l">确定</button>
+                    <div style="clear:both;"></div>
+                </div>
+                <div style="clear:both;"></div>
+        </div>
 
 @endsection

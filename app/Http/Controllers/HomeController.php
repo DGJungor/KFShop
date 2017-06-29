@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Admin\ShopBanner;
 use Illuminate\Http\Request;
 use App\Admin\Recommend;
 use App\Http\Requests;
@@ -15,13 +16,15 @@ class HomeController extends Controller
     public function index()
     {
 
-        return view('web.index');
+//        return view('web.index');
 
-        $recommend=Recommend::paginate(4);
-
-        return view('web.nav.nav', compact(['recommend']));
+        $data=ShopBanner::paginate(4);
+        $dataObj=Recommend::paginate(4);
+        $res = compact("data", "",["dataObj"]);
+        return view('web.index', ["res"=>$res]);
 
     }
+
 
 
 }
