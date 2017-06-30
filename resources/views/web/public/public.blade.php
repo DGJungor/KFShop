@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
     <title>@yield('title')</title>
-    @yield('css')
+
     <link rel="stylesheet" type="text/css" href="{{ url('/web/css/style.css') }}" />
     <script type="text/javascript" src="{{ url('/web/js/jquery.js') }}"></script>
     <script type="text/javascript" src="{{ url('/web/js/zhonglin.js') }}"></script>
@@ -14,7 +14,7 @@
     <script type="text/javascript" src="{{ url('/web/js/star-rating.js') }}"></script>
     <script type="text/javascript" src="{{ url('/web/js/doubleDate2.0.js') }}"></script>
     <script type="text/javascript" src="{{ url('/web/js/jquery.min.js') }}"></script>
-
+    @yield('css')
 
 
 </head>

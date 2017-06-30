@@ -2,7 +2,7 @@
 
 @section('title')
 
-    轮播图管理
+    推荐管理
     <link href="{{ asset('/style/js/plugins/fancybox/jquery.fancybox.css') }}" rel="stylesheet">
 
 @endsection
@@ -37,12 +37,12 @@
                         <input type="hidden" name="_method" value="PUT">
                     <div class="col-xs-4">
                             <div class="form-group">
-                                <label for="exampleInputName2">轮播图名称</label>
+                                <label for="exampleInputName2">推荐名称</label>
                                 <input type="text" class="form-control" placeholder=".col-xs-4" name="recommend_name" value="{{$data->recommend_name}}">
                             </div>
                         <br>
                             <div class="form-group">
-                                <label for="exampleInputName2">轮播图导语</label>
+                                <label for="exampleInputName2">推荐导语</label>
                                 <input type="text" class="form-control" placeholder=".col-xs-4" name="recommend_introduction" value="{{$data->recommend_introduction}}">
                             </div>
 

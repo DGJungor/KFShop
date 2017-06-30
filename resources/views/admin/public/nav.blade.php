@@ -7,7 +7,6 @@
                     <img alt="image" class="img-circle" src="{{ asset('/style/img/profile_small.jpg') }}" />
                      </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
-
                         <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ Auth::guard('admin')->user()->username }}</strong>
                      </span> <span class="text-muted text-xs block">{{ Auth::guard('admin')->user()->type !=0 ? '管理员' : '超级管理员' }} <b class="caret"></b></span> </span>
 
@@ -50,7 +49,7 @@
                 </ul>
             </li>
             <li class="active">
-                <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">友情链接</span> <span class="fa arrow"></span></a>
+                <a href=""><i class="glyphicon glyphicon-link"></i> <span class="nav-label">友情链接</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
 
                     <li><a href="{{ url('admin/friends') }}">友情链接管理</a>
