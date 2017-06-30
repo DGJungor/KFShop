@@ -12,7 +12,7 @@
 
     <div class="banner">
         <ul class="ban-ul1">
-            @foreach($res["data"] as $v)
+            @foreach($res["banner"] as $v)
             @if($v->disabled == '显示')
                 <li><a href="http://{{($v->redirect_url)}}"><img src="{{ url($v['img_url']) }}" /></a></li>
                 @else
@@ -34,7 +34,7 @@
     <div class="tuijian-left f-l">
         <img src="{{ url('/web/images/zl2-14.png') }}" />
     </div>
-    <input type="hidden" value="{{$a=$res['dataObj']->count()}}">
+    <input type="hidden" value="{{$a=$res['banners']->count()}}">
 
     {{--{{dd($a)}}--}}
     <ul class="tuijian-right f-l">

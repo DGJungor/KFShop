@@ -46,7 +46,7 @@
                                    	<a href="#">护手霜</a><span>|</span>
                                 </dd>
                             </dl>
-                           
+
                             <div style="clear:both;"></div>
                         </div>
                     </div>
@@ -56,7 +56,7 @@
                             <dd>
                             	<a href="#">厨房调味</a><span>|</span>
                             	<a href="#">大米/面粉</a><span>|</span>
-                            	
+
                             </dd>
                         </dl>
                         <div class="kuaijie-con">
@@ -75,7 +75,7 @@
             </div>
             <ul class="nav-font f-l">
             	<li><a href="#">在线商城</a></li>
-            	
+
             	<li><a href="#">二手市场</a><span><img src="{{ url('/web/images/zl2-05.gif') }}" /></span></li>
                 <div style="clear:both;"></div>
             </ul>

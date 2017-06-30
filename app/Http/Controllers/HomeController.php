@@ -18,9 +18,9 @@ class HomeController extends Controller
 
 //        return view('web.index');
 
-        $data=ShopBanner::paginate(4);
-        $dataObj=Recommend::paginate(4);
-        $res = compact("data", "",["dataObj"]);
+        $banner=ShopBanner::paginate(4);
+        $banners=Recommend::paginate(4);
+        $res = compact("banner", "",["banners"]);
         return view('web.index', ["res"=>$res]);
 
     }

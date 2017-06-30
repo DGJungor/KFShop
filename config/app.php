@@ -162,6 +162,8 @@ return [
 	    Overtrue\LaravelShoppingCart\ServiceProvider::class,
         //对图片的创建、修改和压缩处理 Intervention Image
         Intervention\Image\ImageServiceProvider::class,
+        //验证码
+        Mews\Captcha\CaptchaServiceProvider::class,
 
     ],
 
@@ -215,6 +217,8 @@ return [
 
         //对图片的创建、修改和压缩处理 Intervention Image
         'Image' => Intervention\Image\Facades\Image::class,
+        //验证码
+        'Captcha' => Mews\Captcha\Facades\Captcha::class,
 
     ],
 
