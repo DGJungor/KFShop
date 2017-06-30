@@ -23,19 +23,19 @@ class CartController extends Controller
 	public function index(Cart $cart, Request $request, Store $store)
 	{
 		$store->start();
-
+//=====================================================================================
 		//模拟添加购物车
 //		$cart->add(37, 'Item name', 5, 100.00, ['color' => 'red', 'size' => 'M', 'picname' =>'2017-06-23-20-48-41-594d0e2959cee.jpg']);
 //		$cart->add(127, 'foobar', 15, 100.00, ['color' => 'green', 'size' => 'S','picname' =>'2017-06-23-20-48-41-594d0e2959cee.jpg']);
 //    	$store->save();
 //		$cart->clean();
-
+//======================================================================================
 		//从session中获得
 		$session = $request->session()->get('cart');
 
 		//计算购物车中的商品数
 		$count = count($session['default']);
-
+		
 		//判断购物车中是否为空  空着跳转 提醒客户添加商品页面
 		if ($count == 0) {
 			return view('web.cart.null');

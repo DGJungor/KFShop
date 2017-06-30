@@ -14,7 +14,9 @@
     <script type="text/javascript" src="{{ url('/web/js/star-rating.js') }}"></script>
     <script type="text/javascript" src="{{ url('/web/js/doubleDate2.0.js') }}"></script>
     <script type="text/javascript" src="{{ url('/web/js/jquery.min.js') }}"></script>
+
     @yield('css')
+
 
 
 </head>
@@ -46,3 +48,5 @@
 </body>
 
 </html>
+
+@yield('js')
