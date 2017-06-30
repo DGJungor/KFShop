@@ -157,13 +157,13 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        //图片处理
-         Intervention\Image\ImageServiceProvider::class,
-        //
+
 	    //购物车扩展
 	    Overtrue\LaravelShoppingCart\ServiceProvider::class,
         //对图片的创建、修改和压缩处理 Intervention Image
         Intervention\Image\ImageServiceProvider::class,
+        //验证码
+        Mews\Captcha\CaptchaServiceProvider::class,
 
     ],
 
@@ -211,15 +211,14 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
-        //图片处理
-        'Image' => Intervention\Image\Facades\Image::class,
-
 	    //购物车扩展
 	    'Cart' => Overtrue\LaravelShoppingCart\Facade::class,
 
 
         //对图片的创建、修改和压缩处理 Intervention Image
         'Image' => Intervention\Image\Facades\Image::class,
+        //验证码
+        'Captcha' => Mews\Captcha\Facades\Captcha::class,
 
     ],
 

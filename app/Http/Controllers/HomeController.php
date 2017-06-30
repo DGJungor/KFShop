@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Admin\ShopBanner;
 use Illuminate\Http\Request;
 use App\Admin\Recommend;
 use App\Http\Requests;
@@ -14,6 +15,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+
         $dataObj = \DB::table('data_types')->where('pid', '0')->get();
         foreach($dataObj as $data){
             $data->children = \DB::table('data_types')->where('pid', $data->id)->get();
@@ -24,7 +26,8 @@ class HomeController extends Controller
 
         $goodsObj = \DB::table('data_goods')->where('typeid', 3)->get();
         $recommend=Recommend::paginate(4);
-        return view('web.index', compact(['recommend', 'dataObj', 'goodsObj']));
+        $data=ShopBanner::paginate(4);
+        return view('web.index', compact('data', "", ['recommend', 'dataObj', 'goodsObj', 'dataObj']));
 
     }
 
@@ -34,4 +37,5 @@ class HomeController extends Controller
         $goodsObj = \DB::table('data_goods')->where('typeid', $id)->orderBy('buy', 'desc')->get();
         return $goodsObj;
     }
+
 }

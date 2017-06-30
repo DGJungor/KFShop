@@ -67,8 +67,7 @@ class RecommendController extends Controller
                 // 使用新建的uploads本地存储空间（目录）
                 $bool = Storage::disk('uploads')->put($fileName, file_get_contents($realPath));
                 $image=new ImageManager();
-                $image->make($filePath.'/'.$fileName)->resize(1400,430)->save($filePath.'/l_'.$fileName);
-                $image->make($filePath.'/'.$fileName)->resize(326,218)->save($filePath.'/s_'.$fileName);
+                $image->make($filePath.'/'.$fileName)->resize(136,124)->save($filePath.'/s_'.$fileName);
                 $request->recommend_picname=$fileName;
                 $request->created_at=Carbon::now();
 //                dd($request->created_at);
@@ -148,12 +147,10 @@ class RecommendController extends Controller
     public function destroy($id)
     {
 
-        $filePath=public_path('uploads');
-        $file=DB::table('data_recommend')->where('id', '=', $id)->select('recommend_picname')->get();
-        foreach ($file as $v) $fileName=$v->recommend_picname;
-//        dd($fileName);
+        $filePath = public_path('uploads');
+        $file = DB::table('data_recommend')->where('id', '=', $id)->select('recommend_picname')->get();
+        foreach ($file as $v) $fileName = $v->recommend_picname;
         if (Recommend::destroy($id)) {
-
             Storage::disk('uploads')->delete($fileName);
             Storage::disk('uploads')->delete('s_'.$fileName);
             Storage::disk('uploads')->delete('l_'.$fileName);

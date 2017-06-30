@@ -21,13 +21,13 @@ Route::post('/ajax', 'HomeController@ajax');
 //前台购物车路由 --jun
 Route::resource('cart','CartController');
 Route::post('cart/ajax','CartController@ajax');
+Route::post('cart/del','CartController@del');
 
 //前台信息反馈路由  --jun
 Route::resource('feedback','FeedbackController');
 
 //前台评论
-Route::get('comment', 'CommentController@index');
-
+Route::resource('comment', 'CommentController');
 
 //前台订单路由  --jun
 Route::resource('orders','OrdersController');
@@ -68,8 +68,10 @@ Route::post('admin/login', 'Admin\LoginController@login');
 //后台退出登录
 Route::get('admin/logout', 'Admin\LoginController@logout');
 
+
 // Route::group(['middleware'=>'auth:admin','namespace' => 'Admin', 'prefix' => 'admin'], function () {
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
+	
     Route::get('/', function () { return view('admin.index'); });
     //商品管理
     Route::resource('goods', 'GoodsController');
@@ -92,15 +94,15 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 
     //后台轮播图管理路由
     Route::resource('recommend', 'RecommendController');
-
+    Route::resource('shop_banner', 'Shop_BannerController');
 	//后台友情链接路由
 	Route::get('friends', 'FriendController@index');
 
 	//前台用户路由
-    Route::resource('users', 'UsersController');
+    Route::resource('member', 'MemberController');
 
-    //后台用户路由
-    Route::resource('admins', 'AdminUsersController');
+    //后台管理员路由
+    Route::resource('admins', 'AdminController');
 
     //后台评论路由
     Route::resource('comment', 'CommentController');

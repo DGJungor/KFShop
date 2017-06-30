@@ -27,28 +27,46 @@
             <h1 class="logo-name">KF</h1>
 
         </div>
-        <h3>网站后台登录</h3>
-        @if(count($errors))
-            <div class="text-danger">
-            @foreach($errors->all() as $error)
-                <li>{{$error}}</li>
-            @endforeach
-            </div>
-        @endif
+        <h3>狂风商城后台</h3>
 
-        <form class="m-t" role="form" action="/admin/login" method="POST">
-            <div class="form-group">
-                <input type="text" name="username" class="form-control" placeholder="用户名" >
+        <form id="loginform" class="m-t" role="form" action="/admin/login" method="POST">
+            @if(session('error'))
+                <span class="text-danger">
+                    <strong>{{ session('error') }}</strong>
+                </span>
+            @endif
+            <div class="form-group {{ $errors->has('name_email_tel') ? 'has-error' : '' }}">
+                <input type="text" name="name_email_tel" class="form-control" placeholder="用户名/邮箱/手机号" value="{{ old('name_email_tel') }}">
+                @if ($errors->has('name_email_tel'))
+                    <span class="text-danger">
+                        <strong>{{ $errors->first('name_email_tel') }}</strong>
+                    </span>
+                @endif
             </div>
-            <div class="form-group">
+            <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
                 <input type="password" name="password" class="form-control" placeholder="密码">
+                @if ($errors->has('password'))
+                    <span class="text-danger">
+                        <strong>{{ $errors->first('password') }}</strong>
+                    </span>
+                @endif
             </div>
+            <div class="input-group {{ $errors->has('captcha') ? ' has-error' : '' }}">
+                <input id="code" type="text" name="captcha" class="form-control" placeholder="验证码">
+                <span class="input-group-btn">
+                    <img id="captcha" src="{{ captcha_src() }}" />
+                </span>
+
+            </div><!-- /input-group <-->
+            @if ($errors->has('captcha'))
+                <span class="text-danger">
+                    <strong id="code_error">{{ $errors->first('captcha') }}</strong><br>
+                </span>
+            @endif
             {{csrf_field()}}
+            <br>
             <button type="submit" class="btn btn-primary block full-width m-b">登 录</button>
 
-
-            <p class="text-muted text-center"> <a href="#"><small>忘记密码了？</small></a>
-            </p>
         </form>
     </div>
 </div>
@@ -56,6 +74,54 @@
 <!-- Mainly scripts -->
 <script src="{{ asset('/style/js/jquery-2.1.1.min.js') }}"></script>
 <script src="{{ asset('/style/js/bootstrap.min.js?v=3.4.0') }}"></script>
+<!-- jQuery Validation plugin javascript-->
+<script src="{{ asset('/style/js/plugins/validate/jquery.validate.min.js') }}"></script>
+<script src="{{ asset('/style/js/plugins/validate/messages_zh.min.js') }}"></script>
+<script>
+    //切换验证码图片
+    $('#captcha').on('click', function () {
+        var captcha = $(this);
+        var url = '/captcha/' + captcha.data('captcha-config') + '?' + Math.random();
+        captcha.attr('src', url);
+    });
+
+    //隐藏错误信息
+    $('input').focus(function(event) {
+        $(this).next().children().html('');
+    });
+
+    $('#code').focus(function(event) {
+        $('#code_error').parent().remove();
+    });
+
+    //以下为修改jQuery Validation插件兼容Bootstrap的方法，没有直接写在插件中是为了便于插件升级
+    $.validator.setDefaults({
+        highlight: function (element) {
+            $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+        },
+        success: function (element) {
+            element.closest('.form-group').removeClass('has-error').addClass('has-success');
+        },
+        errorElement: "span",
+        errorClass: "help-block m-b-none",
+        validClass: "help-block m-b-none"
+
+
+    });
+
+    $('#loginform').validate({
+        rules: {
+            name_email_tel: "required",
+            password: "required",
+            captcha: "required"
+        },
+        messages: {
+            name_email_tel: "请输入您的用户名/邮箱/手机号",
+            password: "请输入密码",
+            captcha: "请输入验证码"
+        }
+    });
+</script>
 
 
 </body>

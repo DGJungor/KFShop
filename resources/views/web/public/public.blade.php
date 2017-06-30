@@ -17,6 +17,8 @@
 
     @yield('css')
 
+
+
 </head>
 
 <body id="top">
@@ -42,6 +44,7 @@
     @include('web.public.youce')
 
 
+    @yield('js')
 </body>
 
 </html>

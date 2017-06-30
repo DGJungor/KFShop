@@ -10,9 +10,67 @@
 @endsection
 
 @section('menu')
-<div class="banner">
-    <ul class="ban-ul1">
+
+
+    <div class="banner">
+        <ul class="ban-ul1">
+            @foreach($res["data"] as $v)
+            @if($v->disabled == '显示')
+                <li><a href="http://{{($v->redirect_url)}}"><img src="{{ url($v['img_url']) }}" /></a></li>
+                @else
+
+                @endif
+            @endforeach
+        </ul>
+        <div class="ban-box w1200">
+            <ol class="ban-ol1">
+                <li class="current"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <div style="clear:both;"></div>
+            </ol>
+        </div>
+    </div>
+
+    <div class="tuijian-left f-l">
+        <img src="{{ url('/web/images/zl2-14.png') }}" />
+    </div>
+    <input type="hidden" value="{{$a=$res['dataObj']->count()}}">
+
+    {{--{{dd($a)}}--}}
+    <ul class="tuijian-right f-l">
+        {{--@for($i=1;$i<=$a;$i++)--}}
+            {{--{{$i}}--}}
+        {{--@endfor--}}
+        {{--@foreach($res["dataObj"] as $row)--}}
+
+{{--            {{$i=$row}}--}}
         <li>
+            <div class="li-box li-box"   style="background: no-repeat right 20px;">
+                <a href="JavaScript:;" class="li-a1">锦尚世家</a>
+                <a href="JavaScript:;" class="li-a2">锦绣花苑　传承世家</a>
+                <a href="JavaScript:;" class="li-a3">more</a>
+
+            </div>
+        </li>
+                {{--@endforeach--}}
+        <div style="clear:both;"></div>
+    </ul>
+    <div style="clear:both;"></div>
+@endsection
+
+@section('content')
+<style>
+    .title1-ul1 .current a{color:#dc4525}
+</style>
+<div class="zl-title1" style="border-color:#dc4525">
+    <h3 class="title1-h3 f-l">
+        1F  在线商城
+    </h3>
+    <ul class="title1-ul1 f-r">
+        <li class="current">
+
             <a href="JavaScript:;">
                 <img src="{{ url('/web/images/banner.png') }}"/>
             </a>

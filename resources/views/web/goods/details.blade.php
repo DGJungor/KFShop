@@ -1,5 +1,5 @@
 
-@extends('web.index')
+@extends('web.public.public')
 
 @section('title')
     商品详情页
