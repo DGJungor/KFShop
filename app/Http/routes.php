@@ -16,6 +16,7 @@
 
 //首页
 Route::get('/', 'HomeController@index');
+Route::post('/ajax', 'HomeController@ajax');
 
 //前台购物车路由 --jun
 Route::resource('cart','CartController');

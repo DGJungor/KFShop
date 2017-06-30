@@ -38,6 +38,8 @@
                                 <th>商品名称</th>
                                 <th>商品状态</th>
                                 <th>购买量</th>
+                                <th>单价</th>
+                                <th>库存</th>
                                 <th>商品图片</th>
                                 <th>适用人群</th>
                                 <th>品牌</th>
@@ -55,6 +57,8 @@
                                 <td>{{$v['goodname']}}</td>
                                 <td>{{ $state[$v['state']] }}</td>
                                 <td>{{$v['buy']}}</td>
+                                <td>{{$v['price']}}</td>
+                                <td>{{$v['inventory']}}</td>
                                 <td><img width="120" height="100" src="{{ asset('uploads/goods/') }}/{{ $v['picname'] }}"></td>
                                 <td>{{$v['brand']}}</td>
                                 <td>{{$v['suit']}}</td>
