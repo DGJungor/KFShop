@@ -162,7 +162,7 @@
                 <div class="jshj f-l">
                     <p>合计（不含运费）</p>
                     <p class="jshj-p2">
-                        ￥：<span>0</span>.00
+                        ￥：<span id="bigTotal">0</span>.00
                     </p>
                 </div>
                 {{--<a href="JavaScript:;" class="js-a1 f-l"></a>--}}
@@ -206,20 +206,21 @@
         //全选按钮
         $("#all").click(function () {
             if (this.checked) {
-
                 $('.info-mid input[type=checkbox]').prop('checked', true);
             } else {
                 $('.info-mid input[type=checkbox]').prop('checked', "");
             }
+
         });
 
         //结算前的 全选按钮
         $("#allcart").click(function () {
             if (this.checked) {
-
+                $('#bigTotal').html('');
                 $('.info-mid input[type=checkbox]').prop('checked', true);
             } else {
                 $('.info-mid input[type=checkbox]').prop('checked', "");
+                $('#bigTotal').html('0');
             }
         });
 

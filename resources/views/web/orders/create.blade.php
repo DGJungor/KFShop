@@ -28,13 +28,22 @@
             @foreach( $address as $v )
                 {{--{{ dump($v) }}--}}
                 @if($v->{'status'}==2)
-                        <li class="current">
+                        <li class="current" value="{{ $v->{'id'} }}">
+
+                            {{--让默认选中的地址id添加到下方的 表单隐藏域  通过匿名函数自动加载--}}
+                            <script>
+                                $(function () {
+                                    $('#addressId').val({{ $v->{'id'} }});
+                                });
+                            </script>
+
                     @else
-                        <li>
+                        <li value="{{ $v->{'id'} }}">
                     @endif
                     <h3><span class="sp1"> {{ $v->{'address'} }} </span><span class="sp2"> {{-- 地址 --}}  </span>（<span class="sp3">{{ $v->{'name'} }}</span> 收）</h3>
                     <p><span class="sp1"> {{ $v->{'det_address'} }} </span><span class="sp2"> {{ $v->{'tel'}  }}</span></p>
                     <a href="JavaScript:;" xiugai="">修改</a>
+
                 </li>
             @endforeach
 
@@ -106,6 +115,9 @@
                 <p class="p1">实付款：<span>¥{{ $total }}</span></p>
                 <form action="/orders" method="POST">
                     {{csrf_field()}}
+                    <input type="hidden" name="addressId" value="" id="addressId">
+                    <input type="hidden" name="ordersList" value="{{ json_encode($list) }}">
+                    <input type="hidden" name="guid" value="{{ $guid }}">
                  <button class="btn" type="submit">提交订单</button>
                 </form>
             </div>
@@ -115,5 +127,14 @@
 @endsection
 
 @section('js')
+    <script>
+
+        //获取地址列表选中的ID 传到form表单的隐藏域中
+        $('.pay-dz > li').on("click", function (){
+            var addressId = $(this).val();
+            $('#addressId').val(addressId);
+        });
+
+    </script>
 
 @endsection
