@@ -31,6 +31,9 @@ Route::resource('comment', 'CommentController');
 //前台订单路由  --jun
 Route::resource('orders','OrdersController');
 
+//前台支付路由 --jun
+Route::resource('pay','PayController');
+
 //商品列表页
 Route::get('goods_list', function () {
 
@@ -68,8 +71,8 @@ Route::post('admin/login', 'Admin\LoginController@login');
 Route::get('admin/logout', 'Admin\LoginController@logout');
 
 
-// Route::group(['middleware'=>'auth:admin','namespace' => 'Admin', 'prefix' => 'admin'], function () {
-Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
+ Route::group(['middleware'=>'auth:admin','namespace' => 'Admin', 'prefix' => 'admin'], function () {
+//Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 	
     Route::get('/', function () { return view('admin.index'); });
     //商品管理

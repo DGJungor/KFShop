@@ -162,12 +162,13 @@ class OrdersController extends Controller
 
 				//添加订单详情表信息
 				DB::table('data_orders_details')->insert([
-					'orders_guid'      => $addressId,
+					'orders_guid'      => $guid,
 					'user_id'          => $user_id,
 					'goods_id'         => $v->{'id'},
 					'order_status'     => 1,
 					'commodity_number' => $v->{'qty'},
-					'cargo_price'      => $price
+					'cargo_price'      => $price,
+					'created_at'       => date('YmdHis')
 				]);
 
 				//计算商品总金额
@@ -181,7 +182,8 @@ class OrdersController extends Controller
 				'address_message' => '123',
 				'address_id'      => $addressId,
 				'order_status'    => 1,
-				'total_amount'    => $total
+				'total_amount'    => $total,
+				'created_at'      => date('YmdHis')
 			]);
 
 			//提交事务

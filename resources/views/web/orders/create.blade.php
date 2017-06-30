@@ -85,8 +85,11 @@
                     --------------------------------------------------------------------
                 </div>
                 <div class="mid-guige1 f-l" style="margin-right:40px;">
-                    <p>颜色：蓝色</p>
-                    <p>尺码：XL</p>
+                    <p>默认</p>
+
+
+                    {{--<p>颜色：蓝色</p>--}}
+                    {{--<p>尺码：XL</p>--}}
                 </div>
                 {{--<div class="mid-sl f-l" style="margin:10px 54px 0px 0px;">--}}
                     {{--<a href="JavaScript:;" class="sl-left">-</a>--}}
