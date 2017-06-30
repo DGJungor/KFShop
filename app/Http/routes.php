@@ -43,7 +43,7 @@ Route::get('goods_details', function () {
     return view('web.goods.details');
 });
 
-// 登录页面
+// 前台登录页面
 Route::get('/login', "LoginController@index");
 // 执行登录
 Route::post('/login', "LoginController@login");
@@ -56,9 +56,13 @@ Route::get('/register', "RegisterController@index");
 // 执行注册
 Route::post('/register', "RegisterController@register");
 
+//个人中心
 Route::group(['prefix' => 'user'], function () {
     Route::get('/', "PersonalController@index");
 });
+
+//前台注册Ajax请求
+Route::post('/ajax/user/register', 'RegisterController@checkName');
 
 
 //后台登录首页
@@ -69,8 +73,8 @@ Route::post('admin/login', 'Admin\LoginController@login');
 Route::get('admin/logout', 'Admin\LoginController@logout');
 
 
-// Route::group(['middleware'=>'auth:admin','namespace' => 'Admin', 'prefix' => 'admin'], function () {
-Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
+ Route::group(['middleware'=>'auth:admin','namespace' => 'Admin', 'prefix' => 'admin'], function () {
+//Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 	
     Route::get('/', function () { return view('admin.index'); });
     //商品管理
