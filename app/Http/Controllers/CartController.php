@@ -22,6 +22,7 @@ class CartController extends Controller
 	 */
 	public function index(Cart $cart, Request $request, Store $store)
 	{
+
 		$store->start();
 //=====================================================================================
 		//模拟添加购物车
@@ -35,14 +36,20 @@ class CartController extends Controller
 
 		//计算购物车中的商品数
 		$count = count($session['default']);
-		
+
+		//购物车总金额
+		$cartTotal = $cart->total();
+
 		//判断购物车中是否为空  空着跳转 提醒客户添加商品页面
 		if ($count == 0) {
 			return view('web.cart.null');
 		} else {
 
 			//查询商品的信息
-			return view('web.cart.index', ['cartInfo' => $session['default']]);
+			return view('web.cart.index', [
+				'cartInfo' => $session['default'],
+				'cartTotal' => $cartTotal
+			]);
 		}
 
 
@@ -114,8 +121,6 @@ class CartController extends Controller
 		//接收到购物车中 商品的列表id  删除
 		$info = $cart->remove($id);
 
-//		return Redirect::to("/dos/storeget");
-//		return view('web.cart.index');
 		return redirect('cart');
 
 	}
@@ -124,8 +129,8 @@ class CartController extends Controller
 	public function ajax(Request $request, Cart $cart)
 	{
 		$type = $request->type;
-		$num = (int)$request->num;
-		$id = $request->id;
+		$num  = (int)$request->num;
+		$id   = $request->id;
 		switch ($type) {
 			case 'update':
 

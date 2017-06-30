@@ -32,6 +32,9 @@ Route::resource('comment', 'CommentController');
 //前台订单路由  --jun
 Route::resource('orders','OrdersController');
 
+//前台支付路由 --jun
+Route::resource('pay','PayController');
+
 //商品列表页
 Route::get('goods_list', function () {
 
