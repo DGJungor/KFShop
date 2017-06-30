@@ -16,6 +16,7 @@
 
 //首页
 Route::get('/', 'HomeController@index');
+Route::post('/ajax', 'HomeController@ajax');
 
 //前台购物车路由 --jun
 Route::resource('cart','CartController');
@@ -96,6 +97,8 @@ Route::get('admin/logout', 'Admin\LoginController@logout');
 
     //后台轮播图管理路由
     Route::resource('recommend', 'RecommendController');
+
+    //后台推荐管理路由
     Route::resource('shop_banner', 'Shop_BannerController');
 	//后台友情链接路由
 	Route::get('friends', 'FriendController@index');

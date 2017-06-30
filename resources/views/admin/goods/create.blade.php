@@ -45,10 +45,26 @@ body {
                     </div>
                     <div class="hr-line-dashed"></div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">库存</label>
+                        <label class="col-sm-2 control-label">购买量</label>
 
                         <div class="col-sm-10">
                             <input type="text" name="buy" class="form-control">
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">库存</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" name="inventory" class="form-control">
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">单价</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" name="price" class="form-control">
                         </div>
                     </div>
                     <div class="hr-line-dashed"></div>
