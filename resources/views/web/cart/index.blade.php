@@ -1,4 +1,4 @@
-@extends('web.index')
+@extends('web.public.public')
 
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{ url('/web/css/shopping-mall-index.css') }}"/>
@@ -13,8 +13,8 @@
 
 @section('content')
     {{ $cartInfo }}
-    {{--<form action="orders" method="post">--}}
-    {{--{{csrf_field()}}--}}
+    <form action="orders/create" method="GET">
+    {{csrf_field()}}
     <div class="cart-content w1200">
         <ul class="cart-tit-nav">
             <li class="current"><a href="#">全部商品 21</a></li>
@@ -24,7 +24,7 @@
         </ul>
         <div class="cart-con-tit">
             <p class="p1">
-                <input type="checkbox" value="" name="hobby" id="all">
+                <input type="checkbox" value="" name="all" id="all">
                 <script>
 
                 </script>
@@ -47,7 +47,7 @@
 
                 </div>
                 <div class="info-mid">
-                    <input type="checkbox" value="" name="hobby" class="mid-ipt f-l">
+                    <input type="checkbox" value="{{ $v['__raw_id'] }}" name="hobby[]" class="mid-ipt f-l">
                     <div class="mid-tu f-l">
                         <a href="#"><img src="{{url( '/uploads/goods/m')}}{{$v['picname']}}"/></a>
                     </div>
@@ -110,46 +110,49 @@
                         {{--<a href="cart/{{ $v['__raw_id'] }}"><input class="btnDel" type="submit" value="删除"></a>--}}
 
                         {{--</form>--}}
-                        <input class="btnDel" type="submit" value="删除">
+                        <button class="btnDel"  >删除</button>
                         <input type="hidden" value="{{ $v['__raw_id'] }}">
 
                     </div>
                     <div style="clear:both;"></div>
                 </div>
             </div>
+
     @endforeach
 
     <!--分页-->
 
-        <div class="paging">
-            <div class="pag-left f-l">
-                <a href="#" class="about left-r f-l"><</a>
-                <ul class="left-m f-l">
-                    <li><a href="#">1</a></li>
-                    <li class="current"><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">6</a></li>
-                    <li><a href="#">...</a></li>
-                    <li><a href="#">100</a></li>
-                    <div style="clear:both;"></div>
-                </ul>
-                <a href="#" class="about left-l f-l">></a>
-                <div style="clear:both;"></div>
-            </div>
-            <div class="pag-right f-l">
-                <div class="jump-page f-l">
-                    到第<input type="text"/>页
-                </div>
-                <button class="f-l">确定</button>
-                <div style="clear:both;"></div>
-            </div>
-            <div style="clear:both;"></div>
-        </div>
+        {{--<div class="paging">--}}
+            {{--<div class="pag-left f-l">--}}
+                {{--<a href="#" class="about left-r f-l"><</a>--}}
+                {{--<ul class="left-m f-l">--}}
+                    {{--<li><a href="#">1</a></li>--}}
+                    {{--<li class="current"><a href="#">2</a></li>--}}
+                    {{--<li><a href="#">3</a></li>--}}
+                    {{--<li><a href="#">4</a></li>--}}
+                    {{--<li><a href="#">5</a></li>--}}
+                    {{--<li><a href="#">6</a></li>--}}
+                    {{--<li><a href="#">...</a></li>--}}
+                    {{--<li><a href="#">100</a></li>--}}
+                    {{--<div style="clear:both;"></div>--}}
+                {{--</ul>--}}
+                {{--<a href="#" class="about left-l f-l">></a>--}}
+                {{--<div style="clear:both;"></div>--}}
+            {{--</div>--}}
+            {{--<div class="pag-right f-l">--}}
+                {{--<div class="jump-page f-l">--}}
+                    {{--到第<input type="text"/>页--}}
+                {{--</div>--}}
+                {{--<button class="f-l">确定</button>--}}
+                {{--<div style="clear:both;"></div>--}}
+            {{--</div>--}}
+            {{--<div style="clear:both;"></div>--}}
+        {{--</div>--}}
+
+
         <div class="cart-con-footer">
             <div class="quanxuan f-l">
-                <input type="checkbox" value="" name="hobby">
+                <input type="checkbox" value="all" name="allcart" id="allcart">
                 <span>全选</span>
                 <a href="#">删除</a>
                 <a href="#">加入收藏夹</a>
@@ -171,7 +174,7 @@
             <div style="clear:both;"></div>
         </div>
     </div>
-    {{--</form>--}}
+    </form>
 
 
 @endsection
@@ -186,10 +189,11 @@
             $('#' + id).remove();
             $.ajax({
                 type: "POST",
-                url: "{{ url('/cart/') }}" + id,
+                url: "{{ url('/cart/del') }}" ,
 
-                data: {'_token': '{{csrf_token()}}', 'id': id, "_method": 'DELETE'},
+                data: {'_token': '{{csrf_token()}}', 'id': id },
                 success: function (data) {
+//                    alert(data);
 
                 }
 
@@ -201,6 +205,16 @@
 
         //全选按钮
         $("#all").click(function () {
+            if (this.checked) {
+
+                $('.info-mid input[type=checkbox]').prop('checked', true);
+            } else {
+                $('.info-mid input[type=checkbox]').prop('checked', "");
+            }
+        });
+
+        //结算前的 全选按钮
+        $("#allcart").click(function () {
             if (this.checked) {
 
                 $('.info-mid input[type=checkbox]').prop('checked', true);

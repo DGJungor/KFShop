@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Admin\AdminUser;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
 
-class AdminUsersController extends Controller
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,8 +15,7 @@ class AdminUsersController extends Controller
      */
     public function index()
     {
-        $admins = AdminUser::paginate(20);
-         return view('admin.adminusers.index', compact('admins'));
+        return view('web.comment.index');
     }
 
     /**
@@ -28,7 +25,7 @@ class AdminUsersController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -39,7 +36,7 @@ class AdminUsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**

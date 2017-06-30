@@ -20,6 +20,7 @@ Route::get('/', 'HomeController@index');
 //前台购物车路由 --jun
 Route::resource('cart','CartController');
 Route::post('cart/ajax','CartController@ajax');
+Route::post('cart/del','CartController@del');
 
 //前台信息反馈路由  --jun
 Route::resource('feedback','FeedbackController');
@@ -66,6 +67,7 @@ Route::post('admin/login', 'Admin\LoginController@login');
 //后台退出登录
 Route::get('admin/logout', 'Admin\LoginController@logout');
 
+
 // Route::group(['middleware'=>'auth:admin','namespace' => 'Admin', 'prefix' => 'admin'], function () {
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 	
@@ -96,10 +98,10 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 	Route::get('friends', 'FriendController@index');
 
 	//前台用户路由
-    Route::resource('users', 'UsersController');
+    Route::resource('member', 'MemberController');
 
-    //后台用户路由
-    Route::resource('admins', 'AdminUsersController');
+    //后台管理员路由
+    Route::resource('admins', 'AdminController');
 
     //后台评论路由
     Route::resource('comment', 'CommentController');
