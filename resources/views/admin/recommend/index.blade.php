@@ -2,85 +2,80 @@
 
 @section('title')
 
-轮播图管理
+推荐管理
 
 @endsection
 
 @section('bigtitle')
 
  <div class="col-lg-9">
-    <h2>轮播图管理</h2>
+    <h2>推荐管理</h2>
 
 </div>
 @endsection
 
 @section('content')
 
-<div class="wrapper wrapper-content">
-    <div class="row">
-        <div class="col-lg-3">
-            <div class="ibox float-e-margins">
-                <div class="ibox-content">
-                    <div class="file-manager">
-                        <h5>显示：</h5>
-                        <a href="#" class="file-control active">所有</a>
-                        <div class="hr-line-dashed"></div>
-                            <button class="btn btn-primary btn-block" onclick="window.location.href='{{ url('admin/recommend/create') }}'">新增轮播图</button>
-                        <div class="hr-line-dashed"></div>
-                        <h5>文件夹</h5>
-                        <ul class="folder-list" style="padding: 0">
-                            </li>
-                            <li><a href="#"><i class="fa fa-folder"></i>轮播图</a>
-                            </li>
-                            </li>
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
+    <div class="wrapper wrapper-content">
+        <div class="ibox">
+            <div class="ibox-title">
+                <h5>推荐列表</h5>
             </div>
-        </div>
-        <div class="col-lg-9 animated fadeInRight">
-            <div class="row">
-                <div class="col-lg-12">
-                    {{--this--}}
-                    <?php $i = 0; ?>
-                    @foreach($data as $v)
-                    <div class="file-box">
-                        <div class="file">
-
-                            <a href="/admin/recommend/{{$v->id}}/edit">
-                                <span class="corner"></span>
-
-                                <div class="image">
-                                    <img alt="image" class="img-responsive" src="/uploads/{{$v['recommend_picname']}}">
-                                </div>
-                                <div class="file-name">
-                                    {{$v['recommend_name']}}.jpg
-                                    <br/>
-                                    <small>添加时间：{{$v['created_at']}}</small>
-                                </div>
-                            </a>
-                            <div class="file-manager">
-                                <div class="hr-line-dashed">
-                                    <form action="recommend/{{$v->id}}" method="POST">
-                                        {!! csrf_field() !!}
+            <div class="ibox-content">
+                <a href="{{url('admin/recommend/create')}}" class="btn btn-primary">
+                    <i class="fa fa-btn fa-plus"></i>新增
+                </a>
+                @if(!empty($data))
+                    <table class="table table-responsive table-hover">
+                        <thead>
+                        <tr>
+                            <th>图片</th>
+                            <th>推荐位名称</th>
+                            <th>推荐位置</th>
+                            <th>推荐类型</th>
+                            <th>推荐导语</th>
+                            <th>操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($data as $v)
+                            <tr class="gradeA odd">
+                                <td class="text-center ">
+                                    <img class="banner-img-url" alt="推荐图" src="/uploads/s_{{$v->recommend_picname}}"/>
+                                </td>
+                                <td class="text-center ">
+                                    {{$v->recommend_name}}
+                                </td>
+                                <td class="text-center ">
+                                    {{$v->recommend_location}}
+                                </td>
+                                <td class="text-center ">
+                                    {{$v->recommend_type}}
+                                </td>
+                                <td class="text-center ">
+                                    {{$v->recommend_introduction}}
+                                </td>
+                                <td class="text-center ">
+                                    <button id="btnEdit" type="button"  >
+                                    <a href="{{url('admin/recommend/'.$v->id.'/edit')}}" class="glyphicon glyphicon-edit text-navy" title="修改">修改</a>
+                                    </button>
+                                    <form action="{{url('admin/recommend/'.$v->id)}}" method="post" class="del-form">
                                         <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <button id="btnDel" type="submit" class="btn btn-primary btn-block">删除</button>
+                                        {{csrf_field()}}
+                                        <button title="删除" type="submit" ><span class="glyphicon glyphicon-remove-sign text-danger">删除</span></button>
                                     </form>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <?php $i++; ?>
-                    @endforeach
-                    {{--this--}}
-                </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                @endif
+                <nav class="text-center">
+                    {{$data->links()}}
+                </nav>
             </div>
         </div>
     </div>
-</div>
 
 <div class="footer">
     <div class="pull-right">
@@ -93,24 +88,3 @@
 
 @endsection
 
-@section('js')
-
-    <script>
-        $(document).ready(function () {
-            $('.file-box').each(function () {
-                animationHover(this, 'pulse');
-            });
-        });
-    </script>
-
-    <script>
-        $(function () {
-            $(from).on('click', 'button btnDel', function () {
-
-            })
-
-        })
-
-
-    </script>
-@endsection

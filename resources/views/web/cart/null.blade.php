@@ -1,4 +1,4 @@
-@extends('web.index')
+@extends('web.public.public')
 
 @section('css')
     <link rel="stylesheet" type="text/css" href="{{ url('/web/css/shopping-mall-index.css') }}"/>

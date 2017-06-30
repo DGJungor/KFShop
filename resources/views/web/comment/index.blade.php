@@ -1,4 +1,4 @@
-@extends('web.index')
+@extends('web.public.public')
 
 @section('title')
 
@@ -8,8 +8,10 @@
 
 @section('css')
 
+<link rel="stylesheet" type="text/css" href="{{ url('/web/css/comment.css') }}" />
 <link rel="stylesheet" type="text/css" href="{{ url('/web/css/shopping-mall-index.css') }}" />
 <link rel="stylesheet" type="text/css" href="{{ url('/web/css/star-rating.css' ) }}" media="all"/>
+{{--<script type="text/javascript" src="{{ url('/web/js/star.js') }}"></script>--}}
 
 @endsection
 
@@ -74,10 +76,11 @@
 
  <!--内容开始-->
     <div class="evaluate w1200">
+        <form action="/comment" method="POST" id="comment">
     	<dl class="eva-info1">
         	<dt><a href="#"><img src="{{ url('web/images/want-evaluate-tu.gif') }}" /></a></dt>
             <dd>
-            	<h3><a href="#">商品ID</a></h3>
+            	<h3><a href="#">商品名</a></h3>
                 <ul>
                 	<li>
                     	<span>价格</span><p class="p1">¥ 110.00 元</p>
@@ -113,7 +116,8 @@
             </dd>
             <div style="clear:both;"></div>
         </dl>
-        <form action="" method="POST">
+        {{--评论区块--}}
+
         <div class="eva-info3">
         	<div class="eva-if3-l f-l">
             	<dl class="if3-l-dl1">
@@ -122,15 +126,37 @@
             		<div style="clear:both;"></div>
                 </dl>
             	<dl class="if3-l-d6">
-                	<dt>等级评价</dt>
+                	<dt>评分</dt>
                     <dd>
-                        好评: <input type="radio" name="star" value="1">
-                        中评: <input type="radio" name="star" value="2">
-                        差评: <input type="radio" name="star" value="3">
+                        <input type="hidden" value="" name="star" class="star">
+                        <ul class="rating nostar">
+                            <li class="one"><a href="#" title="1">1</a><span></span></li>
+                            <li class="two"><a href="#"  title="2">2</a><span></span></li>
+                            <li class="three"><a href="#"  title="3">3</a><span></span></li>
+                            <li class="four"><a href="#"  title="4">4</a><span></span></li>
+                            <li class="five"><a href="#"  title="5">5</a><span></span></li>
+
+                        </ul>
+                        <span></span>
+                            <script>
+                               /*商品评分效果*/
+                               $(function(){
+                                   //通过修改样式来显示不同的星级
+                                   $("ul.rating li a").click(function(){
+                                       var title = $(this).attr("title");
+                                       $(this).parent().parent().prev().val(title);
+                                       var cl = $(this).parent().attr("class");
+                                       $(this).parent().parent().removeClass().addClass("rating "+cl+"star");
+                                       $(this).blur();//去掉超链接的虚线框
+                                       return false;
+                                   })
+                               })
+                            </script>
+
                     </dd>
             		<div style="clear:both;"></div>
                 </dl>
-
+                {!! csrf_field() !!}
                 <button class="eva-btn" type="submit">提交评价</button>
             </div>
 
@@ -140,3 +166,4 @@
     </div>
 
 @endsection
+
