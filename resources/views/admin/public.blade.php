@@ -19,6 +19,7 @@
     @yield('css')
 
 </head>
+@yield('myjs')
 
 <body>
     <div id="wrapper">

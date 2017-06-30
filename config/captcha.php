@@ -11,6 +11,13 @@ return [
         'quality'   => 90,
     ],
 
+    'req'   => [
+        'length'    => 5,
+        'width'     => 163,
+        'height'    => 64,
+        'quality'   => 90,
+    ],
+
     'flat'   => [
         'length'    => 6,
         'width'     => 160,

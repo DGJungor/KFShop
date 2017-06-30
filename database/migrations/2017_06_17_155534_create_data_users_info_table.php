@@ -15,7 +15,7 @@ class CreateDataUsersInfoTable extends Migration
         Schema::create('data_users_info', function (Blueprint $table) {
             $table->increments('id')->unsigned()->comment('用户信息表');
             $table->integer('uid')->unsigned()->unique()->comment('用户ID');
-            $table->string('username', 64)->nullable()->comment('用户昵称');
+            $table->string('username', 64)->nullable()->comment('用户名');
             $table->string('realname', 64)->nullable()->comment('真实姓名');
             $table->string('email', 32)->nullable()->comment('邮箱');
             $table->string('tel', 32)->comment('手机');

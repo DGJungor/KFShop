@@ -70,6 +70,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Admin\UserRegister::class, function (Faker\Generator $faker) {
     return [
+        'username' => $faker->name,
         'email' => $faker->safeEmail,
         'tel' => $faker->phoneNumber,
         'password' => bcrypt(str_random(10)),
