@@ -30,7 +30,7 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">推荐位名称:</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="recommend_name"  value="">
+                                <input type="text" class="form-control" name="recommend_name"  value="" required>
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
@@ -53,8 +53,8 @@
                             </label>
                             <div class="">
                                 <div class="radio i-checks">
-                                    <input type="radio" value="1" name="recommend_type" checked> <i>图片</i>
-                                    <input type="radio" value="2" name="recommend_type" > <i>其他</i>
+                                    <input type="radio" value="0" name="recommend_type" checked> <i>图片</i>
+                                    <input type="radio" value="1" name="recommend_type" > <i>其他</i>
                                 </div>
 
                             </div>
@@ -65,7 +65,7 @@
                             <label class="col-sm-2 control-label">推荐导语:</label>
 
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" name="recommend_introduction" value="">
+                                <input type="text" class="form-control" name="recommend_introduction" value="" required>
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>
@@ -78,7 +78,7 @@
                         {{--</div>--}}
                             <label class="col-sm-2 control-label">添加图片:</label>
                             <div class="col-sm-10">
-                                <input type="file" name="recommend_picname">
+                                <input type="file" name="recommend_picname" required>
                             </div>
                         </div>
                         <div class="hr-line-dashed"></div>

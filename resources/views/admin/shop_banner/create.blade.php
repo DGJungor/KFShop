@@ -23,7 +23,7 @@
                 <h5>新增轮播图</h5>
             </div>
             <div class="ibox-content">
-                <form action="{{url('/admin/shop_banner')}}" method="post" enctype="multipart/form-data">
+                <form id="type_form" action="{{url('/admin/shop_banner')}}" method="post" enctype="multipart/form-data">
                     {{csrf_field()}}
                     <div class="form-group">
                         <label>排序：</label>
@@ -35,11 +35,11 @@
                     </div>
                     <div class="form-group">
                         <label>图片：</label>
-                        <input name="file" type="file" class="form-control" required>
+                        <input id="pic" name="file" type="file" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>链接：</label>
-                        <input name="redirect_url" type="text" class="form-control" placeholder="">
+                        <input name="redirect_url" type="text" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label>状态：</label>
@@ -55,4 +55,12 @@
             </div>
         </div>
     </div>
+
+
 @endsection
+@section('js')
+<script >
+
+</script>
+
+    @endsection

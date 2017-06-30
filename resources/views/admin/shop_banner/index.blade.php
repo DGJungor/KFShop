@@ -52,7 +52,7 @@
                                 <span class="corner"></span>
 
                                 <div class="image">
-                                    <img alt="image" class="img-responsive" src="{{$v['img_url']}}">
+                                    <img alt="点击编辑" class="img-responsive" src="{{$v['img_url']}}" >
                                 </div>
                                 <div class="file-name">
                                     {{$v['disabled']}}
@@ -105,14 +105,4 @@
         });
     </script>
 
-    <script>
-        $(function () {
-            $(from).on('click', 'button btnDel', function () {
-
-            })
-
-        })
-
-
-    </script>
 @endsection

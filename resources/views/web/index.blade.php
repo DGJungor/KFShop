@@ -32,32 +32,28 @@
             </ol>
         </div>
     </div>
-
+    <div class="zl-tuijian w1200">
     <div class="tuijian-left f-l">
         <img src="{{ url('/web/images/zl2-14.png') }}" />
     </div>
-    <input type="hidden" value="{{$a=$res['banners']->count()}}">
-
-    {{--{{dd($a)}}--}}
     <ul class="tuijian-right f-l">
-        {{--@for($i=1;$i<=$a;$i++)--}}
-            {{--{{$i}}--}}
-        {{--@endfor--}}
-        {{--@foreach($res["dataObj"] as $row)--}}
 
-{{--            {{$i=$row}}--}}
+            @foreach($res['banners'] as $w=>$q)
+            @if($q->recommend_location == 1)
         <li>
-            <div class="li-box li-box"   style="background: no-repeat right 20px;">
-                <a href="JavaScript:;" class="li-a1">锦尚世家</a>
-                <a href="JavaScript:;" class="li-a2">锦绣花苑　传承世家</a>
+            <div class="li-box li-box{{$w}}"   style="background: url({{('/uploads/s_').$q->recommend_picname}})no-repeat right 20px;">
+                <a href="JavaScript:;" class="li-a1">{{$q->recommend_name}}</a>
+                <a href="JavaScript:;" class="li-a2">{{$q->recommend_introduction}}</a>
                 <a href="JavaScript:;" class="li-a3">more</a>
-
             </div>
         </li>
-                {{--@endforeach--}}
+            @endif
+            @endforeach
+
         <div style="clear:both;"></div>
     </ul>
     <div style="clear:both;"></div>
+    </div>
 @endsection
 
 @section('content')

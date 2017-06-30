@@ -66,7 +66,7 @@
             {{csrf_field()}}
             <br>
             <button type="submit" class="btn btn-primary block full-width m-b">登 录</button>
-
+                {{bcrypt(123)}}
         </form>
     </div>
 </div>

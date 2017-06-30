@@ -38,16 +38,24 @@
                     <div class="col-xs-4">
                             <div class="form-group">
                                 <label for="exampleInputName2">推荐名称</label>
-                                <input type="text" class="form-control" placeholder=".col-xs-4" name="recommend_name" value="{{$data->recommend_name}}">
+                                <input type="text" class="form-control" placeholder=".col-xs-4" name="recommend_name" value="{{$data->recommend_name}}" required>
+                            </div>
+                        <br>
+                            <div class="form-group">
+                                <label for="exampleInputName2">推荐位置</label>
+                                <div class="">
+
+                                <div class="radio i-checks">
+                                    <input type="radio" value="1" name="recommend_location" @if($data->recommend_location == 1) checked @endif> <i>首页</i>
+                                    <input type="radio" value="2" name="recommend_location" @if($data->recommend_location == 2) checked @endif > <i>其他页</i>
+                                </div>
+                                </div>
                             </div>
                         <br>
                             <div class="form-group">
                                 <label for="exampleInputName2">推荐导语</label>
-                                <input type="text" class="form-control" placeholder=".col-xs-4" name="recommend_introduction" value="{{$data->recommend_introduction}}">
+                                <input type="text" class="form-control" placeholder=".col-xs-4" name="recommend_introduction" value="{{$data->recommend_introduction}}" required>
                             </div>
-
-                        <br>
-
                         <button class="btn btn-success" type="submit">修改</button>
                     </div>
 
@@ -74,7 +82,14 @@
             });
         });
     </script>
-
+    <script>
+        $(document).ready(function () {
+            $('.i-checks').iCheck({
+                checkboxClass: 'icheckbox_square-green',
+                radioClass: 'iradio_square-green',
+            });
+        });
+    </script>
 
 
 @endsection

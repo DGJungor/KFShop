@@ -15,10 +15,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-
-
-//        return view('web.index');
-
+        //获取轮播图和推荐图的数据
         $banner=ShopBanner::paginate(4);
         $banners=Recommend::paginate(4);
         $res = compact("banner", "",["banners"]);

@@ -15,7 +15,7 @@
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
                         <li><a href="form_avatar.html">修改头像</a>
                         </li>
-                        {{--<li><a href="/admin/admins/{{ Auth::guard('admin')->user()->id }}">个人资料</a>--}}
+                        <li><a href="/admin/admins/{{ Auth::guard('admin')->user()->id }}">个人资料</a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="/admin/logout">安全退出</a>
@@ -49,12 +49,30 @@
                     </li>
                 </ul>
             </li>
-            <li class="active">
-                <a href=""><i class="glyphicon glyphicon-link"></i> <span class="nav-label">友情链接</span> <span class="fa arrow"></span></a>
+            <li class="">
+                <a href=""><i class=" fa fa-chain "></i> <span class="nav-label">友情链接</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
 
-                    <li><a href="{{ url('admin/friends') }}">友情链接管理</a>
-                    <li><a href="{{ url('admin/friends/create') }}">添加友情链接</a>
+                    <li><a href="{{ asset('admin/friends') }}">友情链接管理</a>
+                    <li><a href="{{ asset('admin/friends/create') }}">添加友情链接</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="">
+                <a href=""><i class="fa fa-picture-o"></i> <span class="nav-label">轮播图</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+
+                    <li><a href="{{ asset('admin/shop_banner') }}">轮播图管理</a>
+                    <li><a href="{{ asset('admin/shop_banner/create') }}">添加轮播图</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="">
+                <a href=""><i class="fa  fa-thumbs-o-up"></i> <span class="nav-label">推荐</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+
+                    <li><a href="{{ asset('admin/recommend') }}">推荐管理</a>
+                    <li><a href="{{ asset('admin/recommend/create') }}">添加推荐</a>
                     </li>
                 </ul>
             </li>

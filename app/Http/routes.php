@@ -33,10 +33,7 @@ Route::resource('comment', 'CommentController');
 Route::resource('orders','OrdersController');
 
 //商品列表页
-Route::get('goods_list', function () {
-
-    return view('web.goods.list');
-});
+Route::resource('goods_list', 'GoodsListController');
 //商品详情页
 Route::get('goods_details', function () {
 
@@ -69,8 +66,8 @@ Route::post('admin/login', 'Admin\LoginController@login');
 Route::get('admin/logout', 'Admin\LoginController@logout');
 
 
-// Route::group(['middleware'=>'auth:admin','namespace' => 'Admin', 'prefix' => 'admin'], function () {
-Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
+ Route::group(['middleware'=>'auth:admin','namespace' => 'Admin', 'prefix' => 'admin'], function () {
+//Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 	
     Route::get('/', function () { return view('admin.index'); });
     //商品管理
