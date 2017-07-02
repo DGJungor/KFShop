@@ -58,7 +58,7 @@ class LoginController extends Controller
         }
         $user['password'] = request()->password;
         $user['status'] = 1;
-        if (true == \Auth::guard('web')->attempt($user)) {
+        if (true == \Auth::attempt($user)) {
             return redirect('/personal');
         }
 

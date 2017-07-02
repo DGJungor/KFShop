@@ -20,7 +20,7 @@ class CreateDataUsersInfoTable extends Migration
             $table->string('email', 32)->nullable()->comment('邮箱');
             $table->string('tel', 32)->comment('手机');
             $table->string('avatar', 64)->nullable()->comment('头像');
-            $table->string('sex')->nullable()->comment('性别:1 男 2 女');
+            $table->tinyInteger('sex')->nullable()->comment('性别:1 男 2 女');
             $table->string('id_number', 32)->nullable()->comment('身份证号码');
             $table->string('answer', 64)->nullable()->comment('密保问题');
             $table->string('birthday', 32)->nullable()->comment('生日');

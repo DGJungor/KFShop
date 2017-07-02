@@ -58,13 +58,15 @@ Route::get('/logout', "LoginController@logout");
 Route::get('/register', "RegisterController@index");
 // 执行注册
 Route::post('/register', "RegisterController@register");
+//邮箱验证
+Route::get('/service/validate_email', "ValidateController@validateEmail");
 
 //个人中心
 Route::group(['prefix' => 'user'], function () {
     Route::get('/', "PersonalController@index");
 });
 
-//前台注册Ajax请求
+//前台注册用户名Ajax请求
 Route::post('/ajax/user/register', 'RegisterController@checkName');
 
 

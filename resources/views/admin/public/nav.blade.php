@@ -4,7 +4,7 @@
             <li class="nav-header">
 
                 <div class="dropdown profile-element"> <span>
-                    <img alt="image" class="img-circle" src="{{ asset('/style/img/profile_small.jpg') }}" />
+                    <img alt="image" class="img-circle" src="{{ asset(Auth::guard('admin')->user()->avatar) }}" />
                      </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
 
@@ -15,7 +15,7 @@
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
                         <li><a data-toggle="modal" data-target="#avatarModal">修改头像</a>
                         </li>
-                        {{--<li><a href="/admin/admins/{{ Auth::guard('admin')->user()->id }}">个人资料</a>--}}
+                        <li><a href="/admin/admins/{{ Auth::guard('admin')->user()->id }}">个人资料</a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="/admin/logout">安全退出</a>
@@ -75,7 +75,7 @@
             </div>
             <form id="form_data" method="POST" action="/admin/admins/{{ \Auth::guard('admin')->user()->id }}/edit" enctype="mutipart/form-data">
             <div class="modal-body">
-                <img src="{{ \Auth::guard('admin')->user()->avatar }}" alt="">
+                <img src="{{ url(\Auth::guard('admin')->user()->avatar) }}" alt="">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭
