@@ -28,6 +28,7 @@ class CartController extends Controller
 		//模拟添加购物车
 //		$cart->add(37, 'Item name', 5, 100.00, ['color' => 'red', 'size' => 'M', 'picname' =>'2017-06-23-20-48-41-594d0e2959cee.jpg']);
 //		$cart->add(127, 'foobar', 15, 100.00, ['color' => 'green', 'size' => 'S','picname' =>'2017-06-23-20-48-41-594d0e2959cee.jpg']);
+//		$cart->add(17, 'foobar', 15, 100.00, ['color' => 'green', 'size' => 'S','picname' =>'2017-06-23-20-48-41-594d0e2959cee.jpg']);
 //    	$store->save();
 //		$cart->clean();
 //======================================================================================
