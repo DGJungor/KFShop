@@ -65,7 +65,7 @@
             <br>
             <button type="submit" class="btn btn-primary block full-width m-b">登 录</button>
             <div class="form-group">
-                <a href="#">忘记密码?</a> <a href="#"> 我要注册！</a>
+                <a href="#">忘记密码?</a> <a href="{{ url('/register') }}"> 我要注册！</a>
             </div>
 
 

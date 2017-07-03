@@ -5,6 +5,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="renderer" content="webkit">
+    <meta name="_token" content="{{ csrf_token() }}">
 
     <title>注册</title>
 
@@ -34,7 +35,8 @@
                 </span>
             @endif
             <div class="form-group {{ $errors->has('username') ? 'has-error' : '' }}">
-                <input type="text" name="username" class="form-control" placeholder="用户名" value="{{ old('username') }}">
+                <input id="username" type="text" name="username" class="form-control" placeholder="用户名" value="{{ old('username') }}">
+
                 @if ($errors->has('username'))
                     <span class="text-danger">
                         <strong>{{ $errors->first('username') }}</strong>
@@ -50,7 +52,7 @@
                 @endif
             </div>
             <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
-                <input type="password" name="confirm_password" class="form-control" placeholder="确认密码">
+                <input type="password" name="password_confirmation" class="form-control" placeholder="确认密码">
             </div>
             <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
                 <input type="text" name="email" class="form-control" placeholder="邮箱" value="{{ old('email') }}">
@@ -88,9 +90,8 @@
             {{csrf_field()}}
             <button type="submit" class="btn btn-primary block full-width m-b">注册</button>
             <div class="form-group">
-                <a href="#">忘记密码?</a> <a href="#"> 我要注册！</a>
+                <a href="#">忘记密码?</a> &nbsp;<a href="#"> 我要注册！</a>
             </div>
-
 
         </form>
     </div>
@@ -102,13 +103,28 @@
 <!-- jQuery Validation plugin javascript-->
 <script src="{{ asset('/style/js/plugins/validate/jquery.validate.min.js') }}"></script>
 <script src="{{ asset('/style/js/plugins/validate/messages_zh.min.js') }}"></script>
+<!-- layer javascript -->
+<script src="{{ asset('/style/js/plugins/layer/layer.min.js') }}"></script>
+<script src="{{ asset('/style/js/demo/layer-demo.js') }}"></script>
 <script>
+    @if (session('success'))
+        layer.msg('{{session('success')}}',2,1);
+        setTimeout(function () {
+            location.href = '/login';
+        },2000);
+    @endif
+</script>
+<script>
+
     //切换验证码图片
     $('#captcha').on('click', function () {
         var captcha = $(this);
         var url = '/captcha/' + captcha.data('captcha-config') + '?' + Math.random();
         captcha.attr('src', url);
     });
+
+    //检测用户名唯一性
+
 
     //隐藏错误信息
     $('input').focus(function(event) {
@@ -145,13 +161,13 @@
                 minlength: 6,
                 maxlength: 24
             },
-            confirm_password: {
+            password_confirmation: {
                 required: true,
                 equalTo: "#password"
             },
             email: {
                 required: true,
-                eamil:true,
+                email:true,
             },
             tel: {
                 required: true,
@@ -171,7 +187,7 @@
                 minlength: "密码必须6个字符以上",
                 maxlength: "密码长度不能超过24个字符"
             },
-            confirm_password: {
+            password_confirmation: {
                 required: "请再次输入密码",
                 equalTo: "两次输入的密码不一样"
             },
@@ -188,8 +204,36 @@
             agree: "必须同意协议后才能注册"
         }
     });
-</script>
 
+    //用户名唯一性验证
+    $('#username').blur(function () {
+        var username = '';
+        var create = $('#username');
+        username = $('#username').val();
+        $.ajax({
+            type:"POST",
+            url: '/ajax/user/register',
+            dataType: 'json',
+            data: {username: username, _token: "{{ csrf_token() }}"},
+            success: function (data) {
+                if (data == null) {
+                    layer.msg('服务器端错误', 2, 1);
+                    return;
+                }
+                if (data == 0) {
+                    $('#tip').remove();
+                    create.before("<i id=\"tip\" class=\"fa fa-check-circle text-navy\" style=\"position: absolute;right: 0;padding: 10px 10px 10px 10px;\">可以注册</i>");
+                    return;
+                }
+                if (data == 1) {
+                    $('#tip').remove();
+                    create.before("<i id=\"tip\" class=\"fa fa-times-circle text-danger\" style=\"position: absolute;right: 0;padding: 10px 10px 10px 10px;\">用户已存在</i>");
+                    return;
+                }
+            }
+        });
+    });
+</script>
 
 </body>
 

@@ -46,7 +46,7 @@ Route::get('goods_details', function () {
     return view('web.goods.details');
 });
 
-// 登录页面
+// 前台登录页面
 Route::get('/login', "LoginController@index");
 // 执行登录
 Route::post('/login', "LoginController@login");
@@ -58,10 +58,16 @@ Route::get('/logout', "LoginController@logout");
 Route::get('/register', "RegisterController@index");
 // 执行注册
 Route::post('/register', "RegisterController@register");
+//邮箱验证
+Route::get('/service/validate_email', "ValidateController@validateEmail");
 
+//个人中心
 Route::group(['prefix' => 'user'], function () {
     Route::get('/', "PersonalController@index");
 });
+
+//前台注册用户名Ajax请求
+Route::post('/ajax/user/register', 'RegisterController@checkName');
 
 
 //后台登录首页

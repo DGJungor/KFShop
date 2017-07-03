@@ -111,7 +111,7 @@ class MemberController extends Controller
     public function destroy($id)
     {
         //获取用户注册表id
-        $uid = (UserInfo::find($id))['uid'];
+        $uid = UserInfo::find($id)['uid'];
         //删除用户信息
         if (UserInfo::destroy($id)){
             //删除用户注册表

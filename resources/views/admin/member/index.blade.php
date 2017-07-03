@@ -172,7 +172,7 @@
         });
 
         @if (session('msg'))
-            layer.msg('删除成功', 1, 1);
+            layer.msg('删除成功', 2, 1);
         @endif
     </script>
 @endsection
