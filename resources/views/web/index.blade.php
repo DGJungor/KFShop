@@ -87,7 +87,7 @@
     </div>
     <div class="sp-con-info" >
         <div class="sp-info-l f-l">
-            <a href="#"><img src="{{url('web/images/sp-con-l-tu.gif')}}" /></a>
+            <a href="#"><img width="233" height="454" src="{{url('uploads/types')}}/{{$v->picname}}" /></a>
             <div class="sp-l-b">
                 @foreach($v->children as $val)
                     <a href="#">{{$val->name}}</a>
@@ -95,11 +95,11 @@
             </div>
         </div>
         <ul class="sp-info-r f-r">
-            @foreach($goodsObj as $va)
+            @foreach($v->goods as $va)
             <li>
                 <div class="li-top">
                     <a href="#" class="li-top-tu"><img width="95" height="110" src="{{ url('uploads/goods')}}/{{ $va->picname }}" /></a>
-                    <p class="jiage"><span class="sp1">￥109</span><span class="sp2">￥209</span></p>
+                    <p class="jiage"><span class="sp1">￥{{$va->price}}</span><span class="sp2">￥{{$va->inventory}}</span></p>
                 </div>
                 <p class="miaoshu">{{ $va->goodname }}</p>
                 <div class="li-md">
@@ -117,7 +117,7 @@
                     </div>
                     <div style="clear:both;"></div>
                 </div>
-                <p class="pingjia">88888评价</p>
+                <p class="pingjia">0评价</p>
                 <p class="weike">{{ $va->brand }}</p>
             </li>
             @endforeach
@@ -134,8 +134,7 @@
 $('.kuaijie-box').css('display','block');
 $('.nav-kuaijie').removeClass('yjp-hover1');
 
-$('.over').on('mouseenter', function () {
-
+$('.over').off().on('mouseenter', function () {
     var that = $(this);
     var id = this.getAttribute('data-id');
     var start = that.parent().parent().next().children('.start');
@@ -159,10 +158,10 @@ $('.over').on('mouseenter', function () {
         success:function (data) {
 
             var str = '<ul class="sp-info-r f-r">';
-            info.remove();
+            // info.remove();
             for (var i = 0; i < data.length; i++) {
                 str +='<li><div class="li-top"><a href="#" class="li-top-tu"><img width="95" height="110" src="{{ url('uploads/goods')}}/'+data[i].picname+'"></a>';
-                str +='<p class="jiage"><span class="sp1">￥'+data[i].price+'</span><span class="sp2">￥209</span></p>';
+                str +='<p class="jiage"><span class="sp1">￥'+data[i].price+'</span><span class="sp2">￥'+data[i].inventory+'</span></p>';
                 str += '</div><p class="miaoshu">'+data[i].goodname+'</p>';
                 str += '<div class="li-md"><div class="md-l f-l"><p class="md-l-l f-l" ap="">1</p><div class="md-l-r f-l">';
                 str += '<a href="JavaScript:;" class="md-xs" at="">∧</a>';
@@ -173,13 +172,15 @@ $('.over').on('mouseenter', function () {
                 str += '<button class="md-l-btn1">立即购买</button>';
                 str += '<button class="md-l-btn2">加入购物车</button>';
                 str += '</div><div style="clear:both;"></div></div>';
-                str += '<p class="pingjia">88888评价</p>';
+                str += '<p class="pingjia">0评价</p>';
                 str += '<p class="weike">'+data[i].brand+'</p>';
                 str += '</li>';
             }
             str+='</ul>';
             that.prop('data-id'+id, str);
             // console.log(a);
+            // console.log(that.prop('data-id'+id));
+
             start.before(str);
         }
     });

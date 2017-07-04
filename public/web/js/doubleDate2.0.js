@@ -17,22 +17,22 @@
 		kDate = $(this);
 		kui_date();
 	});
-	
+
 	//清空按钮
 	$('.kui_date_reset span.off').click(function(){
 		//清空文本框内容
 		jqObj[0].val('');
 		$('#kui_d_pane').hide();
-	})	
-	
+	})
+
 	//关闭按钮
 	$('.kui_date_reset span.close').click(function(){
 		//清空文本框内容
 		$('#kui_d_pane').hide();
-	})	
+	})
 	// Download by http://www.jb51.net
 	function kui_date(){ //var d = new Date().getTime();
-		// 给日期插件定位 
+		// 给日期插件定位
 		var txt_left = kDate.offset().left;
 		var txt_top = kDate.offset().top + kDate.outerHeight();
 		var txt_wid = kDate.outerWidth();
@@ -65,7 +65,7 @@
 		var now_month = $.trim(vals) == '' ? kui_month : $.trim(vals).substring(5,7);
 		var now_d =  $.trim(vals) == '' ? kui_date : $.trim(vals).substring(8,10);
 		$('.kui_today').text(now_year+'年'+now_month+'月');
-		
+
 		// 上月下月
 		$('a.kui_prev_m').click(function(){
 			var kui_y = now_year;
@@ -103,10 +103,10 @@
 		});
 		change_date('left');
 		change_date('right');
-		// 日期变化函数 
-		function change_date(dir){ 
+		// 日期变化函数
+		function change_date(dir){
 			jqObj.pop(); jqObj.push(kDate);
-			// 日期 -- 根据年和月计算出来 
+			// 日期 -- 根据年和月计算出来
 			var kui_y = now_year;
 			var kui_m = now_month;
 			if(dir == 'right'){
@@ -127,7 +127,7 @@
 			}
 			var kui_d = now_d;
 			var now_date = '';
-			
+
 			if(vals == ''){
 				now_date = kui_y+'-'+kui_m+'-'+kui_d;
 			}
@@ -139,7 +139,7 @@
 				kui_max_date[1] = 29;
 			}
 			var this_max_date = kui_max_date[kui_m-1];
-			// 计算星期数 
+			// 计算星期数
 			var C = 1;  // C是从这一年的元旦算起到这一天为止（包括这一天是内）的天数
 			for(var i=0;i < kui_m - 1;i++){
 				C += kui_max_date[i];
@@ -147,12 +147,12 @@
 			var kui_si = ((kui_y - 1)%4) == 0 ? ((kui_y - 1)/4) : ((kui_y - 1 - (kui_y - 1)%4)/4);
 			var kui_yibai = ((kui_y - 1)%100) == 0 ? ((kui_y - 1)/100) : ((kui_y - 1 - (kui_y - 1)%100)/100);
 			var kui_sibai = ((kui_y - 1)%400) == 0 ? ((kui_y - 1)/400) : ((kui_y - 1 - (kui_y - 1)%400)/400);
-			var S= kui_y - 1 + kui_si - kui_yibai + kui_sibai + C; //求出S的值之后，除以7，余几就是星期几；除尽了就是星期日 
+			var S= kui_y - 1 + kui_si - kui_yibai + kui_sibai + C; //求出S的值之后，除以7，余几就是星期几；除尽了就是星期日
 			var aa = (kui_date - 1)%7;
 			var bb = S%7; // 每月1号的星期数
 			// TD表格的行数
 			var kui_td_lines = (bb + this_max_date)%7 == 0 ? (bb + this_max_date)/7 : (bb + this_max_date - (bb + this_max_date)%7)/7 +1;
-			
+
 			//动态添加表格数据
 			var kui_tbody;
 			if(dir == 'left'){
@@ -167,7 +167,7 @@
 				var m_ = kui_month < 10 ? '0'+kui_month : kui_month;
 				var k_d_ = kui_date < 10 ? '0'+kui_date : kui_date;
 				var dd1 = kui_year+'-'+m_+'-'+k_d_; //拼接当前系统时间的年月日
-					
+
 				if(i == 0){
 					// 第一行中有空白的单元格
 					for(var j = 1;j < bb+1;j ++){
@@ -327,10 +327,10 @@
 // 点击文档的其它地方让日期插件关闭
 $(function(){
 	$(document).click(function(e){
-		var data_pane = $(e.target).closest('.kui_data_content_pane'); 
+		var data_pane = $(e.target).closest('.kui_data_content_pane');
 		var t_id = $(e.target).attr('t_id');
 		if(t_id == 'kui_date'){
-			
+
 		}
 		else if(typeof(data_pane[0]) == 'undefined'){
 			$('#kui_d_pane').hide();
