@@ -471,7 +471,7 @@
 .confirmation .odr-cf{ padding:10px 20px;}
 .confirmation .odr-cf p{ font-size:14px; color:#000; line-height:35px;}
 .confirmation .odr-sh{}
-.confirmation .odr-sh .reminder{ font-size:16px; color:#FF0000; margin:20px; 25px;}
+.confirmation .odr-sh .reminder{ font-size:16px; color:#FF0000; margin:20px 25px;}
 .confirmation .odr-sh .zfb{ margin:0 25px;}
 .confirmation .odr-sh .zfb .zfmm{ display:inline-block; font-size:14px; color:#262626;}
 .confirmation .odr-sh .zfb input{ width:12px; height:38px; border:1px solid #E5E5E5; border-right:0; padding:0 12px; font-size:16px; color:#000;}
@@ -673,7 +673,7 @@
 .cart-con-info .info-mid .mid-guige1 p{ font-size:13px; color:#3B3B3B;}
 .cart-con-info .info-mid .mid-yunfei{ font-size:13px; color:#E90000; margin:10px 50px 0 0;}
 .cart-con-info .info-heji{ height:50px; background:#F7F7F7;}
-.cart-con-info .info-heji h3{ font-weight:normal; line-height:50px;s font-size:14px; color:#000; margin-right:10px;}
+.cart-con-info .info-heji h3{ font-weight:normal; line-height:50px;font-size:14px; color:#000; margin-right:10px;}
 .cart-con-info .info-heji p{ line-height:50px; font-size:14px; color:#9A9A9A;margin-right:10px;}
 .cart-con-info .info-heji p span{ color:#E90000;}
 .cart-con-info .info-tijiao{ text-align:right;}
@@ -1052,7 +1052,7 @@
 .if2-r-box5 .box5-title{height:50px; background:#F7F7F7;border-bottom:1px solid #DBDBDB;}
 .iptgroup{width:620px;height:60px;margin:0 0 0 30px;}
 .iptgroup li{float:left;height:30px;line-height:30px;padding:5px;font-size:14px; color:#2A2A2A;line-height:41px;}
-.iptgroup li .ipticon{background:url(blue/date_icon.gif) 98% 50% no-repeat;border:1px #CFCFCF solid;padding:3px;}
+.iptgroup li .ipticon{background: 98% 50% no-repeat;border:1px #CFCFCF solid;padding:3px;}
 .if2-r-box5 .box5-hd{border-bottom:1px solid #DBDBDB;}
 .if2-r-box5 .box5-hd p{ display:inline-block; font-size:14px; color:#2A2A2A; line-height:42px;}
 .if2-r-box5 .box5-hd .b5-p1{ width:139px; text-align:center; border-right:1px solid #DBDBDB;}

@@ -33,11 +33,11 @@
                     <strong>{{ session('error') }}</strong>
                 </span>
             @endif
-            <div class="form-group {{ $errors->has('name_email_tel') ? 'has-error' : '' }}">
-                <input type="text" name="name_email_tel" class="form-control" placeholder="用户名/邮箱/手机号" value="{{ old('name_email_tel') }}">
-                @if ($errors->has('name_email_tel'))
+            <div class="form-group {{ $errors->has('username_tel') ? 'has-error' : '' }}">
+                <input type="text" name="username_tel" class="form-control" placeholder="用户名/手机号" value="{{ old('username_tel') }}">
+                @if ($errors->has('username_tel'))
                     <span class="text-danger">
-                        <strong>{{ $errors->first('name_email_tel') }}</strong>
+                        <strong>{{ $errors->first('username_tel') }}</strong>
                     </span>
                 @endif
             </div>
@@ -68,7 +68,7 @@
                 <a href="#">忘记密码?</a> <a href="{{ url('/register') }}"> 我要注册！</a>
             </div>
 
-
+            {{dcrypt(123)}}
         </form>
     </div>
 </div>
@@ -113,12 +113,12 @@
 
     $('#loginform').validate({
         rules: {
-            name_email_tel: "required",
+            username_tel: "required",
             password: "required",
             captcha: "required"
         },
         messages: {
-            name_email_tel: "请输入您的用户名/邮箱/手机号",
+            username_tel: "请输入您的用户名/邮箱/手机号",
             password: "请输入密码",
             captcha: "请输入验证码"
         }

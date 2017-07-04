@@ -23,7 +23,7 @@ class LoginController extends Controller
     public function index()
     {
         if (\Auth::check()) {
-            return redirect("/pensonal");
+            return redirect("/user/pensonal");
         }
 
         return view('web.login');
@@ -39,27 +39,36 @@ class LoginController extends Controller
         $this->validate($request, [
             'username_tel' => 'required|alpha_dash',
             'password' => 'required',
+            'captcha' => 'required|captcha',
         ],[
            'required' => ':attribute 不能为空',
             'alpha_dash' => '请输入正确的用户名/手机号',
+            'captcha' => '验证码错误',
         ],[
             'username_tel' => '用户名/手机号',
             'password' => '密码',
+            'captcha' => '验证码',
         ]);
 
         //判断账号密码是否匹配
-        $login = request()->name_eamil_tel;
+        $login = request()->username_tel;
         if (preg_match("/^\d+$/", $login)) {
+            if (!UserRegister::where('tel',$login)->first()) {
+                return back()-> with(['error' => '用户不存在！！！'])->withInput();
+            }
             //手机号登录
             $user['tel'] = $login;
         } else {
+            if (!UserRegister::where('username',$login)->first()) {
+                return back()-> with(['error' => '用户不存在！！！'])->withInput();
+            }
             //用户名登录
             $user['username'] = $login;
         }
         $user['password'] = request()->password;
-        $user['status'] = 1;
+        $user['active'] = 0;
         if (true == \Auth::attempt($user)) {
-            return redirect('/personal');
+            return redirect('/user/personal');
         }
 
         return back()->with(['error' => '用户名和密码不匹配！！！'])->withInput();

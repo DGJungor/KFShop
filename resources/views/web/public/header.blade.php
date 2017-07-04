@@ -1,7 +1,10 @@
 <div class="zl-header">
         <div class="zl-hd w1200">
             <p class="hd-p1 f-l">
-                Hi!您好，欢迎来到购物网， <a href="{{ url('/login') }}">请登录</a>  <a href="{{ url('/register') }}">【免费注册】</a>
+                Hi!您好，欢迎来到购物网，
+                @if(Auth::user()) <a href="{{url('/personal')}}">{{Auth::user()->username}}</a>  <a href="{{url('/logout')}}">退出</a>
+                @else <a href="{{url('/login')}}">亲,请登录</a>  <a href="{{url('/register')}}">【免费注册】</a>
+                @endif
             </p>
             <p class="hd-p1 f-l">
                  <a href="/feedback">【意见反馈】</a>

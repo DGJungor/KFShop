@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Admin\AdminUser;
 use Illuminate\Http\Request;
 
+use App\Models\MsgResult;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -48,7 +49,81 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $username = $request->input('username', '');
+        $password = $request->input('password', '');
+        $password_confirmation = $request->input('password_confirmation', '');
+        $email = $request->input('email', '');
+        $tel = $request->input('tel', '');
+        $type = $request->input('type', '1');
+        $status = $request->input('status', '1');
+
+        $msg_result = new MsgResult;
+
+        if ($username == '' || strlen($username) < 2) {
+            $msg_result->status = 1;
+            $msg_result->message = '用户名不能小于2个字符';
+            return $msg_result->toJson();
+        }elseif (strlen($username) > 20) {
+            $msg_result->status = 1;
+            $msg_result->message = '用户名不能超过20个字符';
+            return $msg_result->toJson();
+        }
+        if ($password == '' || strlen($password) < 6) {
+            $msg_result->status = 2;
+            $msg_result->message = '密码不能小于6个字符';
+            return $msg_result->toJson();
+        } elseif (strlen($password) > 24) {
+            $msg_result->status = 2;
+            $msg_result->message = '密码不能超过20个字符';
+            return $msg_result->toJson();
+        }
+        if ($password_confirmation == '' || strlen($password_confirmation) < 6) {
+            $msg_result->status = 3;
+            $msg_result->message = '密码不能小于6个字符';
+            return $msg_result->toJson();
+        } elseif (strlen($password_confirmation) > 24) {
+            $msg_result->status = 3;
+            $msg_result->message = '密码不能超过20个字符';
+            return $msg_result->toJson();
+        }
+        if ($password != $password_confirmation) {
+            $msg_result->status = 4;
+            $msg_result->message = '两次密码不相同';
+            return $msg_result->toJson();
+        }
+        if ($email == ''){
+            $msg_result->status = 5;
+            $msg_result->message = '邮箱不能为空';
+            return $msg_result->toJson();
+        } elseif (!preg_match("/^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/", $email)) {
+            $msg_result->status = 5;
+            $msg_result->message = '邮箱格式有误';
+            return $msg_result->toJson();
+        }
+        if ($tel == '') {
+            $msg_result->status = 6;
+            $msg_result->message = '手机号不能为空';
+            return $msg_result->toJson();
+        } elseif (!preg_match("/13[123569]{1}\d{8}|15[1235689]\d{8}|188\d{8}/", $tel)) {
+            $msg_result->status = 6;
+            $msg_result->message = '手机号格式有误';
+            return $msg_result->toJson();
+        }
+
+
+        $admin = new AdminUser;
+        $admin->username = $username;
+        $admin->password = bcrypt($password);
+        $admin->email = $email;
+        $admin->tel = $tel;
+        $admin->type = $type;
+        $admin->status = $status;
+        $admin->avatar = '/uploads/admin_pic/admin_avatar_default.jpg';
+        $admin->save();
+
+        $msg_result->status = 0;
+        $msg_result->message = '添加成功';
+        return $msg_result->toJson();
     }
 
     /**
@@ -124,6 +199,18 @@ class AdminController extends Controller
             }
         }
         return back()->with(['msg' => '权限不足']);
+    }
+
+    public function checkName(Request $request)
+    {
+        $username = request()->input('username','');
+        if ($username == null) {
+            return 2;
+        }
+        if (AdminUser::where('username', '=', $username)->first()) {
+            return 1;
+        }
+        return 0;
     }
 
 }
