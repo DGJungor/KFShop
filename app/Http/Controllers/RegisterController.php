@@ -7,6 +7,7 @@ use App\Admin\UserInfo;
 use App\Admin\TempEmail;
 use Illuminate\Http\Request;
 use App\Models\SendEmail;
+use App\Models\MsgResult;
 use App\Tool\UUID;
 use Mail;
 
@@ -37,6 +38,7 @@ class RegisterController extends Controller
             'email' => 'required',
             'tel' => 'required',
             'captcha' => 'required|captcha',
+            'agree' => 'required',
         ],[
             'required' => ':attribute 不能为空',
             'alpha_dash' => '用户名只能有字母、数字、下划线组成',
@@ -48,9 +50,8 @@ class RegisterController extends Controller
             'email' => 'E-mail',
             'tel' => '手机号码',
             'captcha' => '验证码',
+            'agree' => '协议',
         ]);
-
-        return back()->with(['status' => '0','msg' => '注册成功,请到您的邮箱激活账号'])->withInput();
 
         $user['username'] = request('username');
         $user['password'] = bcrypt(request('password'));
@@ -62,6 +63,7 @@ class RegisterController extends Controller
             $uuid = UUID::create();
 
             $user_info = new UserInfo;
+            $user_info->uid = $user_reg->id;
             $user_info->username = $user_reg->username;
             $user_info->email = $user_reg->email;
             $user_info->tel = $user_reg->tel;
@@ -71,9 +73,7 @@ class RegisterController extends Controller
             $send_email->to = request('email');
             $send_email->cc = 'Crossstarlight@163.com';
             $send_email->subject = '狂风商城验证';
-            $send_email->content = 'http://ddemo.com/service/validate_email'
-                . '?uid=' . $user_reg->id
-                . '&code=' . $uuid;
+            $send_email->content = 'http://ddemo.com/service/validate_email' . '/uid/' . $user_reg->id  . '/code/' . $uuid;
 
             $tempEmail = new TempEmail;
             $tempEmail->uid = $user_reg->id;
@@ -96,13 +96,59 @@ class RegisterController extends Controller
 
     public function checkName(Request $request)
     {
+        $msg_result = new MsgResult;
         $username = request()->input('username','');
-        if ($username == null) {
-            return 2;
+        $email = request()->input('email', '');
+        $tel = request()->input('tel', '');
+        if ($username == null && $email == null && $tel == null) {
+            $msg_result->status = 1;
+            $msg_result->message = '没有输入对应的值';
+            return $msg_result->toJson();
+        } elseif ($email == null & $tel == null) {
+            if(UserRegister::where('username','=', $username)->first()){
+                $msg_result->status = 2;
+                $msg_result->tip = 'username';
+                $msg_result->message = '用户已注册';
+                return $msg_result->toJson();
+            }
+            $msg_result->status = 3;
+            $msg_result->tip = 'username';
+            $msg_result->message = '可以注册';
+            return $msg_result->toJson();
+        } elseif ($tel == null) {
+            if (!preg_match("/^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/", $email)) {
+                $msg_result->status = 8;
+                $msg_result->tip = 'email';
+                $msg_result->message = '邮箱格式有误';
+                return $msg_result->toJson();
+            }
+            if (UserRegister::where('email', '=', $email)->first()) {
+                $msg_result->status = 4;
+                $msg_result->tip = 'email';
+                $msg_result->message = '邮箱已注册';
+                return $msg_result->toJson();
+            }
+            $msg_result->status = 5;
+            $msg_result->tip = 'email';
+            $msg_result->message = '邮箱可以注册';
+            return $msg_result->toJson();
+        } else {
+            if (!preg_match("/13[123569]{1}\d{8}|15[1235689]\d{8}|188\d{8}/", $tel)) {
+                $msg_result->status = 9;
+                $msg_result->tip = 'tel';
+                $msg_result->message = '手机号格式有误';
+                return $msg_result->toJson();
+            }
+            if (UserRegister::where('tel', '=', $tel)->first()) {
+                $msg_result->status = 6;
+                $msg_result->tip = 'tel';
+                $msg_result->message = '手机已注册';
+                return $msg_result->toJson();
+            }
+            $msg_result->status = 7;
+            $msg_result->tip = 'tel';
+            $msg_result->message = '手机可以注册';
+            return $msg_result->toJson();
         }
-        if(UserRegister::where('username','=', $username)->first()){
-            return 1;
-        }
-        return 0;
     }
 }

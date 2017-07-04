@@ -12,6 +12,6 @@
         <li class="per-li7"><a href="#">店铺收藏<span>></span></a></li>
         <li class="per-li8"><a href="#">购买记录<span>></span></a></li>
         <li class="per-li9"><a href="#">浏览记录<span>></span></a></li>
-        <li class="per-li10"><a href="#">会员积分<span>></span></a></li>
+        <li class="per-li10"><a href="#">重置密码<span>></span></a></li>
     </ul>
 </div>
