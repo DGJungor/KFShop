@@ -37,11 +37,9 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        <a href="/admin/admins/create">
-                            <button id="btn" type="button" class="btn btn-primary">
-                                <i class="fa fa-plus-square"> 添加管理员</i>
-                            </button>
-                        </a>
+                        <button id="btn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#addAdminModal">
+                            <i class="fa fa-plus-square"> 添加管理员</i>
+                        </button>
 
                         <table class="table table-striped table-bordered table-hover dataTables-example">
                             <thead>
@@ -114,6 +112,67 @@
             </div>
         </div>
     </div>
+
+    <!-- 添加管理员模态框（addAdminModal） -->
+    <form method="post" action="" class="form-horizontal" role="form" id="form_data" style="margin: 20px;">
+        <div class="modal fade" id="addAdminModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            &times;
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">
+                            用户信息
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" role="form">
+                            <div class="form-group">
+                                <label for="user_id" class="col-sm-3 control-label">用户ID</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" id="user_id" name="user_id" value="{user_id}"
+                                           placeholder="请输入用户ID">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="lastname" class="col-sm-3 control-label">用户名</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="user_name" value="" id="user_name"
+                                           placeholder="用户名">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastname" class="col-sm-3 control-label">地址</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="address" value="" id="address"
+                                           placeholder="地址">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="remark" class="col-sm-3 control-label">备注</label>
+                                <div class="col-sm-9">
+                                <textarea  class="form-control"  name="remark" value="{remark}" id="remark"
+                                           placeholder="备注">
+
+                                </textarea>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭
+                        </button>
+                        <button type="submit" class="btn btn-primary">
+                            提交
+                        </button><span id="tip"> </span>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal -->
+        </div>
+    </form>
 @endsection
 
 @section('js')
@@ -154,7 +213,7 @@
         });
 
         @if (session('msg'))
-            layer.msg('删除成功', 1, 1);
+            layer.msg('删除成功', 2, 1);
         @endif
     </script>
 @endsection

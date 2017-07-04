@@ -20,7 +20,7 @@ class UserRegister extends Authenticatable
     /**
      * @var array
      */
-    protected $fillable = ['email', 'tel', 'password', 'register_ip'];
+    protected $fillable = ['username', 'email', 'tel', 'password', 'register_ip'];
 
     /**
      * The attributes that should be hidden for arrays.

@@ -1,14 +1,14 @@
 <div class="zl-header">
         <div class="zl-hd w1200">
             <p class="hd-p1 f-l">
-                Hi!您好，欢迎来到购物网，请登录  <a href="#">【免费注册】</a>
+                Hi!您好，欢迎来到购物网， <a href="{{ url('/login') }}">请登录</a>  <a href="{{ url('/register') }}">【免费注册】</a>
             </p>
             <p class="hd-p1 f-l">
-                 <a href="feedback">【意见反馈】</a>
+                 <a href="/feedback">【意见反馈】</a>
             </p>
             <p class="hd-p2 f-r">
                 <a href="#">返回首页 (个人中心)</a><span>|</span>
-                <a href="#">我的购物车</a><span>|</span>
+                <a href="/cart">我的购物车</a><span>|</span>
                 <a href="#">我的订单</a>
             </p>
             <div style="clear:both;"></div>
