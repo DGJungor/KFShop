@@ -19,6 +19,11 @@ class MsgResult
      * @author liuzhiqi
      */
     public $message;
+    /**
+     * @var
+     * @author liuzhiqi
+     */
+    public $tip;
 
     /**
      * @author liuzhiqi

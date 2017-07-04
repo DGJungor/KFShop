@@ -54,10 +54,10 @@ Route::get('/register', 'RegisterController@index');
 // 执行注册
 Route::post('/register', 'RegisterController@register');
 //邮箱验证
-Route::get('/service/validate_email', 'Service\ValidateController@validateEmail');
+Route::get('service/validate_email/uid/{uid}/code/{code}', 'Service\ValidateController@validateEmail');
 
 //个人中心
-Route::group(['prefix' => 'user'], function () {
+Route::group(['middleware' => 'auth','prefix' => 'user'], function () {
     Route::get('/', 'PersonalController@index');
     //个人资料
     Route::get('/personal', 'PersonalController@index');

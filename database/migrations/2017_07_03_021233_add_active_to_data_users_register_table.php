@@ -13,7 +13,7 @@ class AddActiveToDataUsersRegisterTable extends Migration
     public function up()
     {
         Schema::table('data_users_register', function (Blueprint $table) {
-            $table->tinyInteger('active')->default(1)->comment('是否激活 0 激活 1 未激活');
+            $table->tinyInteger('active')->default(0)->comment('是否激活 0 未激活 1 激活');
         });
     }
 

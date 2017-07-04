@@ -20,4 +20,8 @@ class UserInfo extends Model
      * @var array
      */
     protected $fillable = ['uid', 'username', 'realname', 'tel', 'email', 'avatar', 'sex', 'id_number', 'answer', 'birthday'];
+
+    public function userRegister() {
+        return $this->belongsTo('App\Admin\UserRegister');
+    }
 }

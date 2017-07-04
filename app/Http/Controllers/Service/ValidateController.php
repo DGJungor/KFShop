@@ -12,10 +12,10 @@ use App\Http\Controllers\Controller;
 class ValidateController extends Controller
 {
     //
-    public function validataEmail(Request $request)
+    public function validateEmail(Request $request)
     {
-        $uid = $request->input('uid', '');
-        $code = $request->input('code', '');
+        $uid = $request->uid;
+        $code = $request->code;
         if($uid == '' || $code == '') {
             return '验证异常';
         }
