@@ -35,7 +35,7 @@
                 </span>
             @endif
             <div class="form-group {{ $errors->has('username') ? 'has-error' : '' }}">
-                <input id="username" type="text" name="username" class="form-control" placeholder="用户名" value="{{ old('username') }}">
+                <input id="username" type="text" name="username" maxlength="20" class="form-control" placeholder="用户名" value="{{ old('username') }}">
 
                 @if ($errors->has('username'))
                     <span class="text-danger">
@@ -44,7 +44,7 @@
                 @endif
             </div>
             <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
-                <input id="password" type="password" name="password" class="form-control" placeholder="密码">
+                <input id="password" type="password" maxlength="24" name="password" class="form-control" placeholder="密码">
                 @if ($errors->has('password'))
                     <span class="text-danger">
                     <strong>{{ $errors->first('password') }}</strong>
@@ -52,10 +52,10 @@
                 @endif
             </div>
             <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
-                <input type="password" name="password_confirmation" class="form-control" placeholder="确认密码">
+                <input type="password" maxlength="24" name="password_confirmation" class="form-control" placeholder="确认密码">
             </div>
             <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
-                <input type="text" name="email" class="form-control" placeholder="邮箱" value="{{ old('email') }}">
+                <input type="text" id="email" maxlength="32" name="email" class="form-control" placeholder="邮箱" value="{{ old('email') }}">
                 @if ($errors->has('email'))
                     <span class="text-danger">
                         <strong>{{ $errors->first('email') }}</strong>
@@ -63,7 +63,7 @@
                 @endif
             </div>
             <div class="form-group {{ $errors->has('tel') ? 'has-error' : '' }}">
-                <input type="text" maxlength="11" name="tel" class="form-control" placeholder="手机号" value="{{ old('tel') }}">
+                <input type="text" id="tel" maxlength="11" name="tel" class="form-control" placeholder="手机号" value="{{ old('tel') }}">
                 @if ($errors->has('tel'))
                     <span class="text-danger">
                         <strong>{{ $errors->first('tel') }}</strong>
@@ -71,7 +71,7 @@
                 @endif
             </div>
             <div class="input-group {{ $errors->has('captcha') ? ' has-error' : '' }}">
-                <input id="code" type="text" name="captcha" class="form-control" placeholder="验证码">
+                <input id="code" type="text" maxlength="12" name="captcha" class="form-control" placeholder="验证码">
                 <span class="input-group-btn">
                     <img id="captcha" src="{{ captcha_src() }}" />
                 </span>
@@ -82,15 +82,17 @@
                     <strong id="code_error">{{ $errors->first('captcha') }}</strong><br>
                 </span>
             @endif
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" class="" id="agree" name="agree">请同意我们的声明
-                </label>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" class="" id="agree" name="agree" value="1" checked>请同意我们的声明
+                    </label>
+                </div>
             </div>
             {{csrf_field()}}
             <button type="submit" class="btn btn-primary block full-width m-b">注册</button>
             <div class="form-group">
-                <a href="#">忘记密码?</a> &nbsp;<a href="#"> 我要注册！</a>
+                <a href="{{ url('/login') }}">登录</a>
             </div>
 
         </form>
@@ -107,6 +109,7 @@
 <script src="{{ asset('/style/js/plugins/layer/layer.min.js') }}"></script>
 <script src="{{ asset('/style/js/demo/layer-demo.js') }}"></script>
 <script>
+    //注册成功后跳转登录界面
     @if (session('success'))
         layer.msg('{{session('success')}}',2,1);
         setTimeout(function () {
@@ -115,123 +118,145 @@
     @endif
 </script>
 <script>
+    $(document).ready(function () {
+        //切换验证码图片
+        $('#captcha').on('click', function () {
+            var captcha = $(this);
+            var url = '/captcha/' + captcha.data('captcha-config') + '?' + Math.random();
+            captcha.attr('src', url);
+        });
 
-    //切换验证码图片
-    $('#captcha').on('click', function () {
-        var captcha = $(this);
-        var url = '/captcha/' + captcha.data('captcha-config') + '?' + Math.random();
-        captcha.attr('src', url);
-    });
+        //隐藏错误信息
+        $('input').focus(function(event) {
+            $(this).next().children().html('');
+            $(this).prev().remove();
+        });
 
-    //隐藏错误信息
-    $('input').focus(function(event) {
-        $(this).next().children().html('');
-    });
-
-    $('#code').focus(function(event) {
-        $('#code_error').parent().remove();
-    });
-
-    //以下为修改jQuery Validation插件兼容Bootstrap的方法，没有直接写在插件中是为了便于插件升级
-    $.validator.setDefaults({
-        highlight: function (element) {
-            $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
-        },
-        success: function (element) {
-            element.closest('.form-group').removeClass('has-error').addClass('has-success');
-        },
-        errorElement: "span",
-        errorClass: "help-block m-b-none",
-        validClass: "help-block m-b-none"
+        //错误提示的隐藏
 
 
-    });
+        $('#code').focus(function(event) {
+            $('#code_error').parent().remove();
+        });
 
-    $('#registerform').validate({
-        rules: {
-            username: {
-                required: true,
-                minlength: 2
+        //以下为修改jQuery Validation插件兼容Bootstrap的方法，没有直接写在插件中是为了便于插件升级
+        $.validator.setDefaults({
+            highlight: function (element) {
+                $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
             },
-            password: {
-                required: true,
-                minlength: 6,
-                maxlength: 24
+            success: function (element) {
+                element.closest('.form-group').removeClass('has-error').addClass('has-success');
             },
-            password_confirmation: {
-                required: true,
-                equalTo: "#password"
-            },
-            email: {
-                required: true,
-                email:true,
-            },
-            tel: {
-                required: true,
-                digits: true,
-                minlength: 11,
-                maxlength: 11
-            },
-            captcha: "required",
-            agree: "required"
-        },
-        messages: {
-            username: {
-                required: "请输入您的用户名",
-                minlength: "用户名必须2个字符以上"
-            },
-            password: {
-                required: "请输入您的密码",
-                minlength: "密码必须6个字符以上",
-                maxlength: "密码长度不能超过24个字符"
-            },
-            password_confirmation: {
-                required: "请再次输入密码",
-                equalTo: "两次输入的密码不一样"
-            },
-            email: {
-                required: "请输入您的E-mail",
-                email: "请输入正确的E-mail"
-            },
-            tel: {
-                required: "请输入您的手机号码",
-                digits: "格式有误",
-                minlength:"请输入正确的手机号码",
-                maxlength: "请输入正确的手机号码"
-            },
-            captcha: "请输入验证码",
-            agree: "必须同意协议后才能注册"
-        }
-    });
+            errorElement: "span",
+            errorClass: "help-block m-b-none",
+            validClass: "help-block m-b-none"
 
-    //用户名唯一性验证
-    $('#username').blur(function () {
-        var username = '';
-        var create = $('#username');
-        username = $('#username').val();
-        $.ajax({
-            type: 'POST',
-            url: '/ajax/user/register',
-            dataType: 'json',
-            data: {username: username, _token: "{{ csrf_token() }}"},
-            success: function (data) {
-                if (data == null) {
-                    layer.msg('服务器端错误', 2, 1);
-                    return;
-                }
-                if (data == 0) {
-                    $('#tip').remove();
-                    create.before("<i id=\"tip\" class=\"fa fa-check-circle text-navy\" style=\"position: absolute;right: 0;padding: 10px 10px 10px 10px;\">可以注册</i>");
-                    return;
-                }
-                if (data == 1) {
-                    $('#tip').remove();
-                    create.before("<i id=\"tip\" class=\"fa fa-times-circle text-danger\" style=\"position: absolute;right: 0;padding: 10px 10px 10px 10px;\">用户已存在</i>");
-                    return;
-                }
+
+        });
+
+        $('#registerform').validate({
+            rules: {
+                username: {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 20
+                },
+                password: {
+                    required: true,
+                    minlength: 6,
+                    maxlength: 24
+                },
+                password_confirmation: {
+                    required: true,
+                    equalTo: "#password"
+                },
+                email: {
+                    required: true,
+                    email:true,
+                },
+                tel: {
+                    required: true,
+                    digits: true,
+                    minlength: 11,
+                    maxlength: 11
+                },
+                captcha: "required",
+                agree: "required"
+            },
+            messages: {
+                username: {
+                    required: "请输入您的用户名",
+                    minlength: "用户名必须2个字符以上",
+                    maxlength: "用户名不能超过20个字符"
+                },
+                password: {
+                    required: "请输入您的密码",
+                    minlength: "密码必须6个字符以上",
+                    maxlength: "密码长度不能超过24个字符"
+                },
+                password_confirmation: {
+                    required: "请再次输入密码",
+                    equalTo: "两次输入的密码不一样"
+                },
+                email: {
+                    required: "请输入您的E-mail",
+                    email: "请输入正确的E-mail"
+                },
+                tel: {
+                    required: "请输入您的手机号码",
+                    digits: "格式有误",
+                    minlength:"请输入正确的手机号码",
+                    maxlength: "请输入正确的手机号码"
+                },
+                captcha: "请输入验证码",
+                agree: "必须同意协议后才能注册"
             }
         });
+
+        //用户名唯一性验证
+        $('#username,#email,#tel').blur(function () {
+            var username = '';
+            var email = '';
+            var tel = '';
+            var create = $('#username');
+            var not = [2,4,6];
+            var sure = [3,5,7];
+            var error = [8,9];
+            username = $('#username').val();
+            email = $('#email').val();
+            tel = $('#tel').val();
+            $.ajax({
+                type: 'POST',
+                url: '/ajax/user/register',
+                dataType: 'json',
+                data: {username: username, email: email, tel: tel, _token: "{{ csrf_token() }}"},
+                success: function (data) {
+                    if (data == null) {
+                        layer.msg('服务器端错误', 2, 1);
+                        return;
+                    }
+                    if ($.inArray(data.status, sure) >= 0) {
+                        var tip = data.tip + 'tip';
+                        $('#'+tip).remove();
+                        $('#'+data.tip).before("<i id=\""+tip+"\" class=\"fa fa-check-circle text-navy\" style=\"position: absolute;right: 0;padding: 10px 10px 10px 10px;\">"+data.message+"</i>");
+                        return;
+                    }
+                    if ($.inArray(data.status, not) >= 0) {
+                        var tip = data.tip + 'tip';
+                        $('#'+tip).remove();
+                        $('#'+data.tip).before("<i id=\""+tip+"\" class=\"fa fa-times-circle text-danger\" style=\"position: absolute;right: 0;padding: 10px 10px 10px 10px;\">"+data.message+"</i>");
+                        return;
+                    }
+                    if ($.inArray(data.status, error) >= 0) {
+                        var tip = data.tip + 'tip';
+                        $('#'+tip).remove();
+                        $('#'+data.tip).before("<i id=\""+tip+"\" class=\"fa fa-times-circle text-danger\" style=\"position: absolute;right: 0;padding: 10px 10px 10px 10px;\"></i>");
+                    }
+                }
+            });
+        });
     });
+
 </script>
 
 </body>

@@ -56,17 +56,22 @@ class LoginController extends Controller
             if (!UserRegister::where('tel',$login)->first()) {
                 return back()-> with(['error' => '用户不存在！！！'])->withInput();
             }
+            if (UserRegister::where('tel',$login)->first()->active != 1) {
+                return back()->with(['error' => '请先前往您的邮箱激活账号！！！']);
+            }
             //手机号登录
             $user['tel'] = $login;
         } else {
             if (!UserRegister::where('username',$login)->first()) {
                 return back()-> with(['error' => '用户不存在！！！'])->withInput();
             }
+            if (UserRegister::where('username',$login)->first()->active != 1) {
+                return back()->with(['error' => '请先前往您的邮箱激活账号！！！']);
+            }
             //用户名登录
             $user['username'] = $login;
         }
         $user['password'] = request()->password;
-        $user['active'] = 0;
         if (true == \Auth::attempt($user)) {
             return redirect('/user/personal');
         }

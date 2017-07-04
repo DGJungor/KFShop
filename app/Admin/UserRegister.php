@@ -29,4 +29,14 @@ class UserRegister extends Authenticatable
     protected $hidden = [
         'password'
     ];
+
+    /**
+     * 关联用户信息表
+     * @author liuzhiqi
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function userInfo ()
+    {
+        return $this->hasMany('App\Admin\UserInfo', 'uid');
+    }
 }
