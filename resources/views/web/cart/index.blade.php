@@ -236,8 +236,6 @@
 //                    alert(data);
 
                 }
-
-
             });
 
         });
@@ -325,6 +323,8 @@
         $('.num-right').unbind('click').on(
             "click",
             function () {
+//                var that = $(this).parent().first().prop('checked');
+//                that.first().prop('checked');
                 var num = $(this).prev().prev().val();
                 num++;
 
@@ -333,6 +333,7 @@
 
                 $(this).prev().prev().val(num);
                 $(this).parent().next().next().children().html(num * price);
+                {{--alert( {{ $cartInfo['id']->{'total'}  }});--}}
 
                 $.ajax({
                     type: "POST",
@@ -340,7 +341,7 @@
 
                     data: {'_token': '{{csrf_token()}}', 'id': id, 'num': num, 'type': 'add'},
                     success: function (data) {
-//                    alert(data);
+                        var aa = that.parent();
 
                     }
                 });

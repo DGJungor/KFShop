@@ -19,9 +19,10 @@ Route::get('/', 'HomeController@index');
 Route::post('/ajax', 'HomeController@ajax');
 
 //前台购物车路由 --jun
-Route::resource('cart','CartController');
+Route::get('cart/add/{id}/{num}','CartController@add');
 Route::post('cart/ajax','CartController@ajax');
 Route::post('cart/del','CartController@del');
+Route::resource('cart','CartController');
 
 //前台信息反馈路由  --jun
 Route::resource('feedback','FeedbackController');
@@ -64,6 +65,10 @@ Route::get('/service/validate_email', "ValidateController@validateEmail");
 //个人中心
 Route::group(['prefix' => 'user'], function () {
     Route::get('/', "PersonalController@index");
+
+    //个人中心订单  --Jun
+	Route::resource('orders','UserOrdersController');
+
 });
 
 //前台注册用户名Ajax请求
