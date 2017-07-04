@@ -106,8 +106,8 @@ $(function() {
 	}, function() {
 		$(".yjp-show1").hide();
 	});
-	
 
 
-	
+
+
 });

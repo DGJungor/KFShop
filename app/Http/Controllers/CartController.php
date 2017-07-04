@@ -35,7 +35,7 @@ class CartController extends Controller
 
 		//计算购物车中的商品数
 		$count = count($session['default']);
-		
+
 		//判断购物车中是否为空  空着跳转 提醒客户添加商品页面
 		if ($count == 0) {
 			return view('web.cart.null');

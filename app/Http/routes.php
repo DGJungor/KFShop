@@ -38,10 +38,7 @@ Route::get('goods_list', function () {
     return view('web.goods.list');
 });
 //商品详情页
-Route::get('goods_details', function () {
-
-    return view('web.goods.details');
-});
+Route::get('details', 'HomeController@details');
 
 // 登录页面
 Route::get('/login', "LoginController@index");
@@ -69,9 +66,9 @@ Route::post('admin/login', 'Admin\LoginController@login');
 Route::get('admin/logout', 'Admin\LoginController@logout');
 
 
-// Route::group(['middleware'=>'auth:admin','namespace' => 'Admin', 'prefix' => 'admin'], function () {
-Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
-	
+Route::group(['middleware'=>'auth:admin','namespace' => 'Admin', 'prefix' => 'admin'], function () {
+// Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
+
     Route::get('/', function () { return view('admin.index'); });
     //商品管理
     Route::resource('goods', 'GoodsController');

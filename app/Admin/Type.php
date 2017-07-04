@@ -9,6 +9,6 @@ class Type extends Model
     protected $table = 'data_types';
 
     protected $fillable = [
-        'pid', 'name', 'path'
+        'pid', 'name', 'path', 'picname'
     ];
 }

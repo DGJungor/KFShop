@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Admin\Type;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Input;
 
 class TypesController extends Controller
 {
@@ -40,12 +42,30 @@ class TypesController extends Controller
      */
     public function store(Request $request)
     {
-        $num = \DB::table('data_types')->insert(
-            ['pid' => '0', 'name' => $request->typename, 'path' => '0,' ]
-        );
-        if($num){
-            return redirect('/admin/types')->with(['success' => '添加成功！']);
+        if ($request->isMethod('post')) {
+            $file = $request->file('picname');
+            if ( $file->isValid() ) {
+            // 文件是否上传成功
+            // 获取文件相关信息
+            //     $originalName = $file->getClientOriginalName(); // 文件原名
+                $ext = $file->getClientOriginalExtension();     // 扩展名
+                //     $realPath = $file->getRealPath();   //临时文件的绝对路径
+                //     $type = $file->getClientMimeType();     // image/jpeg
+                $filename = date('Y-m-d-H-i-s') . '-' . uniqid() .'.'. $ext;
+                Image::make( Input::file('picname'))->save('uploads/types/'.$filename);
+                $num = \DB::table('data_types')->insert(
+                    ['pid' => '0', 'name' => $request->typename, 'picname'=>$filename, 'path' => '0,' ]
+                );
+                if($num){
+                    return redirect('/admin/types')->with(['success' => '添加成功！']);
 
+                }else{
+                    return redirect('/admin/types')->with(['success' => '添加失败！']);
+
+                }
+            }else{
+                return redirect('/admin/types')->with(['success' => '添加失败！']);
+            }
         }else{
             return redirect('/admin/types')->with(['success' => '添加失败！']);
 
