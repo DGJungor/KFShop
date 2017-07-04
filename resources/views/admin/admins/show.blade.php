@@ -32,7 +32,7 @@
                                 <label class="col-sm-2 control-label">头像:</label>
 
                                 <div class="col-sm-10">
-                                    <input type="hidden" class="form-control" name="avatar" value="{{$admin->avatar}}">
+                                    <img src="{{ url($admin->avatar) }}" alt="">
                                 </div>
                             </div>
                             <div class="form-group">
