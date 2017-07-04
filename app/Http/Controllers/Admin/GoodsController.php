@@ -55,6 +55,7 @@ class GoodsController extends Controller
             //     $type = $file->getClientMimeType();     // image/jpeg
                 $filename = date('Y-m-d-H-i-s') . '-' . uniqid() .'.'. $ext;
                 Image::make( Input::file('picname'))->save('uploads/goods/'.$filename)
+                                                    ->resize(60, 60)->save('uploads/goods/m'.$filename)
                                                     ->resize(130, 130)->save('uploads/goods/m'.$filename)
                                                     ->resize(359, 351)->save('uploads/goods/xl_'.$filename);
 

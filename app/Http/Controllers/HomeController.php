@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Admin\ShopBanner;
 use Illuminate\Http\Request;
 use App\Admin\Recommend;
+use App\Admin\Good;
 use App\Http\Requests;
 
 class HomeController extends Controller
@@ -15,12 +16,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-
-        //获取轮播图和推荐图的数据
         $banner=ShopBanner::paginate(4);
         $banners=Recommend::paginate(4);
         $res = compact("banner", "",["banners"]);
-
         $dataObj = \DB::table('data_types')->where('pid', '0')->get();
         foreach($dataObj as $data){
             $data->children = \DB::table('data_types')->where('pid', $data->id)->get();
@@ -30,14 +28,19 @@ class HomeController extends Controller
             }
         }
 
+
         return view('web.index', compact('data', "", ['dataObj', 'dataObj', 'res']));
 
     }
 
-    public function details(Request $request)
+    public function details(Request $request, $id)
     {
-        // $dataObj = \DB::table('data_goods')->where('id', $id)->get();
-        return view('web.goods.details');
+        $dataObj = Good::find($id);
+        $listObj = \DB::table('data_goods_details')->where('goods_id', $id)->get();
+        // dd($dataObj->picname);
+        $listObj[0]->picname = explode(',', $listObj[0]->picname);
+        // dd($listObj[0]);
+        return view('web.goods.details', compact('dataObj', 'listObj'));
     }
 
     public function ajax(Request $request)

@@ -39,7 +39,7 @@ Route::resource('pay','PayController');
 //商品列表页
 Route::resource('goods_list', 'GoodsListController');
 //商品详情页
-Route::get('details', 'HomeController@details');
+Route::get('details/{id}', 'HomeController@details');
 
 // 前台登录页面
 Route::get('/login', 'LoginController@index');
