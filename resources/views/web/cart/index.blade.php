@@ -222,19 +222,6 @@
             $('#sum').html(sum);
         });
 
-//        //当点击其中一个多选框时  计算价格
-//        $('.mid-ipt').on("click", function () {
-//            var sum = parseInt($('#sum').val());
-//            if (this.checked) {
-//                sum = parseInt($(this).next().val())+parseInt(sum);
-//                $('#sum').val(sum);
-//            } else {
-//                sum = parseInt(sum)-parseInt($(this).next().val());
-//                $('#sum').val(sum);
-//            }
-//            $('#bigTotal').html(sum);
-//        });
-
 
         //删除按钮  当点击删除时 页面上移除商品 并且ajax 删除基于redis的session中的购物车中的东西
         $('.btnDel').on("click", function () {
@@ -249,8 +236,6 @@
 //                    alert(data);
 
                 }
-
-
             });
 
         });
@@ -286,6 +271,10 @@
             var num = $(this).val();
             var price = $(this).parent().next().children().html();
 
+            if(num<1){
+                num = 1;
+            }
+
             $(this).parent().next().next().children().html(num * price);
             $.ajax({
                 type: "POST",
@@ -300,12 +289,16 @@
         });
 
         //鼠标点击加好  增减数量一
-        $('.num-left').on(
+        $('.num-left').unbind('click').on(
             "click",
             function () {
 
                 var num = $(this).next().val();
                 num--;
+
+                if(num<1){
+                    num = 1;
+                }
                 var id = $(this).next().next().val();
                 var price = $(this).parent().next().children().html();
 
@@ -326,11 +319,12 @@
         );
 
 
-        //鼠标点击加号  购物车商品数量减一
-        $('.num-right').on(
+        //鼠标点击加号  购物车商品数量加一
+        $('.num-right').unbind('click').on(
             "click",
             function () {
-
+//                var that = $(this).parent().first().prop('checked');
+//                that.first().prop('checked');
                 var num = $(this).prev().prev().val();
                 num++;
 
@@ -339,6 +333,7 @@
 
                 $(this).prev().prev().val(num);
                 $(this).parent().next().next().children().html(num * price);
+                {{--alert( {{ $cartInfo['id']->{'total'}  }});--}}
 
                 $.ajax({
                     type: "POST",
@@ -346,15 +341,15 @@
 
                     data: {'_token': '{{csrf_token()}}', 'id': id, 'num': num, 'type': 'add'},
                     success: function (data) {
-//                    alert(data);
+                        var aa = that.parent();
 
                     }
                 });
             }
+
         );
 
 
-        //删除按钮 删除购物车不刷新整个页面
 
 
     </script>

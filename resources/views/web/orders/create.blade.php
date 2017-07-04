@@ -14,7 +14,7 @@
 
 @section('content')
     {{ dump($list) }}
-    {{ dump($guid) }}
+    {{--{{ dump($guid) }}--}}
     {{ dump($total) }}
     {{ dump($address) }}
 
@@ -112,7 +112,7 @@
 
             <div class="info-heji">
                 <p class="f-r">店铺合计(含运费)：<span>¥{{ $total }}</span></p>
-                <h3 class="f-r">订单号：{{ $guid }}</h3>
+                {{--<h3 class="f-r">订单号：{{ $guid }}</h3>--}}
             </div>
             <div class="info-tijiao">
                 <p class="p1">实付款：<span>¥{{ $total }}</span></p>
@@ -120,7 +120,7 @@
                     {{csrf_field()}}
                     <input type="hidden" name="addressId" value="" id="addressId">
                     <input type="hidden" name="ordersList" value="{{ json_encode($list) }}">
-                    <input type="hidden" name="guid" value="{{ $guid }}">
+                    {{--<input type="hidden" name="guid" value="{{ $guid }}">--}}
                  <button class="btn" type="submit">提交订单</button>
                 </form>
             </div>
@@ -132,7 +132,7 @@
 @section('js')
     <script>
 
-        //获取地址列表选中的ID 传到form表单的隐藏域中
+        //获取地址列表默认选中的ID 传到form表单的隐藏域中
         $('.pay-dz > li').on("click", function (){
             var addressId = $(this).val();
             $('#addressId').val(addressId);

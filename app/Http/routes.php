@@ -19,9 +19,10 @@ Route::get('/', 'HomeController@index');
 Route::post('/ajax', 'HomeController@ajax');
 
 //前台购物车路由 --jun
-Route::resource('cart','CartController');
+Route::get('cart/add/{id}/{num}','CartController@add');
 Route::post('cart/ajax','CartController@ajax');
 Route::post('cart/del','CartController@del');
+Route::resource('cart','CartController');
 
 //前台信息反馈路由  --jun
 Route::resource('feedback','FeedbackController');
@@ -41,10 +42,7 @@ Route::get('goods_list', function () {
     return view('web.goods.list');
 });
 //商品详情页
-Route::get('goods_details', function () {
-
-    return view('web.goods.details');
-});
+Route::get('details', 'HomeController@details');
 
 // 前台登录页面
 Route::get('/login', 'LoginController@index');
@@ -69,6 +67,9 @@ Route::group(['prefix' => 'user'], function () {
     //收货地址
     Route::get('/address', 'PersonalController@showAddress');
 
+    //个人中心订单  --Jun
+	Route::resource('orders','UserOrdersController');
+
 });
 
 //前台注册用户名Ajax请求
@@ -83,9 +84,10 @@ Route::post('admin/login', 'Admin\LoginController@login');
 Route::get('admin/logout', 'Admin\LoginController@logout');
 
 
+
  Route::group(['middleware'=>'auth:admin','namespace' => 'Admin', 'prefix' => 'admin'], function () {
 //Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
-	
+
     Route::get('/', function () { return view('admin.index'); });
     //商品管理
     Route::resource('goods', 'GoodsController');

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use Illuminate\Support\Facades\DB;
 use Overtrue\LaravelShoppingCart\Cart;
 
 use Illuminate\Session\Store;
@@ -28,6 +29,7 @@ class CartController extends Controller
 		//模拟添加购物车
 //		$cart->add(37, 'Item name', 5, 100.00, ['color' => 'red', 'size' => 'M', 'picname' =>'2017-06-23-20-48-41-594d0e2959cee.jpg']);
 //		$cart->add(127, 'foobar', 15, 100.00, ['color' => 'green', 'size' => 'S','picname' =>'2017-06-23-20-48-41-594d0e2959cee.jpg']);
+//		$cart->add(17, 'foobar', 15, 100.00, ['color' => 'green', 'size' => 'S','picname' =>'2017-06-23-20-48-41-594d0e2959cee.jpg']);
 //    	$store->save();
 //		$cart->clean();
 //======================================================================================
@@ -60,9 +62,17 @@ class CartController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function create()
+	public function create(Cart $cart, Request $request, Store $store,$id,$num)
 	{
-		//
+		//查询商品信息
+//		dump($id);
+//		dd($num);
+//		DB::table('data_goods')->where('id','=',$id)->get();
+//
+//		$store->start();
+
+
+
 	}
 
 	/**
@@ -74,6 +84,7 @@ class CartController extends Controller
 	public function store(Request $request)
 	{
 		//
+
 	}
 
 	/**
@@ -164,5 +175,18 @@ class CartController extends Controller
 		$id = $request->id;
 		$cart->remove($id);
 		return $id;
+	}
+
+	//添加购物城的控制器
+	public function add(Cart $cart, Request $request, Store $store,$id,$num)
+	{
+		//查询商品信息
+		$goodData = DB::table('data_goods')->where('id','=',$id)->get();
+
+		//将商品信息存入基于redis1号数据库的session
+		$store->start();
+		$cart->add($id, $goodData[0]->{'goodname'}, $num, $goodData[0]->{'price'}, ['picname' =>$goodData[0]->{'picname'}]);
+		$store->save();
+
 	}
 }

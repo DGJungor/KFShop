@@ -54,8 +54,8 @@ class OrdersController extends Controller
 		//获取选中商品的rawid
 		$data = $request->input('hobby');
 
-		//随机生成一个 日期规则的 订单号
-		$guid = date('Ymd') . substr(implode(NULL, array_map('ord', str_split(substr(uniqid(), 7, 13), 1))), 0, 8);
+//		//随机生成一个 日期规则的 订单号
+//		$guid = date('Ymd') . substr(implode(NULL, array_map('ord', str_split(substr(uniqid(), 7, 13), 1))), 0, 8);
 
 		//初始化一个变量 供计算总价格
 		$total = 0;
@@ -66,7 +66,6 @@ class OrdersController extends Controller
 
 			//判断有无选中全选购物车
 			if ($allcart) {
-
 
 				//获取购车中所有商品
 				$list = $cart->all();
@@ -106,7 +105,7 @@ class OrdersController extends Controller
 			return view('web.orders.create',
 				[
 					'list'    => $list,
-					'guid'    => $guid,
+//					'guid'    => $guid,
 					'total'   => $total,
 					'address' => $address
 
@@ -139,15 +138,19 @@ class OrdersController extends Controller
 
 		//获取商品列表
 		$ordersList = json_decode($request->ordersList);
-		dump($ordersList);
-		//获取订单号
-		$guid = $request->guid;
+//		dump($ordersList);
+//		//获取订单号
+//		$guid = $request->guid;
+
+		//随机生成一个 日期规则的 订单号
+		$guid = date('Ymd') . substr(implode(NULL, array_map('ord', str_split(substr(uniqid(), 7, 13), 1))), 0, 8);
 
 		//获取地址信息id号
 		$addressId = $request->addressId;
 
 		//获取userid
 		$user_id = '6866';
+
 
 		// 使用数据库事务操作
 		DB::beginTransaction();
@@ -188,7 +191,9 @@ class OrdersController extends Controller
 
 			//提交事务
 			DB::commit();
-			return '下单成功';
+			return view('web.pay.index',[
+				'guid' => $guid
+			]);
 		} catch (Exception $e) {
 			DB::rollBack();
 			throw $e;

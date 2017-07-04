@@ -16,32 +16,35 @@ class HomeController extends Controller
     public function index()
     {
 
-
-//        return view('web.index');
-
         $banner=ShopBanner::paginate(4);
         $banners=Recommend::paginate(4);
         $res = compact("banner", "",["banners"]);
-       
+
 
         $dataObj = \DB::table('data_types')->where('pid', '0')->get();
         foreach($dataObj as $data){
             $data->children = \DB::table('data_types')->where('pid', $data->id)->get();
+            $data->goods = \DB::table('data_goods')->where('typeid', $data->id)->orderBy('buy', 'desc')->limit(8)->get();
             foreach($data->children as $children){
                 $children->grandchild = \DB::table('data_types')->where('pid', $children->id)->get();
             }
         }
 
-        $goodsObj = \DB::table('data_goods')->where('typeid', 3)->get();
 
-        return view('web.index', compact('data', "", ['dataObj', 'goodsObj', 'dataObj', 'res']));
+        return view('web.index', compact('data', "", ['dataObj', 'dataObj', 'res']));
 
+    }
+
+    public function details(Request $request)
+    {
+        // $dataObj = \DB::table('data_goods')->where('id', $id)->get();
+        return view('web.goods.details');
     }
 
     public function ajax(Request $request)
     {
         $id = $request->pid;
-        $goodsObj = \DB::table('data_goods')->where('typeid', $id)->orderBy('buy', 'desc')->get();
+        $goodsObj = \DB::table('data_goods')->where('typeid', $id)->orderBy('buy', 'desc')->limit(8)->get();
         return $goodsObj;
     }
 

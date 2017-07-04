@@ -11,64 +11,6 @@
 
 @endsection
 
-@section('nav')
-
-    <!--nav-->
-    <div class="nav-box">
-        <div class="nav-kuai w1200">
-            <div class="nav-kuaijie yjp-hover1 f-l">
-                <a href="JavaScript:;" class="kj-tit1">商品分类快捷</a>
-                <div class="kuaijie-box yjp-show1" style="display:none;">
-                    <div class="kuaijie-info">
-                        <dl class="kj-dl1">
-                            <dt><img src="{{ url('/web/images/zl2-07.gif') }}" /><a href="#">食品/饮料/酒水</a></dt>
-                            <dd>
-                                <a href="#">饼干糕点</a><span>|</span>
-                                <a href="#">冲调保健</a><span>|</span>
-                                <a href="#">酒水</a>
-                            </dd>
-                        </dl>
-                        <div class="kuaijie-con">
-                            <dl class="kj-dl2">
-                                <dt><a href="#">洗浴用品/身体护理</a></dt>
-                                <dd>
-                                    <a href="#">护手霜</a><span>|</span>
-
-                                </dd>
-                            </dl>
-                            <div style="clear:both;"></div>
-                        </div>
-                    </div>
-                    <div class="kuaijie-info">
-                        <dl class="kj-dl1">
-                            <dt><img src="{{ url('/web/images/zl2-08.gif') }}" /><a href="搜索列表(有品牌).html">粮油副食</a></dt>
-                            <dd>
-                                <a href="#">厨房调味</a><span>|</span>
-                                <a href="#">大米/面粉</a><span>|</span>
-                                <a href="#">方便速食</a>
-                            </dd>
-                        </dl>
-                        <div class="kuaijie-con">
-                            <dl class="kj-dl2">
-                                <dt><a href="#">洗浴用品/身体护理</a></dt>
-
-                            </dl>
-                            <div style="clear:both;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <ul class="nav-font f-l">
-                <li><a href="#">在线商城</a></li>
-                <li><a href="#">二手市场</a><span><img src="{{ url('/web/images/zl2-05.gif') }}" /></span></li>
-                <div style="clear:both;"></div>
-            </ul>
-            <div style="clear:both;"></div>
-        </div>
-    </div>
-
-@endsection
-
 
 @section('content')
 <!--内容开始-->
@@ -77,25 +19,25 @@
         <div class="dt-if1-l f-l">
             <div class="dt-if1-datu">
                 <ul qie-da="">
-                    <li><a href="#"><img src="images/dt-if1-l-tuda1.gif" /></a></li>
-                    <li><a href="#"><img src="images/dt-if1-l-tuda2.gif" /></a></li>
+                    <li><a href="#"><img src="{{ url('web/images/dt-if1-l-tuda1.gif') }}" /></a></li>
+                    <li><a href="#"><img src="{{ url('web/images/dt-if1-l-tuda2.gif') }}" /></a></li>
                     <div style="clear:both;"></div>
                 </ul>
             </div>
             <div class="dt-if1-qietu">
-                <a class="dt-qie-left f-l" href="JavaScript:;"><img src="images/dt-if1-qietu-left.gif" /></a>
+                <a class="dt-qie-left f-l" href="JavaScript:;"><img src="{{ url('web/images/dt-if1-qietu-left.gif') }}" /></a>
                 <div class="dt-qie-con f-l">
                     <ul qie-xiao="">
-                        <li class="current"><a href="#"><img src="images/dt-if1-qietu1.gif" /></a></li>
-                        <li><a href="#"><img src="images/dt-if1-qietu2.gif" /></a></li>
+                        <li class="current"><a href="#"><img src="{{ url('web/images/dt-if1-qietu1.gif') }}" /></a></li>
+                        <li><a href="#"><img src="{{ url('web/images/dt-if1-qietu2.gif') }}" /></a></li>
                         <div style="clear:both;"></div>
                     </ul>
                 </div>
-                <a class="dt-qie-right f-r" href="JavaScript:;"><img src="images/dt-if1-qietu-right.gif" /></a>
+                <a class="dt-qie-right f-r" href="JavaScript:;"><img src="{{ url('web/images/dt-if1-qietu-right.gif') }}" /></a>
             </div>
             <div class="dt-if1-fx">
 
-                <p>分享到：<a href="#"><img src="images/dt-xl.gif" /></a><a href="#"><img src="images/dt-kj.gif" /></a><a href="#"><img src="images/dt-wx.gif" /></a></p>
+                <p>分享到：<a href="#"><img src="{{ url('web/images/dt-xl.gif') }}" /></a><a href="#"><img src="{{ url('web/images/dt-kj.gif') }}" /></a><a href="#"><img src="{{ url('web/images/dt-wx.gif') }}" /></a></p>
             </div>
         </div>
 
@@ -112,7 +54,7 @@
                             <span class="sp1">¥17.50</span><span class="sp2">29.50</span>
                         </p>
                         <p class="p2">
-                            <span class="sp1"><img src="images/dt-ifm-sp1-img.gif" />5分</span><span class="sp2">共有 2 条评价</span>
+                            <span class="sp1"><img src="{{ url('web/images/dt-ifm-sp1-img.gif') }}" />5分</span><span class="sp2">共有 2 条评价</span>
                         </p>
                     </dd>
                     <div style="clear:both;"></div>
@@ -203,7 +145,7 @@
                     <h3>同类推荐</h3>
                 </div>
                 <dl>
-                    <dt><a href="#"><img src="images/dt-ifr-fd-dt-tu.gif" /></a></dt>
+                    <dt><a href="#"><img src="{{ url('web/images/dt-ifr-fd-dt-tu.gif') }}" /></a></dt>
                     <dd>
                         <a href="#">【观音桥】罗兰钢管舞舞蹈体验</a>
                         <p>¥9.90</p>
@@ -211,7 +153,7 @@
                     <div style="clear:both;"></div>
                 </dl>
                 <dl>
-                    <dt><a href="#"><img src="images/dt-ifr-fd-dt-tu.gif" /></a></dt>
+                    <dt><a href="#"><img src="{{ url('web/images/dt-ifr-fd-dt-tu.gif') }}" /></a></dt>
                     <dd>
                         <a href="#">【观音桥】罗兰钢管舞舞蹈体验</a>
                         <p>¥9.90</p>
@@ -231,7 +173,7 @@
                 </div>
                 <ul>
                     <li>
-                        <a href="#"><img src="images/if2-l-box1-tu1.gif" /></a>
+                        <a href="#"><img src="{{ url('web/images/if2-l-box1-tu1.gif') }}" /></a>
                         <a class="if2-li-tit" href="#">乐事Lay's 无限薯片（翡翠黄瓜味）104g/罐</a>
                         <p>¥6.90</p>
                     </li>
@@ -243,7 +185,7 @@
                 </div>
                 <ul>
                     <li>
-                        <a href="#"><img src="images/if2-l-box1-tu1.gif" /></a>
+                        <a href="#"><img src="{{ url('web/images/if2-l-box1-tu1.gif') }}" /></a>
                         <a class="if2-li-tit" href="#">乐事Lay's 无限薯片（翡翠黄瓜味）104g/罐</a>
                         <p>¥6.90</p>
                     </li>
@@ -266,21 +208,21 @@
             <!--  -->
             <div style="border:1px solid #DBDBDB;" com-det-show="dt1">
                 <div class="if2-tu1">
-                    <img src="images/if2-tu1.gif" />
-                    <img src="images/if2-tu2.gif" style="margin-top:47px;" />
+                    <img src="{{ url('web/images/if2-tu1.gif')}}" />
+                    <img src="{{ url('web/images/if2-tu2.gif')}}" style="margin-top:47px;" />
                     <div style="clear:both;"></div>
                 </div>
                 <div class="if2-tu2">
-                    <img src="images/if2-tu3.gif" />
+                    <img src="{{ url('web/images/if2-tu3.gif')}}" />
                     <div style="clear:both;"></div>
                 </div>
                 <div class="if2-tu3">
-                    <img src="images/if2-tu4.gif" />
+                    <img src="{{ url('web/images/if2-tu4.gif')}}" />
                 </div>
                 <ul class="if2-tu4">
-                    <li><img src="images/if2-tu5.gif" /></li>
-                    <li><img src="images/if2-tu6.gif" /></li>
-                    <li><img src="images/if2-tu7.gif" /></li>
+                    <li><img src="{{ url('web/images/if2-tu5.gif')}}" /></li>
+                    <li><img src="{{ url('web/images/if2-tu6.gif')}}" /></li>
+                    <li><img src="{{ url('web/images/if2-tu7.gif')}}" /></li>
                     <div style="clear:both;"></div>
                 </ul>
             </div>
@@ -315,7 +257,7 @@
                     </ul>
                     <dl>
                         <dt>
-                            <a href="#"><img src="images/box3-dt-tu.gif" /></a>
+                            <a href="#"><img src="{{ url('web/images/box3-dt-tu.gif')}}" /></a>
                         </dt>
                         <dd>
                             <a href="#">胡**</a>
@@ -369,7 +311,7 @@
                 </div>
                 <ul>
                     <li>
-                        <a href="#"><img src="images/if2-l-box1-tu1.gif" /></a>
+                        <a href="#"><img src="{{ url('web/images/if2-l-box1-tu1.gif')}}" /></a>
                         <a href="#">乐事Lay's 无限薯片（翡翠黄瓜味）104g/罐</a>
                         <p>¥6.90</p>
                     </li>
