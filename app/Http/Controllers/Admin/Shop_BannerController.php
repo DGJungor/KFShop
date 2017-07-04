@@ -18,7 +18,7 @@ class Shop_BannerController extends Controller
      */
     public function index()
     {
-        $data=ShopBanner::paginate(4);
+        $data=ShopBanner::paginate(12);
         return view('admin.shop_banner.index', compact(['data']));
     }
 

@@ -49,7 +49,7 @@
                             </div>
                             <div class="form-group">
                                 <label>链接：</label>
-                                <input name="redirect_url" type="text" class="form-control" value="{{$data->redirect_url}}">
+                                <input name="redirect_url" type="text" class="form-control" value="{{$data->redirect_url}}" required>
                             </div>
                             <div class="form-group">
                                 <label>状态：</label>

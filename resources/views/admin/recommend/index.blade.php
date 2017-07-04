@@ -22,10 +22,17 @@
                 <h5>推荐列表</h5>
             </div>
             <div class="ibox-content">
-                <a href="{{url('admin/recommend/create')}}" class="btn btn-primary">
-                    <i class="fa fa-btn fa-plus"></i>新增
-                </a>
-                @if(!empty($data))
+                <form method="get" action="" class="pull-right mail-search">
+                    <div class="input-group">
+                        <input type="text" class="form-control input-sm" name="searchs" placeholder="搜索名称" value="{{request()->input('searchs')}}">
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-sm btn-primary">
+                                搜索
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
                     <table class="table table-responsive table-hover">
                         <thead>
                         <tr>
@@ -38,7 +45,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($data as $v)
+                        @forelse($recommend as $v)
                             <tr class="gradeA odd">
                                 <td class="text-center ">
                                     <img class="banner-img-url" alt="推荐图" src="/uploads/s_{{$v->recommend_picname}}"/>
@@ -47,7 +54,7 @@
                                     {{$v->recommend_name}}
                                 </td>
                                 <td class="text-center ">
-                                    {{$v->recommend_location}}
+                                    {{$stor[$v->recommend_location]}}
                                 </td>
                                 <td class="text-center ">
                                     {{$v->recommend_type}}
@@ -57,22 +64,27 @@
                                 </td>
                                 <td class="text-center ">
                                     <button id="btnEdit" type="button"  >
-                                    <a href="{{url('admin/recommend/'.$v->id.'/edit')}}" class="glyphicon glyphicon-edit text-navy" title="修改">修改</a>
+                                    <a href="{{url('admin/recommend/'.$v->id.'/edit')}}" class="fa fa-pencil-square-o text-navy" title="修改">修改</a>
                                     </button>
                                     <form action="{{url('admin/recommend/'.$v->id)}}" method="post" class="del-form">
                                         <input type="hidden" name="_method" value="DELETE">
                                         {{csrf_field()}}
-                                        <button title="删除" type="submit" ><span class="glyphicon glyphicon-remove-sign text-danger">删除</span></button>
+                                        <button title="删除" type="submit" ><span class="fa fa-eraser text-danger">删除</span></button>
                                     </form>
                                 </td>
                             </tr>
-                        @endforeach
+                            @empty
+                            <tr class="gradeA odd">
+                                <td class="text-center " colspan="6">暂时没有数据</td>
+                            </tr>
+                        @endforelse
                         </tbody>
                     </table>
-                @endif
-                <nav class="text-center">
-                    {{$data->links()}}
-                </nav>
+
+
+                <div class="page" style="text-align: center">
+                    {{ $recommend->links() }}
+                </div>
             </div>
         </div>
     </div>

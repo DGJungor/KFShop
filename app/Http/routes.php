@@ -37,10 +37,7 @@ Route::resource('orders','OrdersController');
 Route::resource('pay','PayController');
 
 //商品列表页
-Route::get('goods_list', function () {
-
-    return view('web.goods.list');
-});
+Route::resource('goods_list', 'GoodsListController');
 //商品详情页
 Route::get('details', 'HomeController@details');
 

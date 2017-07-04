@@ -16,10 +16,10 @@ class HomeController extends Controller
     public function index()
     {
 
+        //获取轮播图和推荐图的数据
         $banner=ShopBanner::paginate(4);
         $banners=Recommend::paginate(4);
         $res = compact("banner", "",["banners"]);
-
 
         $dataObj = \DB::table('data_types')->where('pid', '0')->get();
         foreach($dataObj as $data){
@@ -29,7 +29,6 @@ class HomeController extends Controller
                 $children->grandchild = \DB::table('data_types')->where('pid', $children->id)->get();
             }
         }
-
 
         return view('web.index', compact('data', "", ['dataObj', 'dataObj', 'res']));
 

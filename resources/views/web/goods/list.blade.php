@@ -13,15 +13,21 @@
 
 @section('menu')
     <div class="brand-sales ">
-
+        @foreach($order as $k=>$v)
         <dl style="border-bottom:none;">
             <dt>商品种类</dt>
             <dd>
                 {{--遍历内容--}}
 
-                <a href="" style="color: #63A61D">种类1</a>
+                @if($k==0)
+                @foreach($v->children as $ke=>$val)
+
+                <a href="{{$val->id}}">{{$val->name}}</a>
 
                 {{--遍历--}}
+                @endforeach
+                    @endif
+
             </dd>
             <div style="clear:both;"></div>
         </dl>
@@ -30,13 +36,20 @@
         <dt>商品分类</dt>
             <dd>
                 {{--遍历内容--}}
+                @if($k==0)
+                    @foreach($v->children as $ke=>$val)
+                     @foreach($val->grandchild as $kk=>$va)
 
-                <a href="">分类</a>
+                          <a href="">{{$va->name}}</a>
 
+                    @endforeach
+                @endforeach
+                @endif
                 {{--遍历--}}
             </dd>
             <div style="clear:both;"></div>
         </dl>
+        @endforeach
     </div>
     <br>
 @endsection
@@ -85,30 +98,44 @@
                 <div style="clear:both;"></div>
             </div>
             <div class="shop-right-con">
+                @foreach($order as $k=>$v)
                 <ul class="shop-ul-tu shop-ul-tu1">
 
-                    {{--遍历内容--}}
+                    @foreach($goods as $ve)
 
-                    <li style="height:250px">
+                    <li style="margin-right:0;">
                         <div class="li-top">
-                            <a href="#"  target="_blank" class="li-top-tu"><img src="{{ url('web/images/beaut-lg-tu2.gif') }}" height="110" width="95" /></a>
+                            <a href="#"  target="_blank" class="li-top-tu"><img src="{{ url('uploads/goods') }}/{{$ve->picname}}" height="110" width="95" /></a>
                             <p class="jiage">
-                                <span class="sp2">￥6.80</span>
-                                <span class="sp1" style="padding-left: 10px;">VIP:￥5.70</span>
+                                <span class="sp1">VIP:￥{{$ve->price}}</span>
                             </p>
                         </div>
-                        <p class="miaoshu">美丹白苏打鲜葱味饼干</p>
+                        <p class="miaoshu">{{$ve->goodname}}</p>
                         <div class="li-md">
+                            <div class="md-l f-l">
+                                <span class="md-l-l f-l" ap=""></span>
+                                <div class="md-l-r f-l">
+
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div class="md-r f-l">
+                                <button class="md-l-btn1">立即购买</button>
+                                <button class="md-l-btn2">加入购物车</button>
+                            </div>
                             <div style="clear:both;"></div>
                         </div>
                         <p class="pingjia">0评价</p>
-
+                        <p class="weike">{{$ve->brand}}品牌</p>
                     </li>
+                    @endforeach
+
                     <div style="clear:both;"></div>
 
-                    {{--遍历--}}
 
-                </ul>    
+                    {{--遍历--}}
+                </ul>
+                    @endforeach
             </div>
         </div>
         <div style="clear:both;"></div>
@@ -135,5 +162,16 @@
                 </div>
                 <div style="clear:both;"></div>
         </div>
+
+@endsection
+
+
+@section('js')
+    <script>
+
+$()
+
+
+    </script>
 
 @endsection

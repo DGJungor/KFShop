@@ -6,7 +6,7 @@
                 @foreach($data as $v)
                     <div class="kuaijie-info">
                         <dl class="kj-dl1">
-                            <dt><img src="{{ url('/web/images/zl2-07.gif') }}" /><a href="#">{{ $v->name }}</a></dt>
+                            <dt><img src="{{ url('/web/images/zl2-07.gif') }}" /><a href="{{ url('goods_list') }}/{{$v->id}}">{{ $v->name }}</a></dt>
 
                             <dd>
                             @foreach($v->children as $val)

@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Admin\Type;
 use function Couchbase\basicDecoderV1;
 use Illuminate\Http\Request;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Admin\Recommend;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Intervention\Image\ImageManager;
 use Carbon\Carbon;
 
@@ -21,11 +22,22 @@ class RecommendController extends Controller
      */
     public function index()
     {
+        //模糊查询推荐名称，默认空值
+        $searchs = request()->input('searchs', '');
 
-//        $data = \DB::table('data_recommend')->get();
-//        dump($data);
-        $data=Recommend::paginate(20);
-        return view('admin.recommend.index', compact(['data']));
+        //查询类型
+        $type = Type::all();
+
+        //一页显示的条数
+        $page=10;
+
+        //推荐位置的文字显示
+        $stor = ['1' => '首页', '2' => '其他页'];
+
+        //查询商品
+        $recommend = Recommend::where('recommend_name', 'like', "%{$searchs}%")->paginate($page);
+
+        return view('admin.recommend.index', ['recommend'=>$recommend, 'type'=>$type, 'stor'=>$stor]);
     }
 
     /**
@@ -62,15 +74,15 @@ class RecommendController extends Controller
                 $filePath=public_path('uploads');
                 // 上传文件
                 $fileName = date('Y-m-d-H-i-s') . '-' . uniqid() . '.' . $ext;
-//                $image->make($filePath.'/'.$filename)->resize(200,200)->save($filePath."/"."s_".$filename);
 
                 // 使用新建的uploads本地存储空间（目录）
                 $bool = Storage::disk('uploads')->put($fileName, file_get_contents($realPath));
                 $image=new ImageManager();
                 $image->make($filePath.'/'.$fileName)->resize(136,124)->save($filePath.'/s_'.$fileName);
+                $image->make($filePath.'/'.$fileName)->resize(130,130)->save($filePath.'/x_'.$fileName);
                 $request->recommend_picname=$fileName;
                 $request->created_at=Carbon::now();
-//                dd($request->created_at);
+
                 $rec = \DB::table('data_recommend')->insert([
                     'recommend_name'=>$request->recommend_name,
                     'recommend_location'=>$request->recommend_location,
@@ -124,7 +136,8 @@ class RecommendController extends Controller
     public function update(Request $request, $id)
     {
         if(Recommend::where('id', '=', $id)->update([
-           'recommend_name'=>$request->recommend_name,
+            'recommend_name'=>$request->recommend_name,
+            'recommend_location'=>$request->recommend_location,
             'recommend_introduction'=>$request->recommend_introduction,
         ])){
 

@@ -35,7 +35,7 @@
                                         <label class="col-sm-2 control-label">友情链接名称:</label>
 
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" name="name"  value="">
+                                            <input type="text" class="form-control" name="name"  value="" required>
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
@@ -60,7 +60,7 @@
                                         <div class="col-sm-10">
                                             <div class="input-group m-b"><span class="input-group-btn">
                                             <button type="button" class="btn btn-primary">http://</button> </span>
-                                                <input type="text" class="form-control" name="url" value="">
+                                                <input type="text" class="form-control" name="url" value="" required>
                                             </div>
                                         </div>
                                     </div>

@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Admin\Type;
 use Illuminate\Http\Request;
-use Storage;
+use Illuminate\Support\Facades\Storage;
 //use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Admin\Friend;
 use Intervention\Image\Facades\Image;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 class FriendController extends Controller
@@ -18,15 +19,24 @@ class FriendController extends Controller
      */
     public function index()
     {
-        //获取友情链接表里的数据
-        $data = \DB::table('data_friend_link')->get();
-        // dump($data);
+        //友情链接模糊查询，默认空值
+        $search=request()->input('search','');
+
+        //查询类型
+        $type = Type::all();
+
+        //一页的显示的条数
+        $page = 8;
+
+        //查询商品
+        $friend = Friend::where('name', 'like', "%{$search}%")->paginate($page);
+
         //给状态加解析名
-        $type = ['1' => '图片', '2' => '文字'];
+        $stor = ['1' => '图片', '2' => '文字'];
 
         $status = ['0' => '启用', '1' => '禁用'];
         //访问友情链接首页
-        return view('admin.friends.index', compact('data', 'type', 'status'));
+        return view('admin.friends.index', ['friend'=>$friend, 'type'=>$type, 'stor'=>$stor, 'status'=>$status]);
     }
 
     /**

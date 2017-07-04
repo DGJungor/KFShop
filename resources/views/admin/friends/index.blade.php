@@ -35,7 +35,7 @@
 
                 <form method="get" action="" class="pull-right mail-search">
                     <div class="input-group">
-                        <input type="text" class="form-control input-sm" name="search" placeholder="搜索友情链接">
+                        <input type="text" class="form-control input-sm" name="search" placeholder="搜索友情链接" value="{{request()->input('search')}}">
                         <div class="input-group-btn">
                             <button type="submit" class="btn btn-sm btn-primary">
                                 搜索
@@ -84,13 +84,13 @@
                         </thead>
                         <tbody>
 {{--                        {{dump($data)}}--}}
-                        <?php $i = 0; ?>
-                        @foreach($data as $v)
+
+                        @forelse($friend as $v)
 
                              <tr class="gradeA odd">
                                 <td class="text-center ">{{ $v->id }}</td>
                                 <td class="text-center ">{{ $v->name }}</td>
-                                <td class="text-center ">{{ $type[$v->type] }}</td>
+                                <td class="text-center ">{{ $stor[$v->type] }}</td>
                                 <td class="text-center ">http://{{ $v->url }}</td>
                                 <td class="text-center "><img alt="image" class="img-responsive" src="{{$v->image}}"></td>
                                 <td class="text-center ">{{ $status[$v->status] }}</td>
@@ -102,7 +102,7 @@
 
                                     <a href="/admin/friends/{{$v->id}}/edit">
                                         <button id="btnEdit" type="button"  >
-                                            <span class="glyphicon glyphicon-edit text-navy" aria-hidden="true"></span>
+                                            <span class="fa fa-pencil-square-o text-navy" aria-hidden="true"></span>
                                         </button>
                                         {{--<i id="Edit" class="glyphicon glyphicon-edit text-"></i>--}}
                                     </a>
@@ -113,16 +113,23 @@
                                         <input type="hidden" name="_method" value="DELETE">
                                         {!! csrf_field() !!}
                                         <button id="btnDel" type="submit" class="" data-toggle="modal" data-target="#DeleteForm" onclick="">
-                                            <span class="glyphicon glyphicon-remove-sign text-danger" aria-hidden="true"></span>
+                                            <span class="fa fa-eraser text-danger" aria-hidden="true"></span>
                                         </button>
                                     {{--<i id="Del" class="glyphicon glyphicon-remove-sign text-danger"></i>--}}
                                     </form>
                                 </td>
                             </tr>
-                            <?php $i++; ?>
-                        @endforeach
+                            @empty
+                            <tr class="gradeA odd">
+                                <td colspan="7" class="text-center ">暂时没有链接</td>
+                            </tr>
+
+                        @endforelse
                         </tbody>
                     </table>
+                    <div class="page" style="text-align: center">
+                        {{ $friend->links() }}
+                    </div>
                 </div>
 
             </div>
