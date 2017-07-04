@@ -42,7 +42,7 @@ class OrdersController extends Controller
 		$count = \DB::table('data_orders_details')->where('orders_guid', '=', $id)->count();
 
 		//从数据库中取出订单号为$id的订单数据
-		$data = \DB::table('data_orders_details')->where('orders_guid', '=', $id)->get();
+		$data = \DB::table('data_orders_details')->where('orders_guid', '=', $id)->orderBy('created_at', 'desc')->get();
 
 		return view('admin.orders.details', [
 			'count' => $count,

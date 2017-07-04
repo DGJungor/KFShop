@@ -7,8 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="renderer" content="webkit">
 
     <title>登录</title>
-    <meta name="keywords" content="H+后台主题,后台bootstrap框架,会员中心主题,后台HTML,响应式后台">
-    <meta name="description" content="H+是一个完全响应式，基于Bootstrap3最新版本开发的扁平化主题，她采用了主流的左右两栏式布局，使用了Html5+CSS3等现代技术">
 
     <link href="{{ asset('/style/css/bootstrap.min.css?v=3.4.0') }}" rel="stylesheet">
     <link href="{{ asset('/style/font-awesome/css/font-awesome.css?v=4.3.0') }}" rel="stylesheet">
@@ -35,11 +33,11 @@
                     <strong>{{ session('error') }}</strong>
                 </span>
             @endif
-            <div class="form-group {{ $errors->has('name_email_tel') ? 'has-error' : '' }}">
-                <input type="text" name="name_email_tel" class="form-control" placeholder="用户名/邮箱/手机号" value="{{ old('name_email_tel') }}">
-                @if ($errors->has('name_email_tel'))
+            <div class="form-group {{ $errors->has('username_tel') ? 'has-error' : '' }}">
+                <input type="text" name="username_tel" class="form-control" placeholder="用户名/手机号" value="{{ old('username_tel') }}">
+                @if ($errors->has('username_tel'))
                     <span class="text-danger">
-                        <strong>{{ $errors->first('name_email_tel') }}</strong>
+                        <strong>{{ $errors->first('username_tel') }}</strong>
                     </span>
                 @endif
             </div>
@@ -111,12 +109,12 @@
 
     $('#loginform').validate({
         rules: {
-            name_email_tel: "required",
+            username_tel: "required",
             password: "required",
             captcha: "required"
         },
         messages: {
-            name_email_tel: "请输入您的用户名/邮箱/手机号",
+            username_tel: "请输入您的用户名/手机号",
             password: "请输入密码",
             captcha: "请输入验证码"
         }

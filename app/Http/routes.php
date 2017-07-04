@@ -19,9 +19,10 @@ Route::get('/', 'HomeController@index');
 Route::post('/ajax', 'HomeController@ajax');
 
 //前台购物车路由 --jun
-Route::resource('cart','CartController');
+Route::get('cart/add/{id}/{num}','CartController@add');
 Route::post('cart/ajax','CartController@ajax');
 Route::post('cart/del','CartController@del');
+Route::resource('cart','CartController');
 
 //前台信息反馈路由  --jun
 Route::resource('feedback','FeedbackController');
@@ -32,6 +33,9 @@ Route::resource('comment', 'CommentController');
 //前台订单路由  --jun
 Route::resource('orders','OrdersController');
 
+//前台支付路由 --jun
+Route::resource('pay','PayController');
+
 //商品列表页
 Route::get('goods_list', function () {
 
@@ -40,7 +44,7 @@ Route::get('goods_list', function () {
 //商品详情页
 Route::get('details', 'HomeController@details');
 
-// 登录页面
+// 前台登录页面
 Route::get('/login', "LoginController@index");
 // 执行登录
 Route::post('/login', "LoginController@login");
@@ -52,10 +56,20 @@ Route::get('/logout', "LoginController@logout");
 Route::get('/register', "RegisterController@index");
 // 执行注册
 Route::post('/register', "RegisterController@register");
+//邮箱验证
+Route::get('/service/validate_email', "ValidateController@validateEmail");
 
+//个人中心
 Route::group(['prefix' => 'user'], function () {
     Route::get('/', "PersonalController@index");
+
+    //个人中心订单  --Jun
+	Route::resource('orders','UserOrdersController');
+
 });
+
+//前台注册用户名Ajax请求
+Route::post('/ajax/user/register', 'RegisterController@checkName');
 
 
 //后台登录首页
@@ -66,8 +80,9 @@ Route::post('admin/login', 'Admin\LoginController@login');
 Route::get('admin/logout', 'Admin\LoginController@logout');
 
 
-Route::group(['middleware'=>'auth:admin','namespace' => 'Admin', 'prefix' => 'admin'], function () {
-// Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
+
+ Route::group(['middleware'=>'auth:admin','namespace' => 'Admin', 'prefix' => 'admin'], function () {
+//Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 
     Route::get('/', function () { return view('admin.index'); });
     //商品管理

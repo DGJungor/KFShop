@@ -1,55 +1,240 @@
-@extends('web.public.public')
+<!DOCTYPE html>
+<html>
 
-@section('title')
-    注册
-@endsection
+<head>
 
-@section('css')
-    <link rel="stylesheet" type="text/css" href="{{ url('web/css/shopping-mall-index.css') }}" />
-@endsection
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="renderer" content="webkit">
+    <meta name="_token" content="{{ csrf_token() }}">
 
-@section('content')
-    <div class="password-con registered">
-        <div class="psw">
-            <p class="psw-p1">用户名</p>
-            <input type="text" placeholder="HR了" />
-            <span class="dui"></span>
+    <title>注册</title>
+
+    <link href="{{ asset('/style/css/bootstrap.min.css?v=3.4.0') }}" rel="stylesheet">
+    <link href="{{ asset('/style/font-awesome/css/font-awesome.css?v=4.3.0') }}" rel="stylesheet">
+
+    <link href="{{ asset('/style/css/animate.css') }}" rel="stylesheet">
+    <link href="{{ asset('/style/css/style.css?v=2.2.0') }}" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+
+<div class="middle-box text-center loginscreen  animated fadeInDown">
+    <div>
+        <div>
+
+            <a href="{{ url('/') }}"><img src="{{ url('/web/images/zl2-01-1.gif') }}" alt=""></a>
+
         </div>
-        <div class="psw">
-            <p class="psw-p1">输入密码</p>
-            <input type="text" placeholder="请输入密码" />
-            <span class="cuo">密码由6-16的字母、数字、符号组成</span>
-        </div>
-        <div class="psw">
-            <p class="psw-p1">确认密码</p>
-            <input type="text" placeholder="请再次确认密码" />
-            <span class="cuo">密码不一致，请重新输入</span>
-        </div>
-        <div class="psw psw2">
-            <p class="psw-p1">手机号/邮箱</p>
-            <input type="text" placeholder="请输入手机/邮箱验证码" />
-            <button>获取短信验证码</button>
-        </div>
-        <div class="psw psw3">
-            <p class="psw-p1">验证码</p>
-            <input type="text" placeholder="请输入手机/邮箱验证码" />
-        </div>
-        <div class="psw psw3">
-            <p class="psw-p1">验证码</p>
-            <input type="text" placeholder="请输入验证码" />
-        </div>
-        <div class="yanzhentu">
-            <div class="yz-tu f-l">
-                <img src="images/psw-yanzhengtu.gif" />
+        <h2>注册</h2>
+
+        <form id="registerform" class="m-t" role="form" action="{{ url('/register') }}" method="POST">
+            @if(session('error'))
+                <span class="text-danger">
+                    <strong>{{ session('error') }}</strong>
+                </span>
+            @endif
+            <div class="form-group {{ $errors->has('username') ? 'has-error' : '' }}">
+                <input id="username" type="text" name="username" class="form-control" placeholder="用户名" value="{{ old('username') }}">
+
+                @if ($errors->has('username'))
+                    <span class="text-danger">
+                        <strong>{{ $errors->first('username') }}</strong>
+                    </span>
+                @endif
             </div>
-            <p class="f-l">看不清？<a href="#">换张图</a></p>
-            <div style="clear:both;"></div>
-        </div>
-        <div class="agreement">
-            <input type="checkbox" name="hobby"></input>
-            <p>我有阅读并同意<span>《宅客微购网站服务协议》</span></p>
-        </div>
-        <button class="psw-btn">立即注册</button>
-        <p class="sign-in">已有账号？请<a href="#">登录</a></p>
+            <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
+                <input id="password" type="password" name="password" class="form-control" placeholder="密码">
+                @if ($errors->has('password'))
+                    <span class="text-danger">
+                    <strong>{{ $errors->first('password') }}</strong>
+                </span>
+                @endif
+            </div>
+            <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
+                <input type="password" name="password_confirmation" class="form-control" placeholder="确认密码">
+            </div>
+            <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
+                <input type="text" name="email" class="form-control" placeholder="邮箱" value="{{ old('email') }}">
+                @if ($errors->has('email'))
+                    <span class="text-danger">
+                        <strong>{{ $errors->first('email') }}</strong>
+                    </span>
+                @endif
+            </div>
+            <div class="form-group {{ $errors->has('tel') ? 'has-error' : '' }}">
+                <input type="text" name="tel" class="form-control" placeholder="手机号" value="{{ old('tel') }}">
+                @if ($errors->has('tel'))
+                    <span class="text-danger">
+                        <strong>{{ $errors->first('tel') }}</strong>
+                    </span>
+                @endif
+            </div>
+            <div class="input-group {{ $errors->has('captcha') ? ' has-error' : '' }}">
+                <input id="code" type="text" name="captcha" class="form-control" placeholder="验证码">
+                <span class="input-group-btn">
+                    <img id="captcha" src="{{ captcha_src() }}" />
+                </span>
+
+            </div><!-- /input-group <-->
+            @if ($errors->has('captcha'))
+                <span class="text-danger">
+                    <strong id="code_error">{{ $errors->first('captcha') }}</strong><br>
+                </span>
+            @endif
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" class="" id="agree" name="agree">请同意我们的声明
+                </label>
+            </div>
+            {{csrf_field()}}
+            <button type="submit" class="btn btn-primary block full-width m-b">注册</button>
+            <div class="form-group">
+                <a href="#">忘记密码?</a> &nbsp;<a href="#"> 我要注册！</a>
+            </div>
+
+        </form>
     </div>
-@endsection
+</div>
+
+<!-- Mainly scripts -->
+<script src="{{ asset('/style/js/jquery-2.1.1.min.js') }}"></script>
+<script src="{{ asset('/style/js/bootstrap.min.js?v=3.4.0') }}"></script>
+<!-- jQuery Validation plugin javascript-->
+<script src="{{ asset('/style/js/plugins/validate/jquery.validate.min.js') }}"></script>
+<script src="{{ asset('/style/js/plugins/validate/messages_zh.min.js') }}"></script>
+<!-- layer javascript -->
+<script src="{{ asset('/style/js/plugins/layer/layer.min.js') }}"></script>
+<script src="{{ asset('/style/js/demo/layer-demo.js') }}"></script>
+<script>
+    @if (session('success'))
+        layer.msg('{{session('success')}}',2,1);
+        setTimeout(function () {
+            location.href = '/login';
+        },2000);
+    @endif
+</script>
+<script>
+
+    //切换验证码图片
+    $('#captcha').on('click', function () {
+        var captcha = $(this);
+        var url = '/captcha/' + captcha.data('captcha-config') + '?' + Math.random();
+        captcha.attr('src', url);
+    });
+
+    //检测用户名唯一性
+
+
+    //隐藏错误信息
+    $('input').focus(function(event) {
+        $(this).next().children().html('');
+    });
+
+    $('#code').focus(function(event) {
+        $('#code_error').parent().remove();
+    });
+
+    //以下为修改jQuery Validation插件兼容Bootstrap的方法，没有直接写在插件中是为了便于插件升级
+    $.validator.setDefaults({
+        highlight: function (element) {
+            $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+        },
+        success: function (element) {
+            element.closest('.form-group').removeClass('has-error').addClass('has-success');
+        },
+        errorElement: "span",
+        errorClass: "help-block m-b-none",
+        validClass: "help-block m-b-none"
+
+
+    });
+
+    $('#registerform').validate({
+        rules: {
+            username: {
+                required: true,
+                minlength: 2
+            },
+            password: {
+                required: true,
+                minlength: 6,
+                maxlength: 24
+            },
+            password_confirmation: {
+                required: true,
+                equalTo: "#password"
+            },
+            email: {
+                required: true,
+                email:true,
+            },
+            tel: {
+                required: true,
+                minlength: 11,
+                maxlength: 11
+            },
+            captcha: "required",
+            agree: "required"
+        },
+        messages: {
+            username: {
+                required: "请输入您的用户名",
+                minlength: "用户名必须2个字符以上"
+            },
+            password: {
+                required: "请输入您的密码",
+                minlength: "密码必须6个字符以上",
+                maxlength: "密码长度不能超过24个字符"
+            },
+            password_confirmation: {
+                required: "请再次输入密码",
+                equalTo: "两次输入的密码不一样"
+            },
+            email: {
+                required: "请输入您的E-mail",
+                email: "请输入正确的E-mail"
+            },
+            tel: {
+                required: "请输入您的手机号码",
+                minlength:"请输入正确的手机号码",
+                maxlength: "请输入正确的手机号码"
+            },
+            captcha: "请输入验证码",
+            agree: "必须同意协议后才能注册"
+        }
+    });
+
+    //用户名唯一性验证
+    $('#username').blur(function () {
+        var username = '';
+        var create = $('#username');
+        username = $('#username').val();
+        $.ajax({
+            type:"POST",
+            url: '/ajax/user/register',
+            dataType: 'json',
+            data: {username: username, _token: "{{ csrf_token() }}"},
+            success: function (data) {
+                if (data == null) {
+                    layer.msg('服务器端错误', 2, 1);
+                    return;
+                }
+                if (data == 0) {
+                    $('#tip').remove();
+                    create.before("<i id=\"tip\" class=\"fa fa-check-circle text-navy\" style=\"position: absolute;right: 0;padding: 10px 10px 10px 10px;\">可以注册</i>");
+                    return;
+                }
+                if (data == 1) {
+                    $('#tip').remove();
+                    create.before("<i id=\"tip\" class=\"fa fa-times-circle text-danger\" style=\"position: absolute;right: 0;padding: 10px 10px 10px 10px;\">用户已存在</i>");
+                    return;
+                }
+            }
+        });
+    });
+</script>
+
+</body>
+
+</html>

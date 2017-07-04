@@ -22,7 +22,7 @@ class DataOrders extends Migration
 		    $table->integer('address_id')->commment('地址信息ID');
 		    $table->string('pay_transaction',64)->comment('支付交易号');
 		    $table->tinyInteger('order_status')->comment('订单状态 1:待付款 2: 待发货 3:待收货 4:待评价 5 完成 6 取消 默认为1');
-		    $table->tinyInteger('pay_type')->comment('支付方式 1:支付宝 2:微信 3:其他');
+		    $table->tinyInteger('pay_type')->comment('支付方式 1:支付宝 2:微信 3:货到付款 4:其他');
 		    $table->tinyInteger('pay_status')->comment('支付状态 1:待支付 2:已支付 3:取消支付');
 		    $table->string('total_amount',64)->comment('商品总金额');
 		    $table->timestamps();
