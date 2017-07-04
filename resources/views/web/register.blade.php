@@ -63,7 +63,7 @@
                 @endif
             </div>
             <div class="form-group {{ $errors->has('tel') ? 'has-error' : '' }}">
-                <input type="text" name="tel" class="form-control" placeholder="手机号" value="{{ old('tel') }}">
+                <input type="text" maxlength="11" name="tel" class="form-control" placeholder="手机号" value="{{ old('tel') }}">
                 @if ($errors->has('tel'))
                     <span class="text-danger">
                         <strong>{{ $errors->first('tel') }}</strong>
@@ -123,9 +123,6 @@
         captcha.attr('src', url);
     });
 
-    //检测用户名唯一性
-
-
     //隐藏错误信息
     $('input').focus(function(event) {
         $(this).next().children().html('');
@@ -171,6 +168,7 @@
             },
             tel: {
                 required: true,
+                digits: true,
                 minlength: 11,
                 maxlength: 11
             },
@@ -197,6 +195,7 @@
             },
             tel: {
                 required: "请输入您的手机号码",
+                digits: "格式有误",
                 minlength:"请输入正确的手机号码",
                 maxlength: "请输入正确的手机号码"
             },
@@ -211,7 +210,7 @@
         var create = $('#username');
         username = $('#username').val();
         $.ajax({
-            type:"POST",
+            type: 'POST',
             url: '/ajax/user/register',
             dataType: 'json',
             data: {username: username, _token: "{{ csrf_token() }}"},

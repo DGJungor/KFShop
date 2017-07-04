@@ -3,3 +3,7 @@
 @section('title')
     管理员首页
 @endsection
+
+@section('content')
+
+@endsection

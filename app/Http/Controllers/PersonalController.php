@@ -14,4 +14,10 @@ class PersonalController extends Controller
     {
         return view('web.personal.index');
     }
+
+    //
+    public function showAddress()
+    {
+        return view('web.personal.address');
+    }
 }

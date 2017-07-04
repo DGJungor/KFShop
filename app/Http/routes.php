@@ -42,23 +42,27 @@ Route::resource('goods_list', 'GoodsListController');
 Route::get('details', 'HomeController@details');
 
 // 前台登录页面
-Route::get('/login', "LoginController@index");
+Route::get('/login', 'LoginController@index');
 // 执行登录
-Route::post('/login', "LoginController@login");
+Route::post('/login', 'LoginController@login');
 
 // 退出登录
-Route::get('/logout', "LoginController@logout");
+Route::get('/logout', 'LoginController@logout');
 
 // 注册页面
-Route::get('/register', "RegisterController@index");
+Route::get('/register', 'RegisterController@index');
 // 执行注册
-Route::post('/register', "RegisterController@register");
+Route::post('/register', 'RegisterController@register');
 //邮箱验证
-Route::get('/service/validate_email', "ValidateController@validateEmail");
+Route::get('/service/validate_email', 'Service\ValidateController@validateEmail');
 
 //个人中心
 Route::group(['prefix' => 'user'], function () {
-    Route::get('/', "PersonalController@index");
+    Route::get('/', 'PersonalController@index');
+    //个人资料
+    Route::get('/personal', 'PersonalController@index');
+    //收货地址
+    Route::get('/address', 'PersonalController@showAddress');
 
     //个人中心订单  --Jun
 	Route::resource('orders','UserOrdersController');
@@ -114,6 +118,8 @@ Route::get('admin/logout', 'Admin\LoginController@logout');
 
     //后台管理员路由
     Route::resource('admins', 'AdminController');
+    //ajax管理员唯一性验证
+    Route::post('ajax/checkName', 'AdminController@checkName');
 
     //后台评论路由
     Route::resource('comment', 'CommentController');
