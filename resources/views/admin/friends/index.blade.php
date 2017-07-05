@@ -62,6 +62,11 @@
 
            <div class="ibox-content">
                 <div class="table-responsive">
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                      <table class="table table-striped table-bordered table-hover dataTables-example dataTable"
                    id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info">
                         <thead>

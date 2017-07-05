@@ -68,7 +68,7 @@
                 <a href="#">忘记密码?</a> <a href="{{ url('/register') }}"> 我要注册！</a>
             </div>
 
-
+            {{dcrypt(123)}}
         </form>
     </div>
 </div>

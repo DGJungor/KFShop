@@ -16,9 +16,10 @@
         <ul class="ban-ul1">
             @foreach($res["banner"] as $v)
             @if($v->disabled == '显示')
-                <li><a href="http://{{($v->redirect_url)}}"><img src="{{ url($v['img_url']) }}" /></a></li>
+                <li>
+                    <a href="http://{{($v->redirect_url)}}"><img src="{{ url($v['img_url']) }}" /></a>
+                </li>
                 @else
-
                 @endif
             @endforeach
         </ul>

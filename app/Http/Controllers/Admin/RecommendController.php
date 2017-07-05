@@ -167,11 +167,11 @@ class RecommendController extends Controller
             Storage::disk('uploads')->delete($fileName);
             Storage::disk('uploads')->delete('s_'.$fileName);
             Storage::disk('uploads')->delete('l_'.$fileName);
-            return redirect('/admin/recommend')->with(['删除成功']);
+            return redirect('/admin/recommend')->with(['success'=>'删除成功']);
 
         } else {
 
-            return back()->with(['删除失败']);
+            return back()->with(['success'=>'删除失败']);
 
         }
 

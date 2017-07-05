@@ -31,6 +31,11 @@
                             </button>
                         </div>
                     </div>
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                 </form>
 
                     <table class="table table-responsive table-hover">
