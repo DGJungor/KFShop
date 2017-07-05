@@ -40,7 +40,7 @@ Route::resource('orders','OrdersController');
 Route::resource('pay','PayController');
 
 //商品列表页
-Route::resource('goods_list', 'GoodsListController');
+Route::get('goods_list/{types}', 'GoodsListController@goodsList');
 //商品详情页
 Route::get('details', 'HomeController@details');
 

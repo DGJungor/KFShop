@@ -31,9 +31,15 @@
                             </a>
                         </div>
                     </div>
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
 
                     <form action="/admin/recommend/{{$data->id}}" method="POST">
                         {{ csrf_field() }}
+
                         <input type="hidden" name="_method" value="PUT">
                     <div class="col-xs-4">
                             <div class="form-group">

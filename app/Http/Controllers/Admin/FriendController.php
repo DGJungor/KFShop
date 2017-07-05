@@ -99,23 +99,7 @@ class FriendController extends Controller
      */
     public function store(Request $request)
     {
-//       dump($request->all());
 
-//        $this->validate($request, [
-//            'name' => 'required|min:1|max:30',
-//            'url' => 'required',
-//
-//        ], [
-//            'required' => ':attribute 是必填字段',
-//            'min' => ':attribute 必须不少于3个字符',
-//            'max' => ':attribute 必须少于30个字符',
-//
-//        ], [
-//                'name' => '友情链接名称',
-//                'url' => '链接地址',
-//
-//            ]
-//        );
         $data = new Friend();
         $data->name = $request->input('name');
         if($request->input('url')!= ''){
@@ -133,7 +117,7 @@ class FriendController extends Controller
             $data->image=$filePath.$fileName;
         }
         $data->save();
-        return redirect()->to('admin/friends')->withSuccess('新增轮播图成功！');
+        return redirect()->to('admin/friends')->withSuccess('新增友情链接成功！');
 
 
     }
@@ -150,11 +134,11 @@ class FriendController extends Controller
 
             Storage::disk('uploads')->delete($fileName);
             Storage::disk('uploads')->delete('x_'.$fileName);
-            return redirect('/admin/friends')->with(['删除成功']);
+            return redirect('/admin/friends')->with(['success'=>'删除成功']);
 
         } else {
 
-            return back()->with(['删除失败']);
+            return back()->with(['success'=>'删除失败']);
 
         }
 

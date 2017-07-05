@@ -30,7 +30,11 @@
                                
                             </div>
                             <div class="ibox-content">
-
+                                @if (session('success'))
+                                    <div class="alert alert-success">
+                                        {{ session('success') }}
+                                    </div>
+                                @endif
                                 <form method="POST" action="/admin/friends/{{$dataObj->id}}" class="form-horizontal">
                                     {{ csrf_field() }}
                                     <input type="hidden" name="_method" value="PUT">

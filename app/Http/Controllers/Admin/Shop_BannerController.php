@@ -58,7 +58,7 @@ class Shop_BannerController extends Controller
             $data->img_url=$filePath.$fileName;
         }
         $data->save();
-        return redirect()->to('admin/shop_banner')->withSuccess('新增轮播图成功！');
+        return redirect()->to('admin/shop_banner')->with(['success'=>'新增轮播图成功！']);
     }
 
     /**
@@ -84,7 +84,7 @@ class Shop_BannerController extends Controller
         if($data){
             return view('admin.shop_banner.edit')->with(['data'=>$data]);
         }else{
-            return redirect()->to('admin/shop_banner')->withErrors('对应的轮播图不存在!');
+            return redirect()->to('admin/shop_banner')->with(['success'=>'对应的轮播图不存在!']);
         }
     }
 
@@ -115,7 +115,7 @@ class Shop_BannerController extends Controller
             $data->img_url=$filePath . $fileName;
         }
         $data->save();
-        return redirect()->to('admin/shop_banner')->withSuccess('修改轮播图成功!');
+        return redirect()->to('admin/shop_banner')->with(['success'=>'修改轮播图成功!']);
     }
 
     /**

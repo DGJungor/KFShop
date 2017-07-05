@@ -40,6 +40,11 @@
             </div>
         </div>
         <div class="col-lg-9 animated fadeInRight">
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
             <div class="row">
                 <div class="col-lg-12">
                     {{--this--}}
