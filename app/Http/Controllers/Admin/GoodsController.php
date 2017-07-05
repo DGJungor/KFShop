@@ -20,7 +20,7 @@ class GoodsController extends Controller
     public function index()
     {
         $dataObj = Good::paginate(6);
-        $state = ['0'=>'下架','1'=>'在售'];
+        $state = ['0'=>'在售','1'=>'下架'];
         return view('admin.goods.index', compact(['dataObj','state']));
     }
 
@@ -54,9 +54,7 @@ class GoodsController extends Controller
             //     $realPath = $file->getRealPath();   //临时文件的绝对路径
             //     $type = $file->getClientMimeType();     // image/jpeg
                 $filename = date('Y-m-d-H-i-s') . '-' . uniqid() .'.'. $ext;
-                Image::make( Input::file('picname'))->save('uploads/goods/'.$filename)
-                                                    ->resize(130, 130)->save('uploads/goods/m'.$filename)
-                                                    ->resize(359, 351)->save('uploads/goods/xl_'.$filename);
+                Image::make( Input::file('picname'))->save('uploads/goods/'.$filename);
 
                 if($request->other>0){
                     $typeid = $request->other;
@@ -71,6 +69,7 @@ class GoodsController extends Controller
                 } elseif ($request->typeid>0) {
                     $typeid = $request->typeid;
                 }
+                \DB::beginTransaction();
 
                 $row = \DB::table('data_goods')->insertGetId([
                     'goodname'=>$request->goodname,
@@ -84,21 +83,34 @@ class GoodsController extends Controller
                     'makein'=>$request->makein,
                     'state'=>$request->state,
                 ]);
+                if($row < 0){
+                    \DB::rollBack();
+                }
+                $num = \DB::table('data_goods_details')->insert([
+                    'goods_id' => $row,
+                    'listname' => implode(',' , $request->file),
+                    'picname' => implode(',' , $request->file_detail),
+                    'details' => $request->describe,
 
-                if (!empty($row)) {
-                    $row = \DB::table('data_goods_details')->insertGetId([
-                        'goods_id' => $row,
-                        'picname' => implode(',' , $request->file_detail),
-                        'details' => $request->describe,
+                ]);
+                if($num < 0){
+                    \DB::rollBack();
+                }
+                \DB::commit();
 
-                    ]);
+                if ($num > 0) {
+
                    return redirect('/admin/goods')->with(['success' => '添加商品成功！']);
+
+                }else{
+
+                    return back()->with(['success' => '添加失败！']);
 
                 }
                 // endif 文件上传没成功
             } else {
 
-                return back()->with(['success' => '添加失败！,上传图片出错']);
+                return back()->with(['success' => '添加失败！上传图片出错']);
             }
             //end if 不是post请求
         } else{
@@ -119,6 +131,7 @@ class GoodsController extends Controller
         $listObj = \DB::table('data_goods_details')->where('goods_id', $id)->get();
         // dd($dataObj->picname);
         $listObj[0]->picname = explode(',', $listObj[0]->picname);
+        $listObj[0]->listname = explode(',', $listObj[0]->listname);
         // dd($listObj[0]);
         return view('admin.goods.show', compact('dataObj', 'listObj'));
     }
@@ -132,8 +145,12 @@ class GoodsController extends Controller
     public function edit($id)
     {
         $dataObj = Good::find($id);
-        // dd($dataObj);
-        return view('admin.goods.edit', compact('dataObj'));
+        $listObj = \DB::table('data_goods_details')->where('goods_id', $id)->get();
+        // dd($dataObj->picname);
+        $listObj[0]->picname = explode(',', $listObj[0]->picname);
+        $listObj[0]->listname = explode(',', $listObj[0]->listname);
+        // dd($listObj[0]);
+        return view('admin.goods.edit', compact('dataObj', 'listObj'));
     }
 
     /**
@@ -145,12 +162,28 @@ class GoodsController extends Controller
      */
     public function update(Request $request, $id)
     {
-//        dd($request->all());
-        if (Good::where('id','=',$id)->update([
+        $file = $request->file('picname');
+        if ( $file ) {
+        // 文件是否上传成功
+        // 获取文件相关信息
+        //     $originalName = $file->getClientOriginalName(); // 文件原名
+            $ext = $file->getClientOriginalExtension();     // 扩展名
+        //     $realPath = $file->getRealPath();   //临时文件的绝对路径
+        //     $type = $file->getClientMimeType();     // image/jpeg
+            $filename = date('Y-m-d-H-i-s') . '-' . uniqid() .'.'. $ext;
+            Image::make( Input::file('picname'))->save('uploads/goods/'.$filename);
+            @unlink('uploads/goods/'.$request->picpic);
+        }else{
+
+            $filename = $request->picpic;
+        }
+
+        if (Good::where('id', $id)->update([
             'goodname'=>$request->goodname,
             'typeid' =>$request->typeid,
             'buy'=>$request->buy,
             'price'=>$request->price,
+            'picname'=>$filename,
             'inventory'=>$request->inventory,
             'brand'=>$request->brand,
             'suit'=>$request->suit,
@@ -158,10 +191,18 @@ class GoodsController extends Controller
             'state'=>$request->state,
             ]))
         {
-            return redirect('/admin/goods')->with(['success' => '修改成功！']);
+            $row = \DB::table('data_goods_details')->where('goods_id', $id)->update(['details' => $request->area,
+                'picname' => implode(',' , $request->file),
+                'listname' => implode(',' , $request->file_detail),
+            ]);
+            if($row > 0){
+                return redirect('/admin/goods')->with(['success' => '修改成功！']);
+            }
+
         } else {
             return back()->with(['success' => '修改失败！']);
         }
+
     }
 
     /**
@@ -172,7 +213,20 @@ class GoodsController extends Controller
      */
     public function destroy($id)
     {
-        if(Good::destroy($id)){
+        $dataObj = Good::find($id);
+        @unlink('uploads/goods/'.$dataObj->picname);
+        $listObj = \DB::table('data_goods_details')->where('goods_id', $id)->get();
+        $listObj[0]->picname = explode(',', $listObj[0]->picname);
+        $listObj[0]->listname = explode(',', $listObj[0]->listname);
+        foreach($listObj[0]->picname as $val){
+            @unlink('uploads/goods/'.$val);
+        }
+        foreach($listObj[0]->listname as $val){
+            @unlink('uploads/goods/'.$val);
+        }
+
+
+        if(Good::destroy($id) && \DB::table('data_goods_details')->where('goods_id', $id)->delete()){
             return redirect('/admin/goods')->with(['success' => '删除成功！']);
         } else{
             return back()->with(['success' => '删除失败']);
@@ -205,5 +259,16 @@ class GoodsController extends Controller
         // $img = Image::make('public/')->resize(300, 200);
         return $filename;
         // return $filename;
+    }
+
+    public function del(Request $request)
+    {
+        $filename = $request->name;
+        $bool = @unlink('uploads/goods/'.$filename);
+        if($bool){
+            return 1;
+        }else{
+            return 2;
+        }
     }
 }

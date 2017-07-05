@@ -77,12 +77,12 @@
             @foreach( $list as $v )
             <div class="info-mid">
                 <div class="mid-tu f-l">
-                    <a href="#"><img src="{{url( '/uploads/goods/m')}}{{$v['picname']}}"></a>
+                    <a href="#"><img width="130" height="130" src="{{url( '/uploads/goods/')}}/{{$v['picname']}}"></a>
                 </div>
                 <div class="mid-font f-l" style="margin-right:40px;">
                     <a href="#">{{ $v['name'] }}</a>
                     <br>
-                    --------------------------------------------------------------------
+                    ------------------------------------------------------------------------
                 </div>
                 <div class="mid-guige1 f-l" style="margin-right:40px;">
                     <p>默认</p>

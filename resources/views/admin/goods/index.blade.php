@@ -41,10 +41,9 @@
                                 <th>单价</th>
                                 <th>库存</th>
                                 <th>商品图片</th>
-                                <th>适用人群</th>
                                 <th>品牌</th>
                                 <th>生产地</th>
-                                <th>上架时间</th>
+                                <th>适用人群</th>
                                 <th>操作</th>
                             </tr>
                         </thead>
@@ -61,9 +60,8 @@
                                 <td>{{$v['inventory']}}</td>
                                 <td><img width="120" height="100" src="{{ asset('uploads/goods/') }}/{{ $v['picname'] }}"></td>
                                 <td>{{$v['brand']}}</td>
-                                <td>{{$v['suit']}}</td>
                                 <td>{{$v['makein']}}</td>
-                                <td>{{$v['created_at']}}</td>
+                                <td>{{$v['suit']}}</td>
                                 <td>
                                     <form action="goods/{{$v['id']}}" method="POST">
                                         <a href="goods/{{$v['id']}}">

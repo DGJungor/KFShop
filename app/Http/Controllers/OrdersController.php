@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use \Exception;
@@ -41,7 +42,7 @@ class OrdersController extends Controller
 		//模拟数据
 
 		//用户id
-		$uid = 123;
+		$uid = 6866;
 
 //=====================================================
 
@@ -99,9 +100,10 @@ class OrdersController extends Controller
 					$v['price'] = $newPrice[0]->{'price'};
 					$total      += ($v['qty'] * $v['price']);
 				}
-//			dump($list);
+
 
 			}
+//			dd($list);
 			return view('web.orders.create',
 				[
 					'list'    => $list,
@@ -138,7 +140,7 @@ class OrdersController extends Controller
 
 		//获取商品列表
 		$ordersList = json_decode($request->ordersList);
-//		dump($ordersList);
+//		dd($ordersList);
 //		//获取订单号
 //		$guid = $request->guid;
 
@@ -191,7 +193,7 @@ class OrdersController extends Controller
 
 			//提交事务
 			DB::commit();
-			return view('web.pay.index',[
+			return view('web.pay.index', [
 				'guid' => $guid
 			]);
 		} catch (Exception $e) {
@@ -246,5 +248,46 @@ class OrdersController extends Controller
 	public function destroy($id)
 	{
 		//
+	}
+
+	public function buynow(Collection $collection, Request $request, Cart $cart, $id, $num)
+	{
+//=============================================================================
+//
+		$uid = 6866;
+//
+//
+//
+//
+//==============================================================================
+
+
+
+
+		//获取用户收货地址信息
+		$address = \DB::table('data_address')->where('uid', $uid)->get();
+
+		//查询商品信息
+		$goodData = \DB::table('data_goods')->where('id', $id)->get();
+
+		//将商品信息重新赋值
+		$list['buynow']['id'] = $goodData[0]->{'id'};
+		$list['buynow']['name'] = $goodData[0]->{'goodname'};
+		$list['buynow']['picname'] = $goodData[0]->{'picname'};
+		$list['buynow']['price'] = $goodData[0]->{'price'};
+		$list['buynow']['qty'] = $num;
+
+		//计算总价格
+		$total= $list['buynow']['qty']*$list['buynow']['price'];
+
+		return view('web.orders.create',
+			[
+				'list'    => $list,
+//					'guid'    => $guid,
+				'total'   => $total,
+				'address' => $address
+
+			]);
+
 	}
 }

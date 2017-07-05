@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Overtrue\LaravelShoppingCart\Cart;
 
@@ -27,12 +28,17 @@ class CartController extends Controller
 		$store->start();
 //=====================================================================================
 		//模拟添加购物车
-//		$cart->add(37, 'Item name', 5, 100.00, ['color' => 'red', 'size' => 'M', 'picname' =>'2017-06-23-20-48-41-594d0e2959cee.jpg']);
-//		$cart->add(127, 'foobar', 15, 100.00, ['color' => 'green', 'size' => 'S','picname' =>'2017-06-23-20-48-41-594d0e2959cee.jpg']);
+		$cart->clean();
+		$cart->add(1, 'Item name', 5, 100.00, ['color' => 'red', 'size' => 'M', 'picname' =>'2017-06-27-01-21-08-595142844f4a3.jpg']);
+		$cart->add(2, 'foobar', 15, 100.00, ['color' => 'green', 'size' => 'S','picname' =>'2017-06-27-01-28-37-5951444547728.jpg']);
 //		$cart->add(17, 'foobar', 15, 100.00, ['color' => 'green', 'size' => 'S','picname' =>'2017-06-23-20-48-41-594d0e2959cee.jpg']);
-//    	$store->save();
+    	$store->save();
 //		$cart->clean();
 //======================================================================================
+
+		$user = Auth::user();
+		dump($user);
+
 		//从session中获得
 		$session = $request->session()->get('cart');
 
@@ -187,6 +193,7 @@ class CartController extends Controller
 		$store->start();
 		$cart->add($id, $goodData[0]->{'goodname'}, $num, $goodData[0]->{'price'}, ['picname' =>$goodData[0]->{'picname'}]);
 		$store->save();
+		return view('web.cart.succeed');
 
 	}
 }

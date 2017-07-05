@@ -30,6 +30,9 @@ Route::resource('feedback','FeedbackController');
 //前台评论
 Route::resource('comment', 'CommentController');
 
+//立即购买订单路由 --Jun
+Route::get('buynow/{id}/{num}','OrdersController@buynow');
+
 //前台订单路由  --jun
 Route::resource('orders','OrdersController');
 
@@ -40,7 +43,7 @@ Route::resource('pay','PayController');
 Route::get('goods_list/{types}', 'GoodsListController@goodsList');
 Route::post('goods_list/ajax', 'GoodsListController@ajax');
 //商品详情页
-Route::get('details', 'HomeController@details');
+Route::get('details/{id}', 'HomeController@details');
 
 // 前台登录页面
 Route::get('/login', 'LoginController@index');
@@ -65,10 +68,15 @@ Route::group(['middleware' => 'auth','prefix' => 'user'], function () {
     //收货地址
     Route::get('/address', 'PersonalController@showAddress');
 
-    //个人中心订单  --Jun
-	Route::resource('orders','UserOrdersController');
+
 
 });
+
+
+//个人中心订单  --Jun
+Route::resource('/user/orders','UserOrdersController');
+
+
 
 //前台注册用户名Ajax请求
 Route::post('/ajax/user/register', 'RegisterController@checkName');
@@ -96,6 +104,8 @@ Route::get('admin/logout', 'Admin\LoginController@logout');
 
     //ajax请求数据
     Route::post('goods/ajax', 'GoodsController@ajax');
+
+    Route::post('goods/del', 'GoodsController@del');
 
     //上传图片插件请求
 	Route::post('goods/upload', 'GoodsController@upload');
