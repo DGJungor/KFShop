@@ -51,15 +51,15 @@
                         <input type="checkbox" value="{{ $v['__raw_id'] }}" name="hobby[]" class="mid-ipt f-l">
                         <input type="hidden" value="{{ $v['total'] }}" class="onesum">
                         {{--<script>--}}
-                            {{--$(function (){--}}
-                                {{--if (this.checked) {--}}
-                                    {{--var sum = $('.mid-ipt').next().val();--}}
-                                    {{--alert(sum);--}}
-                                {{--}else {--}}
-                                    {{--var sum = $('.mid-ipt').next().val();--}}
-                                    {{--alert(sum);--}}
-                                {{--}--}}
-                            {{--});--}}
+                        {{--$(function (){--}}
+                        {{--if (this.checked) {--}}
+                        {{--var sum = $('.mid-ipt').next().val();--}}
+                        {{--alert(sum);--}}
+                        {{--}else {--}}
+                        {{--var sum = $('.mid-ipt').next().val();--}}
+                        {{--alert(sum);--}}
+                        {{--}--}}
+                        {{--});--}}
                         {{--</script>--}}
                         <div class="mid-tu f-l">
                             <a href="#"><img src="{{url( '/uploads/goods/m')}}{{$v['picname']}}"/></a>
@@ -209,10 +209,22 @@
     <script>
 
 
-        //点击任何一个多选框 计算 选中框价格和
-        $('.mid-ipt').on("click",function () {
+        function  setTotal() {
             var sum = 0;
-            $('.mid-ipt').each( function () {
+            $('.mid-ipt').each(function () {
+                if (this.checked) {
+                    sum += parseInt($(this).next().val());
+                } else {
+                }
+            });
+            $('#bigTotal').html(sum);
+            $('#sum').html(sum);
+        }
+
+        //点击任何一个多选框 计算 选中框价格和
+        $('.mid-ipt').on("click", function () {
+            var sum = 0;
+            $('.mid-ipt').each(function () {
                 if (this.checked) {
                     sum += parseInt($(this).next().val());
                 } else {
@@ -271,7 +283,7 @@
             var num = $(this).val();
             var price = $(this).parent().next().children().html();
 
-            if(num<1){
+            if (num < 1) {
                 num = 1;
             }
 
@@ -296,11 +308,13 @@
                 var num = $(this).next().val();
                 num--;
 
-                if(num<1){
+
+                if (num < 1) {
                     num = 1;
                 }
                 var id = $(this).next().next().val();
                 var price = $(this).parent().next().children().html();
+
 
                 $(this).next().val(num);
                 $(this).parent().next().next().children().html(num * price);
@@ -323,17 +337,21 @@
         $('.num-right').unbind('click').on(
             "click",
             function () {
-//                var that = $(this).parent().first().prop('checked');
-//                that.first().prop('checked');
                 var num = $(this).prev().prev().val();
                 num++;
 
                 var id = $(this).prev().val();
-                var price = $(this).parent().next().children().html();
+                var price = parseInt($(this).parent().next().children().html());
 
                 $(this).prev().prev().val(num);
                 $(this).parent().next().next().children().html(num * price);
-                {{--alert( {{ $cartInfo['id']->{'total'}  }});--}}
+
+
+//                $(this).parent().parent().children().first().attr("checked", true);
+
+//                var Total =  parseInt($('#bigTotal').html());
+//                Total = Total+price;
+//                $('#bigTotal').html(Total);
 
                 $.ajax({
                     type: "POST",
@@ -341,15 +359,12 @@
 
                     data: {'_token': '{{csrf_token()}}', 'id': id, 'num': num, 'type': 'add'},
                     success: function (data) {
-                        var aa = that.parent();
+
 
                     }
                 });
             }
-
         );
-
-
 
 
     </script>

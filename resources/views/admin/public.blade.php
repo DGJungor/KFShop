@@ -33,7 +33,7 @@
         @show
 
     </div>
-    @include('admin.avatar')
+    {{--@include('admin.avatar')--}}
 </body>
 
 </html>

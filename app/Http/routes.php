@@ -30,6 +30,9 @@ Route::resource('feedback','FeedbackController');
 //前台评论
 Route::resource('comment', 'CommentController');
 
+//立即购买订单路由 --Jun
+Route::get('buynow/{id}/{num}','OrdersController@buynow');
+
 //前台订单路由  --jun
 Route::resource('orders','OrdersController');
 
@@ -64,10 +67,15 @@ Route::group(['middleware' => 'auth','prefix' => 'user'], function () {
     //收货地址
     Route::get('/address', 'PersonalController@showAddress');
 
-    //个人中心订单  --Jun
-	Route::resource('orders','UserOrdersController');
+
 
 });
+
+
+//个人中心订单  --Jun
+Route::resource('/user/orders','UserOrdersController');
+
+
 
 //前台注册用户名Ajax请求
 Route::post('/ajax/user/register', 'RegisterController@checkName');
