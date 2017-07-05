@@ -38,6 +38,7 @@ Route::resource('pay','PayController');
 
 //商品列表页
 Route::get('goods_list/{types}', 'GoodsListController@goodsList');
+Route::post('goods_list/ajax', 'GoodsListController@ajax');
 //商品详情页
 Route::get('details', 'HomeController@details');
 

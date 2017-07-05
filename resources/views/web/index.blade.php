@@ -176,6 +176,7 @@ $('.over').off().on('mouseenter', function () {
                 str += '<p class="pingjia">0评价</p>';
                 str += '<p class="weike">'+data[i].brand+'</p>';
                 str += '</li>';
+
             }
             str+='</ul>';
             that.prop('data-id'+id, str);

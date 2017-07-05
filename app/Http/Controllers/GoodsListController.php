@@ -26,8 +26,32 @@ class GoodsListController extends Controller
             }
         }
         $recommend=Recommend::paginate(3);
-        $goods = \DB::table('data_goods')->where('typeid', $id)->orderBy('buy', 'desc')->paginate(8);
+        $goods = \DB::table('data_goods')->where('typeid', $id)->paginate(8);
 
         return view('web.goods.list', compact('goodslist', '', ['type', 'goods', 'children','types', 'recommend']));
-}
+    }
+
+    public function ajax(Request $request)
+    {
+        $id=$request->pid;
+        $path=$request->path;
+        if($path == 'buys'){
+
+            $datas=\DB::table('data_goods')->where('typeid',$id)->orderBy('buy','asc')->limit(8)->get();
+
+        }
+        elseif($path == 'prices'){
+
+            $datas=\DB::table('data_goods')->where('typeid',$id)->orderBy('price','asc')->limit(8)->get();
+
+        }
+
+
+
+        return $datas;
+
+
+    }
+
+
 }
