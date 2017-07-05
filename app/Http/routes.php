@@ -42,7 +42,7 @@ Route::resource('pay','PayController');
 //商品列表页
 Route::get('goods_list/{types}', 'GoodsListController@goodsList');
 //商品详情页
-Route::get('details', 'HomeController@details');
+Route::get('details/{id}', 'HomeController@details');
 
 // 前台登录页面
 Route::get('/login', 'LoginController@index');
@@ -103,6 +103,8 @@ Route::get('admin/logout', 'Admin\LoginController@logout');
 
     //ajax请求数据
     Route::post('goods/ajax', 'GoodsController@ajax');
+
+    Route::post('goods/del', 'GoodsController@del');
 
     //上传图片插件请求
 	Route::post('goods/upload', 'GoodsController@upload');

@@ -71,8 +71,8 @@
         <ul class="title1-ul1 f-r">
             @foreach($v->children as $val)
                 @foreach($val->grandchild as $va)
-                <li class="over" data-id={{ $va->id }}>
-                    <a href="JavaScript:;">
+                <li class="over">
+                    <a href="JavaScript:;" data-id={{ $va->id }}>
                         {{ $va->name }}
                     </a>
                 </li>
@@ -95,34 +95,36 @@
                 @endforeach
             </div>
         </div>
-        <ul class="sp-info-r f-r">
-            @foreach($v->goods as $va)
-            <li>
-                <div class="li-top">
-                    <a href="#" class="li-top-tu"><img width="95" height="110" src="{{ url('uploads/goods')}}/{{ $va->picname }}" /></a>
-                    <p class="jiage"><span class="sp1">￥{{$va->price}}</span><span class="sp2">￥{{$va->inventory}}</span></p>
-                </div>
-                <p class="miaoshu">{{ $va->goodname }}</p>
-                <div class="li-md">
-                    <div class="md-l f-l">
-                        <p class="md-l-l f-l" ap="">1</p>
-                        <div class="md-l-r f-l">
-                            <a href="JavaScript:;" class="md-xs" at="">∧</a>
-                            <a href="JavaScript:;" class="md-xx" ab="">∨</a>
+        <div class="charu">
+            <ul class="sp-info-r f-r">
+                @foreach($v->goods as $va)
+                <li>
+                    <div class="li-top">
+                        <a href="#" class="li-top-tu"><img width="95" height="110" src="{{ url('uploads/goods')}}/{{ $va->picname }}" /></a>
+                        <p class="jiage"><span class="sp1">￥{{$va->price}}</span><span class="sp2">￥{{$va->inventory}}</span></p>
+                    </div>
+                    <p class="miaoshu">{{ $va->goodname }}</p>
+                    <div class="li-md">
+                        <div class="md-l f-l">
+                            <p class="md-l-l f-l" ap="">1</p>
+                            <div class="md-l-r f-l">
+                                <a href="JavaScript:;" class="md-xs" at="">∧</a>
+                                <a href="JavaScript:;" class="md-xx" ab="">∨</a>
+                            </div>
+                            <div style="clear:both;"></div>
+                        </div>
+                        <div class="md-r f-l">
+                            <button class="md-l-btn1">立即购买</button>
+                            <button class="md-l-btn2">加入购物车</button>
                         </div>
                         <div style="clear:both;"></div>
                     </div>
-                    <div class="md-r f-l">
-                        <button class="md-l-btn1">立即购买</button>
-                        <button class="md-l-btn2">加入购物车</button>
-                    </div>
-                    <div style="clear:both;"></div>
-                </div>
-                <p class="pingjia">0评价</p>
-                <p class="weike">{{ $va->brand }}</p>
-            </li>
-            @endforeach
-        </ul>
+                    <p class="pingjia">0评价</p>
+                    <p class="weike">{{ $va->brand }}</p>
+                </li>
+                @endforeach
+            </ul>
+        </div>
         <div class="start" style="clear:both;"></div>
     </div>
 
@@ -135,56 +137,60 @@
 $('.kuaijie-box').css('display','block');
 $('.nav-kuaijie').removeClass('yjp-hover1');
 
-$('.over').off().on('mouseenter', function () {
+$('.over a').off().on('mouseenter', function () {
     var that = $(this);
     var id = this.getAttribute('data-id');
-    var start = that.parent().parent().next().children('.start');
-    var info = that.parent().parent().next().children('.sp-info-r');
+    var info = that.parent().parent().parent().next().children('.charu');
     // console.log(that.prop('data-id'+id));
-    info.remove();
+    info.children('.sp-info-r').remove();
     if(that.prop('data-id'+id)){
 
-        start.before(that.prop('data-id'+id));
+        info.append(that.prop('data-id'+id));
         return;
-    }
-    $.ajax({
-        type : 'post',
+    }else{
 
-        url: '{{ url('/ajax') }}',
 
-        dataType: 'json',
+        $.ajax({
+            type : 'post',
 
-        data : { '_token':'{{csrf_token()}}', 'pid':id },
+            url: '{{ url('/ajax') }}',
 
-        success:function (data) {
+            dataType: 'json',
 
-            var str = '<ul class="sp-info-r f-r">';
-            // info.remove();
-            for (var i = 0; i < data.length; i++) {
-                str +='<li><div class="li-top"><a href="#" class="li-top-tu"><img width="95" height="110" src="{{ url('uploads/goods')}}/'+data[i].picname+'"></a>';
-                str +='<p class="jiage"><span class="sp1">￥'+data[i].price+'</span><span class="sp2">￥'+data[i].inventory+'</span></p>';
-                str += '</div><p class="miaoshu">'+data[i].goodname+'</p>';
-                str += '<div class="li-md"><div class="md-l f-l"><p class="md-l-l f-l" ap="">1</p><div class="md-l-r f-l">';
-                str += '<a href="JavaScript:;" class="md-xs" at="">∧</a>';
-                str += '<a href="JavaScript:;" class="md-xx" ab="">∨</a>';
+            data : { '_token':'{{csrf_token()}}', 'pid':id },
 
-                str += '</div><div style="clear:both;"></div></div>';
-                str += '<div class="md-r f-l">';
-                str += '<button class="md-l-btn1">立即购买</button>';
-                str += '<button class="md-l-btn2">加入购物车</button>';
-                str += '</div><div style="clear:both;"></div></div>';
-                str += '<p class="pingjia">0评价</p>';
-                str += '<p class="weike">'+data[i].brand+'</p>';
-                str += '</li>';
+            success:function (data) {
+
+                var str = '<ul class="sp-info-r f-r">';
+                // info.remove();
+                for (var i = 0; i < data.length; i++) {
+                    str +='<li><div class="li-top"><a href="#" class="li-top-tu"><img width="95" height="110" src="{{ url('uploads/goods')}}/'+data[i].picname+'"></a>';
+                    str +='<p class="jiage"><span class="sp1">￥'+data[i].price+'</span><span class="sp2">￥'+data[i].inventory+'</span></p>';
+                    str += '</div><p class="miaoshu">'+data[i].goodname+'</p>';
+                    str += '<div class="li-md"><div class="md-l f-l"><p class="md-l-l f-l" ap="">1</p><div class="md-l-r f-l">';
+                    str += '<a href="JavaScript:;" class="md-xs" at="">∧</a>';
+                    str += '<a href="JavaScript:;" class="md-xx" ab="">∨</a>';
+
+                    str += '</div><div style="clear:both;"></div></div>';
+                    str += '<div class="md-r f-l">';
+                    str += '<button class="md-l-btn1">立即购买</button>';
+                    str += '<button class="md-l-btn2">加入购物车</button>';
+                    str += '</div><div style="clear:both;"></div></div>';
+                    str += '<p class="pingjia">0评价</p>';
+                    str += '<p class="weike">'+data[i].brand+'</p>';
+                    str += '</li>';
+                }
+                str+='</ul>';
+                that.prop('data-id'+id, str);
+                // console.log(a);
+                // console.log(that.prop('data-id'+id));
+
+                // info.next().remove();
+                info.children('.sp-info-r').remove();
+                info.append(str);
             }
-            str+='</ul>';
-            that.prop('data-id'+id, str);
-            // console.log(a);
-            // console.log(that.prop('data-id'+id));
-
-            start.before(str);
-        }
-    });
+        });
+    }
 });
 
 </script>

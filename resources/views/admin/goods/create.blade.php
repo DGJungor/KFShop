@@ -99,10 +99,18 @@ body {
                     </div>
                     <div class="hr-line-dashed"></div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">列表图片上传</label>
+                        <label class="col-sm-2 control-label">封面图片上传</label>
 
                         <div class="col-sm-10">
                             <input name="picname" type="file">
+                        </div>
+                    </div>
+                    <div class="hr-line-dashed"></div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">列表详情上传</label>
+                        <div class="col-sm-10 ify-data">
+                            <div id="queues"></div>
+                            <input id="file_uploads" name="file_upload" type="file" multiple="true">
                         </div>
                     </div>
                     <div class="hr-line-dashed"></div>
@@ -117,7 +125,7 @@ body {
                     <div class="form-group">
                         <label class="col-sm-2 control-label">商品状态</label>
                         <div class="col-sm-10">
-                            <input type="radio" value="0" name="state"><i>在售</i>
+                            <input type="radio" value="0" name="state" checked><i>在售</i>
                             <input type="radio" value="1" name="state"><i>下架</i>
                         </div>
                     </div>
@@ -265,7 +273,7 @@ $.ajax({
             height: 30, // 上传按钮高度
             // //buttonImage: "{{asset('org/uploadify/browse-btn.png')}}", // 上传按钮背景图片地址
             fileTypeDesc: 'Image File', // 选择文件对话框中图片类型提示文字
-            fileTypeExts: '*.jpg;*.jpeg;*.png', // 选择文件对话框中允许选择的文件类型
+            fileTypeExts: '*.jpg;*.jpeg;*.png;*.gif', // 选择文件对话框中允许选择的文件类型
              // Laravel表单提交必需参数_token，防止CSRF
             queueSizeLimit: 5,
             //没有兼容的FLASH时触发
@@ -275,6 +283,28 @@ $.ajax({
                 console.log(data);
                 var hidden='<input type="hidden" name="file_detail[]" value="'+data+'" readonly />';
                 $('#queue').append(hidden);
+            }
+        });
+    $('#file_uploads').uploadify({
+            swf      : "{{ asset('style/css/uploadify.swf') }}", // 引入Uploadify 的核心Flash文件
+            uploader : "{{ url('admin/goods/upload') }}", // PHP脚本地址
+            formData : {'_token': '{{csrf_token()}}'},
+            method   : 'post',
+            // buttonText: '上传'//按钮显示的文字
+            width: 120, // 上传按钮宽度
+            height: 30, // 上传按钮高度
+            // //buttonImage: "{{asset('org/uploadify/browse-btn.png')}}", // 上传按钮背景图片地址
+            fileTypeDesc: 'Image File', // 选择文件对话框中图片类型提示文字
+            fileTypeExts: '*.jpg;*.jpeg;*.png;*.gif', // 选择文件对话框中允许选择的文件类型
+             // Laravel表单提交必需参数_token，防止CSRF
+            queueSizeLimit: 5,
+            //没有兼容的FLASH时触发
+
+            //上传文件成功后触发（每一个文件都触发一次）
+            onUploadSuccess: function (file, data, response) {
+                console.log(data);
+                var hidden='<input type="hidden" name="file[]" value="'+data+'" readonly />';
+                $('#queues').append(hidden);
             }
         });
 </script>
