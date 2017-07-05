@@ -96,6 +96,8 @@ Route::get('admin/logout', 'Admin\LoginController@logout');
     //ajax请求数据
     Route::post('goods/ajax', 'GoodsController@ajax');
 
+    Route::post('goods/del', 'GoodsController@del');
+
     //上传图片插件请求
 	Route::post('goods/upload', 'GoodsController@upload');
 

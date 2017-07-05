@@ -33,7 +33,6 @@
         @show
 
     </div>
-    @include('admin.avatar')
 </body>
 
 </html>

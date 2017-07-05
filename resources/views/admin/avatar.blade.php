@@ -1,4 +1,4 @@
-<!-- 模态框（Modal） -->
+<!-- 模态框（Modal）
 <div class="modal fade" id="avatarModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -21,6 +21,6 @@
                     </button>
                 </div>
             </form>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal -->
-</div>
+        </div>/.modal-content
+    </div>/.modal
+</div> -->

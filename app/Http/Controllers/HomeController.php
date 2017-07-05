@@ -38,6 +38,7 @@ class HomeController extends Controller
         $dataObj = Good::find($id);
         $listObj = \DB::table('data_goods_details')->where('goods_id', $id)->get();
         // dd($dataObj->picname);
+        $listObj[0]->listname = explode(',', $listObj[0]->listname);
         $listObj[0]->picname = explode(',', $listObj[0]->picname);
         // dd($listObj[0]);
         return view('web.goods.details', compact('dataObj', 'listObj'));
