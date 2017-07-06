@@ -121,7 +121,7 @@ class GoodsController extends Controller
 
     /**
      * Display the specified resource.
-     *
+     * 详情页
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
