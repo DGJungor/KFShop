@@ -21,7 +21,7 @@ $(document).ready(function() {
 	$("[kj]").click(function(event) {
 		$("[kj-sh]").toggle();
 	});
-	
+
 	$("[mg]").hover(function(){
 		$(this).addClass("hover-show-bg");
 		var  a1 = $(this).attr("mg");
@@ -76,7 +76,7 @@ $(document).ready(function() {
 		var name = $(this).attr("hover");
 		$("[hover-after="+name+"]").stop().hide();
 	});
-	
+
 	/*商家店铺页面 js 开始*/
 	$("[click]").click(function(){
 		var ck = $(this).attr("click");
@@ -92,13 +92,13 @@ $(document).ready(function() {
 	$("[delete]").click(function(event) {
 		$(".tanchuang").hide();
 	});
-	
+
 	/*我的订单(移入收藏夹)*/
 	$(".favorites .fa-left li").hover(function() {
 		$(this).addClass('current').siblings().removeClass('current');
 		$(".fa-right .fa-r-con .fa-con-uls").eq($(this).index()).show().siblings().hide();
 	});
-	
+
 	$("[uls1] li").click(function(event) {
 		$(this).addClass('current').siblings().removeClass('current');
 		var us1 = $(this).parent("[uls1]").attr("uls1");
@@ -112,7 +112,7 @@ $(document).ready(function() {
 	$("[guanbi]").click(function(){
 		$(".view-logistics").hide();
 	});
-	
+
 	/*购物车 js*/
 	$(".info-mid .mid-guige").hover(function() {
 		$(this).addClass('mid-guige2');
@@ -292,9 +292,9 @@ $(document).ready(function() {
 			$(this).prev("img").attr("src",objUrl)
 		}
 	})
-	
+
 	function gebjectURL(file) {
-		var url = null ; 
+		var url = null ;
 		if (window.createObjectURL!=undefined) { // basic
 			url = window.createObjectURL(file) ;
 		} else if (window.URL!=undefined) { // mozilla(firefox)
@@ -359,11 +359,11 @@ $(document).ready(function() {
 		$(".hover-brand").show();
 		$(".re-brand").hide();
 	});
-	
-	
-	
-	
-	
+
+
+
+
+
 	//////////////////////////////
 	/*$("input").attr("checked",false);
 	var a=0;
@@ -428,32 +428,32 @@ $(document).ready(function() {
 			}
 		}
 	});
-	
+
 	var jishuqi1=$(".cart-con-info").length;
 	var i1=i2=jishuqi1;
 	for(i=0;i<=jishuqi1;i++){
 		if($(".cart-con-info:eq("+i+")").children(".info-top").children("input").attr("checked")==false){
-			
+
 		}
 	}*/
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 });
 
 
-	
+
 
 
 
