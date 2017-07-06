@@ -47,7 +47,7 @@ class FriendController extends Controller
     {
         //找到友情链接的id
         $dataObj = Friend::find($id);
-        // dump($dataObj);
+
         //返回值给修改页面
         return view('admin.friends.edit', compact('dataObj'));
 
@@ -60,19 +60,28 @@ class FriendController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-        if (Friend::where('id', '=', $id)->update([
-            'name' => $request->name,
-            'type' => $request->type,
-            'url' => $request->url,
-            'image' => $request->image,
-            'status' => $request->status,
-        ])
-        ) {
-            return redirect('/admin/friends/edit')->with(['success' => '修改成功']);
-        } else {
-            return back()->with(['success' => '修改失败']);
+        $data = Friend::find($id);
+        $data->name = $request->input('name');
+
+        $data->type = $request->input('type');
+
+        if($request->input('url')!= ''){
+            $data->url = $request->input('url');
         }
+        $data->status=$request->input('status');
+         //判断图片是否上传
+        if($request->hasFile('file') && $request->file('file')->isValid()){
+            $filePath='/uploads/friends/';
+            $fileName=str_random(10).'.png';
+            Image::make($request->file('file'))
+                ->encode('png')
+                ->resize(50, 50)
+                ->save('.'.$filePath.$fileName);
+            $data->image=$filePath.$fileName;
+        }
+        $data->save();
+        return redirect()->to('admin/friends')->with(['success'=>'修改友情链接成功!']);
+
     }
 
     /**
@@ -81,9 +90,7 @@ class FriendController extends Controller
      */
     public function show($id)
     {
-        $post = Friend::find($id);
 
-        return view('admin.friends.show', compact('post'));
     }
 
     /**
@@ -96,10 +103,11 @@ class FriendController extends Controller
 
     /**
      *
+     *
      */
     public function store(Request $request)
     {
-
+        //友情链接创建方法
         $data = new Friend();
         $data->name = $request->input('name');
         if($request->input('url')!= ''){
@@ -117,19 +125,21 @@ class FriendController extends Controller
             $data->image=$filePath.$fileName;
         }
         $data->save();
-        return redirect()->to('admin/friends')->withSuccess('新增友情链接成功！');
+        return redirect()->to('admin/friends')->with(['success'=>'新增友情链接成功！']);
 
 
     }
 
     public function destroy($id)
     {
-
+        //获取图片存储路径
         $filePath=public_path('uploads');
+        //获取友情链接表的图片信息
         $file=DB::table('data_friend_link')->where('id', '=', $id)->select('image')->get();
+        //遍历出图片的字段
         foreach ($file as $v)
             $fileName=$v->image;
-//        dd($fileName);
+        //执行删除
         if (Friend::destroy($id)) {
 
             Storage::disk('uploads')->delete($fileName);

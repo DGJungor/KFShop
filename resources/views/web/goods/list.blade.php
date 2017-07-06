@@ -201,7 +201,7 @@
                for(var i = 0; i < data.length; i++) {
                    str += '<li style="margin-right:0;">';
                    str += '<div class="li-top">';
-                   str += '<a href="#"  target="_blank" class="li-top-tu"><img src="{{ url('uploads/goods') }}/' + data[i].picname + '" height="110" width="95" /></a>';
+                   str += '<a href="{{ url('details') }}/' + data[i].id + '"  target="_blank" class="li-top-tu"><img src="{{ url('uploads/goods') }}/' + data[i].picname + '" height="110" width="95" /></a>';
                    str += '<p class="jiage">';
                    str += '<span class="sp1">￥'+data[i].price+'</span>';
                    str += '</p>';
