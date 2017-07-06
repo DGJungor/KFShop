@@ -43,8 +43,6 @@
     <!--固定右侧-->
     @include('web.public.youce')
 
-
-    @yield('js')
 </body>
 
 </html>
