@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Pagination\BootstrapThreePresenter;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class UserOrdersController extends Controller
@@ -20,22 +21,17 @@ class UserOrdersController extends Controller
 	{
 		//
 //=====================================================================
-//  测试用的模拟数据
-//
-		$userId = 6866;
-//		dd( $bootstrap->render());
 //
 //
 //
-//	    $data =DB::table('data_orders')
-//		    ->where('user_id','=',$userId)
-//
-//		    ->count();
 //=====================================================================
-//		$renderable->render();
+
+
+		//获取用户信息
+		$user = Auth::user();
 
 		//获取用户id
-//		$userId = '';
+		$userId = $user['attributes']['id'];
 
 		//定义一个用于存放q订单详情变量
 		$userOD = null;
@@ -59,16 +55,19 @@ class UserOrdersController extends Controller
 				//待发货
 				case'2':
 					$typeCount[2] = $v->{'status'};
+
 					break;
 
 				//待收货
 				case'3':
 					$typeCount[3] = $v->{'status'};
+
 					break;
 
 				//待	评价
 				case'4':
 					$typeCount[4] = $v->{'status'};
+
 					break;
 
 				//完成
@@ -82,7 +81,7 @@ class UserOrdersController extends Controller
 
 		$userOrders = DB::table('data_orders')
 			->where('user_id', '=', $userId)
-			->orderBy('created_at', 'descdescdesc')
+			->orderBy('created_at', 'desc')
 			->paginate(5);
 
 		foreach ($userOrders as $v) {
@@ -93,30 +92,48 @@ class UserOrdersController extends Controller
 				->Leftjoin('data_goods', 'data_goods.id', '=', 'data_orders_details.goods_id')
 				->select('data_orders_details.id', 'data_orders_details.goods_id', 'data_orders_details.commodity_number', 'data_orders_details.cargo_price', 'data_goods.goodname', 'data_goods.picname')
 				->get();
+
+			//添加中文状态
+			switch ($v->{'order_status'}) {
+
+				//待付款
+				case'1':
+					$v->{'statusCH'} = '待付款';
+					break;
+
+				//待发货
+				case'2':
+					$v->{'statusCH'} = '待发货';
+					break;
+
+				//待收货
+				case'3':
+					$v->{'statusCH'} = '待收货';
+					break;
+
+				//待	评价
+				case'4':
+					$v->{'statusCH'} = '待评价';
+					break;
+
+				//完成
+				case'5':
+					$v->{'statusCH'} = '完成';
+					break;
+				default:
+					break;
+			}
+
+
 		}
 
 		//返回视图页 并发送订单数据
 		return view('web.orders.userIndex', [
+			'username'=> $user['attributes']['username'],
 			'typeCount'  => $typeCount,
 			'userOrders' => $userOrders,
 			'userOD'     => $userOD
 		]);
-
-//		//取出待付款订单
-//		$userOrders[1] = DB::table('data_orders')->where('user_id', '=', $userId)->where('order_status', '=', 1)->paginate(5);
-//
-//		//取出待发货订单
-//		$userOrders[2] = DB::table('data_orders')->where('user_id', '=', $userId)->where('order_status', '=', 2)->paginate(5);
-//
-//		//取出待收货订单
-//		$userOrders[3] = DB::table('data_orders')->where('user_id', '=', $userId)->where('order_status', '=', 3)->paginate(5);
-//
-//		//取出待评价订单
-//		$userOrders[4] = DB::table('data_orders')->where('user_id', '=', $userId)->where('order_status', '=', 4)->paginate(5);
-//
-//		//取出已完成订单
-//		$userOrders[5] = DB::table('data_orders')->where('user_id', '=', $userId)->where('order_status', '=', 5)->paginate(5);
-
 
 	}
 
@@ -172,11 +189,31 @@ class UserOrdersController extends Controller
 	 */
 	public function update(Request $request, $id)
 	{
+
+		//获取订单编号
+		$guid = $id;
+
 		//获取动作类型
 		$action =  $request->action;
-//		switch ($action){
-//
-//		}
+		switch ($action){
+
+			//将订单状态改为待评价
+			case'confirm':
+				DB::table('data_orders')
+					->where('guid', $guid)
+					->update(['order_status' => 4]);
+				break;
+
+			case 'obligation':
+				return view('web.pay.index', [
+					'guid' => $guid
+				]);
+				break;
+
+			default:
+				break;
+
+		}
 
 	}
 

@@ -37,7 +37,7 @@
                         <small></small>
                     </h5>
                     <div class="ibox-tools">
-                       {{--框框右上角--}}
+                        {{--框框右上角--}}
 
                     </div>
                 </div>
@@ -45,21 +45,25 @@
 
                     <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper form-inline" role="grid">
                         <div class="row">
-                            <div class="col-sm-6">
-                                <div class="dataTables_length" id="DataTables_Table_0_length"><label>每页 <select
-                                                name="DataTables_Table_0_length" aria-controls="DataTables_Table_0"
-                                                class="form-control input-sm">
-                                            <option value="10">10</option>
-                                            <option value="25">25</option>
-                                            <option value="50">50</option>
-                                            <option value="100">100</option>
-                                        </select> 条记录</label></div>
-                            </div>
-                            <div class="col-sm-6">
-                                <div id="DataTables_Table_0_filter" class="dataTables_filter"><label>查找：<input
-                                                class="form-control input-sm" aria-controls="DataTables_Table_0"
-                                                type="search"></label></div>
-                            </div>
+                            {{--<div class="col-sm-6">--}}
+                                {{----}}
+                                {{--<div class="dataTables_length" id="DataTables_Table_0_length"><label>每页 <select--}}
+                                                {{--name="DataTables_Table_0_length" aria-controls="DataTables_Table_0"--}}
+                                                {{--class="form-control input-sm">--}}
+                                            {{--<option value="10">10</option>--}}
+                                            {{--<option value="25">25</option>--}}
+                                            {{--<option value="50">50</option>--}}
+                                            {{--<option value="100">100</option>--}}
+                                        {{--</select> 条记录</label></div>--}}
+                            {{--</div>--}}
+                            {{----}}
+                            {{--<div class="col-sm-6">--}}
+                                {{--<div id="DataTables_Table_0_filter" class="dataTables_filter"><label>查找：<input--}}
+                                                {{--class="form-control input-sm" aria-controls="DataTables_Table_0"--}}
+                                                {{--type="search"></label></div>--}}
+                            {{--</div>--}}
+
+
                         </div>
                         <table class="table table-striped table-bordered table-hover dataTables-example dataTable"
                                id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info">
@@ -73,7 +77,7 @@
                                     colspan="1" style="width: 245px;">用户ID
                                 </th>
                                 <th rowspan="1"
-                                    colspan="1" style="width: 215px;">支付交易号
+                                    colspan="1" style="width: 215px;">支付方式
                                 </th>
                                 <th rowspan="1"
                                     colspan="1" style="width: 134px;">金额
@@ -85,7 +89,7 @@
                                     colspan="1" style="width: 128px;">订单状态
                                 </th>
                                 <th rowspan="1"
-                                    colspan="1" style="width: 200px;">操作
+                                    colspan="1" style="width: 220px;">操作
                                 </th>
                             </tr>
                             </thead>
@@ -118,11 +122,11 @@
 									default:
 										$status = '未知状态';
 								}
-								if($v->order_status!=2){
-									$but_status='disabled="disabled"';
-                                }else{
-									$but_status='';
-                                }
+								if ($v->order_status != 2) {
+									$but_status = 'disabled="disabled"';
+								} else {
+									$but_status = '';
+								}
 
 
 								?>
@@ -135,8 +139,8 @@
                                         @endif
                                         <td class="sorting_1">{{ $v->guid }}</td>
                                         <td class=" ">{{$v->user_id}}</td>
-                                        <td class=" ">{{ $v->pay_transaction }}</td>
-                                        <td class="center ">{{ $v->total_amount }}</td>
+                                        <td class=" ">{{ $v->pay_typeCH }}</td>
+                                        <td class="center ">¥ :{{ $v->total_amount }}</td>
                                         <td class="center ">{{ $v->created_at }}</td>
                                         <td class="center ">{{ $status }}</td>
                                         <td class="center ">
@@ -151,7 +155,8 @@
                                                 {{--<input type="hidden" name="_method" value="DELETE">--}}
                                                 {!! csrf_field() !!}
                                                 <button id="btnDel" type="submit" class="btn btn-danger"
-                                                        data-toggle="modal" data-target="#DeleteForm" onclick="" {{ $but_status }}>确认发货
+                                                        data-toggle="modal" data-target="#DeleteForm"
+                                                        onclick="" {{ $but_status }}>确认发货
                                                 </button>
                                             </form>
 

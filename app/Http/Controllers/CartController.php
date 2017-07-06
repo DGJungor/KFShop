@@ -145,9 +145,16 @@ class CartController extends Controller
 	//购物车的ajax 控制器
 	public function ajax(Request $request, Cart $cart)
 	{
+		//获取类型
 		$type = $request->type;
+
+		//获取数量原数量
 		$num  = (int)$request->num;
+
+		//获取商品id
 		$id   = $request->id;
+
+		//根据动作类型 修改购物车中的数量
 		switch ($type) {
 			case 'update':
 
@@ -184,8 +191,11 @@ class CartController extends Controller
 	}
 
 	//添加购物城的控制器
-	public function add(Cart $cart, Request $request, Store $store,$id,$num)
+	public function add(Cart $cart, Request $request, Store $store,$id)
 	{
+		//获取商品数量
+		$num = $_GET['num'];
+
 		//查询商品信息
 		$goodData = DB::table('data_goods')->where('id','=',$id)->get();
 

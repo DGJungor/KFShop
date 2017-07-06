@@ -19,7 +19,7 @@ Route::get('/', 'HomeController@index');
 Route::post('/ajax', 'HomeController@ajax');
 
 //前台购物车路由 --jun
-Route::get('cart/add/{id}/{num}','CartController@add');
+Route::get('cart/add/{id}','CartController@add');
 Route::post('cart/ajax','CartController@ajax');
 Route::post('cart/del','CartController@del');
 Route::resource('cart','CartController');
@@ -31,7 +31,7 @@ Route::resource('feedback','FeedbackController');
 Route::resource('comment', 'CommentController');
 
 //立即购买订单路由 --Jun
-Route::get('buynow/{id}/{num}','OrdersController@buynow');
+Route::get('buynow/{id}','OrdersController@buynow')->middleware('auth');
 
 //前台订单路由  --jun
 Route::resource('orders','OrdersController');
@@ -64,17 +64,23 @@ Route::get('service/validate_email/uid/{uid}/code/{code}', 'Service\ValidateCont
 Route::group(['middleware' => 'auth','prefix' => 'user'], function () {
     Route::get('/', 'PersonalController@index');
     //个人资料
-    Route::get('/personal', 'PersonalController@index');
+    Route::get('personal', 'PersonalController@index');
+    //修改个人信息
+    Route::post('editUserInfo', 'PersonalController@editUserInfo');
     //收货地址
-    Route::get('/address', 'PersonalController@showAddress');
+    Route::get('address', 'PersonalController@address');
+    //展示城市
+    Route::post('ajax/showAddress', 'PersonalController@showAddress');
+    //新增收货地址
+    Route::post('ajax/createAddress', 'PersonalController@createAddress');
 
 
+	//个人中心订单  --Jun
+	Route::resource('/orders','UserOrdersController');
 
 });
 
 
-//个人中心订单  --Jun
-Route::resource('/user/orders','UserOrdersController');
 
 
 

@@ -253,7 +253,7 @@
                 var status = $('input[name="status"]:checked').val();
 
                 //防止表单重复提交
-//                $('#addbtn').attr("disabled", "disabled");
+                $('#addbtn').attr("disabled", "disabled");
 
                 $.ajax({
                     type: 'POST',
@@ -265,6 +265,7 @@
                     success: function (data) {
                         if (data == null) {
                             layer.msg('服务器端错误',2 ,1);
+                            $('#addbtn').removeAttr("disabled");
                             return;
                         }
                         if (data.status == 0) {

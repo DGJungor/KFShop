@@ -250,7 +250,7 @@ class OrdersController extends Controller
 		//
 	}
 
-	public function buynow(Collection $collection, Request $request, Cart $cart, $id, $num)
+	public function buynow(Collection $collection, Request $request, Cart $cart, $id)
 	{
 //=============================================================================
 //
@@ -260,9 +260,9 @@ class OrdersController extends Controller
 //
 //
 //==============================================================================
-
-
-
+		
+		//获取需要购买的数量
+		$num = $_GET['num'];
 
 		//获取用户收货地址信息
 		$address = \DB::table('data_address')->where('uid', $uid)->get();

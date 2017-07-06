@@ -62,7 +62,7 @@
                         {{--});--}}
                         {{--</script>--}}
                         <div class="mid-tu f-l">
-                            <a href="#"><img src="{{url( '/uploads/goods/m')}}{{$v['picname']}}"/></a>
+                            <a href="#"><img width="130" height="130" src="{{url( '/uploads/goods/')}}/{{$v['picname']}}"></a>
                         </div>
                         <div class="mid-font f-l">
                             <a href="#">{{ $v['name'] }}<br/></a>
