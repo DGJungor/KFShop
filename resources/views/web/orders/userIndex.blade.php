@@ -17,8 +17,8 @@
 
 @section('content')
     {{--{{ dump($typeCount) }}--}}
-    {{ dump($userOrders) }}
-    {{ dump($userOD) }}
+    {{--{{ dump($userOrders) }}--}}
+    {{--{{ dump($userOD) }}--}}
 
     {{--@foreach($userOrders[1] as $v)--}}
     {{--{{ dump($v) }}--}}
@@ -39,11 +39,13 @@
             <div class="order-hd">
                 <dl class="f-l">
                     <dt>
-                        <a href="#"><img src="images/data-tu2.gif"></a>
+                        <a href="#">
+                            {{--<img src="images/data-tu2.gif">--}}
+                        </a>
                     </dt>
                     <dd>
-                        <h3><a href="#">RH了</a></h3>
-                        <p>zhao601884596</p>
+                        <h3><a href="#">{{ $username }}</a></h3>
+                        <p> 普通会员</p>
                     </dd>
                     <div style="clear:both;"></div>
                 </dl>
@@ -76,7 +78,7 @@
                     <div class="md-info">
                         <div class="dai">
                             {{--<input name="hobby[]" value="" type="checkbox">--}}
-                            <span>待付款</span>
+                            <span>{{ $v->{'statusCH'} }} </span>
                             <span>&nbsp;&nbsp;&nbsp;&nbsp;订单号:{{ $v->{'guid'} }} </span>
                             <span style="float:right; ">
                                 @if( $v->{'order_status'}==3 )
@@ -88,10 +90,10 @@
                                     </form>
                                 @endif
                                 @if( $v->{'order_status'}==1)
-                                    {{--<form action=" " method="POST">--}}
-                                    {{--{{csrf_field()}}--}}
+                                    <form action="orders/{{ $v->{'guid'} }}" method="POST">
+                                    {{csrf_field()}}
                                         <input type="hidden" name="_method" value="PUT">
-                                        <input type="hidden" name="action" value="confirm">
+                                        <input type="hidden" name="action" value="obligation">
                                         <button class="btn btn-info btn-sm" type="submit">立即付款</button>
                                     {{--</form>--}}
                                 @endif

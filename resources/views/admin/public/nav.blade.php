@@ -66,6 +66,23 @@
                     </li>
                 </ul>
             </li>
+
+            <li class="">
+                <a href=""><i class="fa fa-table"></i> <span class="nav-label">订单</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="{{ asset('admin/orders') }}">订单管理</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="">
+                <a href=""><i class="fa fa-envelope"></i> <span class="nav-label">反馈</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="{{ asset('admin/feedback') }}">反馈信息</a>
+                    </li>
+                </ul>
+            </li>
+
+
             <li class="">
                 <a href=""><i class=" fa fa-chain "></i> <span class="nav-label">友情链接</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">

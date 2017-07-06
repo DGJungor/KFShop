@@ -20,7 +20,6 @@ class CreateDataOrdersDetails extends Migration
 		    $table->integer('user_id')->unsigned()->comment('用户ID');
 		    $table->integer('goods_id')->unsigned()->comment('商品ID');
 		    $table->integer('cargo_id')->unsigned()->comment('商品ID');
-		    $table->tinyInteger('order_status')->unsigned()->comment('订单状态 1:待付款 2: 待发货 3:待收货 4:待评价 5 完成 6 取消 默认为1');
 		    $table->integer('commodity_number')->unsigned()->comment('商品数量');
 		    $table->string('cargo_price')->comment('商品单价');
 		    $table->tinyInteger('return_status')->unsigned()->comment('退货状态 1 不退货 2:退货 默认为1');
