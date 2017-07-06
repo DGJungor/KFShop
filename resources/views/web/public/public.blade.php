@@ -4,7 +4,7 @@
 <head>
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="_token" content="{{ csrf_token() }}"/>
+
     <title>@yield('title')</title>
 
     <link rel="stylesheet" type="text/css" href="{{ url('/web/css/style.css') }}" />
@@ -44,7 +44,7 @@
     @include('web.public.youce')
 
 
-    @yield('js')
+
 </body>
 
 </html>

@@ -27,7 +27,9 @@ class HomeController extends Controller
             $data->goods = \DB::table('data_goods')->where('typeid', $data->id)->orderBy('buy', 'desc')->limit(8)->get();
             foreach($data->children as $children){
                 $children->grandchild = \DB::table('data_types')->where('pid', $children->id)->get();
+//            dd($children->grandchild);
             }
+
         }
 
 

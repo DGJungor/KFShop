@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 use App\Admin\Recommend;
 use Illuminate\Http\Request;
 
@@ -11,24 +13,41 @@ class GoodsListController extends Controller
 {
     public function goodsList(Request $request, $id)
     {
-       $list=$request->all();
-       foreach ($list as $key=>$ve);
 
-        $types=\DB::table('data_types')->where('id','=', $key)->get();
+        $type=\DB::table('data_types')->where('pid','=', $id)->get();
 
-        $type=\DB::table('data_types')->where('id','=', $id)->get();
+        if($type){
+            $list=\DB::table('data_types')->where('id','=', $id)->get();
+//            dd($list);
+            $lst=array('1');
+//            dd($lst);
+            foreach ($type as $val)
+            {
+                $val->children=\DB::table('data_goods')->where('typeid', '=', $val->id)->get();
 
-        foreach($types as $val){
-            $val->children = \DB::table('data_types')->where('pid', $val->id)->get();
+                foreach ($val->children as $chil)
+                {
+                    $goods[]=$chil;
 
-            foreach($val->children as $children){
 
+                }
             }
-        }
-        $recommend=Recommend::paginate(3);
-        $goods = \DB::table('data_goods')->where('typeid', $id)->paginate(8);
 
-        return view('web.goods.list', compact('goodslist', '', ['type', 'goods', 'children','types', 'recommend']));
+        }else{
+            $list=\DB::table('data_types')->where('id', '=', $id)->get();
+            $lst=array('2');
+            $types = \DB::table('data_goods')->where('typeid', $id)->get();
+
+                foreach($types as $val){
+                    $goods[]=$val;
+                }
+
+        }
+
+        $recommend=Recommend::paginate(3);
+
+
+        return view('web.goods.list', compact('goodslist', '', ['type', 'lst','goods', 'list','types', 'recommend']));
     }
 
     public function ajax(Request $request)
@@ -46,10 +65,7 @@ class GoodsListController extends Controller
 
         }
 
-
-
         return $datas;
-
 
     }
 

@@ -16,7 +16,7 @@
         <dl style="border-bottom:none;">
 
             <dt style="width: 200px;">
-             位置:   {{$types[0]->name}}<em>&gt;</em>{{$children->name}}<em>&gt;</em>{{$type[0]->name}}
+             当前位置:  {{$list[0]->name}}
             </dt>
 
             <div style="clear:both;"></div>
@@ -24,7 +24,7 @@
 
         <dl style="border-bottom:none;">
         <dt style="width: 250px">
-            {{$type[0]->name}} &nbsp; <span style="color: #1D1D1D"> 商品筛选</span>
+{{--            {{$type[0]->name}} &nbsp; <span style="color: #1D1D1D"> 商品筛选</span>--}}
              <span style="color: #1D1D1D">共
              <strong>{{count($goods)}}</strong>
              件相关商品
@@ -75,15 +75,23 @@
                 <ul class="shop-cmp-l f-l">
 
                     <li class="current">
-                        <a href="#" onclick="location.reload()" title="综合">综合</a>
+                        <a href="javascript:oid(0)" onclick="location.reload()" title="综合">综合</a>
                     </li>
-                    <li >
-                        <a  href="#" id="buys" ty-id="{{$type[0]->id}}" title="销量">销量 ↓</a>
-                    </li>
+                    {{--{{dd($lst[0])}}--}}
+                    @if($lst[0]=='1')
 
-                    <li >
-                        <a href="#" id="prices" ty-id="{{$type[0]->id}}"  title="价格">价格 ↓</a>
-                    </li>
+                    @else
+                        <li >
+                            <a  href="javascript:oid(0)" id="buys" ty-id="{{$list[0]->id}}" title="销量">销量 ↓</a>
+                        </li>
+
+
+                        <li >
+                            <a href="javascript:oid(0)" id="prices" ty-id="{{$list[0]->id}}"  title="价格">价格 ↓</a>
+                        </li>
+
+
+                    @endif
 
                     {{--<li >--}}
                         {{--<a  href="#" id="comments" ty-id="{{$type[0]->id}}" title="评价">评价 </a>--}}
@@ -140,24 +148,7 @@
     </div>
     
      <!--分页-->
-        <div class="paging">
-                <div class="pag-left f-l">
 
-                    <ul class="left-m f-l">
-                        {{ $goods->links() }}
-                    </ul>
-
-                    <div style="clear:both;"></div>
-                </div>
-                <div class="pag-right f-l">
-                    <div class="jump-page f-l">
-                        到第<input type="text" />页
-                    </div>
-                    <button class="f-l">确定</button>
-                    <div style="clear:both;"></div>
-                </div>
-                <div style="clear:both;"></div>
-        </div>
 
 @endsection
 
@@ -174,7 +165,7 @@
     });
     $('a').off().click(function () {
         var path = $(this).attr('id');
-//        console.log(path);
+        console.log(path);
         var that = $(this);
         var id = this.getAttribute('ty-id');
         var ssd = that.parent().parent().parent().next().children('.news');
