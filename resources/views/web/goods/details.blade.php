@@ -78,13 +78,13 @@
                 <dt>数量</dt>
                 <dd>
                     <a class="box3-left" href="JavaScript:;">-</a>
-                    <input type="text" name="num" value="1">
+                    <input type="num" name="num" value="1">
                     <a class="box3-right" href="JavaScript:;">+</a>
                 </dd>
                 <div style="clear:both;"></div>
             </dl>
             <div class="dt-ifm-box4">
-                <a href=""><button class="btn1">立即购买</button></a>
+                <button type="submit" class="btn1">立即购买</button>
                 <button class="btn2">加入购物车</button>
                 <button class="btn3">收藏</button>
             </div>

@@ -8,14 +8,14 @@
                      </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
 
-                        <!-- <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ Auth::guard('admin')->user()->username }}</strong> -->
-                     <!-- </span> <span class="text-muted text-xs block">{{ Auth::guard('admin')->user()->type !=0 ? '管理员' : '超级管理员' }} <b class="caret"></b></span> </span> -->
+                        <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">{{ Auth::guard('admin')->user()->username }}</strong>
+                     </span> <span class="text-muted text-xs block">{{ Auth::guard('admin')->user()->type !=0 ? '管理员' : '超级管理员' }} <b class="caret"></b></span> </span>
 
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
                         <li><a data-toggle="modal" data-target="#avatarModal">修改头像</a>
                         </li>
-                        <!-- <li><a href="/admin/admins/{{ Auth::guard('admin')->user()->id }}">个人资料</a> -->
+                        <li><a href="/admin/admins/{{ Auth::guard('admin')->user()->id }}">个人资料</a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="/admin/logout">安全退出</a>
@@ -26,6 +26,23 @@
                     狂风
                 </div>
 
+            </li>
+            <li class="">
+                <a href=""><i class=" fa fa-home "></i> <span class="nav-label">首页</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+
+                    <li><a href="{{ asset('admin') }}">后台首页</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="">
+                <a href=""><i class=" fa fa-user "></i> <span class="nav-label">用户管理</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+
+                    <li><a href="{{ asset('admin/member') }}">前台用户列表</a>
+                    <li><a href="{{ asset('admin/admins') }}">后台用户列表</a>
+                    </li>
+                </ul>
             </li>
             <li class="">
                 <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">商品</span> <span class="fa arrow"></span></a>

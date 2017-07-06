@@ -15,8 +15,8 @@ class CreateDataGoodsDetails extends Migration
         Schema::create('data_goods_details', function (Blueprint $table) {
             $table->increments('id')->unsigned()->comment('商品详情表');
             $table->integer('goods_id')->unsigned()->comment('商品Id');
-            $table->string('listname')->comment('商品描述');
-            $table->text('picname', 400)->comment('商品详情图片');
+            $table->text('details')->comment('商品描述');
+            $table->text('listname')->comment('商品详情图片');
             $table->text('picname')->comment('商品详情图片');
             $table->timestamps();
         });

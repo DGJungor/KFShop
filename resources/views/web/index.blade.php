@@ -100,7 +100,7 @@
                 @foreach($v->goods as $va)
                 <li>
                     <div class="li-top">
-                        <a href="#" class="li-top-tu"><img width="95" height="110" src="{{ url('uploads/goods')}}/{{ $va->picname }}" /></a>
+                        <a href="{{ asset('details') }}/{{ $va->id }}" class="li-top-tu"><img width="95" height="110" src="{{ url('uploads/goods')}}/{{ $va->picname }}" /></a>
                         <p class="jiage"><span class="sp1">￥{{$va->price}}</span><span class="sp2">￥{{$va->inventory}}</span></p>
                     </div>
                     <p class="miaoshu">{{ $va->goodname }}</p>
@@ -114,8 +114,8 @@
                             <div style="clear:both;"></div>
                         </div>
                         <div class="md-r f-l">
-                            <button class="md-l-btn1">立即购买</button>
-                            <button class="md-l-btn2">加入购物车</button>
+                            <a href="{{ asset('buynow') }}/{{$va->id}}"><button class="md-l-btn1">立即购买</button></a>
+                            <a href=""><button class="md-l-btn2">加入购物车</button></a>
                         </div>
                         <div style="clear:both;"></div>
                     </div>
@@ -134,10 +134,11 @@
 
 @section('js')
 <script>
+$('.md-xx').on('click', function(){ alert(1)})
 $('.kuaijie-box').css('display','block');
 $('.nav-kuaijie').removeClass('yjp-hover1');
 
-$('.over a').off().on('mouseenter', function () {
+$('.over a').off().on('mouseover', function () {
     var that = $(this);
     var id = this.getAttribute('data-id');
     var info = that.parent().parent().parent().next().children('.charu');
@@ -147,6 +148,7 @@ $('.over a').off().on('mouseenter', function () {
 
         info.append(that.prop('data-id'+id));
         return;
+
     }else{
 
 
@@ -164,17 +166,18 @@ $('.over a').off().on('mouseenter', function () {
                 var str = '<ul class="sp-info-r f-r">';
                 // info.remove();
                 for (var i = 0; i < data.length; i++) {
-                    str +='<li><div class="li-top"><a href="#" class="li-top-tu"><img width="95" height="110" src="{{ url('uploads/goods')}}/'+data[i].picname+'"></a>';
+                    str +='<li><div class="li-top"><a href="{{ asset('details') }}/'+data[i].id+'" class="li-top-tu"><img width="95" height="110" src="{{ url('uploads/goods')}}/'+data[i].picname+'"></a>';
                     str +='<p class="jiage"><span class="sp1">￥'+data[i].price+'</span><span class="sp2">￥'+data[i].inventory+'</span></p>';
                     str += '</div><p class="miaoshu">'+data[i].goodname+'</p>';
-                    str += '<div class="li-md"><div class="md-l f-l"><p class="md-l-l f-l" ap="">1</p><div class="md-l-r f-l">';
+                    str += '<div class="li-md"><div class="md-l f-l">';
+                    str += '<p class="md-l-l f-l" ap="">1</p><div class="md-l-r f-l">';
                     str += '<a href="JavaScript:;" class="md-xs" at="">∧</a>';
                     str += '<a href="JavaScript:;" class="md-xx" ab="">∨</a>';
 
                     str += '</div><div style="clear:both;"></div></div>';
                     str += '<div class="md-r f-l">';
                     str += '<button class="md-l-btn1">立即购买</button>';
-                    str += '<button class="md-l-btn2">加入购物车</button>';
+                    str += '<a href="{{asset('buynow')}}/'+data[i].id+'"><button class="md-l-btn2">加入购物车</button></a>';
                     str += '</div><div style="clear:both;"></div></div>';
                     str += '<p class="pingjia">0评价</p>';
                     str += '<p class="weike">'+data[i].brand+'</p>';
