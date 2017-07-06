@@ -74,7 +74,6 @@ class RecommendController extends Controller
                 $filePath=public_path('uploads');
                 // 上传文件
                 $fileName = date('Y-m-d-H-i-s') . '-' . uniqid() . '.' . $ext;
-
                 // 使用新建的uploads本地存储空间（目录）
                 $bool = Storage::disk('uploads')->put($fileName, file_get_contents($realPath));
                 $image=new ImageManager();

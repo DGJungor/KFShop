@@ -101,7 +101,7 @@
 
                     <li style="margin-right:0;">
                         <div class="li-top">
-                            <a href="#"  target="_blank" class="li-top-tu"><img src="{{ url('uploads/goods') }}/{{$ve->picname}}" height="110" width="95" /></a>
+                            <a href="{{ url('details') }}/{{$ve->id}}"  target="_blank" class="li-top-tu"><img src="{{ url('uploads/goods') }}/{{$ve->picname}}" height="110" width="95" /></a>
                             <p class="jiage">
                                 <span class="sp1">￥{{$ve->price}}</span>
                             </p>

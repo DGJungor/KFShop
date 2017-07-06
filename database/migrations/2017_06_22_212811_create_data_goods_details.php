@@ -17,7 +17,7 @@ class CreateDataGoodsDetails extends Migration
             $table->integer('goods_id')->unsigned()->comment('商品Id');
             $table->string('listname')->comment('商品描述');
             $table->text('picname', 400)->comment('商品详情图片');
-            $table->text('picname')->comment('商品详情图片');
+
             $table->timestamps();
         });
     }
