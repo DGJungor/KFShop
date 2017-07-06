@@ -19,7 +19,7 @@ Route::get('/', 'HomeController@index');
 Route::post('/ajax', 'HomeController@ajax');
 
 //前台购物车路由 --jun
-Route::get('cart/add/{id}/{num}','CartController@add');
+Route::get('cart/add/{id}','CartController@add');
 Route::post('cart/ajax','CartController@ajax');
 Route::post('cart/del','CartController@del');
 Route::resource('cart','CartController');
@@ -31,7 +31,7 @@ Route::resource('feedback','FeedbackController');
 Route::resource('comment', 'CommentController');
 
 //立即购买订单路由 --Jun
-Route::get('buynow/{id}/{num}','OrdersController@buynow');
+Route::get('buynow/{id}','OrdersController@buynow')->middleware('auth');
 
 //前台订单路由  --jun
 Route::resource('orders','OrdersController');
@@ -68,12 +68,12 @@ Route::group(['middleware' => 'auth','prefix' => 'user'], function () {
     Route::get('/address', 'PersonalController@showAddress');
 
 
+	//个人中心订单  --Jun
+	Route::resource('/orders','UserOrdersController');
 
 });
 
 
-//个人中心订单  --Jun
-Route::resource('/user/orders','UserOrdersController');
 
 
 

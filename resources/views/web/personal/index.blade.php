@@ -19,7 +19,7 @@
             </div>
             <div class="data-con">
                 <div class="dt1">
-                    {{ $userinfo }}
+                    {{--{{ dump($userinfo) }}--}}
                     <p class="f-l">当前头像：</p>
                     <div class="touxiang f-l">
                         <div class="tu f-l">

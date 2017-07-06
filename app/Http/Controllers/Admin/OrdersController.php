@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class OrdersController extends Controller
 {
@@ -17,10 +18,36 @@ class OrdersController extends Controller
 		$count = \DB::select('select count(*)  from data_orders');
 
 
-		$data = \DB::table('data_orders')->Paginate(10);
+		$data = \DB::table('data_orders')
+			->orderBy('created_at', 'desc')
+			->Paginate(10);
+
+		foreach ( $data as $v ){
+			switch ($v->{'pay_type'}){
+				case '1':
+					$v->{'pay_typeCH'} = '支付宝';
+					break;
+				case '2':
+					$v->{'pay_typeCH'} = '微信';
+					break;
+				case '3':
+					$v->{'pay_typeCH'} = '货到付款';
+					break;
+				case '4':
+					$v->{'pay_typeCH'} = '其他';
+					break;
+
+				default:
+					$v->{'pay_typeCH'} = '未知';
+					break;
+			}
+		}
 
 		//输出订单页首页模板
-		return view('admin.orders.index', compact('data', 'count'));
+		return view('admin.orders.index',[
+			'data' =>$data,
+			'count' =>$count
+		]);
 
 	}
 
@@ -44,6 +71,46 @@ class OrdersController extends Controller
 		//从数据库中取出订单号为$id的订单数据
 		$data = \DB::table('data_orders_details')->where('orders_guid', '=', $id)->orderBy('created_at', 'desc')->get();
 
+
+
+		foreach ($data as $v){
+
+			//从商品表中取出商品图片名
+			$picname = DB::table('data_goods')
+				->where('id','=',$v->{'goods_id'})
+				->select('picname')
+				->first();
+			$v->{'picname'} = $picname->{'picname'};
+
+			//退货中文
+			switch ($v->{'return_status'}){
+				case '1':
+					$v->{'return_statusCH'} = '不退货';
+					break;
+				case '2':
+					$v->{'return_statusCH'} = '退货';
+					break;
+
+				default:
+					$v->{'return_statusCH'} = '未知';
+					break;
+			}
+
+			//评论中文
+			switch ($v->{'comment_status'}){
+				case '1':
+					$v->{'comment_statusCH'} = '未评论';
+					break;
+				case '2':
+					$v->{'comment_statusCH'} = '已评论';
+					break;
+
+				default:
+					$v->{'comment_statusCH'} = '未知';
+					break;
+			}
+		}
+		dump($data);
 		return view('admin.orders.details', [
 			'count' => $count,
 			'data' => $data,
