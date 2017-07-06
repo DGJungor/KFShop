@@ -148,6 +148,7 @@ $('.over a').off().on('mouseover', function () {
 
         info.append(that.prop('data-id'+id));
         return;
+
     }else{
 
 

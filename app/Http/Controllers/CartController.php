@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Overtrue\LaravelShoppingCart\Cart;
 
@@ -34,6 +35,10 @@ class CartController extends Controller
     	$store->save();
 //		$cart->clean();
 //======================================================================================
+
+		$user = Auth::user();
+		dump($user);
+
 		//从session中获得
 		$session = $request->session()->get('cart');
 

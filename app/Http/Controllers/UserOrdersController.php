@@ -37,6 +37,9 @@ class UserOrdersController extends Controller
 		//获取用户id
 //		$userId = '';
 
+		//定义一个用于存放q订单详情变量
+		$userOD = null;
+
 		$typeData = DB::select('select order_status,count(order_status) as status  from data_orders where user_id=? group by order_status', [$userId]);
 
 		//整理查询数据 以便于在视图页输出
@@ -77,28 +80,44 @@ class UserOrdersController extends Controller
 			}
 		}
 
-		//取出待付款订单
-		$userOrders[1] = DB::table('data_orders')->where('user_id', '=', $userId)->where('order_status', '=', 1)->paginate(5);
+		$userOrders = DB::table('data_orders')
+			->where('user_id', '=', $userId)
+			->orderBy('created_at', 'descdescdesc')
+			->paginate(5);
 
-		//取出待发货订单
-		$userOrders[2] = DB::table('data_orders')->where('user_id', '=', $userId)->where('order_status', '=', 2)->paginate(5);
+		foreach ($userOrders as $v) {
 
-		//取出待收货订单
-		$userOrders[3] = DB::table('data_orders')->where('user_id', '=', $userId)->where('order_status', '=', 3)->paginate(5);
-
-		//取出待评价订单
-		$userOrders[4] = DB::table('data_orders')->where('user_id', '=', $userId)->where('order_status', '=', 4)->paginate(5);
-
-		//取出已完成订单
-		$userOrders[5] = DB::table('data_orders')->where('user_id', '=', $userId)->where('order_status', '=', 5)->paginate(5);
-
-
+			//查询订单详情表数据并连接相关商品的相关数据
+			$userOD[$v->{'guid'}] = DB::table('data_orders_details')
+				->where('orders_guid', '=', $v->{'guid'})
+				->Leftjoin('data_goods', 'data_goods.id', '=', 'data_orders_details.goods_id')
+				->select('data_orders_details.id', 'data_orders_details.goods_id', 'data_orders_details.commodity_number', 'data_orders_details.cargo_price', 'data_goods.goodname', 'data_goods.picname')
+				->get();
+		}
 
 		//返回视图页 并发送订单数据
 		return view('web.orders.userIndex', [
 			'typeCount'  => $typeCount,
-			'userOrders' => $userOrders
+			'userOrders' => $userOrders,
+			'userOD'     => $userOD
 		]);
+
+//		//取出待付款订单
+//		$userOrders[1] = DB::table('data_orders')->where('user_id', '=', $userId)->where('order_status', '=', 1)->paginate(5);
+//
+//		//取出待发货订单
+//		$userOrders[2] = DB::table('data_orders')->where('user_id', '=', $userId)->where('order_status', '=', 2)->paginate(5);
+//
+//		//取出待收货订单
+//		$userOrders[3] = DB::table('data_orders')->where('user_id', '=', $userId)->where('order_status', '=', 3)->paginate(5);
+//
+//		//取出待评价订单
+//		$userOrders[4] = DB::table('data_orders')->where('user_id', '=', $userId)->where('order_status', '=', 4)->paginate(5);
+//
+//		//取出已完成订单
+//		$userOrders[5] = DB::table('data_orders')->where('user_id', '=', $userId)->where('order_status', '=', 5)->paginate(5);
+
+
 	}
 
 	/**
@@ -153,7 +172,12 @@ class UserOrdersController extends Controller
 	 */
 	public function update(Request $request, $id)
 	{
-		//
+		//获取动作类型
+		$action =  $request->action;
+//		switch ($action){
+//
+//		}
+
 	}
 
 	/**

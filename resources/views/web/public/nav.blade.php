@@ -6,18 +6,18 @@
                 @foreach($data as $v)
                     <div class="kuaijie-info">
                         <dl class="kj-dl1">
-                            <dt><img src="{{ url('/web/images/zl2-07.gif') }}" /><a href="#">{{ $v->name }}</a></dt>
+                            <dt><img src="{{ url('/web/images/zl2-07.gif') }}" /><a >{{ $v->name }}</a></dt>
 
                             <dd>
                             @foreach($v->children as $val)
-                                <a href="#">{{ $val->name }}</a><span>|</span>
+                                <a >{{ $val->name }}</a><span>|</span>
                             @endforeach
                             </dd>
                         </dl>
                         <div class="kuaijie-con">
                             @foreach($v->children as $val)
                                 <dl class="kj-dl2">
-                                    <dt><a href="#">{{ $val->name }}</a></dt>
+                                    <dt><a >{{ $val->name }}</a></dt>
                                     @foreach($val->grandchild as $value)
                                         <dd>
                                             <a href="{{ url('goods_list') }}/{{$value->id}}?{{$v->id}}">{{ $value->name }}</a><span>|</span>
