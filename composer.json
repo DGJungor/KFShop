@@ -10,7 +10,8 @@
         "overtrue/laravel-shopping-cart": "1.0.*",
         "intervention/image": "^2.3",
         "predis/predis": "~1.0",
-        "mews/captcha": "^2.1"
+        "mews/captcha": "^2.1",
+        "hightman/xunsearch": "^1.4"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

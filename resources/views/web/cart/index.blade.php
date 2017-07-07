@@ -12,15 +12,15 @@
 
 
 @section('content')
-    {{ dump($cartInfo) }}
-    {{ dump($cartTotal) }}
+    {{--{{ dump($cartInfo) }}--}}
+    {{--{{ dump($cartTotal) }}--}}
     <form action="orders/create" method="GET">
         {{csrf_field()}}
         <div class="cart-content w1200">
             <ul class="cart-tit-nav">
-                <li class="current"><a href="#">全部商品 21</a></li>
-                <li><a href="#">降价商品 1</a></li>
-                <li><a href="#">进口商品 1</a></li>
+                <li class="current"><a href="#">全部商品 {{ $cartCount }}</a></li>
+                {{--<li><a href="#">降价商品 1</a></li>--}}
+                {{--<li><a href="#">进口商品 1</a></li>--}}
                 <div style="clear:both;"></div>
             </ul>
             <div class="cart-con-tit">
@@ -42,7 +42,7 @@
             {{--  商品栏  --}}
 
             @foreach( $cartInfo as $v )
-                {{ dump($v)  }}
+                {{--{{ dump($v)  }}--}}
                 <div class="cart-con-info" id="{{ $v['__raw_id'] }}">
                     <div class="info-top">
 
@@ -66,7 +66,7 @@
                         </div>
                         <div class="mid-font f-l">
                             <a href="#">{{ $v['name'] }}<br/></a>
-                            <span>满赠</span>
+                            {{--<span>满赠</span>--}}
                             <br>
                             ------------------------------------
                         </div>
@@ -207,7 +207,6 @@
 @section('js')
 
     <script>
-
 
         function  setTotal() {
             var sum = 0;

@@ -10,6 +10,7 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use \Exception;
+use Illuminate\Support\Facades\Redis;
 use Overtrue\LaravelShoppingCart\Cart;
 
 use Illuminate\Session\Store;
@@ -24,7 +25,6 @@ class OrdersController extends Controller
 	public function index(Request $request)
 	{
 		//
-
 		return '这是首页订单首页路由';
 //		return date('Ymd') . str_pad(mt_rand(1, 99999), 5, '0', STR_PAD_LEFT);
 
@@ -170,7 +170,6 @@ class OrdersController extends Controller
 					'orders_guid'      => $guid,
 					'user_id'          => $user_id,
 					'goods_id'         => $v->{'id'},
-					'order_status'     => 1,
 					'commodity_number' => $v->{'qty'},
 					'cargo_price'      => $price,
 					'created_at'       => date('YmdHis')

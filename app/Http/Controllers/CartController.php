@@ -25,14 +25,14 @@ class CartController extends Controller
 	public function index(Cart $cart, Request $request, Store $store)
 	{
 
-		$store->start();
-//=====================================================================================
-		//模拟添加购物车
-		$cart->clean();
-		$cart->add(1, 'Item name', 5, 100.00, ['color' => 'red', 'size' => 'M', 'picname' =>'2017-06-27-01-21-08-595142844f4a3.jpg']);
-		$cart->add(2, 'foobar', 15, 100.00, ['color' => 'green', 'size' => 'S','picname' =>'2017-06-27-01-28-37-5951444547728.jpg']);
-//		$cart->add(17, 'foobar', 15, 100.00, ['color' => 'green', 'size' => 'S','picname' =>'2017-06-23-20-48-41-594d0e2959cee.jpg']);
-    	$store->save();
+//		$store->start();
+////=====================================================================================
+//		//模拟添加购物车
+//		$cart->clean();
+//		$cart->add(1, 'Item name', 5, 100.00, ['color' => 'red', 'size' => 'M', 'picname' =>'2017-06-27-01-21-08-595142844f4a3.jpg']);
+//		$cart->add(2, 'foobar', 15, 100.00, ['color' => 'green', 'size' => 'S','picname' =>'2017-06-27-01-28-37-5951444547728.jpg']);
+////		$cart->add(17, 'foobar', 15, 100.00, ['color' => 'green', 'size' => 'S','picname' =>'2017-06-23-20-48-41-594d0e2959cee.jpg']);
+//    	$store->save();
 //		$cart->clean();
 //======================================================================================
 
@@ -56,7 +56,8 @@ class CartController extends Controller
 			//查询商品的信息
 			return view('web.cart.index', [
 				'cartInfo' => $session['default'],
-				'cartTotal' => $cartTotal
+				'cartTotal' => $cartTotal,
+				'cartCount' =>$count
 			]);
 		}
 
@@ -190,7 +191,7 @@ class CartController extends Controller
 		return $id;
 	}
 
-	//添加购物城的控制器
+	//添加购物车的控制器
 	public function add(Cart $cart, Request $request, Store $store,$id)
 	{
 		//获取商品数量
