@@ -53,9 +53,8 @@ class GoodsListController extends Controller
 
         }
         //推荐位的数据
-        $recommend = Recommend::paginate(3);
 
-        return view('web.goods.list', compact('goodslist', '', ['type', 'lst','goods', 'list','types', 'recommend']));
+        return view('web.goods.list', compact('goodslist', '', ['lst','goods', 'list']));
     }
     /**
      * ajax排序
@@ -81,6 +80,15 @@ class GoodsListController extends Controller
 
         return $datas;
 
+    }
+
+    public function recom(Request $request)
+    {
+
+
+        $recommend = \DB::table('data_recommend')->limit(3)->get();
+
+        return $recommend;
     }
 
 
