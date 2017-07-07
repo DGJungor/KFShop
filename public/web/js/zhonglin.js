@@ -240,17 +240,29 @@ $(document).ready(function() {
 			/*dt-if1-m*/
 	$(".dt-ifm-box3 .box3-right").click(function(event) {
 		var val = $(".dt-ifm-box3 input").val();
+		var id = $('.buynow').attr('data');
 		if(val>0){
 			val++;
 		}
 		$(".dt-ifm-box3 input").val(val);
+		$('.buynow').attr({ href:'/buynow/'+id+'?num='+val });
+		$('.cart').attr({ href:'/cart/add/'+id+'?num='+val });
+	});
+	$('.inputnum').keyup( function(event) {
+		var val = $(".dt-ifm-box3 input").val();
+		var id = $('.buynow').attr('data');
+		$('.buynow').attr({ href:'/buynow/'+id+'?num='+val });
+		$('.cart').attr({ href:'/cart/add/'+id+'?num='+val });
 	});
 	$(".dt-ifm-box3 .box3-left").click(function(event) {
 		var val = $(".dt-ifm-box3 input").val();
+		var id = $('.buynow').attr('data');
 		if(val>1){
 			val--;
 		}
 		$(".dt-ifm-box3 input").val(val);
+		$('.buynow').attr({ href:'/buynow/'+id+'?num='+val });
+		$('.cart').attr({ href:'/cart/add/'+id+'?num='+val });
 	});
 
 	/*滚动栏*/
@@ -269,20 +281,38 @@ $(document).ready(function() {
 	});
 
 	/*美容美发摄影首页  js*/
-	$("[at]").click(function(event) {
+	$(".charu").on('click', '[at]', function(event) {
 		var ap = $(this).parents().siblings("[ap]").text();
 		if(ap>0){
 			ap++;
 		}
+
 		$(this).parents().siblings("[ap]").text(ap);
+		var cart = $(this).parents().parents().next().children('.cart');
+		var buynow = $(this).parents().parents().next().children('.buynow');
+		var id = cart.attr('data');
+
+		// console.log(id);
+		buynow.attr({ href: 'buynow/'+id+'?num='+ap });
+		cart.attr({ href: 'cart/add/'+id+'?num='+ap });
+		// console.log(cart.attr('href'))
+		// console.log(link)
 	});
-	$("[ab]").click(function(event) {
+	$('.charu').on('click', "[ab]", function(event) {
 		var ap = $(this).parents().siblings("[ap]").text();
 		if(ap>1){
 			ap--;
 		}
 		$(this).parents().siblings("[ap]").text(ap);
+		var cart = $(this).parents().parents().next().children('.cart');
+		var buynow = $(this).parents().parents().next().children('.buynow');
+		var id = cart.attr('data');
+
+		// console.log(id);
+		buynow.attr({ href: 'buynow/'+id+'?num='+ap });
+		cart.attr({ href: 'cart/add/'+id+'?num='+ap });
 	});
+
 
 	$(".img1").change(function(){
 		if($(this).val()){

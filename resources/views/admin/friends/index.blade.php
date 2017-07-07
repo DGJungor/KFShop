@@ -132,6 +132,11 @@
                         @endforelse
                         </tbody>
                     </table>
+
+                    <div class="dataTables_info" id="DataTables_Table_0_info" role="alert"
+                         aria-live="polite" aria-relevant="all">显示 1 到 10 项，共 {{ count($friend) }}
+                        项
+                    </div>
                     <div class="page" style="text-align: center">
                         {{ $friend->links() }}
                     </div>

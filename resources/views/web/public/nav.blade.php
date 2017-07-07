@@ -10,7 +10,7 @@
 
                             <dd>
                             @foreach($v->children as $val)
-                                <a >{{ $val->name }}</a><span>|</span>
+                                <a href="{{ url('goods_list') }}/{{$val->id}}" >{{ $val->name }}</a><span>|</span>
                             @endforeach
                             </dd>
                         </dl>
@@ -20,7 +20,7 @@
                                     <dt><a >{{ $val->name }}</a></dt>
                                     @foreach($val->grandchild as $value)
                                         <dd>
-                                            <a href="{{ url('goods_list') }}/{{$value->id}}?{{$v->id}}">{{ $value->name }}</a><span>|</span>
+                                            <a href="{{ url('goods_list') }}/{{$value->id}}">{{ $value->name }}</a><span>|</span>
                                         </dd>
                                     @endforeach
                                 </dl>

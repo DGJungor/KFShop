@@ -66,19 +66,28 @@ Route::post('/register', 'RegisterController@register');
 Route::get('service/validate_email/uid/{uid}/code/{code}', 'Service\ValidateController@validateEmail');
 
 //个人中心
-Route::group(['middleware' => 'auth', 'prefix' => 'user'], function () {
-	Route::get('/', 'PersonalController@index');
-	//个人资料
-	Route::get('personal', 'PersonalController@index');
-	//修改个人信息
-	Route::post('editUserInfo', 'PersonalController@editUserInfo');
-	//收货地址
-	Route::get('address', 'PersonalController@address');
-	//展示城市
-	Route::post('ajax/showAddress', 'PersonalController@showAddress');
-	//新增收货地址
-	Route::post('ajax/createAddress', 'PersonalController@createAddress');
 
+
+Route::group(['middleware' => 'auth','prefix' => 'user'], function () {
+    Route::get('/', 'PersonalController@index');
+    //个人资料
+    Route::get('personal', 'PersonalController@index');
+    //修改个人信息
+    Route::post('editUserInfo', 'PersonalController@editUserInfo');
+    //收货地址
+    Route::get('address', 'PersonalController@address');
+    //展示我的收货地址
+    Route::post('ajax/showAddress', 'PersonalController@showAddress');
+    //城市三级联动
+    Route::post('ajax/showCity', 'PersonalController@showCity');
+    //新增收货地址
+    Route::post('ajax/createAddress', 'PersonalController@createAddress');
+    //删除收货地址
+    Route::post('ajax/delAddress', 'PersonalController@delAddress');
+    //设置默认地址
+    Route::post('ajax/setDefault', 'PersonalController@setDefault');
+    //修改头像
+    Route::get('ajax/uploadAvatar', 'PersonalController@uploadAvatar');
 
 	//个人中心订单  --Jun
 	Route::resource('/orders', 'UserOrdersController');

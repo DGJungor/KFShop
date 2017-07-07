@@ -14,7 +14,7 @@
 
     <div class="banner">
         <ul class="ban-ul1">
-            @foreach($res["banner"] as $v)
+            @foreach($banner as $v)
             @if($v->disabled == '显示')
                 <li>
                     <a href="http://{{($v->redirect_url)}}"><img src="{{ url($v['img_url']) }}" /></a>
@@ -39,7 +39,7 @@
     </div>
     <ul class="tuijian-right f-l">
 
-            @foreach($res['banners'] as $w=>$q)
+            @foreach($recommend as $w=>$q)
             @if($q->recommend_location == 1)
         <li>
             <div class="li-box li-box{{$w}}"   style="background: url({{('/uploads/s_').$q->recommend_picname}})no-repeat right 20px;">
@@ -114,8 +114,8 @@
                             <div style="clear:both;"></div>
                         </div>
                         <div class="md-r f-l">
-                            <a href="{{ asset('buynow') }}/{{$va->id}}"><button class="md-l-btn1">立即购买</button></a>
-                            <a href=""><button class="md-l-btn2">加入购物车</button></a>
+                            <a href="{{ asset('buynow') }}/{{$va->id}}?num=1" class="buynow" data="{{$va->id}}"><button class="md-l-btn1">立即购买</button></a>
+                            <a href="{{ asset('cart/add') }}/{{$va->id}}?num=1" class="cart" data="{{$va->id}}"><button class="md-l-btn2">加入购物车</button></a>
                         </div>
                         <div style="clear:both;"></div>
                     </div>
@@ -134,9 +134,10 @@
 
 @section('js')
 <script>
-$('.md-xx').on('click', function(){ alert(1)})
+
 $('.kuaijie-box').css('display','block');
 $('.nav-kuaijie').removeClass('yjp-hover1');
+
 
 $('.over a').off().on('mouseover', function () {
     var that = $(this);
@@ -176,8 +177,8 @@ $('.over a').off().on('mouseover', function () {
 
                     str += '</div><div style="clear:both;"></div></div>';
                     str += '<div class="md-r f-l">';
-                    str += '<button class="md-l-btn1">立即购买</button>';
-                    str += '<a href="{{asset('buynow')}}/'+data[i].id+'"><button class="md-l-btn2">加入购物车</button></a>';
+                    str += '<a href="{{asset('buynow')}}/'+data[i].id+'?num=1" class="buynow" data="'+data[i].id+'"><button class="md-l-btn1">立即购买</button></a>';
+                    str += '<a href="{{asset('card/add')}}/'+data[i].id+'?num=1" class="cart" data="'+data[i].id+'"><button class="md-l-btn2">加入购物车</button></a>';
                     str += '</div><div style="clear:both;"></div></div>';
                     str += '<p class="pingjia">0评价</p>';
                     str += '<p class="weike">'+data[i].brand+'</p>';
@@ -187,7 +188,6 @@ $('.over a').off().on('mouseover', function () {
                 that.prop('data-id'+id, str);
                 // console.log(a);
                 // console.log(that.prop('data-id'+id));
-
                 // info.next().remove();
                 info.children('.sp-info-r').remove();
                 info.append(str);

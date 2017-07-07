@@ -5,7 +5,7 @@
                     <a href="JavaScript:;"><img src="{{ url('web/images/zl2-86.gif') }}" /></a>
                 </div>
                 <h3><a href="JavaScript:;">号码保障</a></h3>
-                <P>所有会员，手机短信验证</P>
+                <P>所有会员，邮箱验证</P>
             </li>
             <li>
                 <div class="ft-tu1">
@@ -19,7 +19,7 @@
                     <a href="JavaScript:;"><img src="{{ url('/web/images/zl2-88.gif') }}" /></a>
                 </div>
                 <h3><a href="JavaScript:;">专业专攻</a></h3>
-                <P>我们只专注于建筑行业的信息服务</P>
+                <P>我们只专注于商业的信息服务</P>
             </li>
             <li>
                 <div class="ft-tu1">
@@ -77,6 +77,21 @@
                 <p>（仅收市话费）</p>
             </div>
             <div style="clear:both;"></div>
+        </div>
+        <div class="footer-info4 w1200">
+            <dt>
+                <dl>友情链接：</dl>
+            </dt>
+            {{--@foreach($friend as $ls)--}}
+                {{--@if($ls['type']==2 && $ls['status']==0)--}}
+            {{--<p>--}}
+                {{--<a href="{{ url($ls->url) }}">{{$ls->name}}</a><span>|</span>--}}
+            {{--</p>--}}
+                {{--@endif--}}
+
+            {{--@endforeach--}}
+
+
         </div>
         <div class="footer-info3 w1200">
             <p>

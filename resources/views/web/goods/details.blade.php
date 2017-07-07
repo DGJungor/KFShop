@@ -73,22 +73,20 @@
                 </dd>
                 <div style="clear:both;"></div>
             </dl>
-            <form action="{{ url('cart/add') }}/{{ $dataObj->id }}" method="get" >
             <dl class="dt-ifm-box3">
                 <dt>数量</dt>
                 <dd>
                     <a class="box3-left" href="JavaScript:;">-</a>
-                    <input type="num" name="num" value="1">
+                    <input onkeyup="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" onafterpaste="if(this.value.length==1){this.value=this.value.replace(/[^1-9]/g,'')}else{this.value=this.value.replace(/\D/g,'')}" type="text" value="1" min="1" class="inputnum">
                     <a class="box3-right" href="JavaScript:;">+</a>
                 </dd>
                 <div style="clear:both;"></div>
             </dl>
             <div class="dt-ifm-box4">
-                <button type="submit" class="btn1">立即购买</button>
-                <button class="btn2">加入购物车</button>
+                <a href="{{ url('buynow') }}/{{ $dataObj->id }}?num=1" class='buynow' data="{{$dataObj['id']}}"><button class="btn1">立即购买</button></a>
+                <a href="{{ url('cart/add') }}/{{ $dataObj->id }}?num=1" class="cart" data="{{$dataObj['id']}}"><button class="btn2">加入购物车</button></a>
                 <button class="btn3">收藏</button>
             </div>
-            </form>
         </div>
 
         <div class="dt-if1-r f-r">
