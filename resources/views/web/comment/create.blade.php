@@ -21,46 +21,32 @@
 
  <!--内容开始-->
     <div class="evaluate w1200">
+
         <form action="/comment" method="POST" id="comment">
-    	<dl class="eva-info1">
-        	<dt><a href="#"><img src="{{ url('web/images/want-evaluate-tu.gif') }}" /></a></dt>
+            <dl class="eva-info1">
+            <dt> <a href="#"><img src="{{ url('web/images/want-evaluate-tu.gif') }}" /></a></dt>
             <dd>
-            	<h3><a href="#">商品名</a></h3>
-                <ul>
-                	<li>
-                    	<span>价格</span><p class="p1">¥ 110.00 元</p>
+                <h3><a href="#">商品名</a></h3>
+                <ul class="tc-con2">
+                    <li>
+                        <span>价格</span><p class="p1">¥ 110.00 元</p>
                     </li>
-                	<li>
-                    	<span>配送</span><p>快递:  0.00</p>
+                    <li>
+                        <span>评价</span><p>0分 (累计评价 43227 )</p>
                     </li>
-                	<li>
-                    	<span>评价</span><p>0分 (累计评价 43227 )</p>
+                    <li>
+                        <span>颜色分类</span><p>长410ML*2，赠餐具</p>
                     </li>
-                	<li>
-                    	<span>颜色分类</span><p>长410ML*2，赠餐具</p>
-                    </li>
-                	<li>
-                    	<span>订单号</span><p>20151223654586</p>
+                    <li>
+                        <span>订单号</span><p>20151223654586</p>
                     </li>
                 </ul>
             </dd>
             <div style="clear:both;"></div>
         </dl>
-        <dl class="eva-info2">
-        	<dt>
-            	<p class="p1">好评率</p>
-            	<p class="p2">0%</p>
-            	<p class="p3">共人评论</p>
-            </dt>
-            <dd>
-            	<p>买过的人觉得</p>
-                <ul>
-                	<li><a href="javascript:oid(0)">香脆可口(0)</a></li>
-                	<div style="clear:both;"></div>
-                </ul>
-            </dd>
-            <div style="clear:both;"></div>
-        </dl>
+
+
+
         {{--评论区块--}}
 
         <div class="eva-info3">
@@ -83,20 +69,6 @@
 
                         </ul>
                         <span></span>
-                            <script>
-                               /*商品评分效果*/
-                               $(function(){
-                                   //通过修改样式来显示不同的星级
-                                   $("ul.rating li a").click(function(){
-                                       var title = $(this).attr("title");
-                                       $(this).parent().parent().prev().val(title);
-                                       var cl = $(this).parent().attr("class");
-                                       $(this).parent().parent().removeClass().addClass("rating "+cl+"star");
-                                       $(this).blur();//去掉超链接的虚线框
-                                       return false;
-                                   })
-                               })
-                            </script>
 
                     </dd>
             		<div style="clear:both;"></div>
@@ -111,4 +83,23 @@
     </div>
 
 @endsection
+@section('js')
 
+    <script>
+        /*商品评分效果*/
+        $(function(){
+            //通过修改样式来显示不同的星级
+            $("ul.rating li a").click(function(){
+                var title = $(this).attr("title");
+                $(this).parent().parent().prev().val(title);
+                var cl = $(this).parent().attr("class");
+                $(this).parent().parent().removeClass().addClass("rating "+cl+"star");
+                $(this).blur();//去掉超链接的虚线框
+                return false;
+            })
+        })
+    </script>
+
+
+
+@endsection

@@ -82,12 +82,13 @@
             <dt>
                 <dl>友情链接：</dl>
             </dt>
-            {{--@foreach($res['friend'] as $ls)--}}
+            {{--@foreach($friend as $ls)--}}
                 {{--@if($ls['type']==2 && $ls['status']==0)--}}
             {{--<p>--}}
                 {{--<a href="{{ url($ls->url) }}">{{$ls->name}}</a><span>|</span>--}}
             {{--</p>--}}
                 {{--@endif--}}
+
             {{--@endforeach--}}
 
 

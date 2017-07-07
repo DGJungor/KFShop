@@ -17,21 +17,21 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $friend=Friend::all();
-        $banner=ShopBanner::paginate(4);
-        $recommend=Recommend::paginate(4);
-//        $res = compact("banner", "",["banners","friend"]);
+        $banner = ShopBanner::paginate(4);
+
+        $recommend = Recommend::paginate(4);
+
         $dataObj = \DB::table('data_types')->where('pid', '0')->get();
         foreach($dataObj as $data){
             $data->children = \DB::table('data_types')->where('pid', $data->id)->get();
             $data->goods = \DB::table('data_goods')->where('typeid', $data->id)->orderBy('buy', 'desc')->limit(8)->get();
             foreach($data->children as $children){
                 $children->grandchild = \DB::table('data_types')->where('pid', $children->id)->get();
-//            dd($children->grandchild);
+
             }
 
         }
-        return view('web.index', compact('data', "", ['dataObj', 'dataObj', 'res', 'friend', 'banner', 'recommend']));
+        return view('web.index', compact('data', "", ['dataObj', 'dataObj', 'res', 'banner', 'recommend']));
 
     }
 
