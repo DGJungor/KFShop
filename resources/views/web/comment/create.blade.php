@@ -20,33 +20,75 @@
 @section('content')
 
  <!--内容开始-->
-    <div class="evaluate w1200">
+ <div class="personal w1200">
+     @include('web.public.leftMenu')
+     <div class="personal-r f-r">
+         <div class="personal-right">
+             <div class="personal-r-tit">
+                 <h3>商品评论</h3>
+             </div>
+             <div class="data-con">
+                 <div class="dt1">
 
-        <form action="/comment" method="POST" id="comment">
-            <dl class="eva-info1">
-            <dt> <a href="#"><img src="{{ url('web/images/want-evaluate-tu.gif') }}" /></a></dt>
-            <dd>
-                <h3><a href="#">商品名</a></h3>
-                <ul class="tc-con2">
-                    <li>
-                        <span>价格</span><p class="p1">¥ 110.00 元</p>
-                    </li>
-                    <li>
-                        <span>评价</span><p>0分 (累计评价 43227 )</p>
-                    </li>
-                    <li>
-                        <span>颜色分类</span><p>长410ML*2，赠餐具</p>
-                    </li>
-                    <li>
-                        <span>订单号</span><p>20151223654586</p>
-                    </li>
-                </ul>
-            </dd>
-            <div style="clear:both;"></div>
-        </dl>
+                     <p class="f-l">商品图片：</p>
+                     <div class="touxiang f-l">
+                         <div class="tu f-l">
+                             <a id="editAvatar">
+                                 <img src="" onclick="avatar.click()"/>
+                             </a>
+                         </div>
 
-
-
+                         <div style="clear:both;"></div>
+                     </div>
+                     <div style="clear:both;"></div>
+                 </div>
+                 <div class="dt1">
+                     <p class="dt-p f-l">商品名：</p>
+                     <input id="username" type="text" name="username" value="{{ $userinfo->username }}" disabled />
+                     <div style="clear:both;"></div>
+                 </div>
+                 <div class="dt1">
+                     <p class="dt-p f-l">：</p>
+                     <input id="realname" maxlength="20" type="text" name="realname" value="{{ $userinfo->realname }}" />
+                     <div style="clear:both;"></div>
+                 </div>
+                 <div class="dt1">
+                     <p class="dt-p f-l">身份证号：</p>
+                     <input id="id_number" maxlength="18" type="text" name="id_number" value="{{ $userinfo->id_number }}" />
+                     <div style="clear:both;"></div>
+                 </div>
+                 <div class="dt1 dt2">
+                     <p class="dt-p f-l">性别：</p>
+                     <input type="radio" name="sex" value="1" @if($userinfo->sex ==1) checked @else @endif><span>男</span>
+                     <input type="radio" name="sex" value="2" @if($userinfo->sex ==2) checked @else @endif><span>女</span>
+                     <div style="clear:both;"></div>
+                 </div>
+                 <div id="data_1" class="dt1">
+                     <p class="dt-p f-l">生日：</p>
+                     <div class="input-group date">
+                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                         <input id="birthday" maxlength="12" class="layui-input" name="birthday" value="{{ $userinfo->birthday }}">
+                     </div>
+                     <div style="clear:both;"></div>
+                 </div>
+                 <div class="dt1 dt4">
+                     <p class="dt-p f-l">邮箱：</p>
+                     <input id="email" name="email" type="email" maxlength="32" value="{{ $userinfo->email }}" disabled />
+                     <button id="editEmail">更换邮箱</button>
+                     <div style="clear:both;"></div>
+                 </div>
+                 <div class="dt1 dt4">
+                     <p class="dt-p f-l">手机：</p>
+                     <input id="tel" name="tel" type="tel" maxlength="11" value="{{ $userinfo->tel }}" disabled />
+                     <button id="editTel">更换手机</button>
+                     <div style="clear:both;"></div>
+                 </div>
+                 <button id="editUserInfo" class="btn-pst">保存</button>
+             </div>
+         </div>
+     </div>
+     <div style="clear:both;"></div>
+ </div>
         {{--评论区块--}}
 
         <div class="eva-info3">

@@ -16,7 +16,7 @@ class CommentController extends Controller
     public function index()
     {
         $goods=\DB::table('data_goods')->get();
-        $order=\DB::table('data_details')->get();
+        $order=\DB::table('data_orders')->get();
 
         return view('web.comment.create');
     }

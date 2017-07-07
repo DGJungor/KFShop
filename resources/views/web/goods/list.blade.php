@@ -46,27 +46,9 @@
                 <div class="sp-tit1">
                     <h3>商品推荐</h3>
                 </div>
-                <ul class="shop-left-ul">
-
-                  @foreach( $recommend as $vv )
-                    {{--@if( $vv->recommend_location == 2 )--}}
-                    <li style="height:250px;">
-                        <div class="li-top">
-                            <a href="#" class="li-top-tu" target="_blank"><img src="{{ url('uploads') }}/x_{{$vv->recommend_picname}}" width='95' height='110' /></a>
-                            <p class="jiage"><span class="sp1">{{$vv->recommend_introduction}}</span></p>
-
-                        </div>
-                        <p class="miaoshu"></p>
-                        <div class="li-md">
-
-                            <div style="clear:both;"></div>
-                        </div>
-                        <p class="pingjia">0评价</p>
-                    </li>
-                        {{--@endif--}}
-                    @endforeach
-
+                <ul class="shop-left-ul" id="shop-left">
                 </ul>
+                <div style="clear:both;" id="recommends"></div>
             </div>
         </div>
         <div class="shop-pg-right f-r">
@@ -163,9 +145,14 @@
         });
 
     });
+
+
+
+
+
     $('a').off().click(function () {
         var path = $(this).attr('id');
-        console.log(path);
+//        console.log(path);
         var that = $(this);
         var id = this.getAttribute('ty-id');
         var ssd = that.parent().parent().parent().next().children('.news');
@@ -220,16 +207,60 @@
                 str += '</ul>';
                that.prop('ty-id'+id, str);
 
-                console.log(that.prop('ty-id'+id))
+//                console.log(that.prop('ty-id'+id))
                ssd.before(str);
             }
-
-
 
         });
 
     });
 
+
+    </script>
+
+    <script>
+
+        $(document).ready(function(){
+            var lis = $('#recommends');
+
+        $.ajax({
+
+            type:'POST',
+
+            url:'/goods_list/recom',
+
+            dataType:'json',
+
+            data : {'_token':'{{csrf_token()}}'},
+
+            success:function (data) {
+
+                var str=' <ul class="shop-left-ul">';
+
+                for(var i = 0; i<data.length; i++){
+                    str +=' <li style="height:250px;">';
+                    str +=' <div class="li-top">';
+                    str +='<a href="#" class="li-top-tu" target="_blank">';
+                    str +='<img src="{{ url('uploads') }}/x_'+ data[i].recommend_picname +'" width="95" height="110" />';
+                    str +='</a>';
+                    str +='<p class="jiage">';
+                    str +='<span class="sp1">'+ data[i].recommend_introduction +'</span>';
+                    str +='</p>';
+                    str +='</div>';
+                    str +='<p class="miaoshu"></p>';
+                    str +='<div class="li-md">';
+                    str +='<div style="clear:both;"></div>';
+                    str +='</div>';
+                    str +='<p class="pingjia">0评价</p>';
+                    str +='</li>';
+
+                }
+                str +='</ul>';
+                lis.before(str);
+            }
+
+        });
+        });
 
     </script>
 
