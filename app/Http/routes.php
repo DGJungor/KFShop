@@ -79,8 +79,10 @@ Route::group(['middleware' => 'auth','prefix' => 'user'], function () {
     Route::post('ajax/delAddress', 'PersonalController@delAddress');
     //设置默认地址
     Route::post('ajax/setDefault', 'PersonalController@setDefault');
+    //修改头像界面
+    Route::get('/showUpload', 'PersonalController@showUpload');
     //修改头像
-    Route::get('ajax/uploadAvatar', 'PersonalController@uploadAvatar');
+    Route::post('ajax/uploadAvatar', 'PersonalController@uploadAvatar');
 
 
 	//个人中心订单  --Jun

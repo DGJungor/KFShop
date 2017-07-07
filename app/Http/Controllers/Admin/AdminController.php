@@ -10,6 +10,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 /**
+ * //管理员控制器
  * Class AdminController
  * @author liuzhiqi
  * @package App\Http\Controller\Admin
@@ -18,6 +19,7 @@ class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * 管理员列表
      * @author liuzhiqi
      *
      * @return \Illuminate\Http\Response
@@ -37,11 +39,11 @@ class AdminController extends Controller
     public function create()
     {
         //
-        return view('admin.admins.create');
     }
 
     /**
      * Store a newly created resource in storage.
+     * 添加管理员
      * @author liuzhiqi
      *
      * @param  \Illuminate\Http\Request  $request
@@ -149,6 +151,7 @@ class AdminController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     * 管理员信息修改页面
      * @author liuzhiqi
      *
      * @param  int  $id
@@ -156,7 +159,7 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-        //管理员信息修改页面
+        //管理员信息修改
         $admin = AdminUser::findorFail($id);
         //判断角色类型
         if (\Auth::guard('admin')->user()->type != 0) {

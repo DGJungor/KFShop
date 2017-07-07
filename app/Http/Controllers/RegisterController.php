@@ -26,6 +26,7 @@ class RegisterController extends Controller
     }
 
     /**
+     * 注册验证
      * @author liuzhiqi
      * @param Request $request
      * @return $this|\Illuminate\Http\RedirectResponse
@@ -69,17 +70,20 @@ class RegisterController extends Controller
             $user_info->tel = $user_reg->tel;
             $user_info->save();
 
+            //邮件内容
             $send_email = new SendEmail;
             $send_email->to = request('email');
             $send_email->cc = 'Crossstarlight@163.com';
             $send_email->subject = '狂风商城验证';
             $send_email->content = 'http://ddemo.com/service/validate_email' . '/uid/' . $user_reg->id  . '/code/' . $uuid;
 
+            //把验证码存放到TempEmail表中
             $tempEmail = new TempEmail;
             $tempEmail->uid = $user_reg->id;
             $tempEmail->code = $uuid;
             $tempEmail->deadline = date('Y-m-d H-i-s', time() + 24*60*60);
             $tempEmail->save();
+            //发送邮件
             Mail::send('web.email_register', ['send_email' => $send_email], function ($m) use ($send_email) {
 
                 $m->to($send_email->to, '尊敬的用户')
@@ -93,7 +97,12 @@ class RegisterController extends Controller
         return back()->with(['msg' => '网络异常'])->withInput();
     }
 
-
+    /**
+     * 用户名/邮箱/手机号唯一性验证
+     * @author liuzhiqi
+     * @param Request $request
+     * @return string
+     */
     public function checkName(Request $request)
     {
         $msg_result = new MsgResult;
