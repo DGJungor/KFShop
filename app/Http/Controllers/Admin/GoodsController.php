@@ -178,7 +178,7 @@ class GoodsController extends Controller
             $filename = $request->picpic;
         }
 
-        if (Good::where('id', $id)->update([
+        if ($bool = Good::where('id', $id)->update([
             'goodname'=>$request->goodname,
             'typeid' =>$request->typeid,
             'buy'=>$request->buy,
@@ -195,8 +195,11 @@ class GoodsController extends Controller
                 'picname' => implode(',' , $request->file),
                 'listname' => implode(',' , $request->file_detail),
             ]);
-            if($row > 0){
+            if($row > 0 || $bool > 0){
                 return redirect('/admin/goods')->with(['success' => '修改成功！']);
+            }else{
+                return back()->with(['success' => '修改失败！']);
+
             }
 
         } else {

@@ -178,7 +178,7 @@ $('.over a').off().on('mouseover', function () {
                     str += '</div><div style="clear:both;"></div></div>';
                     str += '<div class="md-r f-l">';
                     str += '<a href="{{asset('buynow')}}/'+data[i].id+'?num=1" class="buynow" data="'+data[i].id+'"><button class="md-l-btn1">立即购买</button></a>';
-                    str += '<a href="{{asset('card/add')}}/'+data[i].id+'?num=1" class="cart" data="'+data[i].id+'"><button class="md-l-btn2">加入购物车</button></a>';
+                    str += '<a href="{{asset('cart/add')}}/'+data[i].id+'?num=1" class="cart" data="'+data[i].id+'"><button class="md-l-btn2">加入购物车</button></a>';
                     str += '</div><div style="clear:both;"></div></div>';
                     str += '<p class="pingjia">0评价</p>';
                     str += '<p class="weike">'+data[i].brand+'</p>';

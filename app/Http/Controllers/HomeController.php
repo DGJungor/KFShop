@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Admin\Recommend;
 use App\Admin\Good;
 use App\Http\Requests;
+// use Illuminate\Support\Facades\Redis;
 
 class HomeController extends Controller
 {
@@ -16,6 +17,12 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // $key= 'admin:name:6';
+        // $info = Redis::set($key, '123451116');
+        // if(Redis::exists($key)){
+            //根据键名获取键值
+            // dd(Redis::get($key));
+        // }
         $banner=ShopBanner::paginate(4);
         $banners=Recommend::paginate(4);
         $res = compact("banner", "",["banners"]);
