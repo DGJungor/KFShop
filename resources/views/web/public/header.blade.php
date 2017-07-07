@@ -42,9 +42,12 @@
         </div>
         <div class="search f-r">
             <div class="search-info">
-                <input type="text" placeholder="请输入商品名称" />
+                <form action="search" method="POST">
+                    {{csrf_field()}}
+                <input type="text" name="search" placeholder="请输入商品名称" />
                 <button>搜索</button>
                 <div style="clear:both;"></div>
+                </form>
             </div>
             <ul class="search-ul">
                 <li><a href="JavaScript:;">热门</a></li>
