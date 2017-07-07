@@ -20,15 +20,15 @@ class FriendController extends Controller
     public function index()
     {
         //友情链接模糊查询，默认空值
-        $search=request()->input('search','');
+        $search = request()->input('search','');
 
         //查询类型
         $type = Type::all();
 
         //一页的显示的条数
-        $page = 8;
+        $page = 10;
 
-        //查询商品
+        //查询友情链接
         $friend = Friend::where('name', 'like', "%{$search}%")->paginate($page);
 
         //给状态加解析名
@@ -60,7 +60,10 @@ class FriendController extends Controller
      */
     public function update(Request $request, $id)
     {
+        //查询获取对应id的数据
         $data = Friend::find($id);
+
+        //执行修改语句
         $data->name = $request->input('name');
 
         $data->type = $request->input('type');
@@ -68,18 +71,20 @@ class FriendController extends Controller
         if($request->input('url')!= ''){
             $data->url = $request->input('url');
         }
-        $data->status=$request->input('status');
-         //判断图片是否上传
+        $data->status = $request->input('status');
+
+        //判断图片是否上传
         if($request->hasFile('file') && $request->file('file')->isValid()){
-            $filePath='/uploads/friends/';
-            $fileName=str_random(10).'.png';
+            $filePath = '/uploads/friends/';
+            $fileName = str_random(10).'.png';
             Image::make($request->file('file'))
                 ->encode('png')
                 ->resize(50, 50)
                 ->save('.'.$filePath.$fileName);
-            $data->image=$filePath.$fileName;
+            $data->image = $filePath.$fileName;
         }
         $data->save();
+
         return redirect()->to('admin/friends')->with(['success'=>'修改友情链接成功!']);
 
     }
@@ -108,22 +113,25 @@ class FriendController extends Controller
     public function store(Request $request)
     {
         //友情链接创建方法
+        //实例化模型的类
         $data = new Friend();
+
+        //执行插入数据
         $data->name = $request->input('name');
-        if($request->input('url')!= ''){
-            $data->url = $request->input('url');
-        }
+            if($request->input('url')!= ''){
+                $data->url = $request->input('url');
+            }
         $data->type = $request->input('type');
         $data->image = NULL;
-        if($request->hasFile('file') && $request->file('file')->isValid()){
-            $filePath='/uploads/friends/';
-            $fileName=str_random(10).'.png';
-            Image::make($request->file('file'))
-                ->encode('png')
-                ->resize(50, 50)
-                ->save('.'.$filePath.$fileName);
-            $data->image=$filePath.$fileName;
-        }
+            if($request->hasFile('file') && $request->file('file')->isValid()){
+                $filePath = '/uploads/friends/';
+                $fileName = str_random(10).'.png';
+                Image::make($request->file('file'))
+                    ->encode('png')
+                    ->resize(50, 50)
+                    ->save('.'.$filePath.$fileName);
+                $data->image = $filePath.$fileName;
+            }
         $data->save();
         return redirect()->to('admin/friends')->with(['success'=>'新增友情链接成功！']);
 
@@ -133,24 +141,24 @@ class FriendController extends Controller
     public function destroy($id)
     {
         //获取图片存储路径
-        $filePath=public_path('uploads');
+        $filePath = public_path('uploads');
         //获取友情链接表的图片信息
-        $file=DB::table('data_friend_link')->where('id', '=', $id)->select('image')->get();
+        $file = DB::table('data_friend_link')->where('id', '=', $id)->select('image')->get();
         //遍历出图片的字段
         foreach ($file as $v)
-            $fileName=$v->image;
+            $fileName = $v->image;
         //执行删除
-        if (Friend::destroy($id)) {
+            if (Friend::destroy($id)) {
 
-            Storage::disk('uploads')->delete($fileName);
-            Storage::disk('uploads')->delete('x_'.$fileName);
-            return redirect('/admin/friends')->with(['success'=>'删除成功']);
+                Storage::disk('uploads')->delete($fileName);
+                Storage::disk('uploads')->delete('x_'.$fileName);
+                return redirect('/admin/friends')->with(['success'=>'删除成功']);
 
-        } else {
+            } else {
 
-            return back()->with(['success'=>'删除失败']);
+                return back()->with(['success'=>'删除失败']);
 
-        }
+            }
 
     }
 

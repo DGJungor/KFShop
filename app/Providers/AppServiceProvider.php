@@ -23,6 +23,11 @@ class AppServiceProvider extends ServiceProvider
                 }
             $view->with('data',$dataObj);
         });
+
+        view()->share('friend',
+            $friend = \DB::table('data_friend_link')->get()
+
+        );
     }
 
     /**

@@ -109,7 +109,7 @@ a:focus{outline:none; -moz-outline:none;}		/*解决  去除 a 链接点击后有
 /*banner 开始*/
 .banner-box{ width:100%; height:560px; /*background:url(../images/banner-bgtu.jpg) no-repeat top center;*/}
 .banner{ height:560px; position:relative; overflow:hidden;/**/}
-.banner ul{ width:7200px; position:relative; left:0；}
+.banner ul{ width:7200px; position:relative; left:0;}
 .banner li{ float:left;}
 .banner .bnr{ display:inline-block; width:67px; height:121px; line-height:121px; text-align:center; background-color:#000; color:#fff; font-size:36px; font-family:"宋体"; opacity:0.3; position:absolute; top:220px; left:311px;}
 .banner .bnr-right{ left:1120px;}
