@@ -71,7 +71,7 @@
                                     </div>
                                     <div class="hr-line-dashed"></div>
                                     <div class="form-group">
-                                        <label class="col-sm-2 control-label">图片名称:</label>
+                                        <label class="col-sm-2 control-label">图片:</label>
 
                                         <div class="col-sm-10">
                                             <input type="file" class="form-control" name="file" required >

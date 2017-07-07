@@ -13,6 +13,12 @@ use App\Models\MsgResult;
 use Auth;
 use DB;
 
+/**
+ * 个人中心控制器
+ * Class PersonalController
+ * @author liuzhiqi
+ * @package App\Http\Controllers
+ */
 class PersonalController extends Controller
 {
     /**
@@ -22,9 +28,15 @@ class PersonalController extends Controller
      */
     public function index()
     {
+        //获取用户信息,返回到个人中心视图
         $id = Auth::user()->id;
         $userinfo = UserRegister::find($id)->userInfo[0];
         return view('web.personal.index', compact('userinfo'));
+    }
+
+    public function uploadAvatar()
+    {
+        //
     }
 
     /**
@@ -37,26 +49,92 @@ class PersonalController extends Controller
         return view('web.personal.address');
     }
 
-    public function showAddress(Request $request)
+    /**
+     * 城市三级联动
+     * @author liuzhiqi
+     * @param Request $request
+     * @return mixed
+     */
+    public function showCity(Request $request)
     {
+        //获取省/市/县区的信息
         $id = $request->id;
         $data = \DB::table('district')->where('upid', '=', $id)->get();
         return $data;
     }
 
+    /**
+     * 展示个人收货地址
+     * @author liuzhiqi
+     * @param Request $request
+     * @return int
+     */
+    public function showAddress(Request $request)
+    {
+        $id = $request->id;
+        //判断是否有收货地址
+        if (Address::count('uid', '=', $id) < 1) {
+            return 2;
+        }
+        //获取收货地址
+        $myAddress = Address::where('uid', '=', $id)->get();
+        return $myAddress;
+    }
+
+    /**
+     * 新增收货地址
+     * @author liuzhiqi
+     * @param Request $request
+     * @return int|static
+     */
     public function createAddress(Request $request)
     {
-        $data['uid'] = $request->input('id', '');
-        $data['name'] = $request->input('name', '');
-        $data['tel'] = $request->input('tel', '');
-        $data['address'] = $request->input('address', '');
-        $data['det_address'] = $request->input('det_address', '');
-        if($address=Address::create($data)) {
-            return $address;
+        //判断收货地址是否超出限制
+        if (Address::count('uid', '=', \Auth::user()->id) < 21) {
+            $data['uid'] = $request->input('id', '');
+            $data['name'] = $request->input('name', '');
+            $data['tel'] = $request->input('tel', '');
+            $data['address'] = $request->input('address', '');
+            $data['det_address'] = $request->input('det_address', '');
+            //判断收货地址是否添加成功
+            if ($address = Address::create($data)) {
+                return $address;
+            }
         }
         return 2;
     }
 
+    public function delAddress(Request $request)
+    {
+        $id = $request->input('id', '');
+        if ($id == null) {
+            return 1;
+        }
+        if (Address::destroy($id)) {
+            return 0;
+        }
+        return 1;
+    }
+
+    public function setDefault(Request $request)
+    {
+        $id = $request->input('id', '');
+        $uid = $request->input('uid', '');
+        if ($id == null ||$uid == null) {
+            return 1;
+        }
+        if (Address::where('uid', '=', $uid)->where( 'status', '=', 2)->update(['status'=> 1]) && Address::where('id', '=', $id)->update(['status' => 2])) {
+            return 0;
+        }
+        return 1;
+    }
+
+    /**
+     * 个人信息修改
+     * @author liuzhiqi
+     * @param Request $request
+     * @return string
+     */
     public function editUserInfo(Request $request)
     {
         $id = $request->input('id', '');
@@ -73,16 +151,19 @@ class PersonalController extends Controller
             $msg_result->message = '数据提交失败';
             return $msg_result->toJson();
         }
+        //判断真实姓名
         if (strlen($realname) > 20) {
             $msg_result->status = 2;
             $msg_result->message = '真实姓名错误';
             return $msg_result->toJson();
         }
+        //判断身份证号码
         if (strlen($id_number) > 18) {
             $msg_result->status = 3;
             $msg_result->message = '身份证号码错误';
             return $msg_result->toJson();
         }
+        //判断是否修改成功
         if (UserInfo::where('id','=',$id)->update(['realname' => $realname, 'id_number' => $id_number, 'sex' => $sex, 'birthday' => $birthday])) {
             $msg_result->status = 0;
             $msg_result->message = '修改成功';

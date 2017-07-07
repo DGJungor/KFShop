@@ -69,10 +69,18 @@ Route::group(['middleware' => 'auth','prefix' => 'user'], function () {
     Route::post('editUserInfo', 'PersonalController@editUserInfo');
     //收货地址
     Route::get('address', 'PersonalController@address');
-    //展示城市
+    //展示我的收货地址
     Route::post('ajax/showAddress', 'PersonalController@showAddress');
+    //城市三级联动
+    Route::post('ajax/showCity', 'PersonalController@showCity');
     //新增收货地址
     Route::post('ajax/createAddress', 'PersonalController@createAddress');
+    //删除收货地址
+    Route::post('ajax/delAddress', 'PersonalController@delAddress');
+    //设置默认地址
+    Route::post('ajax/setDefault', 'PersonalController@setDefault');
+    //修改头像
+    Route::get('ajax/uploadAvatar', 'PersonalController@uploadAvatar');
 
 
 	//个人中心订单  --Jun

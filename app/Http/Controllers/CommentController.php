@@ -18,7 +18,7 @@ class CommentController extends Controller
         $goods=\DB::table('data_goods')->get();
 
 
-        return view('web.comment.index');
+        return view('web.comment.create');
     }
 
     /**

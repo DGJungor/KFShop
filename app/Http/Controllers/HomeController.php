@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Admin\Friend;
 use App\Admin\ShopBanner;
 use Illuminate\Http\Request;
 use App\Admin\Recommend;
@@ -17,26 +18,22 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // $key= 'admin:name:6';
-        // $info = Redis::set($key, '123451116');
-        // if(Redis::exists($key)){
-            //根据键名获取键值
-            // dd(Redis::get($key));
-        // }
+
+        $friend=Friend::all();
         $banner=ShopBanner::paginate(4);
-        $banners=Recommend::paginate(4);
-        $res = compact("banner", "",["banners"]);
+        $recommend=Recommend::paginate(4);
+//        $res = compact("banner", "",["banners","friend"]);
         $dataObj = \DB::table('data_types')->where('pid', '0')->get();
         foreach($dataObj as $data){
             $data->children = \DB::table('data_types')->where('pid', $data->id)->get();
             $data->goods = \DB::table('data_goods')->where('typeid', $data->id)->orderBy('buy', 'desc')->limit(8)->get();
             foreach($data->children as $children){
                 $children->grandchild = \DB::table('data_types')->where('pid', $children->id)->get();
+//            dd($children->grandchild);
             }
+
         }
-
-
-        return view('web.index', compact('data', "", ['dataObj', 'dataObj', 'res']));
+        return view('web.index', compact('data', "", ['dataObj', 'dataObj', 'res', 'friend', 'banner', 'recommend']));
 
     }
 

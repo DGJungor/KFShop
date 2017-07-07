@@ -55,7 +55,7 @@
             <dd>
             	<p>买过的人觉得</p>
                 <ul>
-                	<li><a href="#">香脆可口(0)</a></li>
+                	<li><a href="javascript:oid(0)">香脆可口(0)</a></li>
                 	<div style="clear:both;"></div>
                 </ul>
             </dd>

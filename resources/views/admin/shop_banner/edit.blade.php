@@ -25,6 +25,11 @@
                         <h5>修改轮播图</h5>
                     </div>
                     <div class="ibox-content">
+                        @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                        @endif
                         <form action="{{url('admin/shop_banner/'.$data->id)}}" method="post" enctype="multipart/form-data">
                             {{csrf_field()}}
                             <input type="hidden" value="PUT" name="_method">
@@ -65,4 +70,8 @@
                     </div>
                 </div>
             </div>
+@endsection
+
+@section('js')
+            <script src="{{asset('style/js/bannerEdit.js')}}"></script>
 @endsection

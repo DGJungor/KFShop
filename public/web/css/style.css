@@ -109,7 +109,7 @@ a:focus{outline:none; -moz-outline:none;}		/*解决  去除 a 链接点击后有
 /*banner 开始*/
 .banner-box{ width:100%; height:560px; /*background:url(../images/banner-bgtu.jpg) no-repeat top center;*/}
 .banner{ height:560px; position:relative; overflow:hidden;/**/}
-.banner ul{ width:7200px; position:relative; left:0；}
+.banner ul{ width:7200px; position:relative; left:0;}
 .banner li{ float:left;}
 .banner .bnr{ display:inline-block; width:67px; height:121px; line-height:121px; text-align:center; background-color:#000; color:#fff; font-size:36px; font-family:"宋体"; opacity:0.3; position:absolute; top:220px; left:311px;}
 .banner .bnr-right{ left:1120px;}
@@ -293,6 +293,13 @@ a:focus{outline:none; -moz-outline:none;}		/*解决  去除 a 链接点击后有
 .footer-info3 p span{font-size:12px; color:#000; margin:0 5px 0 8px;}
 .footer-info3 .ft-if3-tu1{ text-align:center; margin-top:15px;}
 .ft-if3-tu1 a{ display:inline-block; margin:0 5px;}
+
+.footer-box .footer-info4{ height:68px; border-bottom:1px solid #dfdfdf;}
+.footer-info4 dt{ padding-left: 60px;font-size:14px; float: left;line-height: 25px;}
+.footer-info4 p{  line-height: 25px; float: left;}
+.footer-info4 p a{  font-size:14px;}
+.footer-info4 p a:hover{ color:#63A61D; text-decoration:underline;}
+.footer-info4 p span{font-size:12px; color:#000; margin:0 5px 0 8px;}
 
 	/*固定右侧*/
 .youce{ width:35px; height:100%; background:#000; position:fixed; right:0; top:0;}

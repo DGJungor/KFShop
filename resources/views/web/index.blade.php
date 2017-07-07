@@ -14,7 +14,7 @@
 
     <div class="banner">
         <ul class="ban-ul1">
-            @foreach($res["banner"] as $v)
+            @foreach($banner as $v)
             @if($v->disabled == '显示')
                 <li>
                     <a href="http://{{($v->redirect_url)}}"><img src="{{ url($v['img_url']) }}" /></a>
@@ -39,7 +39,7 @@
     </div>
     <ul class="tuijian-right f-l">
 
-            @foreach($res['banners'] as $w=>$q)
+            @foreach($recommend as $w=>$q)
             @if($q->recommend_location == 1)
         <li>
             <div class="li-box li-box{{$w}}"   style="background: url({{('/uploads/s_').$q->recommend_picname}})no-repeat right 20px;">
