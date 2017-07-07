@@ -63,7 +63,7 @@
                     <p class="dt-p f-l">生日：</p>
                     <div class="input-group date">
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-                        <input id="birthday" maxlength="12" class="layui-input" name="birthday" value="{{ $userinfo->birthday }}" onclick="layui.laydate({elem: this, festival: true})">
+                        <input id="birthday" maxlength="12" class="layui-input" name="birthday" value="{{ $userinfo->birthday }}">
                     </div>
                     <div style="clear:both;"></div>
                 </div>
@@ -96,42 +96,47 @@
 
     <script>
         //修改个人信息
-        $(document).ready(function () {
-            $('#data_1 .input-group.date').datepicker({
-                todayBtn: "linked",
-                keyboardNavigation: false,
-                forceParse: false,
-                calendarWeeks: true,
-                autoclose: true
-            });
+        $('#data_1 .input-group.date').datepicker({
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            calendarWeeks: true,
+            autoclose: true
+        });
 
-           $('#editUserInfo').click(function () {
-               var id = "{{ $userinfo->id }}";
-               var realname = $('#realname').val();
-               var id_number = $('#id_number').val();
-               var sex = $('input[name="sex"]:checked').val();
-               if (sex == undefined) {
-                   sex = '';
-               }
-               var birthday = $('#birthday').val();
-               $.ajax({
-                  type: "POST",
-                   url: '/user/editUserInfo',
-                   dataType: 'json',
-                   data: {id: id,realname: realname, id_number: id_number, sex: sex, birthday: birthday, _token: "{{ csrf_token() }}"},
-                   success: function (data) {
-                       if(data.status == null){
-                               layer.msg('服务器端错误',1,1);
-                       }
-                       if (data.status != 0) {
-                               layer.msg(data.message,1,1);
-                       }
-                       if (data.status == 0) {
-                               layer.msg(data.message,1,1);
-                       }
-                   }
-               });
-           });
+        $('#editUserInfo').click(function () {
+            var id = "{{ $userinfo->id }}";
+            var realname = $('#realname').val();
+            var id_number = $('#id_number').val();
+            var sex = $('input[name="sex"]:checked').val();
+            if (sex == undefined) {
+                sex = '';
+            }
+            var birthday = $('#birthday').val();
+            $.ajax({
+                type: "POST",
+                url: '/user/editUserInfo',
+                dataType: 'json',
+                data: {
+                    id: id,
+                    realname: realname,
+                    id_number: id_number,
+                    sex: sex,
+                    birthday: birthday,
+                    _token: "{{ csrf_token() }}"
+                },
+                success: function (data) {
+                    if (data.status == null) {
+                        layer.msg('服务器端错误', 1, 1);
+                    }
+                    if (data.status != 0) {
+                        layer.msg(data.message, 1, 1);
+                    }
+                    if (data.status == 0) {
+                        layer.msg(data.message, 1, 1);
+                    }
+                }
+            });
         });
     </script>
 @endsection

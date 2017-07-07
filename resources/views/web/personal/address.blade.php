@@ -65,35 +65,11 @@
                         <p class="p2">所在地区</p>
                         <p class="p3">详细地址</p>
                         <p class="p4">电话/手机</p>
-                        <p class="p5">创建日期</p>
+                        <p class="p5">创建时间</p>
                         <p class="p6">操作</p>
                     </div>
-                    <ul class="man-ul1">
-                        <li>
-                            <p class="p1">赵珍珍</p>
-                            <p class="p2">重庆 重庆市 南岸区</p>
-                            <p class="p3">南坪左岸阳光c2-10-3</p>
-                            <p class="p4">18983945092</p>
-                            <p class="p5">2017-06-06</p>
-                            <p class="p6">
-                                <a href="#">修改</a> |
-                                <a href="#">删除</a>
-                            </p>
-                            <p class="p7"><a href="#">默认地址</a></p>
-                            <div style="clear:both;"></div>
-                        </li>
-                        <li>
-                            <p class="p1">赵珍珍</p>
-                            <p class="p2">重庆 重庆市 南岸区 南坪街道</p>
-                            <p class="p3">南岸区南坪福红路19号乙单元7-2南岸区南坪福红路19号乙单元7-2南岸区南坪福红路19号乙单元7-2</p>
-                            <p class="p4">000000</p>
-                            <p class="p5">18983945092</p>
-                            <p class="p6">
-                                <a href="#">修改</a> |
-                                <a href="#">删除</a>
-                            </p>
-                            <div style="clear:both;"></div>
-                        </li>
+                    <ul id="show" class="man-ul1">
+
                     </ul>
                 </div>
             </div>
@@ -103,18 +79,22 @@
 @endsection
 
 @section('js')
-    <!-- layer javascript -->
+        <!-- layer javascript -->
     <script src="{{ asset('/style/js/plugins/layer/layer.min.js') }}"></script>
     <script src="{{ asset('/style/js/demo/layer-demo.js') }}"></script>
 
     <script>
         $(document).ready(function () {
+            //加载城市三级联动下拉框
+            //省下拉框
             $.ajax({
-                url: '/user/ajax/showAddress',
+                url: '/user/ajax/showCity',
                 type: 'POST',
                 dataType: 'json',
                 data: {id: 0, _token: "{{ csrf_token() }}"},
                 success: function (data) {
+                    $('#province option').remove();
+                    $('#province').append("<option value=\"\">请选择省</option>");
                     for (var i = 0; i < data.length; i++) {
                         var pro_option = "<option value=\"" + data[i].id + "\">" + data[i].name + "</option>";
                         $('#province').append(pro_option);
@@ -122,95 +102,251 @@
                 }
             });
 
+            //市下拉框
             $('#province').change(function () {
+                var pro_val = $('#province').val();
                 $('#city option').remove();
                 $('#city').append("<option value=\"\">请选择市</option>");
                 $('#county option').remove();
                 $('#county').append("<option value=\"\">请选择县/区</option>");
-                $.ajax({
-                    url: '/user/ajax/showAddress',
-                    type: 'POST',
-                    dataType: 'json',
-                    data: {id: $('#province').val(), _token: "{{ csrf_token() }}"},
-                    success: function (data) {
-                        for (var i = 0; i < data.length; i++) {
-                            var city_option = "<option value=\"" + data[i].id + "\">" + data[i].name + "</option>";
-                            $('#city').append(city_option);
+                if (pro_val) {
+                    $.ajax({
+                        url: '/user/ajax/showCity',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {id: pro_val, _token: "{{ csrf_token() }}"},
+                        success: function (data) {
+                            for (var i = 0; i < data.length; i++) {
+                                var city_option = "<option value=\"" + data[i].id + "\">" + data[i].name + "</option>";
+                                $('#city').append(city_option);
+                            }
                         }
-                    }
-                });
+                    });
+                }
             });
 
+            //县区下拉框
             $('#city').change(function () {
+                var city_val = $('#city').val();
                 $('#county option').remove();
                 $('#county').append("<option value=\"\">请选择县/区</option>");
-                $.ajax({
-                    url: '/user/ajax/showAddress',
-                    type: 'POST',
-                    dataType: 'json',
-                    data: {id: $('#city').val(), _token: "{{ csrf_token() }}"},
-                    success: function (data) {
+                if (city_val) {
+                    $.ajax({
+                        url: '/user/ajax/showCity',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {id: city_val, _token: "{{ csrf_token() }}"},
+                        success: function (data) {
+                            for (var i = 0; i < data.length; i++) {
+                                var county_option = "<option value=\"" + data[i].id + "\">" + data[i].name + "</option>";
+                                $('#county').append(county_option);
+                            }
+                        }
+                    });
+                }
+            });
+        });
+
+        $(function () {
+            $.ajax({
+                url: '/user/ajax/showAddress',
+                type: 'post',
+                dataType: 'json',
+                data: {id: "{{Auth::user()->id}}", _token: "{{ csrf_token() }}"},
+                success: function (data) {
+                    if (data == 2) {
+                        $('#show').html("<p id=\"nothing\" style=\"font-size:15px; color: red; text-align: center; margin: 10px;\">您还没有收货地址呢,快去添加一个吧！</p>");
+                    }
+                    if (data != null || data != 2) {
+                        $('#nothing').remove();
                         for (var i = 0; i < data.length; i++) {
-                            var county_option = "<option value=\"" + data[i].id + "\">" + data[i].name + "</option>";
-                            $('#county').append(county_option);
+                            var html = "<li>" +
+                                    "<p class=\"p1\">" + data[i].name + "</p>" +
+                                    "<p class=\"p2\">" + data[i].address + "</p>" +
+                                    "<p class=\"p3\">" + data[i].det_address + "</p>" +
+                                    "<p class=\"p4\">" + data[i].tel + "</p>" +
+                                    "<p class=\"p5\">" + data[i].created_at + "</p>" +
+                                    "<p class=\"p6\">" +
+                                    "<a href='javascript:;' class='edit'  name='" + data[i].id + "'>修改</a> |" +
+                                    "<a href='javascript:;' class='del'  name='" + data[i].id + "'>删除</a>" +
+                                    "</p>" +
+                                    "<p class=\"p7\">";
+                            if (data[i].status == 2) {
+                                html += "<a href='javascript:;' class='default' name='" + data[i].id + "'>默认地址</a>";
+                            } else {
+                                html += "<a href='javascript:;' class='to_default' name='" + data[i].id + "'>设为默认</a>";
+                            }
+                            html += "</p>" +
+                                    "<div style=\"clear:both;\"></div>" +
+                                    "</li>";
+                            $('#show').prepend(html);
                         }
                     }
-                });
-            });
-
-            $('#createdAddress').click(function () {
-                if ($('#province').val() == "") {
-                        layer.msg('请选择省',1,8);
-                    return false;
                 }
-                if ($('#city').val() == "") {
-                        layer.msg('请选择市',1,8);
-                    return false;
-                }
-                if ($('#county').val() == "") {
-                        layer.msg('请选择县/区',1,8);
-                    return false;
-                }
-                var det_address = $('#det_address').val();
-                if (!det_address) {
-                        layer.msg('请填写详细地址',1,8);
-                    return false;
-                }
-                var name = $('#name').val();
-                if (!name) {
-                        layer.msg('请填写收货人',1,8);
-                    return false;
-                }
-                var tel = $('#tel').val();
-                if (!tel) {
-                        layer.msg('请填写联系电话',1,8);
-                    return false;
-                }
-                var reg = /(1[3-9]\d{9})/;
-                if (!reg.test(tel)) {
-                        layer.msg('请填写正确的手机号',1,8);
-                    return false;
-                }
-
-                var address = $('#province').find("option:selected").text() + " / ";
-                address += $('#city').find("option:selected").text() + " / ";
-                address += $('#county').find("option:selected").text();
-                console.log(address);
-                return false;
-                var id = "{{ \Auth::user()->id}}";
-
-                $.ajax({
-                    url: '/user/ajax/createAddress',
-                    type: 'post',
-                    dataType: 'json',
-                    data: {id: id, name: name, tel: tel, address: address, det_address: det_address, _token: "{{ csrf_token() }}"},
-                    success: function (data) {
-                        layer.msg('添加成功',1,1);
-                    }
-                })
-
             });
 
         });
+
+
+        //新增地址
+        $('#createdAddress').off().click(function () {
+            if ($('#province').val() == "") {
+                layer.msg('请选择省', 1, 8);
+                return false;
+            }
+            if ($('#city').val() == "") {
+                layer.msg('请选择市', 1, 8);
+                return false;
+            }
+            if ($('#county').val() == "") {
+                layer.msg('请选择县/区', 1, 8);
+                return false;
+            }
+            var det_address = $('#det_address').val();
+            if (!det_address) {
+                layer.msg('请填写详细地址', 1, 8);
+                return false;
+            }
+            var name = $('#name').val();
+            if (!name) {
+                layer.msg('请填写收货人', 1, 8);
+                return false;
+            }
+            var tel = $('#tel').val();
+            if (!tel) {
+                layer.msg('请填写联系电话', 1, 8);
+                return false;
+            }
+            var reg = /(1[3-9]\d{9})/;
+            if (!reg.test(tel)) {
+                layer.msg('请填写正确的手机号', 1, 8);
+                return false;
+            }
+
+            var address = $('#province').find("option:selected").text() + "/";
+            address += $('#city').find("option:selected").text() + "/";
+            address += $('#county').find("option:selected").text();
+            var id = "{{ \Auth::user()->id}}";
+            $('#createdAddress').attr('disabled');
+
+            $.ajax({
+                url: '/user/ajax/createAddress',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    id: id,
+                    name: name,
+                    tel: tel,
+                    address: address,
+                    det_address: det_address,
+                    _token: "{{ csrf_token() }}"
+                },
+                async: false,
+                success: function (data) {
+                    if (data == null) {
+                        layer.mag('呀,服务器开小差了',2,8);
+                        return;
+                    }
+                    if (data == 2) {
+                        layer.msg('收货地址超过限制', 2, 8);
+                        return;
+                    }
+                    if (data != null || data != 2) {
+                        $('#nothing').remove();
+                        layer.msg("添加成功", 1, 1);
+                        var html = "<li>" +
+                                "<p class=\"p1\">" + data.name + "</p>" +
+                                "<p class=\"p2\">" + data.address + "</p>" +
+                                "<p class=\"p3\">" + data.det_address + "</p>" +
+                                "<p class=\"p4\">" + data.tel + "</p>" +
+                                "<p class=\"p5\">" + data.created_at + "</p>" +
+                                "<p class=\"p6\">" +
+                                "<a href='javascript:;' class='edit'  name='" + data.id + "'>修改</a> |" +
+                                "<a href='javascript:;' class='del'  name='" + data.id + "'>删除</a>" +
+                                "</p>" +
+                                "<p class=\"p7\">";
+                        if (data.status == 2) {
+                            html += "<a href='javascript:;' class='default' name='" + data.id + "'>默认地址</a>";
+                        } else {
+                            html += "<a href='javascript:;' class='to_default' name='" + data.id + "'>设为默认</a>";
+                        }
+                        html += "</p>" +
+                                "<div style=\"clear:both;\"></div>" +
+                                "</li>";
+                        $('#show').prepend(html);
+                        //新增地址成功,重置输入框
+                        $('#province').val("");
+                        $('#city').val("");
+                        $('#county').val("");
+                        $('#det_address').val("");
+                        $('#name').val("");
+                        $('#tel').val("");
+                        $('#createdAddress').removeAttr("disabled");
+                    }
+                }
+            });
+
+        });
+
+
+        //删除收货地址
+        $('body').on('click', '.del', function () {
+            var id = $(this).prop('name');
+            $.ajax({
+                url: '/user/ajax/delAddress',
+                type: 'POST',
+                dataType: 'json',
+                data: {id: id, _token: "{{ csrf_token() }}"},
+                success: function (data) {
+                    if (data == null) {
+                        layer.msg('呀,服务器开小差了', 2, 8);
+                    }
+                    if (data == 0) {
+                        $('a[name="' + id + '"]').parent().parent().remove();
+                        layer.msg('删除成功', 1, 1);
+                    }
+                    if (data == 1) {
+                        layer.msg('删除失败', 1, 8);
+                    }
+                }
+            });
+        });
+
+        //设置默认地址
+        $('body').on('click', '.to_default', function () {
+            $(this).attr('to', 'default');
+            var id = $(this).prop('name');
+            var uid = "{{Auth::user()->id}}";
+            $.ajax({
+                url: '/user/ajax/setDefault',
+                type: 'POST',
+                dataType: 'json',
+                data: {id: id, uid: uid, _token: "{{ csrf_token() }}"},
+                success: function (data) {
+                    if (data == null) {
+                        $('.ready_to_default').removeClass().addClass('to_default');
+                        layer.msg('呀,服务器开小差了', 2, 8);
+                        return;
+                    }
+                    if (data == 0) {
+                        $('.default').html('设为默认').removeClass().addClass('to_default');
+                        $('a[to="default"]').removeClass().addClass('default');
+                        $('.default').html('默认地址').removeAttr('to');
+                        layer.msg('设置成功', 1, 1);
+                        return;
+                    }
+                    if (data == 1) {
+                        $.attr('to').removeClass().addClass('to_default');
+                        layer.msg('设置失败', 1, 8);
+                        return;
+                    }
+                }
+            });
+        });
+
+//        $('body').on('click', '.edit', function () {
+//            var id = $(this).prop('name');
+//        });
+
     </script>
 @endsection
