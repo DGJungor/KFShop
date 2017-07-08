@@ -21,6 +21,7 @@ class GoodsListController extends Controller
         //找到获取的id的对应数据
         $type = \DB::table('data_types')->where('pid','=', $id)->get();
         //判读是否为空数组，执行对应的操作
+
         if($type){
 
             $list = \DB::table('data_types')->where('id','=', $id)->get();
@@ -34,7 +35,9 @@ class GoodsListController extends Controller
 
                 $did[] = $val->id;
             }
-            $goods=\DB::table('data_goods')->whereIn('typeid',$did)->paginate(12);
+
+            $goods=\DB::table('data_goods')->whereNotIn('state',[1])->whereIn('typeid',$did)->paginate(12);
+
 
         }else{
 
@@ -42,7 +45,7 @@ class GoodsListController extends Controller
 
             $lst = array('2');
 
-            $goods = \DB::table('data_goods')->where('typeid', $id)->paginate(12);
+            $goods = \DB::table('data_goods')->whereNotIn('state',[1])->where('typeid', $id)->paginate(12);
 
         }
 
@@ -61,12 +64,12 @@ class GoodsListController extends Controller
 
         if($path == 'buys'){
 
-            $datas = \DB::table('data_goods')->where('typeid',$id)->orderBy('buy','asc')->limit(16)->get();
+            $datas = \DB::table('data_goods')->where('typeid',$id)->whereNotIn('state',[1])->orderBy('buy','asc')->limit(16)->get();
 
         }
         elseif($path == 'prices'){
 
-            $datas = \DB::table('data_goods')->where('typeid',$id)->orderBy('price','asc')->limit(16)->get();
+            $datas = \DB::table('data_goods')->where('typeid',$id)->whereNotIn('state',[1])->orderBy('price','asc')->limit(16)->get();
 
         }
 

@@ -29,7 +29,7 @@
              <span style="color: #1D1D1D">当前页共计:
             <input type="hidden" value="@foreach($goods as $vv) @endforeach">
 
-             <strong>@if($vv->state==0){{count($goods)}}@endif</strong>
+             <strong>{{count($goods)}}</strong>
              件相关商品
              </span>
 
@@ -75,7 +75,6 @@
                             <a href="javascript:oid(0)" id="prices" ty-id="{{$list[0]->id}}"  title="价格">价格 ↓</a>
                         </li>
 
-
                     @endif
 
                     {{--<li >--}}
@@ -91,7 +90,7 @@
                 <ul class="shop-ul-tu shop-ul-tu1" id="goodslist">
 
                     @foreach( $goods as $ve )
-                    @if($ve->state==0)
+
                     <li style="margin-right:0;">
                         <div class="li-top">
                             <a href="{{ url('details') }}/{{$ve->id}}"  target="_blank" class="li-top-tu"><img src="{{ url('uploads/goods') }}/{{$ve->picname}}" height="110" width="95" /></a>
@@ -119,15 +118,12 @@
 
                         <p class="weike">{{$ve->brand}}自营</p>
                     </li>
-                        @endif
+
                     @endforeach
 
-
-
-                    {{--遍历--}}
                 </ul>
                 <div style="clear:both;" class="news"></div>
-                    {{--@endforeach--}}
+
             </div>
         </div>
         <div style="clear:both;"></div>
@@ -142,7 +138,6 @@
 
         <div style="clear:both;"></div>
     </div>
-    {{--{{ $goods->links() }}--}}
 
 @endsection
 
@@ -157,10 +152,6 @@
         });
 
     });
-
-
-
-
 
     $('a').off().click(function () {
         var path = $(this).attr('id');
