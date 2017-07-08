@@ -8,6 +8,7 @@ use App\Admin\Recommend;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Input;
 
 class GoodsListController extends Controller
 {
@@ -28,14 +29,12 @@ class GoodsListController extends Controller
 
             foreach ($type as $val)
             {
+
                 $val->children = \DB::table('data_goods')->where('typeid', '=', $val->id)->get();
 
-                foreach ($val->children as $chil)
-                {
-                    $goods[] = $chil;
-
-                }
+                $did[] = $val->id;
             }
+            $goods=\DB::table('data_goods')->whereIn('typeid',$did)->paginate(8);
 
         }else{
 
@@ -43,16 +42,9 @@ class GoodsListController extends Controller
 
             $lst = array('2');
 
-            $types = \DB::table('data_goods')->where('typeid', $id)->get();
-
-                foreach($types as $val){
-
-                    $goods[] = $val;
-
-                }
+            $goods = \DB::table('data_goods')->where('typeid', $id)->paginate(8);
 
         }
-        //推荐位的数据
 
         return view('web.goods.list', compact('goodslist', '', ['lst','goods', 'list']));
     }
@@ -90,6 +82,5 @@ class GoodsListController extends Controller
 
         return $recommend;
     }
-
 
 }

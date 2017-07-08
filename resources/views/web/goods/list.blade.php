@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" type="text/css" href="{{ url('/web/css/shopping-mall-index.css') }}" />
 
+    <link rel="stylesheet" type="text/css" href="{{ url('/web/css/jun.css')}}"/>
 @endsection
 
 
@@ -25,8 +26,10 @@
         <dl style="border-bottom:none;">
         <dt style="width: 250px">
 {{--            {{$type[0]->name}} &nbsp; <span style="color: #1D1D1D"> 商品筛选</span>--}}
-             <span style="color: #1D1D1D">共
-             <strong>{{count($goods)}}</strong>
+             <span style="color: #1D1D1D">当前页共计:
+            <input type="hidden" value="@foreach($goods as $vv) @endforeach">
+
+             <strong>@if($vv->state==0){{count($goods)}}@endif</strong>
              件相关商品
              </span>
 
@@ -88,7 +91,7 @@
                 <ul class="shop-ul-tu shop-ul-tu1" id="goodslist">
 
                     @foreach( $goods as $ve )
-
+                    @if($ve->state==0)
                     <li style="margin-right:0;">
                         <div class="li-top">
                             <a href="{{ url('details') }}/{{$ve->id}}"  target="_blank" class="li-top-tu"><img src="{{ url('uploads/goods') }}/{{$ve->picname}}" height="110" width="95" /></a>
@@ -116,6 +119,7 @@
 
                         <p class="weike">{{$ve->brand}}自营</p>
                     </li>
+                        @endif
                     @endforeach
 
 
@@ -131,6 +135,14 @@
     
      <!--分页-->
 
+    <div class="paging">
+
+                {{$goods->links()}}
+        </div>
+
+        <div style="clear:both;"></div>
+    </div>
+    {{--{{ $goods->links() }}--}}
 
 @endsection
 
@@ -205,6 +217,7 @@
 
                }
                 str += '</ul>';
+
                that.prop('ty-id'+id, str);
 
 //                console.log(that.prop('ty-id'+id))
@@ -263,5 +276,25 @@
         });
 
     </script>
+
+    <script>
+
+        $(document).ready(function(){
+
+
+
+
+
+
+
+
+
+
+        });
+
+
+
+    </script>
+
 
 @endsection
