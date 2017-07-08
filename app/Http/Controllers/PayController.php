@@ -52,7 +52,9 @@ class PayController extends Controller
 
 				//将订单标注为货到付款
 				$info =  DB::table('data_orders')->where('guid', $guid)->update(['pay_type' => 3]);
-				return $info;
+				return view('web.pay.succeed',[
+					'guid'=> $guid
+				]);
 
 				break;
 
