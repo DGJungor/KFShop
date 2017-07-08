@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use \Exception;
@@ -25,7 +26,7 @@ class OrdersController extends Controller
 	public function index(Request $request)
 	{
 		//
-		return '这是首页订单首页路由';
+//		return '这是首页订单首页路由';
 //		return date('Ymd') . str_pad(mt_rand(1, 99999), 5, '0', STR_PAD_LEFT);
 
 //		return date('Ymd').substr(implode(NULL, array_map('ord', str_split(substr(uniqid(), 7, 13), 1))), 0, 8);
@@ -42,9 +43,13 @@ class OrdersController extends Controller
 		//模拟数据
 
 		//用户id
-		$uid = 6866;
+//		$uid = 6866;
 
 //=====================================================
+
+		//获取用户id
+		$uid = Auth::id();
+		dd($uid);
 
 		//获取用户收货地址信息
 		$address = \DB::table('data_address')->where('uid', $uid)->get();
@@ -54,9 +59,6 @@ class OrdersController extends Controller
 
 		//获取选中商品的rawid
 		$data = $request->input('hobby');
-
-//		//随机生成一个 日期规则的 订单号
-//		$guid = date('Ymd') . substr(implode(NULL, array_map('ord', str_split(substr(uniqid(), 7, 13), 1))), 0, 8);
 
 		//初始化一个变量 供计算总价格
 		$total = 0;
@@ -150,8 +152,9 @@ class OrdersController extends Controller
 		//获取地址信息id号
 		$addressId = $request->addressId;
 
-		//获取userid
-		$user_id = '6866';
+
+		//获取用户id
+		$user_id = Auth::id();
 
 
 		// 使用数据库事务操作

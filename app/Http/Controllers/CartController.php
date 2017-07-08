@@ -37,7 +37,7 @@ class CartController extends Controller
 //======================================================================================
 
 		$user = Auth::user();
-		dump($user);
+//		dump($user);
 
 		//从session中获得
 		$session = $request->session()->get('cart');

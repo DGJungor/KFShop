@@ -14,7 +14,17 @@ class SearchController extends Controller
 	public function indexS(Request $request)
 	{
 		//获取搜索的值
-		$key = $request->search;
+		$key = $_GET['search'];
+
+		//page
+		$page   = isset($_GET['page']) ? $_GET['page'] : 1;
+		if($page<1){
+			$page = 1;
+		}
+		$offset = $page * 12 - 12;
+
+		//指定商品列表类型为搜索
+		$type = 'search';
 
 		//实例化对象 迅搜
 		$xs = new XS(config_path('search-goods.ini'));
@@ -22,20 +32,21 @@ class SearchController extends Controller
 		//获取搜索对象
 		$search = $xs->search;
 
-//		$data = $search->search($key);
-
+		//搜索条件
 		$search->setQuery($key)
-		->setLimit(20, 0); // 设置搜索语句, 分页, 偏移量
+			->setSort('buy')
+			->setLimit(12, $offset);
 
-		$doc =$search->search();
+		//执行搜索
+		$doc = $search->search();
 
-		$count = $search->count();
-
-		$inde = $xs->index;
-		dump($key);
-		dump($inde);
-		dump($doc);
-		dump($count);
-		return '1234';
+//		dump($doc);
+		return view('web.goods.list', [
+			'type'   => $type,
+			'search' => $key,
+			'goods'  => $doc,
+			'page'   =>$page,
+		]);
 	}
+
 }

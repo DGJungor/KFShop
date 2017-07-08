@@ -12,7 +12,7 @@
             <p class="hd-p2 f-r">
                 <a href="#">返回首页 (个人中心)</a><span>|</span>
                 <a href="/cart">我的购物车</a><span>|</span>
-                <a href="#">我的订单</a>
+                <a href="/user/orders">我的订单</a>
             </p>
             <div style="clear:both;"></div>
         </div>
@@ -42,7 +42,7 @@
         </div>
         <div class="search f-r">
             <div class="search-info">
-                <form action="search" method="POST">
+                <form action="search" method="GET">
                     {{csrf_field()}}
                 <input type="text" name="search" placeholder="请输入商品名称" />
                 <button>搜索</button>

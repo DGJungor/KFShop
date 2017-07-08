@@ -17,7 +17,7 @@ Route::get('/', 'HomeController@index');
 Route::post('/ajax', 'HomeController@ajax');
 
 //前台搜索控制器
-Route::post('/search','SearchController@indexS');
+Route::get('/search','SearchController@indexS');
 
 //前台购物车路由 --jun
 Route::get('cart/add/{id}', 'CartController@add');
