@@ -217,7 +217,6 @@
 
                }
                 str += '</ul>';
-
                that.prop('ty-id'+id, str);
 
 //                console.log(that.prop('ty-id'+id))

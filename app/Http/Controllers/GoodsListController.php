@@ -34,7 +34,7 @@ class GoodsListController extends Controller
 
                 $did[] = $val->id;
             }
-            $goods=\DB::table('data_goods')->whereIn('typeid',$did)->paginate(8);
+            $goods=\DB::table('data_goods')->whereIn('typeid',$did)->paginate(12);
 
         }else{
 
@@ -42,7 +42,7 @@ class GoodsListController extends Controller
 
             $lst = array('2');
 
-            $goods = \DB::table('data_goods')->where('typeid', $id)->paginate(8);
+            $goods = \DB::table('data_goods')->where('typeid', $id)->paginate(12);
 
         }
 
@@ -61,12 +61,12 @@ class GoodsListController extends Controller
 
         if($path == 'buys'){
 
-            $datas = \DB::table('data_goods')->where('typeid',$id)->orderBy('buy','asc')->limit(8)->get();
+            $datas = \DB::table('data_goods')->where('typeid',$id)->orderBy('buy','asc')->limit(16)->get();
 
         }
         elseif($path == 'prices'){
 
-            $datas = \DB::table('data_goods')->where('typeid',$id)->orderBy('price','asc')->limit(8)->get();
+            $datas = \DB::table('data_goods')->where('typeid',$id)->orderBy('price','asc')->limit(16)->get();
 
         }
 

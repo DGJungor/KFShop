@@ -27,9 +27,6 @@ Route::resource('cart','CartController');
 //前台信息反馈路由  --jun
 Route::resource('feedback','FeedbackController');
 
-//前台评论
-Route::resource('comment', 'CommentController');
-
 //立即购买订单路由 --Jun
 Route::get('buynow/{id}','OrdersController@buynow')->middleware('auth');
 
@@ -85,6 +82,8 @@ Route::group(['middleware' => 'auth','prefix' => 'user'], function () {
     //修改头像
     Route::post('ajax/uploadAvatar', 'PersonalController@uploadAvatar');
 
+    //前台评论
+    Route::resource('comment', 'CommentController');
 
 	//个人中心订单  --Jun
 	Route::resource('/orders','UserOrdersController');
