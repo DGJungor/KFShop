@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Admin\UserRegister;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Input;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Admin\UserInfo;
 use App\Admin\Address;
 use App\Models\MsgResult;
+use Storage;
 use Auth;
 use DB;
 
@@ -34,9 +37,43 @@ class PersonalController extends Controller
         return view('web.personal.index', compact('userinfo'));
     }
 
-    public function uploadAvatar()
+    /**
+     * 修改头像视图
+     * @author liuzhiqi
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function showUpload()
     {
-        //
+        return view('web.public.uploadImg');
+    }
+
+    /**
+     * 修改头像
+     * @author liuzhiqi
+     * @param Request $request
+     * @return string
+     */
+    public function uploadAvatar(Request $request)
+    {
+        //判断是否有上传图片
+        $id = $request->input('id', '');
+        if ($file = $request->hasFile('avatar') && $id != null) {
+            $filename = date('Y-m-d-H-i-s') . '-' . uniqid() . '.' . 'jpg';
+            //保存图片
+            Image::make(Input::file('avatar'))->resize(80, 80)->save('uploads/user_pic/' . $filename);
+            $old_picname = UserInfo::where('uid', '=', $id)->first(['avatar']);
+            //判断新头像是否添加成功
+            if (UserInfo::where('uid', '=', $id)->update(['avatar' => $filename])) {
+                //如果有旧头像就删除
+                if ($old_picname !=null) {
+                    @unlink('uploads/user_pic/' . $old_picname['avatar']);
+                }
+            } else {
+                //新头像添加失败删除文件
+                @unlink('uploads/user_pic/' . $filename);
+            }
+            return $filename;
+        }
     }
 
     /**
@@ -104,18 +141,32 @@ class PersonalController extends Controller
         return 2;
     }
 
+    /**
+     * 删除收货地址
+     * @author liuzhiqi
+     * @param Request $request
+     * @return int
+     */
     public function delAddress(Request $request)
     {
+        //获取收货地址id
         $id = $request->input('id', '');
         if ($id == null) {
             return 1;
         }
+        //删除收货地址
         if (Address::destroy($id)) {
             return 0;
         }
         return 1;
     }
 
+    /**
+     * 更改默认收货地址
+     * @author liuzhiqi
+     * @param Request $request
+     * @return int
+     */
     public function setDefault(Request $request)
     {
         $id = $request->input('id', '');
@@ -123,6 +174,7 @@ class PersonalController extends Controller
         if ($id == null ||$uid == null) {
             return 1;
         }
+        //更改默认收货地址
         if (Address::where('uid', '=', $uid)->where( 'status', '=', 2)->update(['status'=> 1]) && Address::where('id', '=', $id)->update(['status' => 2])) {
             return 0;
         }
@@ -137,6 +189,7 @@ class PersonalController extends Controller
      */
     public function editUserInfo(Request $request)
     {
+        //获取用户所要修改的信息
         $id = $request->input('id', '');
         $realname = $request->input('realname', '');
         $id_number = $request->input('id_number', '');
@@ -145,7 +198,7 @@ class PersonalController extends Controller
 
         $msg_result = new MsgResult;
 
-
+        //判断是否获取到用户id
         if ($id == null) {
             $msg_result->status = 1;
             $msg_result->message = '数据提交失败';
