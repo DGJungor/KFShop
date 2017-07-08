@@ -83,6 +83,7 @@ class MemberController extends Controller
 
     /**
      * Update the specified resource in storage.
+     * 修改会员状态
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id

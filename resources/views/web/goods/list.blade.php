@@ -10,6 +10,7 @@
 
     <link rel="stylesheet" type="text/css" href="{{ url('/web/css/jun.css')}}"/>
 
+    <link rel="stylesheet" type="text/css" href="{{ url('/web/css/jun.css')}}"/>
 @endsection
 
 
@@ -27,10 +28,14 @@
         </dl>
 
         <dl style="border-bottom:none;">
-            <dt style="width: 250px">
-                {{--            {{$type[0]->name}} &nbsp; <span style="color: #1D1D1D"> 商品筛选</span>--}}
-                <span style="color: #1D1D1D">共
-             <strong>{{count($goods)}}</strong>
+
+        <dt style="width: 250px">
+{{--            {{$type[0]->name}} &nbsp; <span style="color: #1D1D1D"> 商品筛选</span>--}}
+             <span style="color: #1D1D1D">当前页共计:
+            <input type="hidden" value="@foreach($goods as $vv) @endforeach">
+
+             <strong>@if($vv->state==0){{count($goods)}}@endif</strong>
+
              件相关商品
              </span>
 
@@ -101,34 +106,31 @@
 
                     @foreach( $goods as $ve )
 
-                        <li style="margin-right:0;">
-                            <div class="li-top">
-                                <a href="{{ url('details') }}/{{$ve->id}}" target="_blank" class="li-top-tu"><img
-                                            src="{{ url('uploads/goods') }}/{{$ve->picname}}" height="110" width="95"/></a>
-                                <p class="jiage">
-                                    <span class="sp1">￥{{$ve->price}}</span>
-                                </p>
-                            </div>
-                            <p style="text-align: center;font-size: 16px; color: #000">{{$ve->goodname}}</p>
-                            <div class="li-md">
-                                <div class="md-l f-l">
-                                    <span class="md-l-l f-l" ap=""></span>
-                                    <div class="md-l-r f-l">
+                    @if($ve->state==0)
+                    <li style="margin-right:0;">
+                        <div class="li-top">
+                            <a href="{{ url('details') }}/{{$ve->id}}"  target="_blank" class="li-top-tu"><img src="{{ url('uploads/goods') }}/{{$ve->picname}}" height="110" width="95" /></a>
+                            <p class="jiage">
+                                <span class="sp1">￥{{$ve->price}}</span>
+                            </p>
+                        </div>
+                        <p style="text-align: center;font-size: 16px; color: #000">{{$ve->goodname}}</p>
+                        <div class="li-md">
+                            <div class="md-l f-l">
+                                <span class="md-l-l f-l" ap=""></span>
+                                <div class="md-l-r f-l">
 
-                                    </div>
-                                    <div style="clear:both;"></div>
-                                </div>
-                                <div class="md-r f-l">
-                                    <button class="md-l-btn1">立即购买</button>
-                                    <button class="md-l-btn2">加入购物车</button>
                                 </div>
                                 <div style="clear:both;"></div>
                             </div>
                             <br>
                             <p style="margin-left: 10px">销量：{{$ve->buy}}</p>
 
-                            <p class="weike">{{$ve->brand}}自营</p>
-                        </li>
+
+                        <p class="weike">{{$ve->brand}}自营</p>
+                    </li>
+                        @endif
+
                     @endforeach
 
                 </ul>
@@ -158,6 +160,14 @@
                             </li>
                         </ul>
                     </div>
+                    @else
+                    <div class="paging">
+
+                        {{$goods->links()}}
+                    </div>
+
+                    <div style="clear:both;"></div>
+            </div>
                 @endif
 
                 <div style="clear:both;" class="news"></div>
@@ -168,6 +178,8 @@
     </div>
 
     <!--分页-->
+
+
 
 
 @endsection
@@ -298,5 +310,25 @@
         });
 
     </script>
+
+    <script>
+
+        $(document).ready(function(){
+
+
+
+
+
+
+
+
+
+
+        });
+
+
+
+    </script>
+
 
 @endsection

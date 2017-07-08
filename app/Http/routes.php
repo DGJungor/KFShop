@@ -28,8 +28,9 @@ Route::resource('cart', 'CartController');
 //前台信息反馈路由  --jun
 Route::resource('feedback', 'FeedbackController');
 
-//前台评论
-Route::resource('comment', 'CommentController');
+
+//立即购买订单路由 --Jun
+Route::get('buynow/{id}','OrdersController@buynow')->middleware('auth');
 
 
 //支付订单组  添加中间件 --Jun
@@ -90,8 +91,14 @@ Route::group(['middleware' => 'auth','prefix' => 'user'], function () {
     Route::post('ajax/delAddress', 'PersonalController@delAddress');
     //设置默认地址
     Route::post('ajax/setDefault', 'PersonalController@setDefault');
+    //修改头像界面
+    Route::get('/showUpload', 'PersonalController@showUpload');
     //修改头像
-    Route::get('ajax/uploadAvatar', 'PersonalController@uploadAvatar');
+    Route::post('ajax/uploadAvatar', 'PersonalController@uploadAvatar');
+
+
+    //前台评论
+    Route::resource('comment', 'CommentController');
 
 	//个人中心订单  --Jun
 	Route::resource('/orders', 'UserOrdersController');
