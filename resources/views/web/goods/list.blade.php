@@ -19,7 +19,8 @@
         <dl style="border-bottom:none;">
 
             <dt style="width: 200px;">
-                @if(!isset($list))
+               
+                @if(isset($list))
                     当前位置: {{$list[0]->name}}
                 @endif
             </dt>
@@ -70,7 +71,7 @@
 
                     @else
                         <li>
-                            @if(!isset($list))
+                            @if(isset($list))
                                 <a href="javascript:oid(0)" id="buys" ty-id="{{$list[0]->id}}" title="销量">销量 ↓</a>
                             @else
                                 <a href="">销量 ↓</a>
@@ -79,7 +80,7 @@
 
 
                         <li>
-                            @if(!isset($list))
+                            @if(isset($list))
                                 <a href="javascript:oid(0)" id="prices" ty-id="{{$list[0]->id}}" title="价格">价格 ↓</a>
                             @else
                                 <a href="">价格 ↓</a>
@@ -111,21 +112,26 @@
                         <p style="text-align: center;font-size: 16px; color: #000">{{$ve->goodname}}</p>
                         <div class="li-md">
                             <div class="md-l f-l">
-                                <span class="md-l-l f-l" ap=""></span>
+                                <span class="md-l-l f-l" ></span>
                                 <div class="md-l-r f-l">
-
                                 </div>
                                 <div style="clear:both;"></div>
                             </div>
+                            <div class="md-r f-l">
+                            <button class="md-l-btn1">立即购买</button>
+                            <button class="md-l-btn2">加入购物车</button>
+                            </div>
+                                <div style="clear:both;"></div>
+                            </div>
                             <br>
-                            <p style="margin-left: 10px">销量：{{$ve->buy}}</p>
-
-
+                        <p style="margin-left: 10px">销量：{{$ve->buy}}</p>
                         <p class="weike">{{$ve->brand}}自营</p>
                     </li>
                     @endforeach
                 </ul>
                 <div style="clear:both;" class="news"></div>
+            </div>
+        </div>
                 {{--遍历--}}
                 @if( isset($type) && ($type ='search') )
                     <div>
@@ -153,15 +159,16 @@
                     </div>
                     @else
                     <div class="paging">
-
+                        <div class="pag-left f-l">
                         {{$goods->links()}}
+                        </div>
                     </div>
 
                     <div style="clear:both;"></div>
-            </div>
                 @endif
 
 
+    </div>
 @endsection
 
 
@@ -180,7 +187,7 @@
 
         $('a').off().click(function () {
             var path = $(this).attr('id');
-//        console.log(path);
+        console.log(path);
             var that = $(this);
             var id = this.getAttribute('ty-id');
             var ssd = that.parent().parent().parent().next().children('.news');
