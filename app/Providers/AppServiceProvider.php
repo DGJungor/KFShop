@@ -24,10 +24,10 @@ class AppServiceProvider extends ServiceProvider
             $view->with('data',$dataObj);
         });
 
-        view()->share('friend',
-            $friend = \DB::table('data_friend_link')->get()
-
-        );
+        view()->composer('web.public.footer', function ($view) {
+            $friend = \DB::table('data_friend_link')->where('status', 0)->get();
+            $view->with(compact('friend'));
+        });
     }
 
     /**

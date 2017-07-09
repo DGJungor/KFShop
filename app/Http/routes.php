@@ -112,10 +112,10 @@ Route::group(['middleware' => 'auth','prefix' => 'user'], function () {
     Route::get('/modifyPassword', 'PersonalController@password');
     //执行修改密码
     Route::post('/modifyPassword', 'PersonalController@modifyPassword');
-
-
     //前台评论
     Route::resource('comment', 'CommentController');
+    //添加评论
+    Route::post('ajax/comment', 'CommentController@createComment');
 
 	//个人中心订单  --Jun
 	Route::resource('/orders', 'UserOrdersController');

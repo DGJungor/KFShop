@@ -19,7 +19,7 @@
         <dl style="border-bottom:none;">
 
             <dt style="width: 200px;">
-               
+
                 @if(isset($list))
                     当前位置: {{$list[0]->name}}
                 @endif
@@ -118,8 +118,8 @@
                                 <div style="clear:both;"></div>
                             </div>
                             <div class="md-r f-l">
-                            <button class="md-l-btn1">立即购买</button>
-                            <button class="md-l-btn2">加入购物车</button>
+                                <a href="{{ asset('buynow') }}/{{$ve->id}}?num=1" class="buynow" data="{{$ve->id}}"><button class="md-l-btn1">立即购买</button></a>
+                                <a href="{{ asset('cart/add') }}/{{$ve->id}}?num=1" class="cart" data="{{$ve->id}}"><button class="md-l-btn2">加入购物车</button></a>
                             </div>
                                 <div style="clear:both;"></div>
                             </div>
@@ -187,7 +187,6 @@
 
         $('a').off().click(function () {
             var path = $(this).attr('id');
-        console.log(path);
             var that = $(this);
             var id = this.getAttribute('ty-id');
             var ssd = that.parent().parent().parent().next().children('.news');
@@ -228,8 +227,8 @@
                         str += '<div style="clear:both;"></div>';
                         str += '</div>';
                         str += '<div class="md-r f-l">';
-                        str += '<button class="md-l-btn1">立即购买</button>';
-                        str += '<button class="md-l-btn2">加入购物车</button>';
+                        str += '<a href="{{asset('buynow')}}/'+data[i].id+'?num=1" class="buynow" data="'+data[i].id+'"><button class="md-l-btn1">立即购买</button></a>';
+                        str += '<a href="{{ asset('cart/add') }}/'+data[i].id+'?num=1" class="cart" data="'+data[i].id+'"><button class="md-l-btn2">加入购物车</button></a>';
                         str += '</div>';
                         str += ' <div style="clear:both;"></div>';
                         str += '</div>';

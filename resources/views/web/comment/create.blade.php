@@ -27,17 +27,21 @@
                     <div class="tanchuang-con">
                         <div class="tc-title" style="text-align: center; ">
                             <label style=" font-size: 15px;">订单评价</label><br>
-                            <label>订单号:</label><span>&nbsp;</span><label>123</label>
+                            <label id="orders_guid" >订单号:</label><span>&nbsp;{{ $value->orders_guid }}&nbsp;</span><label ></label>
                             <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                            <label>2017-02-12</label>
+                            <input type="hidden" id="user_id" value="{{ $value->user_id }}">
+                            <input type="hidden" id="cargo_id" value="{{ $value->cargo_id }}">
+                            <input type="hidden" id="goods_id" value="{{ $value->good->id }}">
+                            <input type="hidden" id="order_id" value="{{ $value->id }}">
+                            <label id="created_at">{{ $value->created_at }}</label>
                         </div>
                     <ul class="tc-con2">
                         <li class="tc-li1">
-                            <p class="l-p">用户ID</p>
+                            <p class="l-p">商品ID</p>
                             <div class="xl-dz">
                                 <div class="layui-form-item">
                                     <div class="dz-left f-l">
-                                        <input type="text" name="user_id" value="" readonly>
+                                        <span style="font-size: 15px; line-height: 31px;">{{ $value->good->id }}</span>
                                     </div>
                                 </div>
                                 <div style="clear:both;"></div>
@@ -49,7 +53,19 @@
                             <div class="xl-dz">
                                 <div class="layui-form-item">
                                     <div class="dz-left f-l">
-                                        <input type="text" name="goods_id" value="" readonly>
+                                        <span id="goods_name" style="font-size: 15px; line-height: 31px">{{ $value->good->goodname }}</span>
+                                    </div>
+                                </div>
+                                <div style="clear:both;"></div>
+                            </div>
+                            <div style="clear:both;"></div>
+                        </li>
+                        <li class="tc-li1">
+                            <p class="l-p">商品单价</p>
+                            <div class="xl-dz">
+                                <div class="layui-form-item">
+                                    <div class="dz-left f-l">
+                                        <span id="cargo_price" style="font-size: 15px; line-height: 31px">￥{{ $value->good->price }}</span>
                                     </div>
                                 </div>
                                 <div style="clear:both;"></div>
@@ -61,7 +77,7 @@
 
                                 <div class="dz-left f-l">
                                 <dd>
-                                    <input type="hidden" value="" name="star" class="star">
+                                    <input type="hidden"  id="star" value="" class="star">
                                     <ul class="rating nostar">
                                         <li class="one"><a href="#" title="1">1</a><span></span></li>
                                         <li class="two"><a href="#"  title="2">2</a><span></span></li>
@@ -76,14 +92,14 @@
                         </li>
                         <li class="tc-li1">
                             <p class="l-p">评论内容</p>
-                            <textarea id="det_address" class="textarea1" name="comment_info" maxlength="50" ></textarea>
+                            <textarea id="comment_info" class="textarea1" maxlength="50" ></textarea>
                             <div style="clear:both;"></div>
                         </li>
                     </ul>
                         {!! csrf_field() !!}
-                    <button id="createdAddress" class="btn-pst2">提交评论</button>
+                        <a href="{{ asset('/user/comment') }}"><button id="createdAddress" class="btn-pst2">提交评论</button></a>
                         <span style="padding-left: 16px;margin-top: 9px;">
-                            <input type="checkbox"id="check1" name="comment_type" value="0"  checked="checked"> <label for="check1">匿名评价</label>
+                            <input type="checkbox"id="comment_type" name="comment_type" value="0"  checked="checked"> <label for="check1">匿名评价</label>
                         </span>
 
                 </div>
@@ -94,6 +110,8 @@
 
 @endsection
 @section('js')
+    <script src="{{ asset('/style/js/plugins/layer/layer.min.js') }}"></script>
+    <script src="{{ asset('/style/js/demo/layer-demo.js') }}"></script>
 
     <script>
         /*商品评分效果*/
@@ -111,21 +129,54 @@
     </script>
     <script>
         $(function(){
-            $('#check1').click(function(){
+            $('#comment_type').click(function(){
                 if($('input[name="comment_type"]').prop("checked"))
                 {
-                    $('input[name="comment_type"]').val('0');
+                    $('input[name="comment_type"]').val(0);
                 }
                 else
-                    $('input[name="comment_type"]').val('1');
+                    $('input[name="comment_type"]').val(1);
             });
         })
 
     </script>
     <script>
 
+        $('.btn-pst2').click(function () {
+            var goodsid = $('#goods_id').val();
+            var userid = $('#user_id').val();
+            var orderid = $('#order_id').val();
+            var cargoid = $('#cargo_id').val();
+            var tyles = $('#comment_type').val();
+            var star = $('#star').val();
+            var info = $('#comment_info').val();
+
+            $.ajax({
+                type : "POST",
+                url : '/user/ajax/comment',
+                dataType : 'json',
+                data : {
+                    good_id : goodsid,
+                    user_id : userid,
+                    order_id : orderid,
+                    cargo_id : cargoid,
+                    comment_tyle : tyles,
+                    star : star,
+                    comment_info : info,
+                    _token :  "{{ csrf_token() }}"
+                },
+                success: function (data) {
+                    if (data == 0) {
+                        layer.msg(data.message, 1, 1);
+                    }
+
+                }
 
 
+
+            });
+
+        })
 
 
     </script>

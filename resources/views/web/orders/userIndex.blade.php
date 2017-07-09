@@ -124,7 +124,7 @@
                                         @if( $v->{'order_status'}==3 )
                                             @endif
                                         <a href="#">移入收藏夹</a><br>
-                                        {{--<a href="#">删除</a><br>--}}
+                                        <a href="{{ asset('/user/comment') }}/{{ $ODv->id }}">评价</a><br>
                                         {{--<a href="#">付款</a>--}}
                                     </p>
                                 </div>
