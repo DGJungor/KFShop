@@ -84,8 +84,8 @@
             </dt>
 
             @foreach($friend as $ls)
-            <p>
-                <a href="http://{{($ls->url) }}">{{$ls->name}}</a><span>|</span>
+            <p style="float: left">
+                <a style="float: left" href="http://{{($ls->url) }}">{{$ls->name}}<img src="{{ url('/') }}{{ $ls->image }}" alt="" style="float: left"></a><span style="float: left">|</span>
             </p>
             @endforeach
 

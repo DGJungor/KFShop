@@ -128,7 +128,7 @@ class FriendController extends Controller
                 $fileName = str_random(10).'.png';
                 Image::make($request->file('file'))
                     ->encode('png')
-                    ->resize(50, 50)
+                    ->resize(50, 25)
                     ->save('.'.$filePath.$fileName);
                 $data->image = $filePath.$fileName;
             }
