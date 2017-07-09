@@ -36,14 +36,14 @@ class RegisterController extends Controller
         $this->validate($request, [
             'username' => 'required|min:3|max:20|alpha_dash|unique:data_users_register,username',
             'password' => 'required|confirmed',
-            'email' => 'required',
+            'email' => 'required|unique:data_users_register,email',
             'tel' => 'required',
             'captcha' => 'required|captcha',
             'agree' => 'required',
         ],[
             'required' => ':attribute 不能为空',
             'alpha_dash' => '用户名只能有字母、数字、下划线组成',
-            'unique' => '用户已存在',
+            'unique' => ':attribute 已存在',
             'captcha' => '验证码错误',
         ],[
             'username' => '用户名',
@@ -98,7 +98,7 @@ class RegisterController extends Controller
     }
 
     /**
-     * 用户名/邮箱/手机号唯一性验证
+     * 用户名唯一性验证
      * @author liuzhiqi
      * @param Request $request
      * @return string
@@ -106,55 +106,87 @@ class RegisterController extends Controller
     public function checkName(Request $request)
     {
         $msg_result = new MsgResult;
-        $username = request()->input('username','');
-        $email = request()->input('email', '');
-        $tel = request()->input('tel', '');
-        if ($username == null && $email == null && $tel == null) {
+        $username = request()->input('username', '');
+        if ($username == null) {
             $msg_result->status = 1;
-            $msg_result->message = '没有输入对应的值';
+            $msg_result->message = '不能为空';
             return $msg_result->toJson();
-        } elseif ($email == null & $tel == null) {
-            if(UserRegister::where('username','=', $username)->first()){
-                $msg_result->status = 2;
-                $msg_result->tip = 'username';
-                $msg_result->message = '用户已注册';
-                return $msg_result->toJson();
-            }
+        } elseif (!preg_match("/^[A-Za-z][A-Za-z1-9_-]{2,20}$/", $username)) {
+            $msg_result->status = 2;
+            $msg_result->message = '';
+            return $msg_result->toJson();
+        } elseif (UserRegister::where('username', '=', $username)->first()) {
             $msg_result->status = 3;
+            $msg_result->tip = 'username';
+            $msg_result->message = '用户已注册';
+            return $msg_result->toJson();
+        } else {
+            $msg_result->status = 0;
             $msg_result->tip = 'username';
             $msg_result->message = '可以注册';
             return $msg_result->toJson();
-        } elseif ($tel == null) {
-            if (!preg_match("/^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/", $email)) {
-                $msg_result->status = 8;
-                $msg_result->tip = 'email';
-                $msg_result->message = '邮箱格式有误';
-                return $msg_result->toJson();
-            }
-            if (UserRegister::where('email', '=', $email)->first()) {
-                $msg_result->status = 4;
-                $msg_result->tip = 'email';
-                $msg_result->message = '邮箱已注册';
-                return $msg_result->toJson();
-            }
-            $msg_result->status = 5;
+        }
+    }
+
+    /**
+     * 注册邮箱唯一性
+     * @author liuzhiqi
+     * @param Request $request
+     * @return string
+     */
+    public function checkEmail(Request $request)
+    {
+        $msg_result = new MsgResult;
+        $email = request()->input('email', '');
+        if ($email == null) {
+            $msg_result->status = 1;
+            $msg_result->message = '不能为空';
+            return $msg_result->toJson();
+        } elseif (!preg_match("/^[A-Za-z\d]+([-_.][A-Za-z\d]+)*@([A-Za-z\d]+[-.])+[A-Za-z\d]{2,4}$/", $email)) {
+            $msg_result->status = 2;
+            $msg_result->tip = 'email';
+            $msg_result->message = '';
+            return $msg_result->toJson();
+        } elseif (UserRegister::where('email', '=', $email)->first()) {
+            $msg_result->status = 3;
+            $msg_result->tip = 'email';
+            $msg_result->message = '邮箱已注册';
+            return $msg_result->toJson();
+        } else {
+            $msg_result->status = 0;
             $msg_result->tip = 'email';
             $msg_result->message = '邮箱可以注册';
             return $msg_result->toJson();
+        }
+    }
+
+    /**
+     * 注册手机号唯一性
+     * @author liuzhiqi
+     * @param Request $request
+     * @return string
+     */
+    public function checkTel(Request $request)
+    {
+        $msg_result = new MsgResult;
+        $tel = $request->input('tel', '');
+        if ($tel == null) {
+            $msg_result->status = 1;
+            $msg_result->tip = 'tel';
+            $msg_result->message = '不能为空';
+            return $msg_result->toJson();
+        } elseif (!preg_match("/13[123569]{1}\d{8}|15[1235689]\d{8}|188\d{8}/", $tel)) {
+            $msg_result->status = 2;
+            $msg_result->tip = 'tel';
+            $msg_result->message = '';
+            return $msg_result->toJson();
+        } elseif (UserRegister::where('tel', '=', $tel)->first()) {
+            $msg_result->status = 3;
+            $msg_result->tip = 'tel';
+            $msg_result->message = '手机已注册';
+            return $msg_result->toJson();
         } else {
-            if (!preg_match("/13[123569]{1}\d{8}|15[1235689]\d{8}|188\d{8}/", $tel)) {
-                $msg_result->status = 9;
-                $msg_result->tip = 'tel';
-                $msg_result->message = '手机号格式有误';
-                return $msg_result->toJson();
-            }
-            if (UserRegister::where('tel', '=', $tel)->first()) {
-                $msg_result->status = 6;
-                $msg_result->tip = 'tel';
-                $msg_result->message = '手机已注册';
-                return $msg_result->toJson();
-            }
-            $msg_result->status = 7;
+            $msg_result->status = 0;
             $msg_result->tip = 'tel';
             $msg_result->message = '手机可以注册';
             return $msg_result->toJson();

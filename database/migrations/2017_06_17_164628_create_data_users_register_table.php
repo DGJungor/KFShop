@@ -20,6 +20,7 @@ class CreateDataUsersRegisterTable extends Migration
             $table->string('password', 255)->comment('密码');
             $table->ipAddress('register_ip')->comment('注册ip');
             $table->timestamps();
+            $table->rememberToken();
         });
     }
 

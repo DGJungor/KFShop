@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Admin\UserRegister;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Input;
 
@@ -12,7 +13,6 @@ use App\Http\Controllers\Controller;
 use App\Admin\UserInfo;
 use App\Admin\Address;
 use App\Models\MsgResult;
-use Storage;
 use Auth;
 use DB;
 
@@ -221,6 +221,48 @@ class PersonalController extends Controller
             $msg_result->status = 0;
             $msg_result->message = '修改成功';
             return $msg_result->toJson();
+        }
+    }
+
+    /**
+     * 密码修改界面
+     * @author liuzhiqi
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function password()
+    {
+        return view('web.safety.modifyPassword');
+    }
+
+    /**
+     * 修改密码
+     * @author liuzhiqi
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function modifyPassword(Request $request)
+    {
+        $id = $request->input('id', '');
+        $oldpassword = $request->input('oldpassword', '');
+        $newpassword = $request->input('newpassword', '');
+        $password_confirmation = $request->input('password_confirmation', '');
+        if ($id == null) {
+            return back()->with(['error' => '非法操作！！！']);
+        }
+        //判断两次输入的密码
+        if ($newpassword != $password_confirmation) {
+            return back()->with(['error' => '两次密码不一样！！！']);
+        }
+        //判断原密码
+        if (!Hash::check($oldpassword,UserRegister::where('id','=',$id)->first()->password)) {
+            return back()->with(['error' => '原密码错误！！！']);
+        }
+        $password = bcrypt($newpassword);
+        //修改密码
+        if (UserRegister::where('id','=',$id)->update(['password'=>$password])) {
+            return back()->with(['success' => '修改成功']);
+        } else {
+            return back()->with(['fail' => '修改失败']);
         }
     }
 

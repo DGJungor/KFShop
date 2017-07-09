@@ -344,9 +344,6 @@
             });
         });
 
-//        $('body').on('click', '.edit', function () {
-//            var id = $(this).prop('name');
-//        });
 
     </script>
 @endsection

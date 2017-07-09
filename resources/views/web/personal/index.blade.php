@@ -137,7 +137,7 @@
                 },
                 success: function (data) {
                     if (data.status == null) {
-                        layer.msg('服务器端错误', 1, 1);
+                        layer.msg('服务器端错误', 1, 0);
                     }
                     if (data.status != 0) {
                         layer.msg(data.message, 1, 1);
