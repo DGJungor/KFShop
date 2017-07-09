@@ -13,10 +13,10 @@
 
 
 @section('content')
-    {{ dump($list) }}
+    {{--{{ dump($list) }}--}}
     {{--{{ dump($guid) }}--}}
-    {{ dump($total) }}
-    {{ dump($address) }}
+    {{--{{ dump($total) }}--}}
+    {{--{{ dump($address) }}--}}
 
     <div class="payment-interface w1200">
         <div class="pay-info">

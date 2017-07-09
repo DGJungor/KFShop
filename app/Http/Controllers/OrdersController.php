@@ -49,7 +49,7 @@ class OrdersController extends Controller
 
 		//获取用户id
 		$uid = Auth::id();
-		dd($uid);
+//		dd($uid);
 
 		//获取用户收货地址信息
 		$address = \DB::table('data_address')->where('uid', $uid)->get();
@@ -256,13 +256,16 @@ class OrdersController extends Controller
 	{
 //=============================================================================
 //
-		$uid = 6866;
+
 //
 //
 //
 //
 //==============================================================================
-		
+
+		//获取用户id
+		$uid = Auth::id();
+
 		//获取需要购买的数量
 		$num = $_GET['num'];
 
