@@ -22,8 +22,8 @@ class OrdersController extends Controller
 			->orderBy('created_at', 'desc')
 			->Paginate(10);
 
-		foreach ( $data as $v ){
-			switch ($v->{'pay_type'}){
+		foreach ($data as $v) {
+			switch ($v->{'pay_type'}) {
 				case '1':
 					$v->{'pay_typeCH'} = '支付宝';
 					break;
@@ -44,9 +44,9 @@ class OrdersController extends Controller
 		}
 
 		//输出订单页首页模板
-		return view('admin.orders.index',[
-			'data' =>$data,
-			'count' =>$count
+		return view('admin.orders.index', [
+			'data'  => $data,
+			'count' => $count
 		]);
 
 	}
@@ -72,18 +72,24 @@ class OrdersController extends Controller
 		$data = \DB::table('data_orders_details')->where('orders_guid', '=', $id)->orderBy('created_at', 'desc')->get();
 
 
-
-		foreach ($data as $v){
+		foreach ($data as $v) {
 
 			//从商品表中取出商品图片名
 			$picname = DB::table('data_goods')
-				->where('id','=',$v->{'goods_id'})
+				->where('id', '=', $v->{'goods_id'})
 				->select('picname')
 				->first();
-			$v->{'picname'} = $picname->{'picname'};
+
+			if($picname){
+				$v->{'picname'} = $picname->{'picname'};
+			}else{
+				return '商品数据丢失';
+			}
+
+
 
 			//退货中文
-			switch ($v->{'return_status'}){
+			switch ($v->{'return_status'}) {
 				case '1':
 					$v->{'return_statusCH'} = '不退货';
 					break;
@@ -97,7 +103,7 @@ class OrdersController extends Controller
 			}
 
 			//评论中文
-			switch ($v->{'comment_status'}){
+			switch ($v->{'comment_status'}) {
 				case '1':
 					$v->{'comment_statusCH'} = '未评论';
 					break;
@@ -110,10 +116,10 @@ class OrdersController extends Controller
 					break;
 			}
 		}
-		dump($data);
+//		dump($data);
 		return view('admin.orders.details', [
 			'count' => $count,
-			'data' => $data,
+			'data'  => $data,
 		]);
 	}
 
@@ -146,4 +152,6 @@ class OrdersController extends Controller
 				break;
 		}
 	}
+
+
 }

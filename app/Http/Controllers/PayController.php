@@ -51,8 +51,11 @@ class PayController extends Controller
 			case 'COD':
 
 				//将订单标注为货到付款
-				$info =  DB::table('data_orders')->where('guid', $guid)->update(['pay_type' => 3]);
-				return $info;
+				$info =  DB::table('data_orders')->where('guid', $guid)->update(['pay_type' => 3,'order_status'=>2]);
+
+				return view('web.pay.succeed',[
+					'guid'=> $guid
+				]);
 
 				break;
 

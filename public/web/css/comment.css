@@ -12,8 +12,6 @@
 .onestar {background-position:0 -16px}
 .twostar {background-position:0 -32px}
 .threestar {background-position:0 -48px}
-.fourstar {background-position:0 -64px}
-.fivestar {background-position:0 -80px}
 ul.rating li {
 	cursor: pointer;
 	float:left;
@@ -31,8 +29,7 @@ ul.rating li a {
 ul.rating li.one a {left:0}
 ul.rating li.two a {left:16px;}
 ul.rating li.three a {left:32px;}
-ul.rating li.four a {left:48px;}
-ul.rating li.five a {left:64px;}
+
 ul.rating li a:hover {
 	z-index:2;
 	width:80px;
@@ -44,5 +41,3 @@ ul.rating li a:hover {
 ul.rating li.one a:hover {background-position:0 -96px;}
 ul.rating li.two a:hover {background-position:0 -112px;}
 ul.rating li.three a:hover {background-position:0 -128px}
-ul.rating li.four a:hover {background-position:0 -144px}
-ul.rating li.five a:hover {background-position:0 -160px}

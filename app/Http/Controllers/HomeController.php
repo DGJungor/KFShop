@@ -22,6 +22,7 @@ class HomeController extends Controller
     public function index()
     {
 
+
         $key= 'Home';
 
         if(Redis::exists($key)){
@@ -41,18 +42,18 @@ class HomeController extends Controller
                 foreach($data->children as $children){
                     $children->grandchild = \DB::table('data_types')->where('pid', $children->id)->get();
                 }
+
             }
             $compact = compact('data', 'friend', 'banner', 'recommend', 'dataObj');
             $info =  serialize( $compact );
 
+
             // dd(compact('data', 'friend', 'banner', 'recommend', 'dataObj'));
             Redis::setex($key, '86400', $info);
-
-
             return view('web.index', $compact);
 
-
         }
+
     }
 
     /**

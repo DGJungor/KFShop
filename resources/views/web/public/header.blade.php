@@ -2,7 +2,7 @@
         <div class="zl-hd w1200">
             <p class="hd-p1 f-l">
                 Hi!您好，欢迎来到购物网，
-                @if(Auth::user()) <a href="{{url('/personal')}}">{{Auth::user()->username}}</a>  <a href="{{url('/logout')}}">退出</a>
+                @if(Auth::user()) <a href="{{url('/user/personal')}}">{{Auth::user()->username}}</a>  <a href="{{url('/logout')}}">退出</a>
                 @else <a href="{{url('/login')}}">亲,请登录</a>  <a href="{{url('/register')}}">【免费注册】</a>
                 @endif
             </p>
@@ -10,9 +10,9 @@
                  <a href="/feedback">【意见反馈】</a>
             </p>
             <p class="hd-p2 f-r">
-                <a href="#">返回首页 (个人中心)</a><span>|</span>
+                <a href="/">返回首页 (个人中心)</a><span>|</span>
                 <a href="/cart">我的购物车</a><span>|</span>
-                <a href="#">我的订单</a>
+                <a href="/user/orders">我的订单</a>
             </p>
             <div style="clear:both;"></div>
         </div>
@@ -42,9 +42,12 @@
         </div>
         <div class="search f-r">
             <div class="search-info">
-                <input type="text" placeholder="请输入商品名称" />
+                <form action="search" method="GET">
+                    {{csrf_field()}}
+                <input type="text" name="search" placeholder="请输入商品名称" />
                 <button>搜索</button>
                 <div style="clear:both;"></div>
+                </form>
             </div>
             <ul class="search-ul">
                 <li><a href="JavaScript:;">热门</a></li>

@@ -25,15 +25,11 @@
                     <p class="f-l">当前头像：</p>
                     <div class="touxiang f-l">
                         <div class="tu f-l">
-                            <a id="editAvatar">
-                                <img src="{{ $userinfo->avatar }}" onclick="avatar.click()"/>
+                            <a href="javascript:;" onclick="return editAvatar()">
+                                <img id="showPic" src="/uploads/user_pic/{{$userinfo->avatar != null ? $userinfo->avatar : 'user_avatar_default.jpg' }} "/>
                             </a>
                         </div>
-                        {{--<input type="file" id="avatar" name="avatar" style="display: none">--}}
-                        {{--<button style="margin-top: 62px;"></button>--}}
-                        <input id="edit_avatar" type="button" value="确认修改" style="width:80px;height: 30px;margin-top: 55px;border:1px solid #ccc;background:#fff">
-                        {{--<input type="file" id="avatar" style="display:none" onchange="upfile.value=this.value">--}}
-                        {{--<input type="file" id="avatar" name="avatar" style="height: 25px;margin-top: 52px;border: 0px;">--}}
+                        <a href="JavaScript:;" class="sc f-l" onclick="return editAvatar()">修改头像</a>
                         <div style="clear:both;"></div>
                     </div>
                     <div style="clear:both;"></div>
@@ -95,6 +91,20 @@
     <script src="{{ asset('/style/js/plugins/datapicker/bootstrap-datepicker.js') }}"></script>
 
     <script>
+        //同步修改头像
+        function editAvatar() {
+            $.layer({
+                type : 1,
+                title: '头像上传',
+                shadeClose: true,
+                fix : false,
+                area: ['200px', 200],
+                page: {
+                    url : '/user/showUpload'
+                }
+            });
+        }
+
         //修改个人信息
         $('#data_1 .input-group.date').datepicker({
             todayBtn: "linked",
