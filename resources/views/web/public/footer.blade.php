@@ -83,16 +83,11 @@
                 <dl>友情链接：</dl>
             </dt>
 
-
             @foreach($friend as $ls)
-                @if($ls->type==2 && $ls->status==0)
-            <p>
-                <a href="{{ url($ls->url) }}">{{$ls->name}}</a><span>|</span>
+            <p style="float: left">
+                <a style="float: left" href="http://{{($ls->url) }}">{{$ls->name}}<img src="{{ url('/') }}{{ $ls->image }}" alt="" style="float: left"></a><span style="float: left">|</span>
             </p>
-                @endif
-
             @endforeach
-
 
         </div>
         <div class="footer-info3 w1200">

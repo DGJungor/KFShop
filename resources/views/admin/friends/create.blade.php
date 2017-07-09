@@ -52,9 +52,8 @@
 
                                         <div class="radio i-checks">
 
-                                            <input type="radio" value="1" name="type" checked> <i>图片</i>
-                                            <input type="radio" value="2" name="type" > <i>文字</i>
-                                            </div>   
+                                            <input id="types" type="radio" value="1" name="type" checked> <i>图片</i>
+                                            </div>
 
                                         </div>
                                     </div>
@@ -74,7 +73,7 @@
                                         <label class="col-sm-2 control-label">图片:</label>
 
                                         <div class="col-sm-10">
-                                            <input type="file" class="form-control" name="file" required >
+                                            <input type="file" class="form-control" name="file"  >
                                         </div>
                                     </div>
                                     <div class="hr-line-dashed"></div>
@@ -102,4 +101,5 @@
             });
         });
     </script>
+
 @endsection

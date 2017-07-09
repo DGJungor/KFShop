@@ -110,6 +110,13 @@
                     </li>
                 </ul>
             </li>
+            <li class="">
+                <a href=""><i class="fa fa-comment-o"></i> <span class="nav-label">评论</span> <span class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li><a href="{{ asset('admin/comment') }}">评论管理</a>
+                    </li>
+                </ul>
+            </li>
         </ul>
 
     </div>

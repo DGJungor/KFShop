@@ -22,7 +22,7 @@
     <div class="logo-search w1200">
         <div class="logo-box f-l">
             <div class="logo f-l">
-                <a href="#" title="sunlogo"><img src="{{ url('/web/images/zl2-01-1.gif') }}" /></a>
+                <a href="{{ asset('/') }}" title="sunlogo"><img src="{{ url('/web/images/zl2-01-1.gif') }}" /></a>
             </div>
             <div class="shangjia f-l">
 

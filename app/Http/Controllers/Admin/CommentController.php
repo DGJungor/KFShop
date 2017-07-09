@@ -17,7 +17,10 @@ class CommentController extends Controller
     public function index()
     {
         $comment=Comment::paginate(20);
-        return view('admin.comment.index', compact('comment'));
+
+        $stor = ['1' => '差评', '2' => '中评', '3' => '好评'];
+
+        return view('admin.comment.index', compact('comment', 'stor'));
     }
 
     /**
@@ -83,6 +86,20 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //删除相对应id的评论
+        $data = Comment::find($id);
+
+        if($data){
+
+            $data->delete();
+
+            return redirect()->to('admin/comment')->with(['success'=>'删除评论成功！']);
+
+        }else{
+
+            return back()->with(['success'=>'删除评论失败']);
+        }
+
+
     }
 }
