@@ -4,8 +4,8 @@
 <head>
 
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="renderer" content="webkit">
-    <meta name="_token" content="{{ csrf_token() }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>注册</title>
 
@@ -44,7 +44,7 @@
                 @endif
             </div>
             <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
-                <input id="password" type="password" maxlength="24" name="password" class="form-control" placeholder="密码">
+                <input id="password" type="password" maxlength="60" name="password" class="form-control" placeholder="密码">
                 @if ($errors->has('password'))
                     <span class="text-danger">
                     <strong>{{ $errors->first('password') }}</strong>
@@ -52,7 +52,7 @@
                 @endif
             </div>
             <div class="form-group {{ $errors->has('password') ? 'has-error' : '' }}">
-                <input type="password" maxlength="24" name="password_confirmation" class="form-control" placeholder="确认密码">
+                <input type="password" maxlength="60" name="password_confirmation" class="form-control" placeholder="确认密码">
             </div>
             <div class="form-group {{ $errors->has('email') ? 'has-error' : '' }}">
                 <input type="text" id="email" maxlength="32" name="email" class="form-control" placeholder="邮箱" value="{{ old('email') }}">
@@ -92,7 +92,7 @@
             {{csrf_field()}}
             <button type="submit" class="btn btn-primary block full-width m-b">注册</button>
             <div class="form-group">
-                <a href="{{ url('/login') }}">登录</a>
+                <a href="{{ url('/login') }}">去登录</a>
             </div>
 
         </form>
@@ -109,9 +109,9 @@
 <script src="{{ asset('/style/js/plugins/layer/layer.min.js') }}"></script>
 <script src="{{ asset('/style/js/demo/layer-demo.js') }}"></script>
 <script>
-    //注册成功后跳转登录界面
+    //注册成功后跳转登录界面等待激活
     @if (session('success'))
-        layer.msg('{{session('success')}}',2,1);
+        layer.msg('{{session('success')}}',2,14);
         setTimeout(function () {
             location.href = '/login';
         },2000);
@@ -126,6 +126,11 @@
             captcha.attr('src', url);
         });
 
+        //注册提示信息
+        $('#username').focus(function () {
+            $('#username').append('<span id="username-account">支持字母开头，由字母、数字、下划线、“-”和“_”组成的2-20个字符</span>');
+        });
+
         //隐藏错误信息
         $('input').focus(function(event) {
             $(this).next().children().html('');
@@ -133,8 +138,6 @@
         });
 
         //错误提示的隐藏
-
-
         $('#code').focus(function(event) {
             $('#code_error').parent().remove();
         });
@@ -164,7 +167,7 @@
                 password: {
                     required: true,
                     minlength: 6,
-                    maxlength: 24
+                    maxlength: 60
                 },
                 password_confirmation: {
                     required: true,
@@ -214,28 +217,20 @@
         });
 
         //用户名唯一性验证
-        $('#username,#email,#tel').blur(function () {
-            var username = '';
-            var email = '';
-            var tel = '';
-            var create = $('#username');
-            var not = [2,4,6];
-            var sure = [3,5,7];
-            var error = [8,9];
-            username = $('#username').val();
-            email = $('#email').val();
-            tel = $('#tel').val();
+        $('#username').blur(function () {
+            var not = [1,2,3];
+            var username = $('#username').val();
             $.ajax({
                 type: 'POST',
-                url: '/ajax/user/register',
+                url: '/ajax/user/checkName',
                 dataType: 'json',
-                data: {username: username, email: email, tel: tel, _token: "{{ csrf_token() }}"},
+                data: {username: username, _token: "{{ csrf_token() }}"},
                 success: function (data) {
                     if (data == null) {
-                        layer.msg('服务器端错误', 2, 1);
+                        layer.msg('服务器端错误', 2, 0);
                         return;
                     }
-                    if ($.inArray(data.status, sure) >= 0) {
+                    if (data.status == 0) {
                         var tip = data.tip + 'tip';
                         $('#'+tip).remove();
                         $('#'+data.tip).before("<i id=\""+tip+"\" class=\"fa fa-check-circle text-navy\" style=\"position: absolute;right: 0;padding: 10px 10px 10px 10px;\">"+data.message+"</i>");
@@ -247,13 +242,80 @@
                         $('#'+data.tip).before("<i id=\""+tip+"\" class=\"fa fa-times-circle text-danger\" style=\"position: absolute;right: 0;padding: 10px 10px 10px 10px;\">"+data.message+"</i>");
                         return;
                     }
-                    if ($.inArray(data.status, error) >= 0) {
+                }
+            });
+        });
+
+        //邮箱唯一性验证
+        $('#email').blur(function () {
+            var not = [1,2,3];
+            var email = $('#email').val();
+            $.ajax({
+                type: 'POST',
+                url: '/ajax/user/checkEmail',
+                dataType: 'json',
+                data: {email: email, _token: "{{ csrf_token() }}"},
+                success: function (data) {
+                    if (data == null) {
+                        layer.msg('服务器端错误', 2, 0);
+                        return;
+                    }
+                    if (data.status == 0) {
                         var tip = data.tip + 'tip';
                         $('#'+tip).remove();
-                        $('#'+data.tip).before("<i id=\""+tip+"\" class=\"fa fa-times-circle text-danger\" style=\"position: absolute;right: 0;padding: 10px 10px 10px 10px;\"></i>");
+                        $('#'+data.tip).before("<i id=\""+tip+"\" class=\"fa fa-check-circle text-navy\" style=\"position: absolute;right: 0;padding: 10px 10px 10px 10px;\">"+data.message+"</i>");
+                        return;
+                    }
+                    if ($.inArray(data.status, not) >= 0) {
+                        var tip = data.tip + 'tip';
+                        $('#'+tip).remove();
+                        $('#'+data.tip).before("<i id=\""+tip+"\" class=\"fa fa-times-circle text-danger\" style=\"position: absolute;right: 0;padding: 10px 10px 10px 10px;\">"+data.message+"</i>");
+                        return;
                     }
                 }
             });
+        });
+
+        //手机号唯一性验证
+        $('#tel').blur(function () {
+            var not = [1,2,3];
+            var tel = $('#tel').val();
+            $.ajax({
+                type: 'POST',
+                url: '/ajax/user/checkTel',
+                dataType: 'json',
+                data: {tel: tel, _token: "{{ csrf_token() }}"},
+                success: function (data) {
+                    if (data == null) {
+                        layer.msg('服务器端错误', 2, 0);
+                        return;
+                    }
+                    if (data.status == 0) {
+                        var tip = data.tip + 'tip';
+                        $('#'+tip).remove();
+                        $('#'+data.tip).before("<i id=\""+tip+"\" class=\"fa fa-check-circle text-navy\" style=\"position: absolute;right: 0;padding: 10px 10px 10px 10px;\">"+data.message+"</i>");
+                        return;
+                    }
+                    if ($.inArray(data.status, not) >= 0) {
+                        var tip = data.tip + 'tip';
+                        $('#'+tip).remove();
+                        $('#'+data.tip).before("<i id=\""+tip+"\" class=\"fa fa-times-circle text-danger\" style=\"position: absolute;right: 0;padding: 10px 10px 10px 10px;\">"+data.message+"</i>");
+                        return;
+                    }
+                },
+                error: function () {
+                    layer.msg('呀,服务器开小差了！',1,8);
+                }
+            });
+        });
+
+
+        $('#registerform').submit(function () {
+            if ($('.fa-times-circle').length >0) {
+                return false;
+            } else {
+                return true;
+            }
         });
     });
 

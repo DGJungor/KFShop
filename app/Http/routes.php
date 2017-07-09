@@ -58,8 +58,14 @@ Route::get('details/{id}', 'HomeController@details');
 
 // 前台登录页面
 Route::get('/login', 'LoginController@index');
+//登录账号检测
+Route::post('/loginCheck', 'LoginController@loginCheck');
 // 执行登录
 Route::post('/login', 'LoginController@login');
+//忘记密码处理
+Route::get('/forget', 'SafetyController@forgetPage');
+//发送邮件
+Route::post('/forget/sendEmailCode', 'SafetyController@sendEmailCode');
 
 // 退出登录
 Route::get('/logout', 'LoginController@logout');
@@ -68,7 +74,13 @@ Route::get('/logout', 'LoginController@logout');
 Route::get('/register', 'RegisterController@index');
 // 执行注册
 Route::post('/register', 'RegisterController@register');
-//邮箱验证
+//前台用户名唯一性
+Route::post('/ajax/user/checkName', 'RegisterController@checkName');
+//前台邮箱唯一性
+Route::post('/ajax/user/checkEmail', 'RegisterController@checkEmail');
+//前台手机号唯一性
+Route::post('/ajax/user/checkTel', 'RegisterController@checkTel');
+//邮箱验证激活账号
 Route::get('service/validate_email/uid/{uid}/code/{code}', 'Service\ValidateController@validateEmail');
 
 //个人中心
@@ -96,6 +108,10 @@ Route::group(['middleware' => 'auth','prefix' => 'user'], function () {
     Route::get('/showUpload', 'PersonalController@showUpload');
     //修改头像
     Route::post('ajax/uploadAvatar', 'PersonalController@uploadAvatar');
+    //修改密码
+    Route::get('/modifyPassword', 'PersonalController@password');
+    //执行修改密码
+    Route::post('/modifyPassword', 'PersonalController@modifyPassword');
     //前台评论
     Route::resource('comment', 'CommentController');
     //添加评论
@@ -107,9 +123,9 @@ Route::group(['middleware' => 'auth','prefix' => 'user'], function () {
 });
 
 
+
 //前台注册用户名Ajax请求
 Route::post('/ajax/user/register', 'RegisterController@checkName');
-
 
 //后台登录首页
 Route::get('admin/login', 'Admin\LoginController@index');
