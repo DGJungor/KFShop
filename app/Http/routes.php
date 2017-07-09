@@ -14,6 +14,7 @@
 
 //首页
 Route::get('/', 'HomeController@index');
+Route::get('/clear', 'HomeController@clear');
 Route::post('/ajax', 'HomeController@ajax');
 
 //前台搜索控制器
@@ -134,7 +135,12 @@ Route::group(['middleware' => 'auth:admin', 'namespace' => 'Admin', 'prefix' => 
 	//ajax请求数据
 	Route::post('goods/ajax', 'GoodsController@ajax');
 
-	Route::post('goods/del', 'GoodsController@del');
+
+    //搜索请求
+    Route::post('goods/soso', 'GoodsController@soso');
+
+    Route::post('goods/del', 'GoodsController@del');
+
 
 	//上传图片插件请求
 	Route::post('goods/upload', 'GoodsController@upload');

@@ -19,11 +19,21 @@ class GoodsController extends Controller
      */
     public function index()
     {
-        $dataObj = Good::paginate(6);
+        $dataObj = Good::orderBy('id', 'desc')->paginate(6);
         $state = ['0'=>'在售','1'=>'下架'];
         return view('admin.goods.index', compact(['dataObj','state']));
     }
 
+    /**
+     * 搜索
+     */
+    public function soso(Request $request)
+    {
+        $dataObj = Good::where('goodname', 'like', '%'.$request->soso.'%')->orderBy('id', 'desc')->paginate(6);
+        // dd($dataObj);
+        $state = ['0'=>'在售','1'=>'下架'];
+        return view('admin.goods.index', compact(['dataObj','state']));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -71,7 +81,7 @@ class GoodsController extends Controller
                 }
                 \DB::beginTransaction();
 
-                $row = \DB::table('data_goods')->insertGetId([
+                $row = Good::insertGetId([
                     'goodname'=>$request->goodname,
                     'typeid' =>$typeid,
                     'buy'=>$request->buy,
@@ -82,17 +92,30 @@ class GoodsController extends Controller
                     'suit'=>$request->suit,
                     'makein'=>$request->makein,
                     'state'=>$request->state,
+                    'created_at'=>date('Y-m-d-H-i-s',time()),
                 ]);
                 if($row < 0){
                     \DB::rollBack();
                 }
-                $num = \DB::table('data_goods_details')->insert([
-                    'goods_id' => $row,
-                    'listname' => implode(',' , $request->file),
-                    'picname' => implode(',' , $request->file_detail),
-                    'details' => $request->describe,
+                if($request->file || $request->file_detail  ){
+                    $filepic = @implode(',' , $request->file);
+                    $file_detail = @implode(',' , $request->file_detail);
 
-                ]);
+                    $num = \DB::table('data_goods_details')->insert([
+                        'goods_id' => $row,
+                        'listname' => $filepic,
+                        'picname' => $file_detail,
+                        'details' => $request->describe,
+                    ]);
+                }else{
+                    $num = \DB::table('data_goods_details')->insert([
+                        'goods_id' => $row,
+                        'listname' => $request->file,
+                        'picname' =>$request->file_detail,
+                        'details' => $request->describe,
+                    ]);
+                }
+
                 if($num < 0){
                     \DB::rollBack();
                 }
@@ -178,7 +201,7 @@ class GoodsController extends Controller
             $filename = $request->picpic;
         }
 
-        if (Good::where('id', $id)->update([
+        if ($bool = Good::where('id', $id)->update([
             'goodname'=>$request->goodname,
             'typeid' =>$request->typeid,
             'buy'=>$request->buy,
@@ -195,8 +218,11 @@ class GoodsController extends Controller
                 'picname' => implode(',' , $request->file),
                 'listname' => implode(',' , $request->file_detail),
             ]);
-            if($row > 0){
+            if($row > 0 || $bool > 0){
                 return redirect('/admin/goods')->with(['success' => '修改成功！']);
+            }else{
+                return back()->with(['success' => '修改失败！']);
+
             }
 
         } else {

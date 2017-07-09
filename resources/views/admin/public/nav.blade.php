@@ -45,7 +45,7 @@
                 </ul>
             </li>
             <li class="">
-                <a href=""><i class="fa fa-th-large"></i> <span class="nav-label">商品</span> <span class="fa arrow"></span></a>
+                <a href=""><i class="fa fa-sitemap"></i> <span class="nav-label">商品</span> <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li><a href="{{ asset('admin/goods') }}">商品管理</a>
                     </li>
@@ -62,7 +62,7 @@
                     </li>
                 </ul>
                 <ul class="nav nav-second-level">
-                    <li><a href="{{ asset('admin/types/create') }}">商品分类管理</a>
+                    <li><a href="{{ asset('admin/types/create') }}">顶级分类添加</a>
                     </li>
                 </ul>
             </li>
