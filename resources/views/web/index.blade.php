@@ -91,7 +91,7 @@
             <a href="#"><img width="233" height="454" src="{{url('uploads/types')}}/{{$v->picname}}" /></a>
             <div class="sp-l-b">
                 @foreach($v->children as $val)
-                    <a href="#">{{$val->name}}</a>
+                    <a href="{{asset('goods_list')}}/{{ $val->id }}">{{$val->name}}</a>
                 @endforeach
             </div>
         </div>

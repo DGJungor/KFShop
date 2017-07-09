@@ -18,7 +18,7 @@ class CreateGoodsTable extends Migration
             $table->string('goodname')->comment('商品名');
             $table->decimal('price', 7, 2)->comment('商品单价');
             $table->integer('inventory')->comment('库存');
-            $table->integer('state')->default('1')->comment('商品状态 0=>下架 1=>在售');
+            $table->tinyInteger('state')->default('0')->comment('商品状态 0=>在售 1=>下架');
             $table->integer('buy')->default('0')->comment('购买量');
             $table->string('picname')->comment('图片名');
             $table->string('brand', 32)->comment('品牌');

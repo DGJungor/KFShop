@@ -54,7 +54,7 @@ class TypesController extends Controller
                 $filename = date('Y-m-d-H-i-s') . '-' . uniqid() .'.'. $ext;
                 Image::make( Input::file('picname'))->save('uploads/types/'.$filename);
                 $num = \DB::table('data_types')->insert(
-                    ['pid' => '0', 'name' => $request->typename, 'picname'=>$filename, 'path' => '0,' ]
+                    ['pid' => '0', 'name' => $request->typename, 'picname'=>$filename, 'path' => '0,', 'created_at'=>date('Y-m-d-H-i-s', time()) ]
                 );
                 if($num){
                     return redirect('/admin/types')->with(['success' => '添加成功！']);
@@ -106,7 +106,7 @@ class TypesController extends Controller
     {
         // dd($request->all());
         $num = \DB::table('data_types')->insert(
-            ['pid' => $id, 'name' => $request->typename, 'path' => $request->path.$id.',' ]
+            ['pid' => $id, 'name' => $request->typename, 'path' => $request->path.$id.',' ,  'created_at'=>date('Y-m-d-H-i-s', time())]
         );
         if($num){
             return redirect('/admin/types')->with(['success' => '添加成功！']);

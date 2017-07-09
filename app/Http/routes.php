@@ -16,6 +16,7 @@
 
 //首页
 Route::get('/', 'HomeController@index');
+Route::get('/clear', 'HomeController@clear');
 Route::post('/ajax', 'HomeController@ajax');
 
 //前台购物车路由 --jun
@@ -118,6 +119,9 @@ Route::get('admin/logout', 'Admin\LoginController@logout');
 
     //ajax请求数据
     Route::post('goods/ajax', 'GoodsController@ajax');
+
+    //搜索请求
+    Route::post('goods/soso', 'GoodsController@soso');
 
     Route::post('goods/del', 'GoodsController@del');
 
