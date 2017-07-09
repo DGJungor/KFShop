@@ -1,0 +1,6 @@
+@charset "utf-8";
+
+
+.tip-error{ font-size: 15px; color: #ff0000; margin-left: 15px;}
+.has-error{border: 1px solid #9D9D9D;}
+.has-success{border: 1px solid #ff0000;}
