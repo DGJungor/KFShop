@@ -6,31 +6,38 @@
 
 @section('css')
 
-    <link rel="stylesheet" type="text/css" href="{{ url('/web/css/shopping-mall-index.css') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ url('/web/css/shopping-mall-index.css') }}"/>
 
+    <link rel="stylesheet" type="text/css" href="{{ url('/web/css/jun.css')}}"/>
+
+    <link rel="stylesheet" type="text/css" href="{{ url('/web/css/jun.css')}}"/>
 @endsection
 
 
 @section('menu')
-    <div class="brand-sales " >
+    <div class="brand-sales ">
         <dl style="border-bottom:none;">
 
             <dt style="width: 200px;">
-             当前位置:  {{$list[0]->name}}
+               
+                @if(isset($list))
+                    当前位置: {{$list[0]->name}}
+                @endif
             </dt>
 
             <div style="clear:both;"></div>
         </dl>
 
         <dl style="border-bottom:none;">
+
         <dt style="width: 250px">
-{{--            {{$type[0]->name}} &nbsp; <span style="color: #1D1D1D"> 商品筛选</span>--}}
-             <span style="color: #1D1D1D">共
+             <span style="color: #1D1D1D">当前页共计:
+            <input type="hidden" value="@foreach($goods as $vv) @endforeach">
              <strong>{{count($goods)}}</strong>
              件相关商品
              </span>
 
-        </dt>
+            </dt>
             <div style="clear:both;"></div>
         </dl>
 
@@ -63,20 +70,27 @@
                     @if($lst[0]=='1')
 
                     @else
-                        <li >
-                            <a  href="javascript:oid(0)" id="buys" ty-id="{{$list[0]->id}}" title="销量">销量 ↓</a>
+                        <li>
+                            @if(isset($list))
+                                <a href="javascript:oid(0)" id="buys" ty-id="{{$list[0]->id}}" title="销量">销量 ↓</a>
+                            @else
+                                <a href="">销量 ↓</a>
+                            @endif
                         </li>
 
 
-                        <li >
-                            <a href="javascript:oid(0)" id="prices" ty-id="{{$list[0]->id}}"  title="价格">价格 ↓</a>
+                        <li>
+                            @if(isset($list))
+                                <a href="javascript:oid(0)" id="prices" ty-id="{{$list[0]->id}}" title="价格">价格 ↓</a>
+                            @else
+                                <a href="">价格 ↓</a>
+                            @endif
                         </li>
-
 
                     @endif
 
                     {{--<li >--}}
-                        {{--<a  href="#" id="comments" ty-id="{{$type[0]->id}}" title="评价">评价 </a>--}}
+                    {{--<a  href="#" id="comments" ty-id="{{$type[0]->id}}" title="评价">评价 </a>--}}
                     {{--</li>--}}
 
                     <div style="clear:both;"></div>
@@ -88,7 +102,6 @@
                 <ul class="shop-ul-tu shop-ul-tu1" id="goodslist">
 
                     @foreach( $goods as $ve )
-
                     <li style="margin-right:0;">
                         <div class="li-top">
                             <a href="{{ url('details') }}/{{$ve->id}}"  target="_blank" class="li-top-tu"><img src="{{ url('uploads/goods') }}/{{$ve->picname}}" height="110" width="95" /></a>
@@ -99,169 +112,211 @@
                         <p style="text-align: center;font-size: 16px; color: #000">{{$ve->goodname}}</p>
                         <div class="li-md">
                             <div class="md-l f-l">
-                                <span class="md-l-l f-l" ap=""></span>
+                                <span class="md-l-l f-l" ></span>
                                 <div class="md-l-r f-l">
-
                                 </div>
                                 <div style="clear:both;"></div>
                             </div>
                             <div class="md-r f-l">
-                                <button class="md-l-btn1">立即购买</button>
-                                <button class="md-l-btn2">加入购物车</button>
+                            <button class="md-l-btn1">立即购买</button>
+                            <button class="md-l-btn2">加入购物车</button>
                             </div>
-                            <div style="clear:both;"></div>
-                        </div>
-                        <br>
+                                <div style="clear:both;"></div>
+                            </div>
+                            <br>
                         <p style="margin-left: 10px">销量：{{$ve->buy}}</p>
-
                         <p class="weike">{{$ve->brand}}自营</p>
                     </li>
                     @endforeach
-
-
-
-                    {{--遍历--}}
                 </ul>
                 <div style="clear:both;" class="news"></div>
-                    {{--@endforeach--}}
             </div>
         </div>
-        <div style="clear:both;"></div>
+                {{--遍历--}}
+                @if( isset($type) && ($type ='search') )
+                    <div>
+                        <dl style="border-bottom:none;">
+                            <dt style="width: 250px">
+                                <span style="color: #1D1D1D">第
+                                    <strong>{{ $page }}</strong>页
+                                </span>
+
+                            </dt>
+                            <div style="clear:both;"></div>
+                        </dl>
+                        <ul class="pager">
+                            <li>
+                                <a href="http://www.baji.com/search?search={{ $search }}&page={{ $page-1 }}" rel="prev">
+                                    上一页
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://www.baji.com/search?search={{ $search }}&page={{ $page+1 }}" rel="next">
+                                    下一页
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    @else
+                    <div class="paging">
+                        <div class="pag-left f-l">
+                        {{$goods->links()}}
+                        </div>
+                    </div>
+
+                    <div style="clear:both;"></div>
+                @endif
+
+
     </div>
-    
-     <!--分页-->
-
-
 @endsection
 
 
 @section('js')
     <script>
 
-    //点击获取排序的焦点样式
-    $(function (){
-        $('li').click(function (){
-            $(this).addClass('current').siblings('li').removeClass('current');
+
+        //点击获取排序的焦点样式
+        $(function () {
+            $('li').click(function () {
+                $(this).addClass('current').siblings('li').removeClass('current');
+            });
+
         });
 
-    });
 
-
-
-
-
-    $('a').off().click(function () {
-        var path = $(this).attr('id');
-//        console.log(path);
-        var that = $(this);
-        var id = this.getAttribute('ty-id');
-        var ssd = that.parent().parent().parent().next().children('.news');
-        var lists= that.parent().parent().parent().next().children('#goodslist');
-        lists.remove();
-        if(that.prop('ty-id'+id)){
-            ssd.before(that.prop('ty-id'+id));
-            return;
-        }
-
-        $.ajax({
-
-            type:'POST',
-
-            url:'/goods_list/ajax',
-
-            dataType:'json',
-
-            data : { '_token':'{{csrf_token()}}', 'pid':id ,'path':path},
-
-            success:function (data) {
-
-               var str='<ul class="shop-ul-tu shop-ul-tu1" id="goodslist">';
-               for(var i = 0; i < data.length; i++) {
-                   str += '<li style="margin-right:0;">';
-                   str += '<div class="li-top">';
-                   str += '<a href="{{ url('details') }}/' + data[i].id + '"  target="_blank" class="li-top-tu"><img src="{{ url('uploads/goods') }}/' + data[i].picname + '" height="110" width="95" /></a>';
-                   str += '<p class="jiage">';
-                   str += '<span class="sp1">￥'+data[i].price+'</span>';
-                   str += '</p>';
-                   str += '</div>';
-                   str += '<p style="text-align: center;font-size: 16px; color: #000">' + data[i].goodname + '</p>';
-                   str += '<div class="li-md">';
-                   str += '<div class="md-l f-l">';
-                   str += '<span class="md-l-l f-l" ></span>';
-                   str += '<div class="md-l-r f-l">';
-                   str += '</div>';
-                   str += '<div style="clear:both;"></div>';
-                   str += '</div>';
-                   str += '<div class="md-r f-l">';
-                   str += '<button class="md-l-btn1">立即购买</button>';
-                   str += '<button class="md-l-btn2">加入购物车</button>';
-                   str += '</div>';
-                   str += ' <div style="clear:both;"></div>';
-                   str += '</div>';
-                   str += '<br>';
-                   str += '<p style="margin-left: 10px">销量：' + data[i].buy + '</p>';
-                   str += '<p class="weike">' + data[i].brand + '自营</p>';
-                   str += '</li>';
-
-               }
-                str += '</ul>';
-               that.prop('ty-id'+id, str);
-
-//                console.log(that.prop('ty-id'+id))
-               ssd.before(str);
+        $('a').off().click(function () {
+            var path = $(this).attr('id');
+        console.log(path);
+            var that = $(this);
+            var id = this.getAttribute('ty-id');
+            var ssd = that.parent().parent().parent().next().children('.news');
+            var lists = that.parent().parent().parent().next().children('#goodslist');
+            lists.remove();
+            if (that.prop('ty-id' + id)) {
+                ssd.before(that.prop('ty-id' + id));
+                return;
             }
 
-        });
+            $.ajax({
 
-    });
+                type: 'POST',
+
+                url: '/goods_list/ajax',
+
+                dataType: 'json',
+
+                data: {'_token': '{{csrf_token()}}', 'pid': id, 'path': path},
+
+                success: function (data) {
+
+                    var str = '<ul class="shop-ul-tu shop-ul-tu1" id="goodslist">';
+                    for (var i = 0; i < data.length; i++) {
+                        str += '<li style="margin-right:0;">';
+                        str += '<div class="li-top">';
+                        str += '<a href="{{ url('details') }}/' + data[i].id + '"  target="_blank" class="li-top-tu"><img src="{{ url('uploads/goods') }}/' + data[i].picname + '" height="110" width="95" /></a>';
+                        str += '<p class="jiage">';
+                        str += '<span class="sp1">￥' + data[i].price + '</span>';
+                        str += '</p>';
+                        str += '</div>';
+                        str += '<p style="text-align: center;font-size: 16px; color: #000">' + data[i].goodname + '</p>';
+                        str += '<div class="li-md">';
+                        str += '<div class="md-l f-l">';
+                        str += '<span class="md-l-l f-l" ></span>';
+                        str += '<div class="md-l-r f-l">';
+                        str += '</div>';
+                        str += '<div style="clear:both;"></div>';
+                        str += '</div>';
+                        str += '<div class="md-r f-l">';
+                        str += '<button class="md-l-btn1">立即购买</button>';
+                        str += '<button class="md-l-btn2">加入购物车</button>';
+                        str += '</div>';
+                        str += ' <div style="clear:both;"></div>';
+                        str += '</div>';
+                        str += '<br>';
+                        str += '<p style="margin-left: 10px">销量：' + data[i].buy + '</p>';
+                        str += '<p class="weike">' + data[i].brand + '自营</p>';
+                        str += '</li>';
+
+                    }
+                    str += '</ul>';
+                    that.prop('ty-id' + id, str);
+
+//                console.log(that.prop('ty-id'+id))
+                    ssd.before(str);
+                }
+
+            });
+
+        });
 
 
     </script>
 
     <script>
 
-        $(document).ready(function(){
+        $(document).ready(function () {
             var lis = $('#recommends');
 
-        $.ajax({
+            $.ajax({
 
-            type:'POST',
+                type: 'POST',
 
-            url:'/goods_list/recom',
+                url: '/goods_list/recom',
 
-            dataType:'json',
+                dataType: 'json',
 
-            data : {'_token':'{{csrf_token()}}'},
+                data: {'_token': '{{csrf_token()}}'},
 
-            success:function (data) {
+                success: function (data) {
 
-                var str=' <ul class="shop-left-ul">';
+                    var str = ' <ul class="shop-left-ul">';
 
-                for(var i = 0; i<data.length; i++){
-                    str +=' <li style="height:250px;">';
-                    str +=' <div class="li-top">';
-                    str +='<a href="#" class="li-top-tu" target="_blank">';
-                    str +='<img src="{{ url('uploads') }}/x_'+ data[i].recommend_picname +'" width="95" height="110" />';
-                    str +='</a>';
-                    str +='<p class="jiage">';
-                    str +='<span class="sp1">'+ data[i].recommend_introduction +'</span>';
-                    str +='</p>';
-                    str +='</div>';
-                    str +='<p class="miaoshu"></p>';
-                    str +='<div class="li-md">';
-                    str +='<div style="clear:both;"></div>';
-                    str +='</div>';
-                    str +='<p class="pingjia">0评价</p>';
-                    str +='</li>';
+                    for (var i = 0; i < data.length; i++) {
+                        str += ' <li style="height:250px;">';
+                        str += ' <div class="li-top">';
+                        str += '<a href="#" class="li-top-tu" target="_blank">';
+                        str += '<img src="{{ url('uploads') }}/x_' + data[i].recommend_picname + '" width="95" height="110" />';
+                        str += '</a>';
+                        str += '<p class="jiage">';
+                        str += '<span class="sp1">' + data[i].recommend_introduction + '</span>';
+                        str += '</p>';
+                        str += '</div>';
+                        str += '<p class="miaoshu"></p>';
+                        str += '<div class="li-md">';
+                        str += '<div style="clear:both;"></div>';
+                        str += '</div>';
+                        str += '<p class="pingjia">0评价</p>';
+                        str += '</li>';
 
+                    }
+                    str += '</ul>';
+                    lis.before(str);
                 }
-                str +='</ul>';
-                lis.before(str);
-            }
 
-        });
+            });
         });
 
     </script>
+
+    <script>
+
+        $(document).ready(function(){
+
+
+
+
+
+
+
+
+
+
+        });
+
+
+
+    </script>
+
 
 @endsection

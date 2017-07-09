@@ -35,28 +35,28 @@
 
             </div>
             <div class="ibox-content">
-                <div class="row">
-                    <div class="col-sm-5 m-b-xs">
-                        <div data-toggle="buttons" class="btn-group">
-                            <label class="btn btn-sm btn-white active">
-                                <input id="option1" name="options" type="radio">天</label>
-                            <label class="btn btn-sm btn-white">
-                                <input id="option2" name="options" type="radio">周</label>
-                            <label class="btn btn-sm btn-white">
-                                <input id="option3" name="options" type="radio">月</label>
-                        </div>
-                    </div>
-                    <div class="col-sm-4 m-b-xs">
+                {{--<div class="row">--}}
+                    {{--<div class="col-sm-5 m-b-xs">--}}
+                        {{--<div data-toggle="buttons" class="btn-group">--}}
+                            {{--<label class="btn btn-sm btn-white active">--}}
+                                {{--<input id="option1" name="options" type="radio">天</label>--}}
+                            {{--<label class="btn btn-sm btn-white">--}}
+                                {{--<input id="option2" name="options" type="radio">周</label>--}}
+                            {{--<label class="btn btn-sm btn-white">--}}
+                                {{--<input id="option3" name="options" type="radio">月</label>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                    {{--<div class="col-sm-4 m-b-xs">--}}
 
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="input-group">
-                            <input placeholder="请输入关键词" class="input-sm form-control" type="text"> <span
-                                    class="input-group-btn">
-                                        <button type="button" class="btn btn-sm btn-primary"> 搜索</button> </span>
-                        </div>
-                    </div>
-                </div>
+                    {{--</div>--}}
+                    {{--<div class="col-sm-3">--}}
+                        {{--<div class="input-group">--}}
+                            {{--<input placeholder="请输入关键词" class="input-sm form-control" type="text"> <span--}}
+                                    {{--class="input-group-btn">--}}
+                                        {{--<button type="button" class="btn btn-sm btn-primary"> 搜索</button> </span>--}}
+                        {{--</div>--}}
+                    {{--</div>--}}
+                {{--</div>--}}
                 <div class="table-responsive">
                     <table class="table table-striped">
                         <thead>

@@ -12,32 +12,42 @@
 */
 
 
-
-
 //首页
 Route::get('/', 'HomeController@index');
+Route::get('/clear', 'HomeController@clear');
 Route::post('/ajax', 'HomeController@ajax');
 
+//前台搜索控制器
+Route::get('/search','SearchController@indexS');
+
 //前台购物车路由 --jun
-Route::get('cart/add/{id}','CartController@add');
-Route::post('cart/ajax','CartController@ajax');
-Route::post('cart/del','CartController@del');
-Route::resource('cart','CartController');
+Route::get('cart/add/{id}', 'CartController@add');
+Route::post('cart/ajax', 'CartController@ajax');
+Route::post('cart/del', 'CartController@del');
+Route::resource('cart', 'CartController');
 
 //前台信息反馈路由  --jun
-Route::resource('feedback','FeedbackController');
+Route::resource('feedback', 'FeedbackController');
 
-//前台评论
-Route::resource('comment', 'CommentController');
 
 //立即购买订单路由 --Jun
 Route::get('buynow/{id}','OrdersController@buynow')->middleware('auth');
 
-//前台订单路由  --jun
-Route::resource('orders','OrdersController');
 
-//前台支付路由 --jun
-Route::resource('pay','PayController');
+//支付订单组  添加中间件 --Jun
+Route::group(['middleware' => 'auth'], function () {
+
+	//立即购买订单路由 --Jun
+	Route::get('buynow/{id}', 'OrdersController@buynow');
+
+	//前台订单路由  --jun
+	Route::resource('orders', 'OrdersController');
+
+	//前台支付路由 --jun
+	Route::resource('pay', 'PayController');
+
+});
+
 
 //商品列表页
 Route::get('goods_list/{types}', 'GoodsListController@goodsList');
@@ -70,10 +80,12 @@ Route::post('/ajax/user/checkName', 'RegisterController@checkName');
 Route::post('/ajax/user/checkEmail', 'RegisterController@checkEmail');
 //前台手机号唯一性
 Route::post('/ajax/user/checkTel', 'RegisterController@checkTel');
-//邮箱验证
+//邮箱验证激活账号
 Route::get('service/validate_email/uid/{uid}/code/{code}', 'Service\ValidateController@validateEmail');
 
 //个人中心
+
+
 Route::group(['middleware' => 'auth','prefix' => 'user'], function () {
     Route::get('/', 'PersonalController@index');
     //个人资料
@@ -102,63 +114,76 @@ Route::group(['middleware' => 'auth','prefix' => 'user'], function () {
     Route::post('/modifyPassword', 'PersonalController@modifyPassword');
 
 
+    //前台评论
+    Route::resource('comment', 'CommentController');
+
 	//个人中心订单  --Jun
-	Route::resource('/orders','UserOrdersController');
+	Route::resource('/orders', 'UserOrdersController');
 
 });
 
 
+
+//前台注册用户名Ajax请求
+Route::post('/ajax/user/register', 'RegisterController@checkName');
+
 //后台登录首页
-Route::get('admin/login','Admin\LoginController@index');
+Route::get('admin/login', 'Admin\LoginController@index');
 //后台执行登录
 Route::post('admin/login', 'Admin\LoginController@login');
 //后台退出登录
 Route::get('admin/logout', 'Admin\LoginController@logout');
 
 
-
- Route::group(['middleware'=>'auth:admin','namespace' => 'Admin', 'prefix' => 'admin'], function () {
+Route::group(['middleware' => 'auth:admin', 'namespace' => 'Admin', 'prefix' => 'admin'], function () {
 //Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
 
-    Route::get('/', function () { return view('admin.index'); });
-    //商品管理
-    Route::resource('goods', 'GoodsController');
-    //商品分类管理
-    Route::resource('types', 'TypesController');
+	Route::get('/', function () {
+		return view('admin.index');
+	});
+	//商品管理
+	Route::resource('goods', 'GoodsController');
+	//商品分类管理
+	Route::resource('types', 'TypesController');
 
-    Route::resource('friends', 'FriendController');
+	Route::resource('friends', 'FriendController');
 
-    //ajax请求数据
-    Route::post('goods/ajax', 'GoodsController@ajax');
+	//ajax请求数据
+	Route::post('goods/ajax', 'GoodsController@ajax');
+
+
+    //搜索请求
+    Route::post('goods/soso', 'GoodsController@soso');
 
     Route::post('goods/del', 'GoodsController@del');
 
-    //上传图片插件请求
+
+	//上传图片插件请求
 	Route::post('goods/upload', 'GoodsController@upload');
 
 	//后台反馈组 --jun
-	Route::resource('feedback','FeedbackController');
+	Route::resource('feedback', 'FeedbackController');
 
 	//后台订单路由  --jun
 	Route::resource('orders', 'OrdersController');
 
-    //后台轮播图管理路由
-    Route::resource('recommend', 'RecommendController');
+	//后台轮播图管理路由
+	Route::resource('recommend', 'RecommendController');
 
-    //后台推荐管理路由
-    Route::resource('shop_banner', 'Shop_BannerController');
+	//后台推荐管理路由
+	Route::resource('shop_banner', 'Shop_BannerController');
 	//后台友情链接路由
 	Route::get('friends', 'FriendController@index');
 
 	//前台用户路由
-    Route::resource('member', 'MemberController');
+	Route::resource('member', 'MemberController');
 
-    //后台管理员路由
-    Route::resource('admins', 'AdminController');
-    //ajax管理员唯一性验证
-    Route::post('ajax/checkName', 'AdminController@checkName');
+	//后台管理员路由
+	Route::resource('admins', 'AdminController');
+	//ajax管理员唯一性验证
+	Route::post('ajax/checkName', 'AdminController@checkName');
 
-    //后台评论路由
-    Route::resource('comment', 'CommentController');
+	//后台评论路由
+	Route::resource('comment', 'CommentController');
 
 });

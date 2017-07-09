@@ -83,8 +83,12 @@
                 <div style="clear:both;"></div>
             </dl>
             <div class="dt-ifm-box4">
+                @if($dataObj->state == 0)
                 <a href="{{ url('buynow') }}/{{ $dataObj->id }}?num=1" class='buynow' data="{{$dataObj['id']}}"><button class="btn1">立即购买</button></a>
                 <a href="{{ url('cart/add') }}/{{ $dataObj->id }}?num=1" class="cart" data="{{$dataObj['id']}}"><button class="btn2">加入购物车</button></a>
+                @else
+                <button class="btn3">已下架</button>
+                @endif
                 <button class="btn3">收藏</button>
             </div>
         </div>

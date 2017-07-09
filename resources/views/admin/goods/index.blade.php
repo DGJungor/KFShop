@@ -18,10 +18,13 @@
                 <div class="row">
                     <div class="col-sm-9"></div>
                     <div class="col-sm-3 m-b-xs">
+                        <form action="{{ asset('admin/goods/soso') }}" method="post">
                         <div class="input-group">
-                            <input type="text" placeholder="请输入商品名关键词" class="input-sm form-control"> <span class="input-group-btn">
-                        <button type="button" class="btn btn-sm btn-primary"> 搜索</button> </span>
+                            <input type="text" placeholder="请输入商品名关键词" name="soso" class="input-sm form-control"> <span class="input-group-btn">
+                            {!! csrf_field() !!}
+                            <button type="submit" class="btn btn-sm btn-primary"> 搜索</button> </span>
                         </div>
+                        </form>
                     </div>
                 </div>
                 @if (session('success'))
@@ -44,6 +47,7 @@
                                 <th>品牌</th>
                                 <th>生产地</th>
                                 <th>适用人群</th>
+                                <th>创建时间</th>
                                 <th>操作</th>
                             </tr>
                         </thead>
@@ -62,6 +66,7 @@
                                 <td>{{$v['brand']}}</td>
                                 <td>{{$v['makein']}}</td>
                                 <td>{{$v['suit']}}</td>
+                                <td>{{$v['created_at']}}</td>
                                 <td>
                                     <form action="goods/{{$v['id']}}" method="POST">
                                         <a href="goods/{{$v['id']}}">

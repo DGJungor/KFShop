@@ -3,8 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests;
+use App\Http\Controllers\Controller;
+
+
 
 class CommentController extends Controller
 {
@@ -15,8 +21,7 @@ class CommentController extends Controller
      */
     public function index()
     {
-        $goods=\DB::table('data_goods')->get();
-        $order=\DB::table('data_orders')->get();
+        $order=\DB::table('data_orders_details')->get();
 
         return view('web.comment.create');
     }
