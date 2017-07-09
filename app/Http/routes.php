@@ -95,10 +95,10 @@ Route::group(['middleware' => 'auth','prefix' => 'user'], function () {
     Route::get('/showUpload', 'PersonalController@showUpload');
     //修改头像
     Route::post('ajax/uploadAvatar', 'PersonalController@uploadAvatar');
-
-
     //前台评论
     Route::resource('comment', 'CommentController');
+    //添加评论
+    Route::post('ajax/comment', 'CommentController@createComment');
 
 	//个人中心订单  --Jun
 	Route::resource('/orders', 'UserOrdersController');

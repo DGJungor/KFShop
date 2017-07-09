@@ -21,9 +21,24 @@ class CommentController extends Controller
      */
     public function index()
     {
-        $order=\DB::table('data_orders_details')->get();
+        //获取评论的内容
+        $comment = \DB::table('data_goods_comment')->get();
 
-        return view('web.comment.create');
+        $tyle = ['0'=>'匿名评论'];
+
+        $stor = ['1'=>'差评', '2'=>'中评', '3'=>'好评'];
+
+        foreach ($comment as $val){
+
+            $goode = \DB::table('data_goods')->where('id', $val->goods_id)->get();
+            foreach ($goode as $v){}
+            $orde = \DB::table('data_orders_details')->where('id', $val->order_id)->get();
+            foreach ($orde as $vs){}
+            $val->good = $v;
+            $val->orde = $vs;
+         }
+
+        return view('web.comment.index', compact(['comment', 'tyle', 'stor']));
     }
 
     /**
@@ -59,7 +74,10 @@ class CommentController extends Controller
      */
     public function show($id)
     {
-        //
+
+
+        return view('web.comment.create');
+
     }
 
     /**
@@ -94,5 +112,11 @@ class CommentController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public  function createComment(Request $request)
+    {
+        dd($request->all());
+
     }
 }

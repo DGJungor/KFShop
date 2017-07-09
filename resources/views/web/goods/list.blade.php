@@ -19,7 +19,7 @@
         <dl style="border-bottom:none;">
 
             <dt style="width: 200px;">
-               
+
                 @if(isset($list))
                     当前位置: {{$list[0]->name}}
                 @endif
@@ -187,7 +187,6 @@
 
         $('a').off().click(function () {
             var path = $(this).attr('id');
-        console.log(path);
             var that = $(this);
             var id = this.getAttribute('ty-id');
             var ssd = that.parent().parent().parent().next().children('.news');
