@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\DB;
@@ -21,8 +22,10 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //获取评论的内容
-        $comment = \DB::table('data_goods_comment')->get();
+        $uid = Auth::id();
+
+        //按用户id获取评论的内容
+        $comment = \DB::table('data_goods_comment')->where('user_id', $uid)->get();
 
         $tyle = ['0'=>'匿名评论'];
 
