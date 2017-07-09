@@ -116,7 +116,7 @@ class OrdersController extends Controller
 					break;
 			}
 		}
-		dump($data);
+//		dump($data);
 		return view('admin.orders.details', [
 			'count' => $count,
 			'data'  => $data,

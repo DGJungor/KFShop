@@ -100,7 +100,7 @@
                             </span>
                         </div>
 
-
+{{ dump($userOD) }}
                         @foreach($userOD[$v->{'guid'}] as $ODv)
                             <div class="dai-con">
                                 <dl class="dl1">
@@ -121,6 +121,8 @@
                                     <p class="d-r-p2">¥ {{ $ODv->{'cargo_price'} }}</p>
                                     <p class="d-r-p3">¥ {{ $ODv->{'cargo_price'}*$ODv->{'commodity_number'} }}</p>
                                     <p class="d-r-p4">
+                                        @if( $v->{'order_status'}==3 )
+                                            @endif
                                         <a href="#">移入收藏夹</a><br>
                                         {{--<a href="#">删除</a><br>--}}
                                         {{--<a href="#">付款</a>--}}
