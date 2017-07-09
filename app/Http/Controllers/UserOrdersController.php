@@ -202,6 +202,9 @@ class UserOrdersController extends Controller
 				DB::table('data_orders')
 					->where('guid', $guid)
 					->update(['order_status' => 4]);
+				return view('web.orders.message', [
+					'message' => '确认收货成功'
+				]);
 				break;
 
 			case 'obligation':

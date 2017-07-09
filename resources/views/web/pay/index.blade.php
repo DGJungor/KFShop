@@ -13,7 +13,7 @@
 
 
 @section('content')
-    {{ dump($guid) }}
+    {{--{{ dump($guid) }}--}}
     <div class="payment-interface w1200">
         <form action="/pay" method="POST">
             {{ csrf_field() }}

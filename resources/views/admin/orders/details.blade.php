@@ -119,11 +119,11 @@
                                         <td class="center">{{ $v->comment_statusCH }}</td>
                                         <td class="center">
                                             <form action="orders/" method="POST">
-                                                <a href="orders/">
-                                                    <button id="btnEdit" type="button" class="btn btn-warning">修改信息
+                                                {{--<a href="orders/">--}}
+                                                    {{--<button id="btnEdit" type="button" class="btn btn-warning">修改信息--}}
 
-                                                    </button>
-                                                </a>
+                                                    {{--</button>--}}
+                                                {{--</a>--}}
                                                 {{--<input type="hidden" name="_method" value="DELETE">--}}
                                                 {!! csrf_field() !!}
                                                 {{--<button id="btnDel" type="submit" class="btn btn-danger btn-xs"--}}
