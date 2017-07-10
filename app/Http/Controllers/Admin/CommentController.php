@@ -11,7 +11,7 @@ class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+     * 返回评论列表页
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -80,7 +80,7 @@ class CommentController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
+     * 删除评论
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

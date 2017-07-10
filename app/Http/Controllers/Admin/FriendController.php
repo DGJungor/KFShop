@@ -15,6 +15,7 @@ use Carbon\Carbon;
 class FriendController extends Controller
 {
     /**
+     * 友情链接列表展示
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
@@ -40,6 +41,7 @@ class FriendController extends Controller
     }
 
     /**
+     * 返回修改页面
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -54,6 +56,7 @@ class FriendController extends Controller
     }
 
     /**
+     * 修改友情链接
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\RedirectResponse
@@ -90,6 +93,7 @@ class FriendController extends Controller
     }
 
     /**
+     *
      * @param $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -107,8 +111,8 @@ class FriendController extends Controller
     }
 
     /**
-     *
-     *
+     *创建友情链接
+     * @return
      */
     public function store(Request $request)
     {
@@ -137,7 +141,10 @@ class FriendController extends Controller
 
 
     }
-
+    /**
+     *删除友情链接和图片
+     * @return friend
+     */
     public function destroy($id)
     {
         //获取图片存储路径

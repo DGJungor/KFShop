@@ -274,7 +274,7 @@
                     for (var i = 0; i < data.length; i++) {
                         str += ' <li style="height:250px;">';
                         str += ' <div class="li-top">';
-                        str += '<a href="#" class="li-top-tu" target="_blank">';
+                        str += '<a href="javascript:oid(0)" class="li-top-tu" target="_blank">';
                         str += '<img src="{{ url('uploads') }}/x_' + data[i].recommend_picname + '" width="95" height="110" />';
                         str += '</a>';
                         str += '<p class="jiage">';

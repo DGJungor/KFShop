@@ -13,7 +13,7 @@ class Shop_BannerController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+     * 返回后台轮播图首页视图
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -37,7 +37,7 @@ class Shop_BannerController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
+     * 创建轮播图
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
@@ -89,7 +89,7 @@ class Shop_BannerController extends Controller
 
     /**
      * Show the form for editing the specified resource.
-     *
+     * 返回修改页
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
@@ -111,7 +111,7 @@ class Shop_BannerController extends Controller
 
     /**
      * Update the specified resource in storage.
-     *
+     * 修改对应的轮播图
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -151,7 +151,7 @@ class Shop_BannerController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
+     * 删除对应的轮播图
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

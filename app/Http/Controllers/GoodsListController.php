@@ -76,7 +76,10 @@ class GoodsListController extends Controller
         return $datas;
 
     }
-
+    /**
+     *ajax的推荐图
+     *
+     */
     public function recom(Request $request)
     {
 
