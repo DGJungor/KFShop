@@ -201,8 +201,9 @@ class AdminController extends Controller
             if (AdminUser::destroy($id)) {
                 return redirect('admin/admins')->with(['msg' => '删除成功！！！']);
             }
+        } else {
+            return back()->with(['error' => '权限不足']);
         }
-        return back()->with(['msg' => '权限不足']);
     }
 
     /**
