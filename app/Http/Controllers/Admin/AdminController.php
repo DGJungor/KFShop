@@ -204,6 +204,12 @@ class AdminController extends Controller
         return back()->with(['msg' => '权限不足']);
     }
 
+    /**
+     * 检测管理员是否存在
+     * @author liuzhiqi
+     * @param Request $request
+     * @return int
+     */
     public function checkName(Request $request)
     {
         $username = request()->input('username','');
