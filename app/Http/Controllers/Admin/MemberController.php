@@ -10,6 +10,12 @@ use DB;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+/**
+ * 后台会员控制器
+ * Class MemberController
+ * @author liuzhiqi
+ * @package App\Http\Controllers\Admin
+ */
 class MemberController extends Controller
 {
     /**

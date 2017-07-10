@@ -25,14 +25,14 @@
                     </div>
                     <div class="ibox-content">
                         <form action="/admin/admins/{{$admin->id}}" method="POST" class="form-horizontal">
-                            {{ csrf_field() }}
+                            {!! csrf_field() !!}
                             <input type="hidden" name="_method" value="PUT">
 
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">头像:</label>
 
                                 <div class="col-sm-10">
-                                    <img src="{{ url($admin->avatar) }}" alt="">
+                                    <img src="/uploads/admin_pic/{{$admin->avatar}}" alt="">
                                 </div>
                             </div>
                             <div class="form-group">

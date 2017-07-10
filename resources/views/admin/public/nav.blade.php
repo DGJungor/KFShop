@@ -4,7 +4,7 @@
             <li class="nav-header">
 
                 <div class="dropdown profile-element"> <span>
-                    <img alt="image" class="img-circle" src="{{ asset(Auth::guard('admin')->user()->avatar) }}" />
+                    <img alt="image" class="img-circle" src="/uploads/admin_pic/{{ Auth::guard('admin')->user()->avatar }}" />
                      </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
 

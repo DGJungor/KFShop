@@ -118,9 +118,10 @@ class AdminController extends Controller
         $admin->password = bcrypt($password);
         $admin->email = $email;
         $admin->tel = $tel;
+        $admin->avatar = 'admin_avatar_default.jpg';
         $admin->type = $type;
         $admin->status = $status;
-        $admin->avatar = '/uploads/admin_pic/admin_avatar_default.jpg';
+        $admin->avatar = 'admin_avatar_default.jpg';
         $admin->save();
 
         $msg_result->status = 0;
@@ -200,8 +201,9 @@ class AdminController extends Controller
             if (AdminUser::destroy($id)) {
                 return redirect('admin/admins')->with(['msg' => '删除成功！！！']);
             }
+        } else {
+            return back()->with(['error' => '权限不足']);
         }
-        return back()->with(['msg' => '权限不足']);
     }
 
     /**
