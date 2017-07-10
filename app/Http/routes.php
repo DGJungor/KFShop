@@ -64,8 +64,10 @@ Route::post('/loginCheck', 'LoginController@loginCheck');
 Route::post('/login', 'LoginController@login');
 //忘记密码处理
 Route::get('/forget', 'SafetyController@forgetPage');
-//发送邮件
+//发送邮箱验证码
 Route::post('/forget/sendEmailCode', 'SafetyController@sendEmailCode');
+//执行重置密码
+Route::post('/forget/resetPassword', 'SafetyController@resetPassword');
 
 // 退出登录
 Route::get('/logout', 'LoginController@logout');

@@ -17,7 +17,7 @@ class RecommendController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
+     * 推荐列表页
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -53,7 +53,7 @@ class RecommendController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     *
+     * 创建推荐
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
@@ -140,7 +140,7 @@ class RecommendController extends Controller
     }
     /**
      * Update the specified resource in storage.
-     *
+     * 修改推荐
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -168,7 +168,7 @@ class RecommendController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     *
+     * 删除推荐位
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

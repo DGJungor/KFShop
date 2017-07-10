@@ -10,9 +10,16 @@ use App\Models\SendEmail;
 use App\Models\MsgResult;
 use App\Tool\UUID;
 use Mail;
+use DB;
 
 use App\Http\Requests;
 
+/**
+ * 用户注册控制器
+ * Class RegisterController
+ * @author liuzhiqi
+ * @package App\Http\Controllers
+ */
 class RegisterController extends Controller
 {
     /**
@@ -40,12 +47,12 @@ class RegisterController extends Controller
             'tel' => 'required',
             'captcha' => 'required|captcha',
             'agree' => 'required',
-        ],[
+        ], [
             'required' => ':attribute 不能为空',
             'alpha_dash' => '用户名只能有字母、数字、下划线组成',
             'unique' => ':attribute 已存在',
             'captcha' => '验证码错误',
-        ],[
+        ], [
             'username' => '用户名',
             'password' => '密码',
             'email' => 'E-mail',
@@ -60,7 +67,7 @@ class RegisterController extends Controller
         $user['tel'] = request('tel');
         $user['register_ip'] = request()->getClientIp();
         $user_reg = UserRegister::create($user);
-        if ($user_reg){
+        if ($user_reg) {
             $uuid = UUID::create();
 
             $user_info = new UserInfo;
@@ -75,23 +82,41 @@ class RegisterController extends Controller
             $send_email->to = request('email');
             $send_email->cc = 'Crossstarlight@163.com';
             $send_email->subject = '狂风商城验证';
-            $send_email->content = 'http://www.perter.xin/service/validate_email' . '/uid/' . $user_reg->id  . '/code/' . $uuid;
+            $send_email->content = 'http://www.perter.xin/service/validate_email' . '/uid/' . $user_reg->id . '/code/' . $uuid;
 
-            //把验证码存放到TempEmail表中
-            $tempEmail = new TempEmail;
-            $tempEmail->uid = $user_reg->id;
-            $tempEmail->code = $uuid;
-            $tempEmail->deadline = date('Y-m-d H-i-s', time() + 24*60*60);
-            $tempEmail->save();
             //发送邮件
-            Mail::send('web.email_register', ['send_email' => $send_email], function ($m) use ($send_email) {
+            try {
+                $flag = Mail::send('web.email_register', ['send_email' => $send_email], function ($m) use ($send_email) {
 
-                $m->to($send_email->to, '尊敬的用户')
-                  ->cc($send_email->cc)
-                  ->subject($send_email->subject);
+                    $m->to($send_email->to, '尊敬的用户')
+                        ->cc($send_email->cc)
+                        ->subject($send_email->subject);
 
-            });
-            return back()->with(['success' => '注册成功,请到您的邮箱激活账号']);
+                });
+                //把验证码存放到TempEmail表中
+                $tempEmail = new TempEmail;
+                $tempEmail->uid = $user_reg->id;
+                $tempEmail->code = $uuid;
+                $tempEmail->deadline = date('Y-m-d H-i-s', time() + 24 * 60 * 60);
+                $tempEmail->save();
+                return back()->with(['success' => '注册成功,请到您的邮箱激活账号']);
+            } catch (\Exception $e) {
+                //发送失败
+                //开启事务删除由于邮件发送失败添加的用户注册信息
+                \DB::beginTransaction();
+                $flag_info = UserInfo::destroy($user_info->id);
+                if ($flag_info < 0) {
+                    \DB::rollBack();
+                }
+                $flag_reg = UserRegister::destroy($user_reg->id);
+                if ($flag_reg < 0) {
+                    \DB::rollBack();
+                }
+                \DB::commit();
+                return back()->with(['error' => '邮件发送失败']);
+            }
+
+
         }
 
         return back()->with(['msg' => '网络异常'])->withInput();

@@ -374,7 +374,10 @@
         });
 
         @if (session('msg'))
-            layer.msg('删除成功', 2, 1);
+            layer.msg("{{session('msg')}}", 2, 1);
+        @endif
+        @if (session('error'))
+            layer.msg("{{session('error')}}", 2, 0);
         @endif
     </script>
 @endsection
