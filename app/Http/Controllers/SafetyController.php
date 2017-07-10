@@ -39,17 +39,17 @@ class SafetyController extends Controller
     {
         $msg_result = new MsgResult;
         $username = $request->input('username', '');
-        $email = $request->input('email','');
+        $email = $request->input('email', '');
         if ($username == '' || $email == '') {
             $msg_result->status = 1;
             $msg_result->message = '数据异常';
             return $msg_result->toJson();
         }
-        $uid = UserRegister::where('username','=',$username)->first()->id;
-        $code='';
+        $uid = UserRegister::where('username', '=', $username)->first()->id;
+        $code = '';
         $pattern = '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLOMNOPQRSTUVWXYZ';
-        for($i = 0; $i < 6; $i ++) {
-            $code .= $pattern {mt_rand ( 0, 61 )}; //生成php随机数
+        for ($i = 0; $i < 6; $i++) {
+            $code .= $pattern{mt_rand(0, 61)}; //生成php随机数
         }
         //邮件内容
         $send_email = new SendEmail;
@@ -60,26 +60,32 @@ class SafetyController extends Controller
 
 
         //发送邮件
-        $flag = Mail::send('web.email_code', ['send_email' => $send_email], function ($m) use ($send_email) {
+        try {
+            $flag = Mail::send('web.email_code', ['send_email' => $send_email], function ($m) use ($send_email) {
 
-            $m->to($send_email->to, '尊敬的用户')
-                ->cc($send_email->cc)
-                ->subject($send_email->subject);
+                $m->to($send_email->to, '尊敬的用户')
+                    ->cc($send_email->cc)
+                    ->subject($send_email->subject);
 
-        });
-        //判断邮件是否发送成功
-        if ($flag) {
-            //把验证码存放到TempEmail表中
-            $pwdCode = new ForgetPasswordCode;
-            $pwdCode->uid = $uid;
-            $pwdCode->code = $code;
-            $pwdCode->deadline = date('Y-m-d H-i-s', time() + 10*60);
-            $pwdCode->save();
-            //返回
-            $msg_result->status = 0;
-            $msg_result->message = '发送成功';
-            return $msg_result->toJson();
-        } else {
+            });
+            //判断邮件是否发送成功
+            if ($flag) {
+                //把验证码存放到TempEmail表中
+                $pwdCode = new ForgetPasswordCode;
+                $pwdCode->uid = $uid;
+                $pwdCode->code = $code;
+                $pwdCode->deadline = date('Y-m-d H-i-s', time() + 10 * 60);
+                $pwdCode->save();
+                //返回
+                $msg_result->status = 0;
+                $msg_result->message = '发送成功';
+                return $msg_result->toJson();
+            } else {
+                $msg_result->status = 2;
+                $msg_result->message = '发送失败';
+                return $msg_result->toJson();
+            }
+        } catch (\Exception $e) {
             $msg_result->status = 2;
             $msg_result->message = '发送失败';
             return $msg_result->toJson();

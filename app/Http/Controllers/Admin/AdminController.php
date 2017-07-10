@@ -118,9 +118,10 @@ class AdminController extends Controller
         $admin->password = bcrypt($password);
         $admin->email = $email;
         $admin->tel = $tel;
+        $admin->avatar = 'admin_avatar_default.jpg';
         $admin->type = $type;
         $admin->status = $status;
-        $admin->avatar = '/uploads/admin_pic/admin_avatar_default.jpg';
+        $admin->avatar = 'admin_avatar_default.jpg';
         $admin->save();
 
         $msg_result->status = 0;
