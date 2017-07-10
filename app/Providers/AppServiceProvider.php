@@ -26,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
 
         view()->composer('web.public.footer', function ($view) {
 
-            $friend = \DB::table('data_friend_link')->where('status', 1)->get();
+            $friend = \DB::table('data_friend_link')->get();
             $view->with(compact('friend'));
         });
     }
