@@ -17,11 +17,9 @@
                         <div class="kuaijie-con">
                             @foreach($v->children as $val)
                                 <dl class="kj-dl2">
-                                    <dt><a >{{ $val->name }}</a></dt>
+                                    <dt><a>{{ $val->name }}</a></dt>
                                     @foreach($val->grandchild as $value)
-                                        <dd>
-                                            <a href="{{ url('goods_list') }}/{{$value->id}}">{{ $value->name }}</a><span>|</span>
-                                        </dd>
+                                        <a href="{{ url('goods_list') }}/{{$value->id}}">{{ $value->name }}&nbsp;<span>|</span></a>
                                     @endforeach
                                 </dl>
                             @endforeach

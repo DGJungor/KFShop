@@ -8,7 +8,7 @@ class AppServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.
-     * 循环查询出顶级分类里的子类 输出到公用模板
+     * 循环查询出顶级分类里的子�?输出到公用模�?
      * @return void
      */
     public function boot()
@@ -24,10 +24,10 @@ class AppServiceProvider extends ServiceProvider
             $view->with('data',$dataObj);
         });
 
-        view()->share('friend',
-            $friend = \DB::table('data_friend_link')->get()
-
-        );
+        view()->composer('web.public.footer', function ($view) {
+           $friend = \DB::table('data_friend_link')->where('status', 0)->get();
+           $view->with(compact('friend'));
+        });
     }
 
     /**

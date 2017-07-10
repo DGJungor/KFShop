@@ -75,7 +75,7 @@ class RegisterController extends Controller
             $send_email->to = request('email');
             $send_email->cc = 'Crossstarlight@163.com';
             $send_email->subject = '狂风商城验证';
-            $send_email->content = 'http://ddemo.com/service/validate_email' . '/uid/' . $user_reg->id  . '/code/' . $uuid;
+            $send_email->content = 'http://www.perter.xin/service/validate_email' . '/uid/' . $user_reg->id  . '/code/' . $uuid;
 
             //把验证码存放到TempEmail表中
             $tempEmail = new TempEmail;

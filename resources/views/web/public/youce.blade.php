@@ -4,7 +4,7 @@
         <a href="#" class="li1-zi1">返回首页</a>
     </li>
     <li class="li2">
-        <a href="#"><img src="{{ url('/web/images/zl2-95.png') }}" />购<br />物<br />车</a>
+        <a href="{{ asset('/cart') }}"><img src="{{ url('/web/images/zl2-95.png') }}" />购<br />物<br />车</a>
     </li>
     <li class="li3">
         <a href="#" class="li1-tu2"><img src="{{ url('/web/images/zl2-96.png') }}" /></a>

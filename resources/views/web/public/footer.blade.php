@@ -85,11 +85,9 @@
 
 
             @foreach($friend as $ls)
-                @if($ls->type==2 && $ls->status==0)
             <p>
                 <a href="http://{{($ls->url) }}">{{$ls->name}}</a><span>|</span>
             </p>
-                @endif
 
             @endforeach
 
