@@ -100,14 +100,14 @@
                             </span>
                         </div>
 
-{{ dump($userOD) }}
+
                         @foreach($userOD[$v->{'guid'}] as $ODv)
                             <div class="dai-con">
                                 <dl class="dl1">
                                     <dt>
                                         {{--<input name="hobby" value="" class="f-l" type="checkbox">--}}
-                                        <a href="#" class="f-l"><img
-                                                    src="{{url( '/uploads/goods/m')}}{{$ODv->{'picname'} }}"></a>
+                                        <a href="#" class="f-l"><img width="120" height="120"
+                                                    src="{{url( '/uploads/goods')}}/{{$ODv->{'picname'} }}"></a>
                                     <div style="clear:both;"></div>
                                     </dt>
                                     <dd>
@@ -121,10 +121,11 @@
                                     <p class="d-r-p2">¥ {{ $ODv->{'cargo_price'} }}</p>
                                     <p class="d-r-p3">¥ {{ $ODv->{'cargo_price'}*$ODv->{'commodity_number'} }}</p>
                                     <p class="d-r-p4">
-                                        @if( $v->{'order_status'}==3 )
+                                        @if( $v->{'order_status'}==4 )
+                                         <a href="{{ asset('/user/comment') }}/{{ $ODv->id }}">评价</a><br>
                                             @endif
                                         <a href="#">移入收藏夹</a><br>
-                                        <a href="{{ asset('/user/comment') }}/{{ $ODv->id }}">评价</a><br>
+
                                         {{--<a href="#">付款</a>--}}
                                     </p>
                                 </div>

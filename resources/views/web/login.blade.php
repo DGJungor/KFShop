@@ -89,8 +89,14 @@
 <!-- jQuery Validation plugin javascript-->
 <script src="{{ asset('/style/js/plugins/validate/jquery.validate.min.js') }}"></script>
 <script src="{{ asset('/style/js/plugins/validate/messages_zh.min.js') }}"></script>
+<!-- layer javascript -->
+<script src="{{ asset('/style/js/plugins/layer/layer.min.js') }}"></script>
+<script src="{{ asset('/style/js/demo/layer-demo.js') }}"></script>
 <script>
     var interval;
+    @if (session('success'))
+        layer.msg("{{session('success')}}",2,1);
+    @endif
     //判断是否要输入验证码
     @if ($errors->has('code'))
         $('.input-group').show();

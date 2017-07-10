@@ -34,7 +34,7 @@ class ValidateController extends Controller
             $user->active = 1;
             $user->save();
 
-            return redirect('/login');
+            return redirect('/login')->with(['success' => '账号成功激活！！！']);
         } else {
             return '该链接已失效';
         }

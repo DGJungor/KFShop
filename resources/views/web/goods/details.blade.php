@@ -179,63 +179,38 @@
                 <dl class="if2-r-box2">
                     <dt>
                     <p class="box2-p1">好评率</p>
-                    <p class="box2-p2">0%</p>
-                    <p class="box2-p3">共0人评论</p>
+                    <p class="box2-p2">%</p>
+                    <p class="box2-p3">共@if(isset($comment)){{ count($comment) }}@endif人评论</p>
                     </dt>
-                    <dd>
-                        <P>买过的人觉得</P>
-                        <ul>
-                            <li><a href="#">香脆可口(0)</a></li>
-                            <div style="clear:both;"></div>
-                        </ul>
-                    </dd>
+
                     <div style="clear:both;"></div>
                 </dl>
                 <div class="if2-r-box3">
                     <ul>
-                        <li class="current-li"><a href="#">全部（0）</a></li>
-                        <li><a href="#">好评（0）</a></li>
-                        <li><a href="#">中评（0）</a></li>
-                        <li><a href="#">差评（0）</a></li>
+                        <li class="current-li"><a href="#">全部（@if(isset($comment)){{ count($comment) }} @endif）</a></li>
+
                         <div style="clear:both;"></div>
                     </ul>
                     <dl>
+                        @if(isset($comment))
+                        @foreach($comment as $ve)
                         <dt>
                             <a href="#"><img src="{{ url('web/images/box3-dt-tu.gif')}}" /></a>
                         </dt>
                         <dd>
-                            <a href="#">胡**</a>
-                            <p class="b3-p1">赞赞赞赞赞赞赞赞赞赞赞赞赞！！！！！！！！！</p>
-                            <p class="b3-p2">2015-12-12    16:57:22  </p>
+                            <a href="#">{{ $ve->user_id }}</a>
+                            <p class="b3-p1">{{ $ve->comment_info }}</p>
+                            <p class="b3-p2">{{ $ve->created_at }} </p>
                         </dd>
-                        <div style="clear:both;"></div>
-                    </dl>
+                        @endforeach
 
-                    <!--分页-->
-                    <div class="paging">
-                        <div class="pag-left f-l">
-                            <a href="#" class="about left-r f-l"><</a>
-                            <ul class="left-m f-l">
-                                <li><a href="#">1</a></li>
-                                <li class="current"><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">...</a></li>
-                                <div style="clear:both;"></div>
-                            </ul>
-                            <a href="#" class="about left-l f-l">></a>
-                            <div style="clear:both;"></div>
-                        </div>
-                        <div class="pag-right f-l">
-                            <div class="jump-page f-l">
-                                到第<input type="text" />页
-                            </div>
-                            <button class="f-l">确定</button>
-                            <div style="clear:both;"></div>
-                        </div>
                         <div style="clear:both;"></div>
-                    </div>
+
+                    </dl>
                 </div>
             </div>
+                    {{ $comment->links() }}
+                     @endif
 
 
             <!--  -->

@@ -42,7 +42,7 @@
         </div>
         <div class="search f-r">
             <div class="search-info">
-                <form action="search" method="GET">
+                <form action="{{asset('search')}}" method="GET">
                     {{csrf_field()}}
                 <input type="text" name="search" placeholder="请输入商品名称" />
                 <button>搜索</button>

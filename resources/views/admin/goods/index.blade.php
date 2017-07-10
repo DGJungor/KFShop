@@ -38,7 +38,7 @@
                             <tr>
                                 <th>商品id</th>
                                 <th>分类id</th>
-                                <th>商品名称</th>
+                                <th width="150">商品名称</th>
                                 <th>商品状态</th>
                                 <th>购买量</th>
                                 <th>单价</th>

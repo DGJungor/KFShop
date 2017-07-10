@@ -113,7 +113,7 @@ class RegisterController extends Controller
                     \DB::rollBack();
                 }
                 \DB::commit();
-                return back()->with(['error' => '邮件发送失败']);
+                return back()->with(['error' => '邮件发送失败'])->withInput();
             }
 
 

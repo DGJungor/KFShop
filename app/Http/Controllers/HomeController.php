@@ -74,6 +74,12 @@ class HomeController extends Controller
         }else{
             $dataObj = Good::find($id);
             $listObj = \DB::table('data_goods_details')->where('goods_id', $id)->get();
+
+             $comment = \DB::table('data_goods_comment')->where('goods_id', $id)->paginate(1);
+
+            if (isset($comment)){
+
+            }
             // dd($dataObj->picname);
             if($listObj){
                 $listObj[0]->listname = explode(',', $listObj[0]->listname);
@@ -87,7 +93,7 @@ class HomeController extends Controller
                 Redis::setex($key, '172800', $info);
             }
 
-            return view('web.goods.details', compact('dataObj', 'listObj'));
+            return view('web.goods.details', compact('dataObj', 'listObj', 'comment'));
         }
     }
 

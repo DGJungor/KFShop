@@ -83,7 +83,7 @@ Route::post('/ajax/user/checkEmail', 'RegisterController@checkEmail');
 //前台手机号唯一性
 Route::post('/ajax/user/checkTel', 'RegisterController@checkTel');
 //邮箱验证激活账号
-Route::get('service/validate_email/uid/{uid}/code/{code}', 'Service\ValidateController@validateEmail');
+Route::get('/service/validate_email/uid/{uid}/code/{code}', 'Service\ValidateController@validateEmail');
 
 //个人中心
 
@@ -130,11 +130,11 @@ Route::group(['middleware' => 'auth','prefix' => 'user'], function () {
 Route::post('/ajax/user/register', 'RegisterController@checkName');
 
 //后台登录首页
-Route::get('admin/login', 'Admin\LoginController@index');
+Route::get('/admin/login', 'Admin\LoginController@index');
 //后台执行登录
-Route::post('admin/login', 'Admin\LoginController@login');
+Route::post('/admin/login', 'Admin\LoginController@login');
 //后台退出登录
-Route::get('admin/logout', 'Admin\LoginController@logout');
+Route::get('/admin/logout', 'Admin\LoginController@logout');
 
 
 Route::group(['middleware' => 'auth:admin', 'namespace' => 'Admin', 'prefix' => 'admin'], function () {

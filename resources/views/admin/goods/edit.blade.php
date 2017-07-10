@@ -87,8 +87,8 @@
                     <div class="form-group">
                     	<label class="col-sm-2 control-label">商品状态</label>
                         	<div class="col-sm-10">
-                           		<input type="radio" value="0" name="state" @if($dataObj->state = 0) checked @endif ><i>在售</i>
-                            	<input type="radio" value="1" name="state" @if($dataObj->state = 1) checked @endif ><i>下架</i>
+                           		<input type="radio" value="0" name="state" @if($dataObj->state == 0) checked @endif ><i>在售</i>
+                            	<input type="radio" value="1" name="state" @if($dataObj->state == 1) checked @endif ><i>下架</i>
                             </div>
                     </div>
 	                <div class="hr-line-dashed"></div>
