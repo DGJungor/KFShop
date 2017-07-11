@@ -45,6 +45,11 @@ class SafetyController extends Controller
             $msg_result->message = '数据异常';
             return $msg_result->toJson();
         }
+        if ($email != UserRegister::where('username', '=', $username)->first()->email) {
+            $msg_result->status = 3;
+            $msg_result->message = '邮箱错误';
+            return $msg_result->toJson();
+        }
         $uid = UserRegister::where('username', '=', $username)->first()->id;
         $code = '';
         $pattern = '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLOMNOPQRSTUVWXYZ';
@@ -169,7 +174,7 @@ class SafetyController extends Controller
             return $msg_result->toJson();
         } else {
             $msg_result->status = 9;
-            $msg_result->message = '该验证码已失效';
+            $msg_result->message = '验证码错误';
             return $msg_result->toJson();
         }
     }

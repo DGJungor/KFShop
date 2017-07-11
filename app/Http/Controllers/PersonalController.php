@@ -175,9 +175,20 @@ class PersonalController extends Controller
             return 1;
         }
         //更改默认收货地址
-        if (Address::where('uid', '=', $uid)->where( 'status', '=', 2)->update(['status'=> 1]) && Address::where('id', '=', $id)->update(['status' => 2])) {
-            return 0;
+        if (Address::where('uid','=',$uid)->where('status','=',2)->first()){
+            if (Address::where('uid', '=', $uid)->where( 'status', '=', 2)->update(['status'=> 1]) && Address::where('id', '=', $id)->update(['status' => 2])) {
+                return 0;
+            } else {
+                return 1;
+            }
+        } else {
+            if (Address::where('id', '=', $id)->update(['status' => 2])) {
+                return 0;
+            } else {
+                return 1;
+            }
         }
+
         return 1;
     }
 

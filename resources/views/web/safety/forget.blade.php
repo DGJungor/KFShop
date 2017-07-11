@@ -179,6 +179,10 @@
                     $('#email_error').show();
                     return;
                 }
+                if (data.status == 3) {
+                    layer.msg('邮箱错误', 1, 0);
+                    return;
+                }
             },
             error: function () {
                 $('#email_cuo').hide();
@@ -255,6 +259,7 @@
                     $('#code').val('');
                     $('#password').val('');
                     $('#password_confirm').val('');
+                    $('.dui').hide();
                     layer.msg('重置密码成功',1,1);
                     return;
                 }

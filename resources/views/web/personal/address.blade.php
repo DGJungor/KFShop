@@ -336,7 +336,6 @@
                         return;
                     }
                     if (data == 1) {
-                        $.attr('to').removeClass().addClass('to_default');
                         layer.msg('设置失败', 1, 8);
                         return;
                     }

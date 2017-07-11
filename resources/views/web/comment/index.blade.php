@@ -61,7 +61,7 @@
                     <dl class="dl1">
                         <dt>
                             <a href="#" class="f-l"><img
-                                        src="{{url( '/uploads/goods')}}/{{ $vs->good->picname }}"></a>
+                                        src="{{url( '/uploads/goods')}}/{{ $vs->good->picname }}" style="width: 80px;height:80px;"></a>
                         <div style="clear:both;"></div>
                         </dt>
                         <dd>
